@@ -2,6 +2,7 @@ package com.teranet.teralearning.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -15,8 +16,8 @@ public class Subject {
     @Column(name = "subject_name")
     private String subjectName;
 
-    @Column(name = "stream_name")
-    private String streamName;
+    @OneToMany(targetEntity = Stream.class)
+    private List<Stream> stream;
 
     @Column(name = "subject_status")
     private String subjectStatus;
@@ -30,10 +31,10 @@ public class Subject {
     public Subject(){
 
     }
-    public Subject(long id, String subjectName, String streamName, String subjectStatus, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public Subject(long id, String subjectName, List<Stream> stream, String subjectStatus, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         Id = id;
         this.subjectName = subjectName;
-        this.streamName = streamName;
+        this.stream = stream;
         this.subjectStatus = subjectStatus;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
@@ -55,12 +56,12 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public String getStreamName() {
-        return streamName;
+    public List<Stream> getStreamName() {
+        return stream;
     }
 
-    public void setStreamName(String streamName) {
-        this.streamName = streamName;
+    public void setStreamName(List<Stream> stream) {
+        this.stream = stream;
     }
 
     public String getSubjectStatus() {
