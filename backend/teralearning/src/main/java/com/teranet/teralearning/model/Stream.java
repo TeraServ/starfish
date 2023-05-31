@@ -11,6 +11,7 @@ public class Stream {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @Column(updatable = false)
     private long Id;
 
     @Column(name = "stream_name")
@@ -31,12 +32,14 @@ public class Stream {
     @Column(name = "stream_status")
     private int streamStatus;
 
+    @Column(name = "acronym")
+    private String acronym;
 
 
     public Stream() {
     }
 
-    public Stream(long id, String streamName, double price, double discount, LocalDateTime createdDate, LocalDateTime modifiedDate, int streamStatus) {
+    public Stream(long id, String streamName, double price, double discount, LocalDateTime createdDate, LocalDateTime modifiedDate, int streamStatus, String acronym) {
         Id = id;
         this.streamName = streamName;
         this.price = price;
@@ -44,6 +47,7 @@ public class Stream {
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
         this.streamStatus = streamStatus;
+        this.acronym = acronym;
     }
 
     public int getStreamStatus() {
@@ -100,5 +104,13 @@ public class Stream {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public String getAcronym() {
+        return acronym;
+    }
+
+    public void setAcronym(String acronym) {
+        this.acronym = acronym;
     }
 }
