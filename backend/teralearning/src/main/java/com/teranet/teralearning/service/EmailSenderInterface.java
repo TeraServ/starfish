@@ -1,2 +1,7 @@
-package com.teranet.teralearning.service;public interface EmailSenderInterface {
+package com.teranet.teralearning.service;
+
+import com.teranet.teralearning.model.SimpleMailBody;
+
+public interface EmailSenderInterface {
+    String sendSimpleMail(SimpleMailBody simpleMailBody);
 }

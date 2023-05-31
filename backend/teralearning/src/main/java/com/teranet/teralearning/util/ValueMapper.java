@@ -16,6 +16,14 @@ public static User convertToUserEntity(userResponseDTO userResponseDTO){
     user.setEmail(userResponseDTO.getEmail());
     return user;
 }
+public static userResponseDTO convertToUserDTO(User user){
+    userResponseDTO userResponseDTO = new userResponseDTO();
+    userResponseDTO.setFirstname(user.getFirstName());
+    userResponseDTO.setLastName(user.getLastName());
+    userResponseDTO.setEmail(user.getEmail());
+    userResponseDTO.setId(user.getId());
+    return userResponseDTO;
+}
 public static reviewResponseDTO convertReviewToReviewDTO(Review review){
     reviewResponseDTO responseDTO =  new reviewResponseDTO();
     responseDTO.setId(review.getId());
