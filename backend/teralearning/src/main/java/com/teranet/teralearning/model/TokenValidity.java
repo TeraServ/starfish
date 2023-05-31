@@ -1,39 +1,46 @@
 package com.teranet.teralearning.model;
 
-import jdk.jfr.DataAmount;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
-@Entity
+import static javax.persistence.GenerationType.SEQUENCE;
+
+@Entity(name = "token")
 @Table(name="token_table")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class TokenValidity {
+    @SequenceGenerator(
+            name = "seqToken",
+            sequenceName = "TOKEN_SEQ",
+            allocationSize =1
+    )
+    @GeneratedValue(strategy = SEQUENCE,
+    generator ="TOKEN_SEQ" )
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
+    private long id;
     @OneToOne(cascade = CascadeType.MERGE, targetEntity = User.class)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
-    @Column(name = "token")
+    @Column(name = "token", nullable = true)
     private String token;
     @Column(name="created_date")
     private LocalDate createdDate;
-    protected TokenValidity(){}
-
-    public TokenValidity(long id, User user, String token, LocalDate createdDate) {
-        Id = id;
-        this.user = user;
-        this.token = token;
-        this.createdDate = createdDate;
-    }
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public User getUser() {

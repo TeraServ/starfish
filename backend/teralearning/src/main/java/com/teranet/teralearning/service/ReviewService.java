@@ -4,7 +4,6 @@ package com.teranet.teralearning.service;
 import com.teranet.teralearning.dto.reviewResponseDTO;
 import com.teranet.teralearning.model.Review;
 import com.teranet.teralearning.repository.ReviewRepository;
-import com.teranet.teralearning.repository.UserRepository;
 import com.teranet.teralearning.util.DateUtility;
 import com.teranet.teralearning.util.JsonUtility;
 import com.teranet.teralearning.util.ValueMapper;
@@ -36,33 +35,35 @@ public ReviewService (ReviewRepository reviewRepository){
     public ResponseEntity createReview(Review review){
     try{
         if(review!=null){
-            log.info("ReviewService:createReview:Init...");
+            log.info("ReviewService:createReview: Init...");
             review.setId(0);
-            review.setCreatedDate(dateUtility.getDate());
-            review.setModifiedDate(dateUtility.getDate());
+            review.setCreatedDate(dateUtility.getDateTime());
+            review.setModifiedDate(dateUtility.getDateTime());
             return new ResponseEntity<Review> (reviewRepository.save(review),HttpStatus.CREATED);
         }
         else {
             return new ResponseEntity(jsonUtility.getJson("The review body is null","Error"),HttpStatus.BAD_REQUEST);
         }
     }catch (Exception ex){
-        log.error("Exception occurred while creating a Reviews");
-    }
-    log.info("ReviewService:createReview execution ended");
+        log.error("ReviewService:createReview Exception occurred while creating a Reviews:"+ex);
         return new ResponseEntity(HttpStatus.CONFLICT);
+    }
+
+
 
 }
 @Override
 public List<reviewResponseDTO> getAllReview(){
     try{
-        List<reviewResponseDTO> reviews= reviewRepository.findAll()
+        log.info("ReviewService:getAllReview: Init...");
+        return reviewRepository.findAll()
                 .stream()
                 .map(review->ValueMapper.convertReviewToReviewDTO(review))
                 .collect(Collectors.toList());
-        return reviews;
     }
     catch(Exception exception){
-        return null;
+        log.error("ReviewService:getAllReview: Exception Occurred:"+exception);
+        return new ArrayList<>();
     }
 }
 
