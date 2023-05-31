@@ -1,2 +1,4 @@
-package com.teranet.teralearning.dto;public class userRequestDTO {
+package com.teranet.teralearning.dto;
+
+public class userRequestDTO {
 }
