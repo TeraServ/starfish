@@ -1,6 +1,7 @@
 package com.teranet.teralearning.controller;
 
 
+import com.teranet.teralearning.model.Stream;
 import com.teranet.teralearning.model.User;
 import com.teranet.teralearning.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("")
+    @PostMapping("new")
     public ResponseEntity newUser(@RequestBody User user){
         return userService.CreateUser(user);
     }
@@ -27,4 +28,6 @@ public class UserController {
     public ResponseEntity getUser(){
         return new ResponseEntity(userService.GetAllUser(),HttpStatus.OK);
     }
+
+
 }

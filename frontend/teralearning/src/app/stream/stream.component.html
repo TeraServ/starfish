@@ -1,0 +1,101 @@
+<title>Create Stream</title>
+<section class="vh-100 gradient-custom" >
+
+    <div class="container">
+        
+        <div class="row justify-content-center align-items-center ">
+
+            <div class="col">
+                <!-- <div class="card shadow-2-strong card-registration" style="border-radius: 10px;">
+                    <div class="card-body"> -->
+
+                <form [formGroup]="createStreamForm">
+                    <div class="row">
+
+                        <div class="col">
+                            <h1>Create Stream</h1><br>
+                        </div>
+                    </div>
+                    <!-- Stream Name  -->
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" formControlName="streamName"
+                                    placeholder="Stream name"
+                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.streamName.errors }">
+                                <label for="floatingInput">Stream Name</label>
+                                <div *ngIf="submitted && createStreamForm.controls.streamName.errors" class="invalid-feedback">
+                                    <div *ngIf="createStreamForm.controls.streamName.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Acronymn  -->
+
+                        <div class="col-md-6 mb-4">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" formControlName="Acronymn" placeholder="Acronymn"
+                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.Acronymn.errors }">
+                                <label for="floatingInput">Acronymn</label>
+                                <div *ngIf="submitted && createStreamForm.controls.Acronymn.errors" class="invalid-feedback">
+                                    <div *ngIf="createStreamForm.controls.Acronymn.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- Discounts -->
+                    <div class="row">                        
+
+                        <div class="col-md-6 mb-4">
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control" formControlName="price" placeholder="price"
+                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.price.errors }">
+                                <label for="floatingInput">Price</label>
+                                <div *ngIf="submitted && createStreamForm.controls.price.errors" class="invalid-feedback">
+                                    <div *ngIf="createStreamForm.controls.price.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="form-floating mb-3">
+                                <input type="number" min="0" max="100" class="form-control" formControlName="discounts"
+                                    placeholder="Discounts"
+                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.discounts.errors }">
+                                <label for="floatingInput">Discounts</label>
+                                <div *ngIf="submitted && createStreamForm.controls.discounts.errors" class="invalid-feedback">
+                                    <div *ngIf="createStreamForm.controls.discounts.errors.required">*Required</div>     
+                                    <div *ngIf="createStreamForm.controls.discounts.errors.max">*Cannot exceed above 100</div>                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <!-- Button -->
+                    <div class="col">
+                        <div class="text-center">
+                            <div class="mt-4 pt-2">
+                                <input class="loginbtn btn" type="submit" value="Create Stream" (click)="onSubmit()">
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+
+                </form>
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+        
+    </div>
+
+    </div>
+</section>

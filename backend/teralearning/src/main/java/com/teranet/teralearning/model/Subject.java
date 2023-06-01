@@ -16,11 +16,13 @@ public class Subject {
     @Column(name = "subject_name")
     private String subjectName;
 
-    @OneToMany(targetEntity = Stream.class)
+
+    @OneToMany(targetEntity = Stream.class,cascade = CascadeType.MERGE)
+
     private List<Stream> stream;
 
     @Column(name = "subject_status")
-    private String subjectStatus;
+    private int subjectStatus;
 
     @Column(name = "created_date")
     private LocalDateTime createdDate;
@@ -31,7 +33,9 @@ public class Subject {
     public Subject(){
 
     }
-    public Subject(long id, String subjectName, List<Stream> stream, String subjectStatus, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+
+    public Subject(long id, String subjectName, List<Stream> stream, int subjectStatus, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+
         Id = id;
         this.subjectName = subjectName;
         this.stream = stream;
@@ -64,11 +68,11 @@ public class Subject {
         this.stream = stream;
     }
 
-    public String getSubjectStatus() {
+    public int getSubjectStatus() {
         return subjectStatus;
     }
 
-    public void setSubjectStatus(String subjectStatus) {
+    public void setSubjectStatus(int subjectStatus) {
         this.subjectStatus = subjectStatus;
     }
 

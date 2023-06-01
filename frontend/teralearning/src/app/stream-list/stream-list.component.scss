@@ -1,0 +1,35 @@
+table {
+    width: 100%;
+      overflow-x: hidden !important; 
+    }
+    .mat-table {
+      overflow-x: hidden !important; 
+    }
+    .mat-elevation-z8{
+      overflow-x: scroll !important;
+        width: 100%;
+    }
+    .mat-header-cell{
+      min-width: 130px;
+      color: #000;
+      max-width: max-content;
+    }
+    .btn-success{
+      background-color: #78BE20;
+    }
+    .form-control{
+      color: #000;
+      font-size: large;
+      box-shadow: 0px 2px 4px #ddd;
+      border: none;
+    }
+    .badge-info{
+      color: green;
+    }
+    ::-webkit-scrollbar{
+      visibility: hidden;
+    }
+    ::-webkit-scrollbar:hover{
+      visibility: visible;
+    }
+    
