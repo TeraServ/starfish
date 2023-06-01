@@ -4,6 +4,7 @@ package com.teranet.teralearning.controller;
 import com.teranet.teralearning.model.Stream;
 import com.teranet.teralearning.model.User;
 import com.teranet.teralearning.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class UserController {
 
     private UserService userService;
 
-
+    @Autowired
     public UserController(UserService userService){
         this.userService = userService;
     }

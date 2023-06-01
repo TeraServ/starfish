@@ -1,16 +1,18 @@
 package com.teranet.teralearning.repository;
 
+import com.teranet.teralearning.model.TokenValidity;
 import com.teranet.teralearning.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByEmail(String email);
-    boolean existsByEmail(String email);
+public interface TokenRepository extends JpaRepository<TokenValidity,Long> {
+
+
+    TokenValidity findByUser(User user);
+
     @Override
-    Optional<User> findById(Long aLong);
+    TokenValidity getReferenceById(Long aLong);
+
 }

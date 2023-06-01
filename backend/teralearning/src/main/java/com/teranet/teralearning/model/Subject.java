@@ -16,7 +16,9 @@ public class Subject {
     @Column(name = "subject_name")
     private String subjectName;
 
+
     @OneToMany(targetEntity = Stream.class,cascade = CascadeType.MERGE)
+
     private List<Stream> stream;
 
     @Column(name = "subject_status")
@@ -31,7 +33,9 @@ public class Subject {
     public Subject(){
 
     }
+
     public Subject(long id, String subjectName, List<Stream> stream, int subjectStatus, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+
         Id = id;
         this.subjectName = subjectName;
         this.stream = stream;
