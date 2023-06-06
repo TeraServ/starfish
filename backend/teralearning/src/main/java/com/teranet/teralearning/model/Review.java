@@ -28,7 +28,7 @@ public class Review {
     private User user;
 
     @Column(name = "rating",nullable = false)
-    private long rate;
+    private int rate;
 
     @Column(name = "comments",nullable = true, columnDefinition = "TEXT")
     private String comment;
@@ -39,7 +39,7 @@ public class Review {
 
     public Review(){}
 
-    public Review( long testId, long courseId, User user, long rate, String comment, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public Review( long testId, long courseId, User user, int rate, String comment, LocalDateTime createdDate, LocalDateTime modifiedDate) {
 
         this.testId = testId;
         this.courseId = courseId;
@@ -82,11 +82,11 @@ public class Review {
         this.user = user;
     }
 
-    public long getRate() {
+    public int getRate() {
         return rate;
     }
 
-    public void setRate(long rate) {
+    public void setRate(int rate) {
         this.rate = rate;
     }
 

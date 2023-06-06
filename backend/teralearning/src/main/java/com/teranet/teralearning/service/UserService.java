@@ -1,5 +1,6 @@
 package com.teranet.teralearning.service;
 
+import com.teranet.teralearning.helper.CSVHelper;
 import com.teranet.teralearning.model.User;
 import com.teranet.teralearning.repository.UserRepository;
 
@@ -14,8 +15,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.teranet.teralearning.dto.userResponseDTO;
 import com.teranet.teralearning.exception.UserNotFoundException;
+import org.springframework.web.multipart.MultipartFile;
 
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +67,18 @@ public class UserService extends UserInterface {
             throw new UserNotFoundException("Exception occurred while fetch all users from Database");
         }
 
+    }
+    public void CreateUsersFromCSV(MultipartFile file){
+        log.info("UserService:CreateUsersFromCSV Init...");
+        try{
+            log.info("UserService:CreateUsersFromCSV Started");
+            List<User> users = CSVHelper.csvToUser(file.getInputStream());
+            userRepository.saveAll(users);
+        }
+        catch(IOException ex){
+            log.info("UserService:CreateUsersFromCSV Exception Occurred"+ex.getMessage());
+            throw new RuntimeException("Failed to Store CSV Data"+ex.getMessage());
+        }
     }
     public void updatePassword(User user, String newPassword){
         try{

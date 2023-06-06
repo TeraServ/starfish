@@ -4,11 +4,14 @@ package com.teranet.teralearning.controller;
 import com.teranet.teralearning.model.Stream;
 import com.teranet.teralearning.model.User;
 import com.teranet.teralearning.service.UserService;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@NoArgsConstructor
 @RestController
 @RequestMapping("/api/user/")
 public class UserController {
