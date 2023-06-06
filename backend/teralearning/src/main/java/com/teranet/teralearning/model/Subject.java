@@ -13,13 +13,12 @@ public class Subject {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
 
+
     @Column(name = "subject_name")
     private String subjectName;
 
-
-    @OneToMany(targetEntity = Stream.class,cascade = CascadeType.MERGE)
-
-    private List<Stream> stream;
+    @OneToOne(targetEntity = Stream.class,cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private Stream stream;
 
     @Column(name = "subject_status")
     private int subjectStatus;
@@ -34,8 +33,7 @@ public class Subject {
 
     }
 
-    public Subject(long id, String subjectName, List<Stream> stream, int subjectStatus, LocalDateTime createdDate, LocalDateTime modifiedDate) {
-
+    public Subject(long id, String subjectName, Stream stream, int subjectStatus, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         Id = id;
         this.subjectName = subjectName;
         this.stream = stream;
@@ -60,11 +58,11 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
-    public List<Stream> getStreamName() {
+    public Stream getStream() {
         return stream;
     }
 
-    public void setStreamName(List<Stream> stream) {
+    public void setStream(Stream stream) {
         this.stream = stream;
     }
 
