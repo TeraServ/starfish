@@ -1,0 +1,187 @@
+<!--Main Navigation-->
+<header >
+    <!-- Sidebar -->
+    <nav
+         id="sidebarMenu"
+         class="collapse d-lg-block sidebar collapse bg-white"
+         >
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a
+          
+             class="list-group-item list-group-item-action py-2 ripple"
+             aria-current="true"
+             routerLink="/home/dashboard"
+             routerLinkActive="active" >
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i
+              ><span>Dashboard</span>
+          </a>
+          <a
+             href="#"
+             #userTab
+             routerLink="/home/usermanagement"
+             routerLinkActive="active"
+             
+             class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active"
+             >
+            <i class="fas fa-chart-area fa-fw me-3"></i
+              ><span>User Management</span>
+          </a>
+
+           <!-- Collapsed content -->
+        <ul id="collapseExample1" [ngStyle]="{display:displayStyle}" class="collapse show list-group list-group-flush" >
+            <li class="list-group-item py-1">
+              <a href="" class="text-reset">Create User</a>
+            </li>
+            <li class="list-group-item py-1">
+              <a href="" class="text-reset">Users</a>
+            </li>
+          </ul>
+          <!-- Collapse 1 -->
+          <!-- <a
+             href="#"
+             class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active"
+             ><i class="fas fa-lock fa-fw me-3"></i><span>Onboarding</span></a
+            > -->
+
+        
+          <a
+             routerLink="/home/settings"
+             routerLinkActive="active"
+             onclick="changeTab(this.location.href)"
+             href="/home/settings"
+
+             class="list-group-item list-group-item-action py-2 ripple"
+             ><i class="fas fa-gear fa-fw me-3"></i
+            ><span>Settings</span></a
+            >
+        </div>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+  
+
+
+    <!-- Navbar -->
+    <nav
+         id="main-navbar"
+         class="navbar navbar-expand-lg navbar-light bg-white fixed-top"
+         >
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-mdb-toggle="collapse"
+                data-mdb-target="#sidebarMenu"
+                aria-controls="sidebarMenu"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                >
+          <i class="fas fa-bars"></i>
+        </button>
+  
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">
+          <img
+               src="https://www.teranet.ca/wp-content/uploads/2021/12/cropped-teranet_favicon_512_512-192x192.png"
+               height="25"
+               alt=""
+               loading="lazy"
+               />
+               <b  style="color: #646363;">TERALEARN</b>
+        </a>
+       
+  
+        <!-- Right links -->
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+          <!-- Notification dropdown -->
+          <li class="nav-item dropdown">
+            <a
+               class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
+               href="#"
+               id="navbarDropdownMenuLink"
+               role="button"
+               data-mdb-toggle="dropdown"
+               aria-expanded="false"
+               >
+              <i class="fas fa-bell"></i>
+              <span  class="badge rounded-pill badge-notification bg-danger"
+                    >{{( notificationCounts)}}</span
+                >
+            </a>
+
+            <!-- <app-notification-side-bar id="sideBarNotification"
+             class="dropdown-menu dropdown-menu-end" [nList]="nList" (changeEvent)="getNotifications()" ></app-notification-side-bar> -->
+            <ul
+                
+                aria-labelledby="navbarDropdownMenuLink"
+                >
+
+              <!-- <li *ngFor="let item of nList"><a class="dropdown-item" >{{ item.title }}</a></li> -->
+    
+
+
+            </ul>
+
+          </li>
+  
+          <!-- Icon -->
+          <!-- <li class="nav-item">
+            <a class="nav-link me-3 me-lg-0" href="#">
+              <i class="fas fa-fill-drip"></i>
+            </a>
+          </li> -->
+          <!-- Icon -->
+         
+  
+          <!-- Icon dropdown -->
+          
+  
+          <!-- Avatar -->
+          <li class="nav-item dropdown">
+            <a
+               class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+               href="#"
+               id="navbarDropdownMenuLink"
+               role="button"
+               data-mdb-toggle="dropdown"
+               aria-expanded="false"
+               >
+              <img
+                   src="../../assets/img/person.jpg"
+                   class="rounded-circle"
+                   height="22"
+                   alt=""
+                   loading="lazy"
+                   />
+            </a>
+            <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdownMenuLink"
+                >
+              <li><a class="dropdown-item" href="#" routerLink="/home/settings"
+                routerLinkActive="active">My profile</a></li>
+
+            
+              <li><a class="dropdown-item" href="#" (click)="logOut()">Logout</a></li>
+
+              <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
+              <!-- <li><a class="dropdown-item" (click)="Logout()">Logout</a></li> -->
+
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+  </header>
+  <!--Main Navigation-->
+  
+  <!--Main layout-->
+  <main style="margin-top: 58px">
+   <router-outlet  ></router-outlet>
+  </main>
+  <!--Main layout-->
