@@ -1,5 +1,5 @@
 import { Component, OnInit ,Input, Output, EventEmitter} from '@angular/core';
-import { UserDetail } from 'src/app/models/user-detail.model';
+import { UserDetail } from 'app/models/user-detail.model';
 
 @Component({
   selector: 'app-view-and-search',
