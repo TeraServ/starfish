@@ -1,0 +1,80 @@
+<h2>Users</h2>
+
+<div class="mat-elevation-z8" >
+    <table mat-table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+        
+
+        <ng-container matColumnDef="firstName">
+            <th mat-header-cell *matHeaderCellDef>First name</th>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element?.firstName }} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="lastName">
+            <th mat-header-cell *matHeaderCellDef>Last name</th>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element?.lastName }}
+            </td>
+        </ng-container>
+        
+
+        <ng-container matColumnDef="userStatus">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element,index as i">
+              <span *ngIf="element?.userStatus == '101'" class="badge rounded-pill badge-success">Active</span>
+              <span *ngIf="element?.userStatus == '102'" class="badge rounded-pill badge-danger">Suspended</span>
+              <span *ngIf="element?.userStatus == '103'" class="badge rounded-pill badge-danger">Inactive</span>
+          </td>
+      </ng-container>
+
+
+        <ng-container matColumnDef="userType">
+            <th mat-header-cell *matHeaderCellDef> User type</th>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element?.userType == 101?'Admin':element?.userType == 102?'Faculty':'Student' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="stream">
+            <th mat-header-cell *matHeaderCellDef> Stream</th>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element?.stream?.streamName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email</th>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element?.email }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="phoneNumber">
+            <th mat-header-cell *matHeaderCellDef> Phone number </th>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element?.phoneNumber }}</td>
+        </ng-container>
+
+       
+
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element,">
+
+                <button  (click)="onUpdateClicked(element)" class="btn btn-success px-3"><i class="bi bi-pencil-square"
+                        aria-hidden="true" title="edit"></i></button>&nbsp;
+
+                <!-- <button [disabled]="userType == 'ROLE_HR' || userType == 'ROLE_IN'" (click)="openDialog(element.id,element.title)" class="btn btn-danger px-3"><i
+                        class="bi bi-trash-fill" aria-hidden="true" title="delete"></i></button> -->
+
+
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+    </table>
+</div>
+<div *ngIf="dataSource.data.length == 0">
+<p>No data!</p>
+</div>
+<!-- 
+<mat-spinner [diameter]="40" class="text-center" *ngIf="!isloaded"></mat-spinner> -->
+<mat-paginator [pageSizeOptions]="[5,10,15,20]" [pageSize]="5" showFirstLastButtons aria-label="Select page of periodic elements">
+</mat-paginator>

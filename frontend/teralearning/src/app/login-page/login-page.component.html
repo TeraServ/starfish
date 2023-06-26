@@ -1,0 +1,60 @@
+<div id="container-1">
+
+    <div class="con-1">
+      <img src="assets/images/login.png" alt="" width="100%" srcset="">
+        </div>
+        
+        <div class="con-2">
+           <!-- <form action="">
+            <label for="email">Email Id</label>
+            <input type="text" name="email" id="" placeholder="Enter your email Id." class="form-control">
+            
+            <label for="password">Password</label>
+            <input type="password" name="password" id="" placeholder="Enter your password">
+            
+            <button>Submit</button>
+           </form> -->
+         
+          <div>
+            <h1><b> TeraLearn</b></h1>
+            <h4>Login to continue</h4>
+          </div>
+
+          <div class="error" *ngIf="loginForm.hasError('invalid-user')">
+            Invalid username or password.
+            Please try again.
+          </div>
+          <div>
+            <form (ngSubmit)="login()" [formGroup]="loginForm">
+                <div class="form-group">
+                  
+                  <input type="email" class="form-control form-control-lg" formControlName="username"[ngClass]="{ 'is-invalid': submitted && f.username.errors }" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                  <div *ngIf="submitted && f.username.errors?.required" class="invalid-feedback"> 
+                    *Required
+                  </div>
+                </div>
+                <br>
+                <div class="form-group">
+                 
+                  <input type="password" class="form-control form-control-lg" formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" id="exampleInputPassword1" placeholder="Password">
+                  <div *ngIf="submitted && f.password.errors?.required" class="invalid-feedback"> 
+                    *Required
+                  </div>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">LOGIN</button>
+                &nbsp;
+                <a (click)="getEmailDialog()">FORGET PASSWORD?</a>
+              </form>
+          </div>
+          <div>
+            New User? <a href="/register">Register</a>
+          </div>
+         
+          <div>
+           
+          </div>
+        </div>
+
+
+</div>

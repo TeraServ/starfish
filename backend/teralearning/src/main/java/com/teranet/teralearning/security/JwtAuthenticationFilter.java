@@ -22,7 +22,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             filterChain.doFilter(request, response);
         } else {
             if(authHeader == null || !authHeader.startsWith("Bearer ")){
-                throw new ServletException("An exception occurred");
+               // throw new ServletException("An exception occurred");
             }
         }
         final String token = authHeader.substring(7);
