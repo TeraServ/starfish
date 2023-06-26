@@ -9,10 +9,19 @@ body {
   .text-reset{
     text-decoration: none;
     align-items: right;
+   
   }
-//   #collapseExample1{
-//     display: none;
-//   }
+  #collapseExample1 li{
+    padding: 10px 60px !important;
+    background-color: #f1f3fc;
+    border-radius: 5px;
+  }
+  #collapseExample1 li .active{
+    color: #2C45A7 !important;
+    box-shadow: none;
+    background-color: #f1f3fc;
+    border-radius: 5px;
+  }
   /* Sidebar */
   .sidebar {
     position: fixed;

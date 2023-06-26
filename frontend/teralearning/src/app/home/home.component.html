@@ -31,10 +31,12 @@
            <!-- Collapsed content -->
         <ul id="collapseExample1" [ngStyle]="{display:displayStyle}" class="collapse show list-group list-group-flush" >
             <li class="list-group-item py-1">
-              <a href="" class="text-reset">Create User</a>
+              <a routerLink="/home/usermanagement/create"
+              routerLinkActive="active" class="text-reset">Create User</a>
             </li>
             <li class="list-group-item py-1">
-              <a href="" class="text-reset">Users</a>
+              <a  routerLink="/home/usermanagement/users"
+              routerLinkActive="active" class="text-reset">Users</a>
             </li>
           </ul>
           <!-- Collapse 1 -->
@@ -97,7 +99,7 @@
         <!-- Right links -->
         <ul class="navbar-nav ms-auto d-flex flex-row">
           <!-- Notification dropdown -->
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a
                class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
                href="#"
@@ -110,22 +112,22 @@
               <span  class="badge rounded-pill badge-notification bg-danger"
                     >{{( notificationCounts)}}</span
                 >
-            </a>
+            </a> -->
 
             <!-- <app-notification-side-bar id="sideBarNotification"
              class="dropdown-menu dropdown-menu-end" [nList]="nList" (changeEvent)="getNotifications()" ></app-notification-side-bar> -->
-            <ul
+            <!-- <ul
                 
                 aria-labelledby="navbarDropdownMenuLink"
-                >
+                > -->
 
               <!-- <li *ngFor="let item of nList"><a class="dropdown-item" >{{ item.title }}</a></li> -->
     
 
-
+<!-- 
             </ul>
 
-          </li>
+          </li> -->
   
           <!-- Icon -->
           <!-- <li class="nav-item">
@@ -143,14 +145,14 @@
           <li class="nav-item dropdown">
             <a
                class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-               href="#"
+               href=""
                id="navbarDropdownMenuLink"
                role="button"
                data-mdb-toggle="dropdown"
                aria-expanded="false"
                >
               <img
-                   src="../../assets/img/person.jpg"
+                   src="../../assets/images/person.jpg"
                    class="rounded-circle"
                    height="22"
                    alt=""
@@ -161,7 +163,7 @@
                 class="dropdown-menu dropdown-menu-end"
                 aria-labelledby="navbarDropdownMenuLink"
                 >
-              <li><a class="dropdown-item" href="#" routerLink="/home/settings"
+              <li><a class="dropdown-item" href="" routerLink="/home/settings"
                 routerLinkActive="active">My profile</a></li>
 
             

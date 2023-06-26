@@ -28,6 +28,13 @@ export class HomeComponent implements OnInit {
   
 
   ngOnInit(): void {
+   // localStorage.removeItem("currentUser")
+    if(!this.authService.isLoggedIn()){
+      this.router.navigate([""])
+      
+  }
+  
+ 
     //console.log( this.router.url.split('/')[2])
    // this.getUserId();
     this.activeTab =  this.router.url.split('/')[2]
@@ -39,6 +46,7 @@ export class HomeComponent implements OnInit {
 
   }
 
+  
   ngAfterViewInit(){
     this.userTab.nativeElement.onclick = ()=>{
       if(this.displayStyle == "none"){

@@ -13,14 +13,14 @@ export class UserService {
   addNewUser(data:any):Observable<any>{
     return this.http.post(this.Url + "new", data);
   }
-  getAllUser(){
+  getAllUser():Observable<any>{
     return this.http.get(this.Url+"list");
   }
-  deleteUser(data:any){
+  deleteUser(data:any):Observable<any>{
    return this.http.delete(this.Url+"delete/"+data.id);
   }
 
-  updateUser(data:any){
+  updateUser(data:any):Observable<any>{
     return this.http.put(this.Url+"update",data);
   }
 

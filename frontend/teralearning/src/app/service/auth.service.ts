@@ -6,8 +6,16 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+  currentUserValue(): string {
+     return localStorage.getItem("currentUser")!;
+  }
+
   isLoggedIn() {
-    throw new Error('Method not implemented.');
+    if(localStorage.getItem("currentUser") != null){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   url:string = "http://localhost:8080/api/auth/";

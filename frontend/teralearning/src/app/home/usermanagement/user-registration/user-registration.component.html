@@ -1,3 +1,4 @@
+<h2>Create User</h2>
 <form [formGroup]="userForm" (ngSubmit)="createUser()">
     <br>
     <div class="row">
@@ -20,11 +21,11 @@
     <div class="row">
         <div class="col">
             <label for="userType">User Type</label>
-         <select class="form-control-input" name="userType" formControlName="userType" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" >
+         <select class="form-control-input"  name="userType" formControlName="userType" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" >
             <option value="" selected>Select</option>
-            <option>Admin</option>
-            <option>Student</option>
-            <option>Faculty</option>
+            <option value="101">Admin</option>
+            <option value="102">Student</option>
+            <option value="103">Faculty</option>
          </select>
          <div *ngIf="submitted && f.userType.errors?.required" class="invalid-feedback"> 
             *Required
@@ -32,7 +33,13 @@
         </div>
         <div class="col">
             <label for="stream">Stream</label>
-            <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
+            <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
+            <select name="stream" class="form-control-input" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
+                <option value="" selected> Select </option>
+                <option >Computer Engineering</option>
+                <option >Mechanical Engineering</option>
+                <option >Electrical Engineering</option>
+            </select>
             <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
                 *Required
               </div>

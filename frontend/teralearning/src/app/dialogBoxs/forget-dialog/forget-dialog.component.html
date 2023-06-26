@@ -1,7 +1,12 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+  <br>
+  &nbsp;
 <p>Enter the email address associated with your account and we'll send you a link to reset your password.</p>
 
 <input type="email" class="form-control" placeholder="Enter your email Id">
 <br>
 
-<button class="btn" (click)="closeDialog()">Close</button>&nbsp;
+<!-- <button class="btn" (click)="closeDialog()">Close</button>&nbsp; -->
 <button class="btn btn-primary">Submit</button>

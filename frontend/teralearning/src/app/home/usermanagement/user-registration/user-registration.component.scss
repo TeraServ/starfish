@@ -5,11 +5,11 @@
 .form-control-input{
     padding: 10px 12px;
     width: 100%;
-    border-color: #333;
     border-radius: 5px;
     border-width: 1px;
-    border-color: #2C45A7;
     outline-color: #2C45A7;
+    border: none;
+    box-shadow: 0px 2px 6px #ddd;
 }
 .btn-submit{
     padding: 10px 15px;

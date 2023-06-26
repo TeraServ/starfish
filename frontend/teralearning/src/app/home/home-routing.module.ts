@@ -3,7 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { UserRegistrationComponent } from './usermanagement/user-registration/user-registration.component';
 import { HomeComponent } from './home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { UserListComponent } from './user-list/user-list.component';
+import { UserListComponent } from './usermanagement/user-list/user-list.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 const routes: Routes = [
@@ -17,12 +18,16 @@ const routes: Routes = [
       component: DashboardComponent
      },
       {
-        path:"usermanagement",
+        path:"usermanagement/create",
         component:UserRegistrationComponent
       },
       {
-        path:"users",
+        path:"usermanagement/users",
         component:UserListComponent
+      },
+      {
+        path:"settings",
+        component: SettingsComponent
       }
   ]
  }

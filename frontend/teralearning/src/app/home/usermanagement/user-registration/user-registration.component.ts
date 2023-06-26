@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from 'src/app/service/user.service';
+import { user } from 'src/model/user.model';
 
 @Component({
   selector: 'app-user-registration',
@@ -8,7 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class UserRegistrationComponent implements OnInit {
 
-  constructor(private formBuilder:FormBuilder) { }
+  constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar) { }
   userForm!:FormGroup;
   submitted:boolean = false;
 
@@ -32,6 +35,29 @@ export class UserRegistrationComponent implements OnInit {
     if(this.userForm.invalid){
       return;
     }
+
+    let userData:user ={
+      id:0,
+      firstName:this.userForm.get('firstName')?.value,
+      lastName:this.userForm.get('lastname')?.value,
+      userStatus:103,
+      userType:this.userForm.get('userType')?.value,
+      modifiedDate:"",
+      email:this.userForm.get('email')?.value,
+      phoneNumber: this.userForm.get('phoneNumber')?.value,
+      category: "classroom",
+      stream: {streamName: this.userForm.get('stream')?.value},
+      password:"dsgvdfvb",
+      createdDate:""
+
+    }
+    this.userService.addNewUser(userData).subscribe(data=>{
+      this.snackBar.open("Successfully created!!",'',{duration:3000})
+    },err=>{
+      this.snackBar.open(err.error.text,'',{duration:3000})
+      console.log(err)
+    })
+    this.userForm.reset()
     console.log(this.userForm.value)
 
 

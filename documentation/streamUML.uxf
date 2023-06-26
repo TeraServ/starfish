@@ -1,0 +1,20 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>120</x><y>130</y><w>330</w><h>310</h></coordinates><panel_attributes>Stream
+Package com.teranet.teralearning.model.Stream;
+--
+-id: Long
+-streamName:string
+-price:double
+-discount:double
+-stream Status:String
+--
+Stream()
+getStreamId():long
+setStreamId(Id:long)
+getStreamName():String
+setStreamName(streamName:String)
+getPrice():double
+setPrice(p:double)
+getDiscount():double
+setdiscount(d:double)
+getStatus():String
+setStatus(s:String)</panel_attributes><additional_attributes></additional_attributes></element></diagram>

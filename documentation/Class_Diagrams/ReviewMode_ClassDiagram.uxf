@@ -1,0 +1,26 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>450</x><y>180</y><w>280</w><h>350</h></coordinates><panel_attributes>&lt;&lt;Java Class&gt;&gt;
+Review
+Package: com.teranet.teralearning.model
+
+--
+-id: Long
+-stream_id: Stream
+-author: User
+-rate: Long
+-comments: String
+-createdDate: LocalDateTime
+-
+--Stream()
+--getId():int
+--getStream():Stream
+--setStream():void
+--getUser():User
+--setUser():void
+--getRate(): long
+--setRate():void
+--getComment():String
+--setComment():void
+--getCreatedDate():LocalDateTime
+--setCreatedDate():void()
+
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>

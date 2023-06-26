@@ -28,9 +28,9 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit() {
 
-    // if(this.authService.isLoggedIn()){
-    //     this.router.navigate(["/home/dashboard"])
-    // }
+    if(this.authService.isLoggedIn()){
+        this.router.navigate(["/home/dashboard"])
+    }
     // this.authService.getServerStatus();
     this.loginForm = this.formBuilder.group({
         

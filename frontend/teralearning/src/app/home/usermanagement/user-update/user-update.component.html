@@ -1,0 +1,80 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+  <br>
+  &nbsp;
+<h2>Update User</h2>
+<form [formGroup]="userForm" (ngSubmit)="updateUser()">
+    <br>
+    <div class="row">
+        <div class="col">
+            <label for="firstName">First name</label>
+            <input type="text" class="form-control-input" name="firstName" placeholder="First Name" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" >
+            <div *ngIf="submitted && f.firstName.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+        <div class="col">
+            <label for="lastName">Last name</label>
+            <input type="text" class="form-control-input" name="lastName" placeholder="Last Name" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+            <div *ngIf="submitted && f.lastName.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <label for="userType">User type</label>
+         <select class="form-control-input"  name="userType" formControlName="userType" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" >
+            <option value="" selected>Select</option>
+            <option value="101">Admin</option>
+            <option value="102">Student</option>
+            <option value="103">Faculty</option>
+         </select>
+         <div *ngIf="submitted && f.userType.errors?.required" class="invalid-feedback"> 
+            *Required
+          </div>
+        </div>
+        <div class="col">
+            <label for="stream">Stream</label>
+            <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
+            <select name="stream" class="form-control-input" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
+                <option value="" selected> Select </option>
+                <option >Computer Engineering</option>
+                <option >Mechanical Engineering</option>
+                <option >Electrical Engineering</option>
+            </select>
+            <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <label for="status">User status</label>
+            <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
+            <select name="status" class="form-control-input" formControlName="userStatus" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
+                <option value="" selected> Select </option>
+                <option value="101">Active</option>
+                <option value="102">Suspended</option>
+               
+            </select>
+            <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+        <div class="col">
+            <label for="phoneNumber">Phone number</label>
+            <input type="text" class="form-control-input" name="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
+            <div *ngIf="submitted && f.phoneNumber.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <input type="submit" value="Update" class="btn-submit">
+    </div>
+</form>
