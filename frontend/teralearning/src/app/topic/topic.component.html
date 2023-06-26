@@ -1,0 +1,98 @@
+<title>Create Subject</title>
+<section class="vh-100 gradient-custom">
+
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center ">
+
+            <div class="col">
+                <!-- <div class="card shadow-2-strong card-registration" style="border-radius: 10px;">
+                    <div class="card-body"> -->
+
+                <form [formGroup]="createTopicForm">
+                    <div class="row">
+
+                        <div class="col">
+                            <h1>Create Topic</h1><br>
+                        </div>
+                    </div>
+                    <!-- Stream Name  -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-floating mb-3">
+
+                                
+                                <mat-select class="form-control" formControlName="streamName">
+                                    <mat-option>Electrical</mat-option>
+                                    <mat-option>Mechanical</mat-option>
+                                    <mat-option>Computer Science</mat-option>
+                                    <mat-option>Civil</mat-option>
+
+                                </mat-select>
+                                <label for="floatingInput">Stream Name</label>
+                                <mat-error *ngIf="submitted && createTopicForm.controls.streamName.hasError('required')"
+                                    class="invalid-feedback"><br>
+                                    *Required
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <!-- Subject Name  -->
+
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-floating mb-3">
+
+                                <mat-select class="form-control" formControlName="streamName">
+                                    <mat-option>Advanced Electrical</mat-option>
+                                    <mat-option>Advanced electrical structure</mat-option>
+                                    <mat-option>Data Science</mat-option>
+                                    <mat-option>Civil Advanced</mat-option>
+
+                                </mat-select>
+                                <label for="floatingInput">Subject Name</label>
+                                <mat-error *ngIf="submitted && createTopicForm.controls.streamName.hasError('required')"
+                                    class="invalid-feedback"><br>
+                                    *Required
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" formControlName="topicName"
+                                    placeholder="topicName"
+                                    [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.topicName.errors }">
+                                <label for="floatingInput">Topic Name</label>
+                                <div *ngIf="submitted && createTopicForm.controls.topicName.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="createTopicForm.controls.topicName.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- Button -->
+                    <div class="col">
+                        <div class="text-center">
+                            <div class="mt-4 pt-2">
+                                <input class="loginbtn btn" type="submit" value="Create Topic" (click)="onSubmit()">
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+
+                </form>
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+    </div>
+</section>
