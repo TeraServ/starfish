@@ -4,4 +4,5 @@ export class Stream {
     price!: number;
     discounts!: number;
     acronymn!: String;
+
 }
