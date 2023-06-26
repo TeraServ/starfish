@@ -9,7 +9,8 @@
                 <!-- <div class="card shadow-2-strong card-registration" style="border-radius: 10px;">
                     <div class="card-body"> -->
 
-                <form [formGroup]="createSubjectForm">
+                <form name="form"
+                #f="ngForm" (ngSubmit)="onSubmit()">
                     <div class="row">
 
                         <div class="col">
@@ -22,18 +23,23 @@
 
                         <div class="col-md-6 mb-4 pb-2">
                             <div class="form-floating mb-3">
-                                <mat-select class="form-control" formControlName="streamName" multiple>
+                                <select [(ngModel)]="dropStream" class="form-control" name="dropStream">
+                                    <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
+                                </select>
+
+
+                                <!-- <mat-select class="form-control" formControlName="streamName">
                                     <mat-option>srgrg</mat-option>
                                     <mat-option>srgrg</mat-option>
                                     <mat-option>srgrg</mat-option>
                                     <mat-option>srgrg</mat-option>
                                     
-                                </mat-select>
+                                </mat-select> -->
                                 <label for="floatingInput">streamName</label>
-                                <mat-error *ngIf="submitted && createSubjectForm.controls.streamName.hasError('required')"
+                                <!-- <mat-error *ngIf="submitted && createSubjectForm.controls.stream.hasError('required')"
                                     class="invalid-feedback"><br>
                                     *Required
-                                </mat-error>
+                                </mat-error> -->
                             </div>
                         </div>
 
@@ -41,13 +47,11 @@
 
                         <div class="col-md-6 mb-4">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" formControlName="subjectName"
-                                    placeholder="subjectName"
-                                    [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }">
+                                <input type="text" class="form-control" [(ngModel)]="subjectName" name="subjectName" [ngClass]="{ 'is-invalid': submitted && f.controls.subjectName.errors }" >
                                 <label for="floatingInput">Subject Name</label>
-                                <div *ngIf="submitted && createSubjectForm.controls.subjectName.errors"
+                                <div *ngIf="submitted && f.controls.subjectName.errors"
                                     class="invalid-feedback">
-                                    <div *ngIf="createSubjectForm.controls.subjectName.errors.required">*Required</div>
+                                    <div *ngIf="f.controls.subjectName.errors.required">*Required</div>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +64,9 @@
                     <div class="col">
                         <div class="text-center">
                             <div class="mt-4 pt-2">
-                                <input class="loginbtn btn" type="submit" value="Create Subject" (click)="onSubmit()">
+                                <input class="loginbtn btn" type="submit" value="Create Subject">
+
+                                
                             </div>
                         </div>
 

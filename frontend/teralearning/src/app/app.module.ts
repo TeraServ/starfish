@@ -26,7 +26,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { StreamListComponent } from './stream-list/stream-list.component';
 
 import { MatTableModule } from '@angular/material/table';
-
+import { TopicComponent } from './topic/topic.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { StreamEditComponent } from './stream-edit/stream-edit.component';
+import {MatIconModule} from '@angular/material/icon'
+import { SubjectListComponent } from './subject-list/subject-list.component';
+import { SubjectEditComponent } from './subject-edit/subject-edit.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 
@@ -38,7 +45,12 @@ import { MatTableModule } from '@angular/material/table';
     NewUserComponent,
     StreamComponent,
     SubjectComponent,
-    StreamListComponent
+    StreamListComponent,
+    TopicComponent,
+    StreamEditComponent,
+    SubjectListComponent,
+    SubjectEditComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -58,8 +70,12 @@ import { MatTableModule } from '@angular/material/table';
     MatOptionModule,
     MatSelectModule,
     MatDialogModule,
-    MatTableModule
-    
+    MatTableModule,
+    MatSnackBarModule,
+    MatPaginatorModule,
+    MatIconModule
+
+
   ],
   providers:  [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

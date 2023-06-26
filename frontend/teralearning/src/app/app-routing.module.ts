@@ -9,10 +9,16 @@ import { NewUserComponent } from './app/new-user/new-user.component';
 import { StreamListComponent } from './stream-list/stream-list.component';
 import { StreamComponent } from './stream/stream.component';
 import { SubjectComponent } from './subject/subject.component';
-;
+import { TopicComponent } from './topic/topic.component';
+import { HttpClientModule } from '@angular/common/http';
+import { StreamEditComponent } from './stream-edit/stream-edit.component';
+import { SubjectListComponent } from './subject-list/subject-list.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+
 
 
 const routes: Routes = [
+
 
   {
     path:"",
@@ -38,11 +44,30 @@ const routes: Routes = [
     path:"subject",
     component: SubjectComponent
   },
+  {
+    path:"subjectList",
+    component: SubjectListComponent
+  },
+  {
+    path:"topic",
+    component: TopicComponent
+  },
+  {
+    path:"streamEdit",
+    component:StreamEditComponent
+  },
+  {
+    path:"userProfile",
+    component:UserProfileComponent
+  }
+  
 
 ];
 
 @NgModule({
+
   imports: [RouterModule.forRoot(routes,{preloadingStrategy: PreloadAllModules})],
+
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

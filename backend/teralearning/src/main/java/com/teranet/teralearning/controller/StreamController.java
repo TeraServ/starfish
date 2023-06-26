@@ -16,7 +16,7 @@ public class StreamController {
     }
 
 
-    @PostMapping("")
+    @PostMapping("new")
     public ResponseEntity newStream(@RequestBody Stream stream){
         return streamService.createStream(stream);
     }
