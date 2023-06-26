@@ -17,6 +17,7 @@ public class Subject {
     @Column(name = "subject_name")
     private String subjectName;
 
+
     @OneToOne(targetEntity = Stream.class,cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Stream stream;
 

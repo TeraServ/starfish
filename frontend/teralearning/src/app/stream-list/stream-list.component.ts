@@ -3,6 +3,8 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { Stream } from '../models/stream.model';
+import { StreamService } from '../services/stream.service';
+import { StreamEditComponent } from '../stream-edit/stream-edit.component';
 
 @Component({
   selector: 'app-stream-list',
@@ -12,32 +14,46 @@ import { Stream } from '../models/stream.model';
 export class StreamListComponent implements OnInit {
 
   public pageSize = 5;
+  streamList: Stream[] = [];
 
-  constructor(public dialog:MatDialog) { }
-  displayedColumns: string[] = ['No','streamName' ,'Acronymn' , 'price', 'discounts'];
-  @Input() dataSource = new MatTableDataSource<Stream>();
+  constructor(public dialog:MatDialog,private streamService: StreamService,public dialogRef: MatDialog) { }
+  displayedColumns: string[] = ['streamName' ,'acronym' , 'price', 'actions'];
+  @Input() dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  @ViewChild('streamName') streamName!:ElementRef;
-  @ViewChild('Acronymn') Acronymn!:ElementRef;
-  @ViewChild('price') price!:ElementRef;
-  @ViewChild('discounts') discounts!:ElementRef;
 
-  // ngAfterViewInit() {
-  //   this.dataSource.paginator = this.paginator;
-  //   this.paginator.page.subscribe(
-  //     (event) => console.log(event)
-  //   )
-  // }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
 
   ngOnInit(): void {
+    this.getStreams();
+    //this.dataSource.data = [{"id":"1","streamName":"CSE","Acronymn":"CS","price":"100","discounts":"10"}]
   }
   public handlePage(e:PageEvent):PageEvent{
     this.pageSize = e.pageSize;
     return e;
    
   }
-;
+
+  getStreams(){
+    this.streamService.getStreamList().subscribe(data => {
+    this.dataSource.data = data;      
+      console.log(this.dataSource.data)
+    })
+  }
+
+  streamEditClick(stream:Stream){
+    console.log(stream)
+    this.dialogRef.open(StreamEditComponent,{
+      width: '40%',
+      height: '70%',
+      data: stream
+    }).afterClosed().subscribe(result => {
+      this.getStreams();
+    })
+
+  }
 }

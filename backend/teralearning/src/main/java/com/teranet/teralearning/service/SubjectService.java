@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -17,6 +18,13 @@ public class SubjectService implements SubjectInterface{
     public SubjectService(SubjectRepository subjectRepository){
         this.subjectRepository = subjectRepository;
     }
+
+    public LocalDateTime getDateTime(){
+        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return now;
+    }
+
     @Override
     public boolean isSubjectNameExists(String subjectName){
         return subjectRepository.existsBySubjectName(subjectName);
@@ -25,6 +33,8 @@ public class SubjectService implements SubjectInterface{
     public ResponseEntity createSubject(Subject subject){
 
         if (!isSubjectNameExists(subject.getSubjectName())) {
+            subject.setCreatedDate(getDateTime());
+            subject.setModifiedDate(getDateTime());
             return new ResponseEntity(subjectRepository.save(subject), HttpStatus.OK);
         }
         else{
@@ -43,7 +53,7 @@ public class SubjectService implements SubjectInterface{
         if(subjectRepository.existsById(id)){
 
             updateSubject.setSubjectName((subjectDetails.getSubjectName()));
-            updateSubject.setStreamName((subjectDetails.getStreamName()));
+            updateSubject.setStream((subjectDetails.getStream()));
             updateSubject.setSubjectStatus(subjectDetails.getSubjectStatus());
             updateSubject.setCreatedDate((subjectDetails.getCreatedDate()));
             updateSubject.setModifiedDate((subjectDetails.getModifiedDate()));

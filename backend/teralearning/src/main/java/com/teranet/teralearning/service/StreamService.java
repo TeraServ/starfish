@@ -2,21 +2,37 @@ package com.teranet.teralearning.service;
 
 import com.teranet.teralearning.model.Stream;
 import com.teranet.teralearning.repository.StreamRepository;
+import com.teranet.teralearning.util.DateUtility;
+import lombok.NoArgsConstructor;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+
 public class StreamService implements StreamInterface{
 
+    @Autowired
     private StreamRepository streamRepository;
-    public StreamService(StreamRepository streamRepository){
+
+
+    public StreamService(StreamRepository streamRepository) {
         this.streamRepository = streamRepository;
+
     }
 
+    public LocalDateTime getDateTime(){
+        //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        return now;
+    }
 
     @Override
     public boolean isStreamNameExists(String streamName){
@@ -26,6 +42,8 @@ public class StreamService implements StreamInterface{
     public ResponseEntity createStream(Stream stream){
 
         if (!isStreamNameExists(stream.getStreamName()) && !streamRepository.existsById(stream.getId())) {
+            stream.setCreatedDate(getDateTime());
+            stream.setModifiedDate(getDateTime());
         return new ResponseEntity(streamRepository.save(stream), HttpStatus.OK);
     }
     else{

@@ -13,7 +13,7 @@
                     <div class="row">
 
                         <div class="col">
-                            <h1>Create Stream</h1><br>
+                            <h2>Create Stream</h2><br>
                         </div>
                     </div>
                     <!-- Stream Name  -->
@@ -31,15 +31,15 @@
                             </div>
                         </div>
 
-                        <!-- Acronymn  -->
+                        <!-- acronym  -->
 
                         <div class="col-md-6 mb-4">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" formControlName="Acronymn" placeholder="Acronymn"
-                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.Acronymn.errors }">
-                                <label for="floatingInput">Acronymn</label>
-                                <div *ngIf="submitted && createStreamForm.controls.Acronymn.errors" class="invalid-feedback">
-                                    <div *ngIf="createStreamForm.controls.Acronymn.errors.required">*Required</div>
+                                <input type="text" class="form-control" formControlName="acronym" placeholder="acronym"
+                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.acronym.errors }">
+                                <label for="floatingInput">acronym</label>
+                                <div *ngIf="submitted && createStreamForm.controls.acronym.errors" class="invalid-feedback">
+                                    <div *ngIf="createStreamForm.controls.acronym.errors.required">*Required</div>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +49,7 @@
 
 
 
-                    <!-- Discounts -->
+                    <!-- price -->
                     <div class="row">                        
 
                         <div class="col-md-6 mb-4">
@@ -62,16 +62,17 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- Discount -->
 
                         <div class="col-md-6 mb-4">
                             <div class="form-floating mb-3">
-                                <input type="number" min="0" max="100" class="form-control" formControlName="discounts"
-                                    placeholder="Discounts"
-                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.discounts.errors }">
-                                <label for="floatingInput">Discounts</label>
-                                <div *ngIf="submitted && createStreamForm.controls.discounts.errors" class="invalid-feedback">
-                                    <div *ngIf="createStreamForm.controls.discounts.errors.required">*Required</div>     
-                                    <div *ngIf="createStreamForm.controls.discounts.errors.max">*Cannot exceed above 100</div>                               
+                                <input type="number" min="0" max="100" class="form-control" formControlName="discount"
+                                    placeholder="discount"
+                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.discount.errors }">
+                                <label for="floatingInput">discount</label>
+                                <div *ngIf="submitted && createStreamForm.controls.discount.errors" class="invalid-feedback">
+                                    <div *ngIf="createStreamForm.controls.discount.errors.required">*Required</div>     
+                                    <div *ngIf="createStreamForm.controls.discount.errors.max">*Cannot exceed above 100</div>                               
                                 </div>
                             </div>
                         </div>
@@ -84,6 +85,9 @@
                         <div class="text-center">
                             <div class="mt-4 pt-2">
                                 <input class="loginbtn btn" type="submit" value="Create Stream" (click)="onSubmit()">
+                               
+                                
+
                             </div>
                         </div>
 
