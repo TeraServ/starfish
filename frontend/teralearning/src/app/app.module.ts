@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -12,21 +12,33 @@ import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform
 import { ForgetDialogComponent } from './dialogBoxs/forget-dialog/forget-dialog.component';
 
 import { MatOptionModule } from '@angular/material/core';
-import { ReactiveFormsModule } from '@angular/forms';
+
 import { HomeModule } from './home/home.module';
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 import { MatIconModule } from '@angular/material/icon';
 import { SuccessDialogComponent } from './dialogBoxs/success-dialog/success-dialog.component';
 import { NewUserComponent } from './app/new-user/new-user.component';
+import { StreamComponent } from './stream/stream.component';
+import { SubjectComponent } from './subject/subject.component';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+
+import { StreamListComponent } from './stream-list/stream-list.component';
+
+import { MatTableModule } from '@angular/material/table';
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     ForgetDialogComponent,
-    NewUserComponent
-   
-   
+    NewUserComponent,
+    StreamComponent,
+    SubjectComponent,
+    StreamListComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +50,15 @@ import { NewUserComponent } from './app/new-user/new-user.component';
     MatSelectModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    MatIconModule
-    
-    
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatTableModule
     
   ],
   providers:  [

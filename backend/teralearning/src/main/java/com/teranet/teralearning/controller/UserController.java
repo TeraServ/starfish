@@ -1,5 +1,4 @@
 package com.teranet.teralearning.controller;
-
 import com.teranet.teralearning.model.User;
 import com.teranet.teralearning.service.UserService;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -7,12 +6,13 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-
+@NoArgsConstructor
 @RestController
 @CrossOrigin(origins = {"*"})
 @RequestMapping("/api/user/")
@@ -22,7 +22,7 @@ public class UserController {
 
     private UserService userService;
 
-
+    @Autowired
     public UserController(UserService userService){
         this.userService = userService;
     }
@@ -51,4 +51,6 @@ public class UserController {
     public ResponseEntity getUser(){
         return userService.GetAllUser();
     }
+
+
 }

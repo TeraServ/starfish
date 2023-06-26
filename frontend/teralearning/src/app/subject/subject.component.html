@@ -1,0 +1,78 @@
+<title>Create Subject</title>
+<section class="vh-100 gradient-custom">
+
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center ">
+
+            <div class="col">
+                <!-- <div class="card shadow-2-strong card-registration" style="border-radius: 10px;">
+                    <div class="card-body"> -->
+
+                <form [formGroup]="createSubjectForm">
+                    <div class="row">
+
+                        <div class="col">
+                            <h1>Create Subject</h1><br>
+                        </div>
+                    </div>
+                    <!-- Stream Name  -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-floating mb-3">
+                                <mat-select class="form-control" formControlName="streamName" multiple>
+                                    <mat-option>srgrg</mat-option>
+                                    <mat-option>srgrg</mat-option>
+                                    <mat-option>srgrg</mat-option>
+                                    <mat-option>srgrg</mat-option>
+                                    
+                                </mat-select>
+                                <label for="floatingInput">streamName</label>
+                                <mat-error *ngIf="submitted && createSubjectForm.controls.streamName.hasError('required')"
+                                    class="invalid-feedback"><br>
+                                    *Required
+                                </mat-error>
+                            </div>
+                        </div>
+
+                        <!-- Subject Name  -->
+
+                        <div class="col-md-6 mb-4">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" formControlName="subjectName"
+                                    placeholder="subjectName"
+                                    [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }">
+                                <label for="floatingInput">Subject Name</label>
+                                <div *ngIf="submitted && createSubjectForm.controls.subjectName.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="createSubjectForm.controls.subjectName.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- Button -->
+                    <div class="col">
+                        <div class="text-center">
+                            <div class="mt-4 pt-2">
+                                <input class="loginbtn btn" type="submit" value="Create Subject" (click)="onSubmit()">
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+
+                </form>
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+    </div>
+</section>
