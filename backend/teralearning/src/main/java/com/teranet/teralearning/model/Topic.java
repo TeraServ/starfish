@@ -1,7 +1,10 @@
+
 package com.teranet.teralearning.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
+
 
 @Entity
 @Table(name = "topic")
@@ -108,3 +111,4 @@ public class Topic {
         this.modifiedBy = modifiedBy;
     }
 }
+

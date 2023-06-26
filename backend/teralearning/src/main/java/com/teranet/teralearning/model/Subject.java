@@ -17,8 +17,10 @@ public class Subject {
     @Column(name = "subject_name")
     private String subjectName;
 
+
     @OneToOne(targetEntity = Stream.class,cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Stream stream;
+
 
     @Column(name = "subject_status")
     private int subjectStatus;
@@ -33,7 +35,9 @@ public class Subject {
 
     }
 
+
     public Subject(long id, String subjectName, Stream stream, int subjectStatus, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+
         Id = id;
         this.subjectName = subjectName;
         this.stream = stream;
@@ -58,11 +62,14 @@ public class Subject {
         this.subjectName = subjectName;
     }
 
+
+
     public Stream getStream() {
         return stream;
     }
 
     public void setStream(Stream stream) {
+
         this.stream = stream;
     }
 
