@@ -1,6 +1,8 @@
 package com.teranet.teralearning.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -9,6 +11,7 @@ import java.time.LocalDateTime;
 
 public class User {
     @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long Id;
 
     @Column(name = "first_name")
@@ -20,6 +23,7 @@ public class User {
     @Column(name = "email", unique = true)
     private String email;
 
+
     @Column(name = "password")
     private String password;
 
@@ -29,7 +33,7 @@ public class User {
     @Column(name = "user_type")
     private int userType;
 
-    @OneToOne(targetEntity = Stream.class)
+    @OneToOne(targetEntity = Stream.class,cascade = CascadeType.ALL)
     private Stream stream;
 
     @Column(name = "user_status")
@@ -125,6 +129,7 @@ public class User {
     public void setId(long id) {
         Id = id;
     }
+
 
     public String getFirstName() {
         return firstName;

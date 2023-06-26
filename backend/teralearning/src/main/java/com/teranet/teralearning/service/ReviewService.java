@@ -1,6 +1,7 @@
 package com.teranet.teralearning.service;
 
 
+
 import com.teranet.teralearning.dto.reviewResponseDTO;
 import com.teranet.teralearning.model.Review;
 import com.teranet.teralearning.repository.ReviewRepository;
@@ -66,6 +67,5 @@ public List<reviewResponseDTO> getAllReview(){
         return new ArrayList<>();
     }
 }
-
 
 }
