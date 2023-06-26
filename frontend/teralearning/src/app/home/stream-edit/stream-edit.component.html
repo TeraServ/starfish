@@ -1,0 +1,60 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+<br>
+&nbsp;
+
+<form (ngSubmit)="UpdateStreamDetails()" #streamEditForm="ngForm">
+  <div class="form-group">
+
+    <label for="title"><b>Stream Name:</b></label>
+    <input type="text" [(ngModel)]="UpdatedStreamName" value="{{EditStream.streamName}}" class="form-control"
+      (ngModelChange)="valuechange($event)" id="streamname" name="streamname" #streamname="ngModel"
+      pattern="[a-zA-Z][a-zA-Z ]+" required>
+    <div *ngIf="streamEditForm.controls.streamname.errors?.required" class="alert alert-danger">Stream Name is required
+    </div>
+    <div *ngIf="streamEditForm.controls.streamname.errors?.pattern" class="alert alert-danger">Invalid</div>
+  </div><br>
+
+
+  <div class="form-group">
+    <label for="title"><b>Acronymn:</b></label>
+    <input type="text" [(ngModel)]="UpdatedAcronym" value="{{EditStream.acronym}}" class="form-control"
+      (ngModelChange)="valuechange($event)" id="Acronymn" name="Acronymn" #Acronymn="ngModel"
+      pattern="[a-zA-Z][a-zA-Z ]+" required>
+    <div *ngIf="streamEditForm.controls.Acronymn.errors?.required" class="alert alert-danger">Acronymn is required</div>
+    <div *ngIf="streamEditForm.controls.Acronymn.errors?.pattern" class="alert alert-danger">Invalid</div>
+  </div><br>
+
+
+  <div class="form-group">
+    <label for="title"><b>Price ₹:</b></label>
+    <input type="number" [(ngModel)]="UpdatedPrice" min="0" value="{{EditStream.price}}" class="form-control"
+      (ngModelChange)="valuechange($event)" id="Price" name="Price" #Price="ngModel" required>
+    <div *ngIf="streamEditForm.controls.Price.errors?.required" class="alert alert-danger">Price is required</div>
+    <div *ngIf="streamEditForm.controls.Price.errors?.min" class="alert alert-danger">Value must be at least 0.</div>
+
+
+  </div><br>
+  <div class="form-group">
+    <label for="title"><b>Discount %:</b></label>
+    <input type="number" [(ngModel)]="UpdatedDiscounts" min=0 max=100 value="{{EditStream.discount}}"
+      class="form-control" (ngModelChange)="valuechange($event)" id="Discount" name="Discount" #Discount="ngModel"
+      required>
+    <div *ngIf="streamEditForm.controls.Discount.errors?.required" class="alert alert-danger">Discount is required</div>
+    <div *ngIf="streamEditForm.controls.Discount.errors?.max || streamEditForm.controls.Discount.errors?.min "
+      class="alert alert-danger">Value must be between 0 and 100</div>
+  </div><br><br>
+
+
+
+  <div *ngIf="isAlert" class="alert alert-success">
+    Updated Successfully!
+  </div>
+  <div >
+    <button class="loginbtn btn" [disabled]=streamBtn>Update</button>
+  </div>
+  <!-- <div>
+    <button class="loginbtn btn">Update</button>
+  </div> -->
+</form>
