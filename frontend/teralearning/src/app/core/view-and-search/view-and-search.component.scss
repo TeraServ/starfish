@@ -1,0 +1,47 @@
+h2 {
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .table-bordered {
+    border: 1px solid #ddd !important;
+  }
+  
+  table caption {
+      padding: .5em 0;
+  }
+  
+  @media screen and (max-width: 767px) {
+    table caption {
+      display: none;
+    }
+  }
+  
+  .p {
+    text-align: center;
+    padding-top: 140px;
+    font-size: 14px;
+  }
+  
+.editbtn {
+  background-color: #2C45A7; 
+  border: none;
+  color: white;
+  padding: 10px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  
+}
+.deletebtn {
+  background-color: #a5130e; 
+  border: none;
+  color: white;
+  padding: 10px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  
+}
