@@ -2,9 +2,10 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
-import { Stream } from '../models/stream.model';
-import { StreamService } from '../services/stream.service';
-import { StreamEditComponent } from '../stream-edit/stream-edit.component';
+import { Stream } from 'src/model/stream.model';
+import { StreamEditComponent } from '../home/stream-edit/stream-edit.component';
+import { StreamService } from '../service/stream.service';
+
 
 @Component({
   selector: 'app-stream-list',

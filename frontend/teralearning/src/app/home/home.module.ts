@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
@@ -22,6 +22,9 @@ import { UserUpdateComponent } from './usermanagement/user-update/user-update.co
 import {MatIconModule} from '@angular/material/icon'
 import { NoopAnimationPlayer } from '@angular/animations';
 import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dialog.component';
+import { StreamEditComponent } from './stream-edit/stream-edit.component';
+import { SubjectEditComponent } from './subject-edit/subject-edit.component';
+import { SubjectListComponent } from './subject-list/subject-list.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dia
     UserListComponent,
     SettingsComponent,
     UserUpdateComponent,
-    SuccessDialogComponent
+    SuccessDialogComponent,
+    StreamEditComponent,
+    SubjectListComponent,
+    SubjectEditComponent,
   ],
   imports: [
     CommonModule,
@@ -45,7 +51,8 @@ import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dia
     MatSnackBarModule,
     MatTableModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
     
     
   ]

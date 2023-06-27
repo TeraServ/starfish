@@ -26,14 +26,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { StreamListComponent } from './stream-list/stream-list.component';
 
 import { MatTableModule } from '@angular/material/table';
-import { TopicComponent } from './topic/topic.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { StreamEditComponent } from './stream-edit/stream-edit.component';
-import {MatIconModule} from '@angular/material/icon'
-import { SubjectListComponent } from './subject-list/subject-list.component';
-import { SubjectEditComponent } from './subject-edit/subject-edit.component';
+import { StreamEditComponent } from './home/stream-edit/stream-edit.component';
+import { SubjectEditComponent } from './home/subject-edit/subject-edit.component';
+import { SubjectListComponent } from './home/subject-list/subject-list.component';
+import { TopicComponent } from './topic/topic.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+
 
 
 
@@ -47,9 +46,6 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     SubjectComponent,
     StreamListComponent,
     TopicComponent,
-    StreamEditComponent,
-    SubjectListComponent,
-    SubjectEditComponent,
     UserProfileComponent
   ],
   imports: [

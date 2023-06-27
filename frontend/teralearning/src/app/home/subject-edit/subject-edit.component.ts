@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Subject } from '../../models/subject.model';
-import { SubjectService } from '../../services/subject.service';
+
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Stream } from '../../models/stream.model';
-import { StreamService } from '../../services/stream.service';
+import { StreamService } from 'src/app/service/stream.service';
+import { SubjectService } from 'src/app/service/subject.service';
+import { Stream } from 'src/model/stream.model';
+import { Subject } from 'src/model/subject.model';
+
 
 @Component({
   selector: 'app-subject-edit',
