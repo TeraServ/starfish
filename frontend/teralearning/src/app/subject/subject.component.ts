@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
-import { StreamService } from '../services/stream.service';
-import { SubjectService } from '../services/subject.service';
-import { Subject } from '../models/subject.model';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Stream } from '../models/stream.model';
+import { StreamService } from '../service/stream.service';
+import { SubjectService } from '../service/subject.service';
+import { Stream } from 'src/model/stream.model';
+import { Subject } from 'src/model/subject.model';
 
 
 @Component({

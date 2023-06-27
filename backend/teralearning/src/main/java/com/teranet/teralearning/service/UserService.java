@@ -37,7 +37,9 @@ public class UserService extends UserInterface {
     private DateUtility dateUtility;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
     private JwtUtil jwtUtil;
+    @Autowired
     private UserDetailsService userDetailsService;
 
 
@@ -51,7 +53,7 @@ public class UserService extends UserInterface {
     @Override
     public ResponseEntity CreateUser(User user){
 
-        Optional<User> u = userRepository.findByUsername(user.getEmail());
+        Optional<User> u = userRepository.findByEmail(user.getEmail());
         if(u.isPresent()){
 
             return new ResponseEntity("Email already exists.", HttpStatus.OK);
@@ -85,7 +87,7 @@ public class UserService extends UserInterface {
     }
     @Override
     public ResponseEntity authUser(String username, String password) {
-        Optional<User> user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByEmail(username);
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         if(user.isPresent()){
@@ -225,7 +227,7 @@ public class UserService extends UserInterface {
         return userRepository.existsByEmail(emailID);
     }
     public User getByUserEmail(String email){
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).get();
     }
     public Optional<User> findById(long id){
         return userRepository.findById(id);

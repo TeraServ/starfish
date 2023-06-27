@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, } from '@angular/material/dialog';
-import { Stream } from '../../models/stream.model';
-import { StreamService } from '../../services/stream.service';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { StreamService } from 'src/app/service/stream.service';
+import { Stream } from 'src/model/stream.model';
 
 @Component({
   selector: 'app-stream-edit',
@@ -59,8 +60,8 @@ export class StreamEditComponent implements OnInit {
         price: this.UpdatedPrice,
         discount: this.UpdatedDiscounts,
         acronym: this.UpdatedAcronym,
-        streamStatus: this.UpdatedStreamStatus
-
+        streamStatus: this.UpdatedStreamStatus,
+        discounts: 0
       }
       if (this.streamUpdate) {
         this.streamService.updateStream(UpdatedStreamDetails).subscribe(data => {

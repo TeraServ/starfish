@@ -9,11 +9,13 @@ import { NewUserComponent } from './app/new-user/new-user.component';
 import { StreamListComponent } from './stream-list/stream-list.component';
 import { StreamComponent } from './stream/stream.component';
 import { SubjectComponent } from './subject/subject.component';
-import { TopicComponent } from './topic/topic.component';
+
 import { HttpClientModule } from '@angular/common/http';
-import { StreamEditComponent } from './stream-edit/stream-edit.component';
-import { SubjectListComponent } from './subject-list/subject-list.component';
+import { StreamEditComponent } from './home/stream-edit/stream-edit.component';
+import { SubjectListComponent } from './home/subject-list/subject-list.component';
+import { TopicComponent } from './topic/topic.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+
 
 
 

@@ -1,8 +1,9 @@
 import { Component,OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
-import { StreamService } from '../services/stream.service';
-import { Stream } from '../models/stream.model';
+
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Stream } from 'src/model/stream.model';
+import { StreamService } from '../service/stream.service';
 
 @Component({
   selector: 'app-stream',

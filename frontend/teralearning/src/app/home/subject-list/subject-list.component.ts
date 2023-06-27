@@ -2,11 +2,13 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 import { MatTableDataSource } from '@angular/material/table';
-import { Stream } from '../../models/stream.model';
-import { Subject } from '../../models/subject.model';
+
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { SubjectService } from '../../services/subject.service';
+
 import { SubjectEditComponent } from '../subject-edit/subject-edit.component';
+
+import { SubjectService } from 'src/app/service/subject.service';
+import { Subject } from 'src/model/subject.model';
 
 @Component({
   selector: 'app-subject-list',

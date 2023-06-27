@@ -1,13 +1,14 @@
-import { Stream } from './../models/stream.model';
+
 import { first } from 'rxjs';
 import { Component, OnInit  } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { CSVHandlerService } from 'app/core/services/csvhandler.service';
-import { CustomValidatorService } from 'app/core/services/custom-validator.service';
-import { CSVRecord } from 'app/models/csvrecord.model';
+
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { FormsModule } from '@angular/forms';;
 import { read, utils } from 'xlsx';
+import { CSVHandlerService } from '../core/services/csvhandler.service';
+import { CustomValidatorService } from '../core/services/custom-validator.service';
+import { CSVRecord } from 'src/model/csvrecord.model';
 
 @Component({
   selector: 'app-bulk-user-creation',
