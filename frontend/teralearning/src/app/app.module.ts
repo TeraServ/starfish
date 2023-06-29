@@ -32,6 +32,10 @@ import { SubjectEditComponent } from './home/subject-edit/subject-edit.component
 import { SubjectListComponent } from './home/subject-list/subject-list.component';
 import { TopicComponent } from './topic/topic.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { CreateCoursesComponent } from './create-courses/create-courses.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { TitleStrategy } from '@angular/router';
+import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
 
 
 
@@ -69,12 +73,14 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatTableModule,
     MatSnackBarModule,
     MatPaginatorModule,
-    MatIconModule
+    MatIconModule,
+    AngularEditorModule
 
 
   ],
   providers:  [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    {provide: TitleStrategy, useClass: TeralearnTitleStrategyService}
     ],
   bootstrap: [AppComponent]
 })
