@@ -61,7 +61,6 @@ export class StreamEditComponent implements OnInit {
         discount: this.UpdatedDiscounts,
         acronym: this.UpdatedAcronym,
         streamStatus: this.UpdatedStreamStatus,
-        discounts: 0
       }
       if (this.streamUpdate) {
         this.streamService.updateStream(UpdatedStreamDetails).subscribe(data => {

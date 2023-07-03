@@ -10,7 +10,12 @@ export class TeralearnTitleStrategyService extends TitleStrategy{
     super();
   }
   override updateTitle(snapshot: RouterStateSnapshot): void {
-    const title = this.buildTitle(snapshot);
+    console.log(snapshot)
+    const detailOutlet = snapshot.root.children.find(r=>r.outlet === 'User Management')
+    let title = this.buildTitle(snapshot);
+    if(detailOutlet!== undefined){
+      title = `${title} --> ${detailOutlet.routeConfig?.title}`
+    }
     if(title!== undefined){
       this.title.setTitle(`TeraLearn - ${title}`);
     }

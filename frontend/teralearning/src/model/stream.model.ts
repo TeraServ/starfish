@@ -5,6 +5,5 @@ export class Stream {
     discount!: number;
     acronym!: string;
     streamStatus!: number;
-    discounts!: number;
 
 }

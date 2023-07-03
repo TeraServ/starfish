@@ -5,28 +5,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import {MatDialogModule} from '@angular/material/dialog'
-import {MatSnackBarModule} from '@angular/material/snack-bar'
-import {MatSelectModule} from '@angular/material/select'
+
+
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgetDialogComponent } from './dialogBoxs/forget-dialog/forget-dialog.component';
 
-import { MatOptionModule } from '@angular/material/core';
+
 
 import { HomeModule } from './home/home.module';
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
-import { MatIconModule } from '@angular/material/icon';
+
 import { SuccessDialogComponent } from './dialogBoxs/success-dialog/success-dialog.component';
 import { NewUserComponent } from './app/new-user/new-user.component';
 import { StreamComponent } from './stream/stream.component';
 import { SubjectComponent } from './subject/subject.component';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 import { StreamListComponent } from './stream-list/stream-list.component';
 
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
+
 import { StreamEditComponent } from './home/stream-edit/stream-edit.component';
 import { SubjectEditComponent } from './home/subject-edit/subject-edit.component';
 import { SubjectListComponent } from './home/subject-list/subject-list.component';
@@ -36,6 +35,8 @@ import { CreateCoursesComponent } from './create-courses/create-courses.componen
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { TitleStrategy } from '@angular/router';
 import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
+import { MaterialModule } from './shared/material/material.module';
+import { ViewAndSearchComponent } from './core/view-and-search/view-and-search.component';
 
 
 
@@ -50,37 +51,25 @@ import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strate
     SubjectComponent,
     StreamListComponent,
     TopicComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    CreateCoursesComponent,
+    ViewAndSearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatDialogModule,
     HttpClientModule,
-    MatOptionModule,
-    MatSelectModule,
     ReactiveFormsModule,
-    MatSnackBarModule,
-    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSnackBarModule,
-    MatPaginatorModule,
-    MatIconModule,
-    AngularEditorModule
-
-
+    AngularEditorModule,
+    MaterialModule
   ],
   providers:  [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    {provide: TitleStrategy, useClass: TeralearnTitleStrategyService}
+    { provide: TitleStrategy, useClass: TeralearnTitleStrategyService}
     ],
   bootstrap: [AppComponent]
 })
