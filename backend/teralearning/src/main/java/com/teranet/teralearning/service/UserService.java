@@ -60,7 +60,7 @@ public class UserService extends UserInterface {
         }else{
             user.setModifiedDate(getDate());
             user.setCreatedDate(getDate());
-            //user.setPassword(encryptPassword(user.getPassword()));
+            user.setPassword(encryptPassword(user.getPassword()));
             return new ResponseEntity(userRepository.save(user), HttpStatus.OK);
         }
 
@@ -91,6 +91,11 @@ public class UserService extends UserInterface {
 
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         if(user.isPresent()){
+            if(user.get().getUserStatus() == 102){
+                user.get().setUserStatus(101);
+            }else if(user.get().getUserStatus() == 103){
+                return new ResponseEntity("Access denied!",HttpStatus.NOT_FOUND);
+            }
             if(bCryptPasswordEncoder.matches(password,user.get().getPassword())){
 
                 return new ResponseEntity(getJson(userDetailsService.loadUserByUsername(user.get().getEmail()),"Login Success",jwtUtil.generateToken(username)),HttpStatus.OK);

@@ -55,6 +55,8 @@ import { SubjectListComponent } from './subject-list/subject-list.component';
     FormsModule
     
     
+    
+    
   ]
 })
 export class HomeModule { }

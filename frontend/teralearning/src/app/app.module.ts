@@ -17,7 +17,7 @@ import { HomeModule } from './home/home.module';
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 import { MatIconModule } from '@angular/material/icon';
 import { SuccessDialogComponent } from './dialogBoxs/success-dialog/success-dialog.component';
-import { NewUserComponent } from './app/new-user/new-user.component';
+import { NewUserComponent } from './new-user/new-user.component';
 import { StreamComponent } from './stream/stream.component';
 import { SubjectComponent } from './subject/subject.component';
 
@@ -32,6 +32,7 @@ import { SubjectEditComponent } from './home/subject-edit/subject-edit.component
 import { SubjectListComponent } from './home/subject-list/subject-list.component';
 import { TopicComponent } from './topic/topic.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { GooglePayButtonModule } from '@google-pay/button-angular';
 
 
 
@@ -42,11 +43,10 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     LoginPageComponent,
     ForgetDialogComponent,
     NewUserComponent,
+    TopicComponent,
     StreamComponent,
     SubjectComponent,
-    StreamListComponent,
-    TopicComponent,
-    UserProfileComponent
+    StreamListComponent
   ],
   imports: [
     BrowserModule,
@@ -57,19 +57,14 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatOptionModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatSnackBarModule,
-    MatIconModule,
     FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
     MatFormFieldModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatDialogModule,
     MatTableModule,
     MatSnackBarModule,
+    MatIconModule,
+    GooglePayButtonModule,
     MatPaginatorModule,
-    MatIconModule
+    
 
 
   ],

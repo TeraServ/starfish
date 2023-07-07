@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/stream/")
+@CrossOrigin(origins = {"*"})
 public class StreamController {
     private StreamService streamService;
     public StreamController(StreamService streamService){

@@ -33,7 +33,7 @@ public class User {
     @Column(name = "user_type")
     private int userType;
 
-    @OneToOne(targetEntity = Stream.class,cascade = CascadeType.ALL)
+    @OneToOne(targetEntity = Stream.class,cascade = CascadeType.MERGE)
     private Stream stream;
 
     @Column(name = "user_status")
