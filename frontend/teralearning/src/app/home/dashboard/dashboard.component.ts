@@ -8,8 +8,13 @@ import { Component, OnInit } from '@angular/core';
 export class DashboardComponent implements OnInit {
 
   constructor() { }
-
+  greetingMessage!:String;
   ngOnInit(): void {
+    const greetings: String[] = ['Good Morning','Good Afternoon','Good Evening'];
+    const currentDate: Date = new Date();
+    const currentHour:number = currentDate.getHours();
+    let index:number = currentHour >= 12 && currentHour < 17 ? 1 : currentHour >= 17 ? 2 : 0 ;
+    this.greetingMessage = greetings[index];
   }
 
 }
