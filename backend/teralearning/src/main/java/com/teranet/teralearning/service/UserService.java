@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -42,13 +44,16 @@ public class UserService extends UserInterface {
     private JwtUtil jwtUtil;
     @Autowired
     private UserDetailsService userDetailsService;
+    @Autowired
+    private DeletedRecordsService deletedRecordsService;
 
 
-    private UserService(UserRepository userRepository, UserDetailsService userDetailsService,JwtUtil jwtUtil){
-
+    public UserService(DateUtility dateUtility, UserRepository userRepository, JwtUtil jwtUtil, UserDetailsService userDetailsService, DeletedRecordsService deletedRecordsService) {
+        this.dateUtility = dateUtility;
         this.userRepository = userRepository;
-        this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
+        this.userDetailsService = userDetailsService;
+        this.deletedRecordsService = deletedRecordsService;
     }
 
     @Override
@@ -61,7 +66,7 @@ public class UserService extends UserInterface {
         }else{
             user.setModifiedDate(getDate());
             user.setCreatedDate(getDate());
-            //user.setPassword(encryptPassword(user.getPassword()));
+            user.setPassword(encryptPassword(user.getPassword()));
             return new ResponseEntity(userRepository.save(user), HttpStatus.OK);
         }
 
@@ -104,6 +109,14 @@ public class UserService extends UserInterface {
     }
     @Override
     public ResponseEntity GetAllUser() {
+    /*    userRepository.findAll().stream()
+                .forEach(user -> {
+                    deletedRecordsService.checkDeletionDate(user.getClass().getSimpleName(),user.getId());
+                });*/
+        userRepository.findAll().stream()
+                .forEach(user->{
+                    deletedRecordsService.checkDeletionDate(user.getClass().getSimpleName(), user.getId());
+                });
         return new ResponseEntity(userRepository.findAll(), HttpStatus.OK);
     }
 
@@ -139,11 +152,24 @@ public class UserService extends UserInterface {
     @Override
     public ResponseEntity deleteUser(Long id) {
         try {
-            userRepository.deleteById(id);
+            log.debug("UserService:deleteUser Init...");
+            Optional<User> deletedUser = userRepository.findById(id);
+            if(deletedUser.isPresent()){
+                deletedUser.get().setUserStatus(102);
+                deletedRecordsService.deleteUserBody(userRepository.findById(id).get());
+                userRepository.save(deletedUser.get());
+                log.info("UserService:deleteUser User found and status changed to suspended with id:"+id);
+                /*userRepository.deleteById(id);*/
+                return new ResponseEntity("Successfully deleted!!", HttpStatus.OK);
+            }
+            else {
+                log.error("UserService:deleteUser User not found where id:"+id);
+                return new ResponseEntity("User not Found", HttpStatus.NOT_FOUND);
+            }
         } catch (Exception ex) {
-            return new ResponseEntity("Delete failed!!", HttpStatus.OK);
+            log.error("UserService:deleteUser Exception occurred:"+ex);
+            return new ResponseEntity("Deletion failed", HttpStatus.OK);
         }
-        return new ResponseEntity("Successfully deleted!!", HttpStatus.OK);
     }
     public List<userResponseDTO> getUserList() throws UserNotFoundException{
 
@@ -192,7 +218,7 @@ public class UserService extends UserInterface {
                         preexistentUsers.add(dto);
                     }
                 }
-                log.info("UserService:createMultipleUsers terminated");
+                log.info("UserService:createMultipleUsers - terminated");
                 /*Notification for Created users and PreexistentUSers*/
                 return new ResponseEntity("Multiple user created",HttpStatus.CREATED);
 
@@ -202,7 +228,7 @@ public class UserService extends UserInterface {
 
 
         } catch (Exception ex) {
-            log.error("UserService:createMultipleUsers Exception Occurred");
+            log.error("UserService:createMultipleUsers - Exception Occurred");
             throw new UserNotFoundException("Exception occurred while fetch user from Database");
 
         }
@@ -215,7 +241,7 @@ public class UserService extends UserInterface {
             userRepository.saveAll(users);
         }
         catch(IOException ex){
-            log.info("UserService:CreateUsersFromCSV Exception Occurred"+ex.getMessage());
+            log.info("UserService:CreateUsersFromCSV - Exception Occurred"+ex.getMessage());
             throw new RuntimeException("Failed to Store CSV Data"+ex.getMessage());
         }
     }
@@ -229,8 +255,25 @@ public class UserService extends UserInterface {
 
         }
         catch (Exception ex){
-            log.error("UserService:updatePassword: Execution occurred:"+ex);
+            log.error("UserService:updatePassword: - Execution occurred:"+ex);
             throw new UserNotFoundException("Exception occurred while fetch user from Database");
+        }
+    }
+    public String permanentDelete(long id){
+        try{
+            log.debug("UserService:permanentDelete Init...");
+            Optional<User> permanentDeletedUser = userRepository.findById(id);
+            if(permanentDeletedUser.isPresent()){
+                userRepository.deleteById(id);
+                return "Success";
+            }
+            else {
+                return "User not Found: Failed to Delete User";
+            }
+        }
+        catch (Exception ex){
+            log.error("UserService:permanentDelete Exception Occurred:"+ex);
+            return "Exception Occurred: Failed to Delete User";
         }
     }
     public boolean isUserEmailExists(String emailID){

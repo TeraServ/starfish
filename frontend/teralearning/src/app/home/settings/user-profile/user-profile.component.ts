@@ -13,6 +13,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class UserProfileComponent implements OnInit {
 
   userList!: user[];
+  DisplayFirstName!:String
+  DisplayLastName!:String
   //here we defined a model for avoiding null error in console
   user: user={
     firstName: '',
@@ -56,17 +58,21 @@ export class UserProfileComponent implements OnInit {
   getUsersById(id: number) {
     this.userService.getUserById(id).subscribe(data => {
       this.user = data;
+      this.DisplayFirstName = this.user.firstName
       console.log(this.user)
     })
   }
 
   updateProfile(): void {
+   
     
 
     if (this.streamUpdate) {
 
 
       this.userService.updateUser(this.user).subscribe((result: any) => {
+        
+        this.DisplayFirstName = this.user.firstName
         this.dialog.open(SuccessDialogComponent, {
 
         })

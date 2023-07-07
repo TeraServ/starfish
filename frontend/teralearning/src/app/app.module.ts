@@ -5,23 +5,21 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { MatDialogModule } from '@angular/material/dialog'
-import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { MatSelectModule } from '@angular/material/select'
+
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgetDialogComponent } from './dialogBoxs/forget-dialog/forget-dialog.component';
 
-import { MatOptionModule } from '@angular/material/core';
+
 
 import { HomeModule } from './home/home.module';
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
-import { MatIconModule } from '@angular/material/icon';
+
 import { SuccessDialogComponent } from './dialogBoxs/success-dialog/success-dialog.component';
 import { NewUserComponent } from './app/new-user/new-user.component';
 
 import { SubjectComponent } from './home/subjects/subject/subject.component';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
+
 
 import { StreamListComponent } from './home/streams/stream-list/stream-list.component';
 
@@ -29,6 +27,10 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { TopicComponent } from './topic/topic.component';
+import { MaterialModule } from './shared/material/material.module';
+import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
+import { TitleStrategy } from '@angular/router';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 
 
@@ -49,30 +51,18 @@ import { TopicComponent } from './topic/topic.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatDialogModule,
     HttpClientModule,
-    MatOptionModule,
-    MatSelectModule,
     ReactiveFormsModule,
-    MatSnackBarModule,
-    MatIconModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatOptionModule,
-    MatSelectModule,
-    MatDialogModule,
-    MatTableModule,
-    MatSnackBarModule,
-    MatPaginatorModule,
-    MatIconModule
-
-
+    AngularEditorModule,
+    MaterialModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-  ],
+    { provide: TitleStrategy, useClass: TeralearnTitleStrategyService}
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

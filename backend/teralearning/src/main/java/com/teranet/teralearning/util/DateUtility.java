@@ -1,12 +1,14 @@
 package com.teranet.teralearning.util;
 
+import org.springframework.stereotype.Service;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.TemporalAdjusters;
 
-
+@Service
 public class DateUtility {
     public static LocalDate getLocalDateFromClock() {
         return LocalDate.now();
