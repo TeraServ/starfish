@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, } from '@angular/material/dialog';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
 import { Stream } from 'src/model/stream.model';
 
@@ -18,7 +19,7 @@ export class StreamEditComponent implements OnInit {
   isDialogOpen!: boolean;
   streamBtn: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Stream, private streamService: StreamService, private snackBar: MatSnackBar, private dialogRef: MatDialogRef<StreamEditComponent>) {
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: Stream, private dialog: MatDialog, private streamService: StreamService, private snackBar: MatSnackBar, private dialogRef: MatDialogRef<StreamEditComponent>) {
     this.EditStream = data;
   }
 
@@ -42,7 +43,7 @@ export class StreamEditComponent implements OnInit {
 
   valuechange(newValue: any) {
     this.streamUpdate = true
-    if (this.UpdatedStreamName == '' || this.UpdatedAcronym == '' || this.UpdatedPrice == undefined || this.UpdatedDiscounts == undefined) {
+    if (this.UpdatedStreamName == '' || this.UpdatedAcronym == '' || this.UpdatedPrice == undefined || this.UpdatedDiscounts == undefined || this.UpdatedPrice <= 0 || this.UpdatedDiscounts >= 100 && this.UpdatedDiscounts <= 0) {
       this.streamBtn = true
     }
     else {
@@ -66,8 +67,8 @@ export class StreamEditComponent implements OnInit {
         this.streamService.updateStream(UpdatedStreamDetails).subscribe(data => {
           console.log(data);
 
-          this.snackBar.open("Successfully updated!!", '', {
-            duration: 3000
+          this.dialog.open(SuccessDialogComponent, {
+
           })
           this.dialogRef.close();
         });

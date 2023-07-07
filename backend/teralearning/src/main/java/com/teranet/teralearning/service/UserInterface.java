@@ -14,6 +14,8 @@ public abstract class UserInterface {
     protected abstract ResponseEntity GetAllUser();
 
 
+    public abstract Optional<User> getUserById(long id);
+
     public abstract ResponseEntity updateUser(User user);
 
     public abstract ResponseEntity deleteUser(Long id);

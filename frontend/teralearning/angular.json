@@ -28,18 +28,15 @@
               "src/assets"
             ],
             "styles": [
-
               "src/styles.scss",
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/font-awesome/css/font-awesome.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "node_modules/mdb-ui-kit/css/mdb.min.css"
-              
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.js"
-              
-             
+              "node_modules/bootstrap/dist/js/bootstrap.js",
+              "node_modules/mdb-ui-kit/js/mdb.min.js"
             ]
           },
           "configurations": {
@@ -109,12 +106,9 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.css"
-
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.js"
-              
-             
             ]
           }
         }

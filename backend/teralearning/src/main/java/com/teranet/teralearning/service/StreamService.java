@@ -57,6 +57,12 @@ public class StreamService implements StreamInterface{
     public List<Stream> getStreams() {
         return streamRepository.findAll();
     }
+
+//    public List<Stream> getAllStreams(){
+//        List<Stream> streams = streamRepository.findAll();
+//        return streams;
+//    }
+
     @Override
     public ResponseEntity updateStream(long id, Stream streamDetails){
 

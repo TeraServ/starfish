@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { StreamService } from '../service/stream.service';
-import { SubjectService } from '../service/subject.service';
+import { StreamService } from '../../../service/stream.service';
+import { SubjectService } from '../../../service/subject.service';
 import { Stream } from 'src/model/stream.model';
 import { Subject } from 'src/model/subject.model';
 
@@ -16,8 +16,7 @@ import { Subject } from 'src/model/subject.model';
 
 export class SubjectComponent implements OnInit {
 
-  // createSubjectForm!: FormGroup<any>;
-  
+  createSubjectForm!: FormGroup;
   submitted: boolean = false;
   streamList: Stream[] = [];
   subject: Subject = new Subject();
@@ -26,27 +25,34 @@ export class SubjectComponent implements OnInit {
   subjectName!: string;
   subjectStatus: number = 1;
   dropStream!: Stream;
-  
+
 
 
 
   constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private streamService: StreamService, private subjectService: SubjectService) { }
 
   ngOnInit(): void {
+    this.createSubjectForm = this.formBuilder.group({
+      subjectName: ['', [Validators.required]],
+      stream:['',[Validators.required]],  
+      //dropStream:new FormControl('',[Validators.required])
+        
+
+    });
 
     this.getStreamList();
 
 
 
   }
-  
+
 
   createSubject() {
 
     let newSubject: Subject = {
       id: 0,
-      stream: this.dropStream,
-      subjectName: this.subjectName,
+      stream: this.createSubjectForm.get("stream")?.value,
+      subjectName: this.createSubjectForm.get("subjectName")?.value,
       subjectStatus: this.subjectStatus
 
     }
@@ -69,29 +75,27 @@ export class SubjectComponent implements OnInit {
       console.log(this.streamList);
     })
   }
-  onReset(form: NgForm): void {
-    form.reset();
-  }
+  
 
   onSubmit() {
 
     this.submitted = true;
-    
-    if (this.dropStream && this.subjectName) {
+    console.log("onsubmit",this.createSubjectForm)
 
-      
-      this.createSubject();
-
-      this.subjectName= '';
-     // this.dropStream.streamName = null
-      
-
-      
-
-      this.submitted = false;
-      //window.location.reload()
+    if (this.createSubjectForm.invalid) {
+      return;          
     }
-
+    else{
+      this.createSubject();  
+      
+    }
+    this.createSubjectForm.reset();
+      this.createSubjectForm.clearValidators();
+      this.submitted = false;
+    // this.subjectName = '';
+    //   this.streamList = [];      
+    //   this.submitted = false;
+    
 
   }
 

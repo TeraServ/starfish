@@ -1,0 +1,134 @@
+<!-- <img src="../../assets/img/t.png" alt="login form" style="width: 20%;" /> -->
+<form (ngSubmit)="updateProfile()" #userProfileEditForm="ngForm">
+
+
+    <section style="background-color: white;">
+        <div class="container py-5">
+
+            <div class="row">
+
+
+                <div class="col-lg-4">
+                    <div class="card mb-4" style="height: 440px;">
+                        <div class="card-body text-center">
+
+                            <img src="../../assets/img/person.jpg" alt="avatar" class="rounded-circle img-fluid"
+                                style="width: 200px; height: fit-content;">
+                            <h2 class="my-3">{{DisplayFirstName +' '+ user.lastName}}</h2>
+                            <h3>
+                                <div *ngIf="user.userType==101">Admin</div>
+                            </h3>
+                            <button id="savebutton" (click)="editProfile()" class="btn btn-success px-3">Edit
+                                Profile</button>&nbsp;
+                            <!--                         
+                        <div class="d-flex justify-content-center mb-2">
+                            <button type="button"  class="btn btn-primary">Upload Image</button>
+                            
+                        </div> -->
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-8">
+
+                    <div class="card mb-4">
+
+
+                        <div class="card-body">
+                            <h2 class="text">My Profile</h2>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-floating mb-3"></div>
+                                    <p class="mb-0 inputs">First Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" pattern="[a-zA-Z][a-zA-Z ]+" class="form-control"
+                                        [(ngModel)]="user.firstName" value={{user.firstName}}
+                                        (ngModelChange)="valuechange($event)" id="firstName" name="firstName"
+                                        #firstName="ngModel" required [disabled]="isDisabled">
+                                    <div *ngIf="userProfileEditForm.controls?.firstName?.errors?.required"
+                                        class="error">*First Name is required</div>
+                                    <div *ngIf="userProfileEditForm.controls?.firstName?.errors?.pattern" class="error">
+                                        Invalid</div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Last Name</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" pattern="[a-zA-Z]+" class="form-control"
+                                        [(ngModel)]="user.lastName" value={{user.lastName}}
+                                        (ngModelChange)="valuechange($event)" id="lastName" name="lastName"
+                                        #lastName="ngModel" required [disabled]="isDisabled">
+                                    <div *ngIf="userProfileEditForm.controls?.lastName?.errors?.required" class="error">
+                                        *Last Name is required</div>
+                                    <div *ngIf="userProfileEditForm.controls?.lastName?.errors?.pattern" class="error">
+                                        Invalid</div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Email</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" [(ngModel)]="user.email" id="email"
+                                        name="email" #email="ngModel" value={{user.email}}
+                                        (ngModelChange)="valuechange($event)" [disabled]="true">
+
+
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <p class="mb-0">Phone Number</p>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" [(ngModel)]="user.phoneNumber"
+                                        value={{user.phoneNumber}} (ngModelChange)="valuechange($event)"
+                                        id="phoneNumber" name="phoneNumber" #phoneNumber="ngModel" required
+                                        [disabled]="isDisabled">
+                                    <div *ngIf="userProfileEditForm.controls?.phoneNumber?.errors?.required"
+                                        class="error">*Phone Number is required</div>
+                                </div>
+                            </div><br>
+
+                            <div class="loginbtn text-center">
+
+                                <button type="submit" class="btn"
+                                    [disabled]="(userProfileEditForm.invalid && userProfileEditForm.touched)|| streamBtn">Update</button>
+
+
+
+                            </div>
+
+
+                            <!-- <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">DOB</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="date" class="form-control" formControlName="dob">
+                            </div>
+                        </div> -->
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </section>
+</form>

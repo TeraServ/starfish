@@ -5,6 +5,11 @@ import { HomeComponent } from './home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserListComponent } from './usermanagement/user-list/user-list.component';
 import { SettingsComponent } from './settings/settings.component';
+import { StreamListComponent } from './streams/stream-list/stream-list.component';
+import { StreamComponent } from './streams/stream/stream.component';
+import { SubjectComponent } from './subjects/subject/subject.component';
+import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
+import { UserProfileComponent } from './settings/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -25,9 +30,30 @@ const routes: Routes = [
         path:"usermanagement/users",
         component:UserListComponent
       },
+      
+      {
+        path:"streams/create",
+        component:StreamComponent
+      },
+      {
+        path:"streams/list",
+        component:StreamListComponent
+      },
+      {
+        path:"subjects/create",
+        component:SubjectComponent
+      },
+      {
+        path:"subjects/list",
+        component:SubjectListComponent
+      },
       {
         path:"settings",
         component: SettingsComponent
+      },
+      {
+        path:"settings/userProfile",
+        component: UserProfileComponent
       }
   ]
  }
