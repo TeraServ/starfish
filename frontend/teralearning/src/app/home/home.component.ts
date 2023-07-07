@@ -20,8 +20,14 @@ export class HomeComponent implements OnInit {
   notificationCount:any[]=[];
   notificationCounts:number=0;
   displayStyle:string = "none";
+  displayStyle1:string = "none";
+  displayStyle2:string = "none";
   @ViewChild('userTab') userTab!:ElementRef;
   @ViewChild('userTab') collapseView1!:ElementRef;
+  @ViewChild('streamTab') streamTab!:ElementRef;
+  @ViewChild('streamTab') collapseView2!:ElementRef;
+  @ViewChild('subjectTab') subjectTab!:ElementRef;
+  @ViewChild('subjectTab') collapseView3!:ElementRef;
 
   
  
@@ -55,6 +61,21 @@ export class HomeComponent implements OnInit {
         this.displayStyle = "none";
       }
     }
+    this.streamTab.nativeElement.onclick = ()=>{
+      if(this.displayStyle1 == "none"){
+        this.displayStyle1 = "block";
+      }else{
+        this.displayStyle1 = "none";
+      }
+    }
+    this.subjectTab.nativeElement.onclick = ()=>{
+      if(this.displayStyle2 == "none"){
+        this.displayStyle2 = "block";
+      }else{
+        this.displayStyle2 = "none";
+      }
+    }
+    
   }
   
   

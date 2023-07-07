@@ -1,6 +1,7 @@
 package com.teranet.teralearning.service;
 
 import com.teranet.teralearning.helper.CSVHelper;
+import com.teranet.teralearning.model.Stream;
 import com.teranet.teralearning.model.User;
 import com.teranet.teralearning.repository.UserRepository;
 import com.teranet.teralearning.util.JwtUtil;
@@ -106,6 +107,15 @@ public class UserService extends UserInterface {
         return new ResponseEntity(userRepository.findAll(), HttpStatus.OK);
     }
 
+
+    @Override
+    public Optional<User> getUserById(long id){
+        return userRepository.findById(id);
+    }
+
+    public void FilterUsers(){
+
+    }
 
     @Override
     public ResponseEntity updateUser(User user) {
@@ -232,5 +242,9 @@ public class UserService extends UserInterface {
     public Optional<User> findById(long id){
         return userRepository.findById(id);
     }
+
+//    public List<User> getEntitiesByStreamName(Stream stream) {
+//        return userRepository.findByStream(stream);
+//    }
 
 }

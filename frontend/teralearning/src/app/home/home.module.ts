@@ -6,7 +6,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule,MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,16 +19,21 @@ import { SettingsComponent } from './settings/settings.component';
 import { MatTableModule } from '@angular/material/table'
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { UserUpdateComponent } from './usermanagement/user-update/user-update.component';
-import {MatIconModule} from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon'
 import { NoopAnimationPlayer } from '@angular/animations';
 import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dialog.component';
-import { StreamEditComponent } from './stream-edit/stream-edit.component';
-import { SubjectEditComponent } from './subject-edit/subject-edit.component';
-import { SubjectListComponent } from './subject-list/subject-list.component';
+
+import { SubjectEditComponent } from './subjects/subject-edit/subject-edit.component';
+import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
+import { StreamEditComponent } from './streams/stream-edit/stream-edit.component';
+import { StreamComponent } from './streams/stream/stream.component';
+import { UserProfileComponent } from './settings/user-profile/user-profile.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
-    
+
     UserRegistrationComponent,
     HomeComponent,
     DashboardComponent,
@@ -37,8 +42,12 @@ import { SubjectListComponent } from './subject-list/subject-list.component';
     UserUpdateComponent,
     SuccessDialogComponent,
     StreamEditComponent,
+    StreamComponent,
     SubjectListComponent,
     SubjectEditComponent,
+    UserProfileComponent
+    
+    
   ],
   imports: [
     CommonModule,
@@ -52,9 +61,12 @@ import { SubjectListComponent } from './subject-list/subject-list.component';
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
-    FormsModule
-    
-    
+    FormsModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule
+
+
   ]
 })
 export class HomeModule { }

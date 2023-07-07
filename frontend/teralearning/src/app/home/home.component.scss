@@ -9,6 +9,7 @@ body {
   .text-reset{
     text-decoration: none;
     align-items: right;
+    
    
   }
   #collapseExample1 li{
@@ -17,6 +18,28 @@ body {
     border-radius: 5px;
   }
   #collapseExample1 li .active{
+    color: #2C45A7 !important;
+    box-shadow: none;
+    background-color: #f1f3fc;
+    border-radius: 5px;
+  }
+  #collapseExample2 li{
+    padding: 10px 60px !important;
+    background-color: #f1f3fc;
+    border-radius: 5px;
+  }
+  #collapseExample2 li .active{
+    color: #2C45A7 !important;
+    box-shadow: none;
+    background-color: #f1f3fc;
+    border-radius: 5px;
+  }
+  #collapseExample3 li{
+    padding: 10px 60px !important;
+    background-color: #f1f3fc;
+    border-radius: 5px;
+  }
+  #collapseExample3 li .active{
     color: #2C45A7 !important;
     box-shadow: none;
     background-color: #f1f3fc;
