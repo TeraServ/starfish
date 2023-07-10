@@ -4,9 +4,21 @@
   <br>
   &nbsp;
 <p>Enter the email address associated with your account and we'll send you a link to reset your password.</p>
+<form 
+[formGroup]="forgetPasswordForm"
+ (ngSubmit)="requestPasswordReset()">
 
-<input type="email" class="form-control" placeholder="Enter your email Id">
+  <input type="email" class="form-control" formControlName = "email" placeholder="Enter a valid email Id">
+  <div class="invalid-feedback">
+    <mat-error *ngIf="forgetPasswordForm.get('email')?.hasError('email')">
+      *Required
+    </mat-error>
+    <div *ngIf="forgetPasswordForm.controls.email.errors">*Invalid</div>   
+  </div>
+  <br>
+  <button class="btn btn-primary" type = 'submit'
+  [disabled]="!forgetPasswordForm.valid">Submit</button>
+  </form>
 <br>
 
 <!-- <button class="btn" (click)="closeDialog()">Close</button>&nbsp; -->
-<button class="btn btn-primary">Submit</button>

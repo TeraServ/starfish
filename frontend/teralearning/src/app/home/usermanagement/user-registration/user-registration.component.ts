@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/service/user.service';
 import { user } from 'src/model/user.model';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-registration',
@@ -11,7 +13,7 @@ import { user } from 'src/model/user.model';
 })
 export class UserRegistrationComponent implements OnInit {
 
-  constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar) { }
+  constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar, private dialog:MatDialog) { }
   userForm!:FormGroup;
   submitted:boolean = false;
 
@@ -52,7 +54,8 @@ export class UserRegistrationComponent implements OnInit {
 
     }
     this.userService.addNewUser(userData).subscribe(data=>{
-      this.snackBar.open("Successfully created!!",'',{duration:3000})
+        this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
+      // this.snackBar.open("Successfully created!!",'',{duration:3000})
     },err=>{
       this.snackBar.open(err.error.text,'',{duration:3000})
       console.log(err)

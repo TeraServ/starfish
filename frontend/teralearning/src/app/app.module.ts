@@ -29,8 +29,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { TopicComponent } from './topic/topic.component';
 import { MaterialModule } from './shared/material/material.module';
 import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
+import { ViewAndSearchComponent } from './core/view-and-search/view-and-search.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { UserUpdateComponent } from './home/usermanagement/user-update/user-update.component';
 import { TitleStrategy } from '@angular/router';
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { UserRegistrationComponent } from './home/usermanagement/user-registration/user-registration.component';
+import { UserListComponent } from './home/usermanagement/user-list/user-list.component';
+import { SubjectListComponent } from './home/subjects/subject-list/subject-list.component';
+import { SubjectEditComponent } from './home/subjects/subject-edit/subject-edit.component';
+import { StreamComponent } from './home/streams/stream/stream.component';
+import { StreamEditComponent } from './home/streams/stream-edit/stream-edit.component';
+import { UserProfileComponent } from './home/settings/user-profile/user-profile.component';
 
 
 
@@ -44,7 +53,17 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     NewUserComponent,
     SubjectComponent,
     StreamListComponent,
-    TopicComponent
+    TopicComponent,
+    ViewAndSearchComponent, 
+    PasswordResetComponent,
+    TopicComponent,
+    StreamListComponent,
+    UserUpdateComponent,
+    SubjectListComponent,
+    SubjectEditComponent,
+    StreamEditComponent,
+
+
    
   ],
   imports: [
@@ -54,9 +73,7 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
-    AngularEditorModule,
     MaterialModule
   ],
   providers: [

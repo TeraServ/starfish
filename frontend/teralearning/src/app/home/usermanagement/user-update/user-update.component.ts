@@ -61,7 +61,7 @@ export class UserUpdateComponent implements OnInit {
     this.userService.updateUser(userData).subscribe(data=>{
       this.dialogRef.close();
       // this.snackBar.open("Successfully updated!!",'',{duration:3000});
-      this.dialog.open(SuccessDialogComponent,{
+      this.dialog.open(SuccessDialogComponent,{data:"Successfully updated !"
         
       })
       
@@ -71,6 +71,13 @@ export class UserUpdateComponent implements OnInit {
       this.snackBar.open(err.error.text,'',{duration:3000})
       console.log(err)
     })
+    if(this.userForm.get('userStatus')?.value == 102){
+      console.log('User Suspended');
+      this.userService.deleteUser(userData.id).subscribe(data=>
+        console.log(data),err=>{
+          console.log(err)
+        });
+    }
    }else{
   this.snackBar.open("No changes!",'',{duration:3000});
    }

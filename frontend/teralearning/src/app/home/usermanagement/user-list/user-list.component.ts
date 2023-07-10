@@ -3,7 +3,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserService } from 'src/app/service/user.service';
 import { UserUpdateComponent } from '../user-update/user-update.component';
-import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-user-list',

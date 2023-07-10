@@ -22,14 +22,10 @@ import { UserUpdateComponent } from './usermanagement/user-update/user-update.co
 import { MatIconModule } from '@angular/material/icon'
 import { NoopAnimationPlayer } from '@angular/animations';
 import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dialog.component';
-
-import { SubjectEditComponent } from './subjects/subject-edit/subject-edit.component';
-import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
-import { StreamEditComponent } from './streams/stream-edit/stream-edit.component';
-import { StreamComponent } from './streams/stream/stream.component';
-import { UserProfileComponent } from './settings/user-profile/user-profile.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { StreamEditComponent } from './stream-edit/stream-edit.component';
+import { SubjectEditComponent } from './subject-edit/subject-edit.component';
+import { SubjectListComponent } from './subject-list/subject-list.component';
+import { MaterialModule } from '../shared/material/material.module';
 
 @NgModule({
   declarations: [
@@ -62,11 +58,7 @@ import { MatInputModule } from '@angular/material/input';
     MatPaginatorModule,
     MatIconModule,
     FormsModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    MatInputModule
-
-
+    
   ]
 })
 export class HomeModule { }
