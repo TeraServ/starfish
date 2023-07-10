@@ -21,11 +21,13 @@ public class StreamService implements StreamInterface{
 
     @Autowired
     private StreamRepository streamRepository;
+    @Autowired
+    private DeletedRecordsService deletedRecordsService;
 
 
-    public StreamService(StreamRepository streamRepository) {
+    public StreamService(StreamRepository streamRepository, DeletedRecordsService deletedRecordsService) {
         this.streamRepository = streamRepository;
-
+        this.deletedRecordsService = deletedRecordsService;
     }
 
     public LocalDateTime getDateTime(){
@@ -55,6 +57,12 @@ public class StreamService implements StreamInterface{
     public List<Stream> getStreams() {
         return streamRepository.findAll();
     }
+
+//    public List<Stream> getAllStreams(){
+//        List<Stream> streams = streamRepository.findAll();
+//        return streams;
+//    }
+
     @Override
     public ResponseEntity updateStream(long id, Stream streamDetails){
 
@@ -76,6 +84,8 @@ public class StreamService implements StreamInterface{
     }
     public ResponseEntity deleteStreamById(long id){
         if(streamRepository.existsById(id)){
+            Stream deletedStream = streamRepository.getReferenceById(id);
+            deletedRecordsService.deleteStreamBody(deletedStream);
             streamRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }

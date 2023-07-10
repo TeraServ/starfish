@@ -39,6 +39,7 @@ public class Stream {
     public Stream() {
     }
 
+
     public Stream(long id, String streamName, double price, double discount, LocalDateTime createdDate, LocalDateTime modifiedDate, int streamStatus, String acronym) {
         Id = id;
         this.streamName = streamName;

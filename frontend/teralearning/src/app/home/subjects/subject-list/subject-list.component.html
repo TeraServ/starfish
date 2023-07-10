@@ -1,4 +1,18 @@
 <h2>Subject List</h2>
+
+<mat-form-field *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
+    <mat-label ><i class="fa fa-filter" ></i> Filter {{filter.name}}</mat-label>
+    <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+        (change)="filterChange(filter,$event)">
+        <option value=""> All </option>
+        <option [value]="item.id" *ngFor="let item of filter.options">{{item.name}}</option>
+    </select>
+</mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+
+
+<input type="text" #input (keyup)="filterTable($event)" placeholder='Search Subject Name' /><i
+    class="fas fa-search"></i>
+
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 
@@ -11,7 +25,7 @@
 
         <ng-container matColumnDef="streamName">
             <th mat-header-cell *matHeaderCellDef>Stream Name</th>
-            <td mat-cell *matCellDef="let element,index as i"> {{ element.stream?.streamName }} </td>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element.stream.streamName }} </td>
         </ng-container>
 
 
@@ -26,8 +40,8 @@
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element">
 
-                <button (click)="subjectEditClick(element)" class="btn btn-success px-3"><i class="bi bi-pencil-square" aria-hidden="true"
-                        title="edit"></i></button>&nbsp;
+                <button (click)="subjectEditClick(element)" class="btn btn-success px-3"><i class="bi bi-pencil-square"
+                        aria-hidden="true" title="edit"></i></button>&nbsp;
 
                 <!-- <button [disabled]="userType == 'ROLE_HR' || userType == 'ROLE_IN'" (click)="openDialog(element.id,element.title)" class="btn btn-danger px-3"><i
                         class="bi bi-trash-fill" aria-hidden="true" title="delete"></i></button> -->

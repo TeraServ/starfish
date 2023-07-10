@@ -7,9 +7,9 @@
 <form (ngSubmit)="UpdateSubjectDetails()" #subjectEditForm="ngForm">
 <div class="form-group">
   <label for="stage"><b>Stream:</b></label>
-  <select [(ngModel)]="UpdatedStream.id" class="form-control" (ngModelChange)="valuechange($event)"  id="streamDrop" name="streamDrop" #streamDrop="ngModel" required>
-    
-    <option *ngFor="let item of streamList" [ngValue]="item.id" (ngModelChange)="valuechange($event)">
+  <select [(ngModel)]="UpdatedStream" class="form-control"  (ngModelChange)="valuechange($event)"  id="streamDrop" name="streamDrop" #streamDrop="ngModel" required>
+    <option [ngValue]="UpdatedStream" selected>{{UpdatedStream.streamName}}</option>
+    <option *ngFor="let item of streamList" value="{{item}}" (ngModelChange)="valuechange($event)">
       {{item.streamName}}</option>
   </select><br>
   <div [hidden]="streamDrop.valid || streamDrop.pristine"
@@ -21,8 +21,8 @@
   <label for="title"><b>Subject Name</b></label>
   <input type="text" [(ngModel)]="UpdatedsubjectName" value="{{EditSubject.subjectName}}" (ngModelChange)="valuechange($event)" class="form-control"  id="subjectname" name="subjectname" #subjectname="ngModel" pattern="[a-zA-Z][a-zA-Z ]+" required>
   
-        <div *ngIf="subjectEditForm.controls.subjectname.errors?.required" class="alert alert-danger">Subject Name is required</div>
-        <div *ngIf="subjectEditForm.controls.subjectname.errors?.pattern" class="alert alert-danger">Invalid</div>
+        <div *ngIf="subjectEditForm.controls?.subjectname?.errors?.required" class="error">*Subject Name is required</div>
+        <div *ngIf="subjectEditForm.controls?.subjectname?.errors?.pattern" class="error">*Invalid</div>
 </div><br><br>
 
 <!-- <div class="form-group">

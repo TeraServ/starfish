@@ -8,6 +8,7 @@ import { Stream } from 'src/model/stream.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../service/auth.service';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-new-user',
@@ -23,7 +24,7 @@ export class NewUserComponent implements OnInit {
   streamPrice:number=0;
   streamDiscount:number=0;
   courseViewHidden=true;
-  totalPrice:number = 0;
+  totalPrice:Subject<number> = new Subject();
   userData!:user;
   isPurchased:boolean=false;
   streamList:Stream[]=[]
@@ -95,7 +96,7 @@ export class NewUserComponent implements OnInit {
     }
   }
   getTotalPrice(price:any,discount:any){
-    this.totalPrice = price - ( price /(100/discount))
+    this.totalPrice.next(price - ( price /(100/discount)))
     return this.totalPrice;
   }
 
@@ -131,7 +132,7 @@ export class NewUserComponent implements OnInit {
     transactionInfo: {
       totalPriceStatus: 'FINAL',
       totalPriceLabel: 'Total',
-      totalPrice: this.totalPrice?.toString(),
+      totalPrice: this.totalPrice.next.toString(),
       currencyCode: 'INR',
       countryCode: 'IN'
     },

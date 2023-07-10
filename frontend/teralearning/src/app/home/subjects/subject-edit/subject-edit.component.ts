@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
 import { SubjectService } from 'src/app/service/subject.service';
 import { Stream } from 'src/model/stream.model';
@@ -22,7 +23,7 @@ export class SubjectEditComponent implements OnInit {
   isDialogOpen!: boolean;
   streamBtn: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Subject, private subjectService: SubjectService, private snackBar: MatSnackBar, private streamService: StreamService, private dialogRef: MatDialogRef<SubjectEditComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Subject, private subjectService: SubjectService, private snackBar: MatSnackBar, private streamService: StreamService,private dialog: MatDialog, private dialogRef: MatDialogRef<SubjectEditComponent>) {
     this.EditSubject = data;
   }
 
@@ -48,11 +49,19 @@ export class SubjectEditComponent implements OnInit {
   }
   getStreams() {
     this.streamService.getStreamList().subscribe(data => {
-      this.streamList = data;
+      this.streamList = this.getSortedSubjects(data);
+
       this.UpdatedStream = this.EditSubject.stream;
       this.UpdatedsubjectName = this.EditSubject.subjectName;
       this.UpdatedsubjectStatus = this.EditSubject.subjectStatus;
     })
+  }
+
+  getSortedSubjects(data: Stream[]): Stream[] {
+
+    return data.sort((a, b) => (a.streamName ).localeCompare(b.streamName ))
+
+
   }
 
   UpdateSubjectDetails() {
@@ -74,8 +83,8 @@ export class SubjectEditComponent implements OnInit {
       if (this.streamUpdate) {
         this.subjectService.updateSubject(UpdateSubjectDetails).subscribe(data => {
           console.log(data);
-          this.snackBar.open("Successfully updated!!", '', {
-            duration: 3000
+          this.dialog.open(SuccessDialogComponent,{
+            data:{message:"Successfully updated!"}
           })
           this.dialogRef.close();
 

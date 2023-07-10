@@ -1,38 +1,30 @@
 import { NgModule } from '@angular/core';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import {MatDialogModule} from '@angular/material/dialog'
-import {MatSnackBarModule} from '@angular/material/snack-bar'
-import {MatSelectModule} from '@angular/material/select'
+
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgetDialogComponent } from './dialogBoxs/forget-dialog/forget-dialog.component';
-
-import { MatOptionModule } from '@angular/material/core';
-
-import { HomeModule } from './home/home.module';
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
-import { MatIconModule } from '@angular/material/icon';
+
 import { SuccessDialogComponent } from './dialogBoxs/success-dialog/success-dialog.component';
 import { NewUserComponent } from './new-user/new-user.component';
-import { StreamComponent } from './stream/stream.component';
-import { SubjectComponent } from './subject/subject.component';
-
-import { MatFormFieldModule } from '@angular/material/form-field';
-
-import { StreamListComponent } from './stream-list/stream-list.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { StreamEditComponent } from './home/stream-edit/stream-edit.component';
-import { SubjectEditComponent } from './home/subject-edit/subject-edit.component';
-import { SubjectListComponent } from './home/subject-list/subject-list.component';
+
 import { TopicComponent } from './topic/topic.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { GooglePayButtonModule } from '@google-pay/button-angular';
+import { TitleStrategy } from '@angular/router';
+import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -43,33 +35,31 @@ import { GooglePayButtonModule } from '@google-pay/button-angular';
     LoginPageComponent,
     ForgetDialogComponent,
     NewUserComponent,
-    TopicComponent,
-    StreamComponent,
-    SubjectComponent,
-    StreamListComponent
+    TopicComponent
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatDialogModule,
     HttpClientModule,
-    MatOptionModule,
-    MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    MatFormFieldModule,
     MatTableModule,
-    MatSnackBarModule,
-    MatIconModule,
     GooglePayButtonModule,
     MatPaginatorModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatDialogModule,
+    MatIconModule,
+    MatSnackBarModule
     
 
 
   ],
-  providers:  [
+  providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: TitleStrategy, useClass: TeralearnTitleStrategyService}
     ],
   bootstrap: [AppComponent]
 })

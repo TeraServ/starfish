@@ -2,19 +2,9 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
-
-import { DashboardComponent } from './home/dashboard/dashboard.component';
-import { HomeComponent } from './home/home.component';
 import { NewUserComponent } from './new-user/new-user.component';
-import { StreamListComponent } from './stream-list/stream-list.component';
-import { StreamComponent } from './stream/stream.component';
-import { SubjectComponent } from './subject/subject.component';
-
-import { HttpClientModule } from '@angular/common/http';
-import { StreamEditComponent } from './home/stream-edit/stream-edit.component';
-import { SubjectListComponent } from './home/subject-list/subject-list.component';
 import { TopicComponent } from './topic/topic.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
+import { UserProfileComponent } from './home/settings/user-profile/user-profile.component';
 
 
 
@@ -23,53 +13,37 @@ const routes: Routes = [
 
 
   {
-    path:"",
+    path: "",
     component: LoginPageComponent
   },
   {
-    path:"home",
-    loadChildren: () => import('./home/home.module').then(mod=>mod.HomeModule)
+    path: "home",
+    loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)
   },
   {
     path:"register",
     component:NewUserComponent,
     title:"Purchase Stream"
   },
+
+
+
   {
-    path:"stream",
-    component: StreamComponent
-  },
-  {
-    path:"streamList",
-    component: StreamListComponent
-  },
-  {
-    path:"subject",
-    component: SubjectComponent
-  },
-  {
-    path:"subjectList",
-    component: SubjectListComponent
-  },
-  {
-    path:"topic",
+    path: "topic",
     component: TopicComponent
   },
+
   {
-    path:"streamEdit",
-    component:StreamEditComponent
-  },
-  {
-    path:"userProfile",
-    component:UserProfileComponent
+    path: "userProfile",
+    component: UserProfileComponent
   }
-  
+
 
 ];
 
 @NgModule({
 
-  imports: [RouterModule.forRoot(routes,{preloadingStrategy: PreloadAllModules})],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
 
   exports: [RouterModule]
 })

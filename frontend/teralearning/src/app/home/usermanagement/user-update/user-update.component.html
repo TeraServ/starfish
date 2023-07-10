@@ -55,7 +55,7 @@
             <label for="status">User status</label>
             <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
             <select name="status" class="form-control-input" formControlName="userStatus" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
-                  <option selected> {{ data.userStatus == 101?'Active':data.userStatus == 102?'Suspended':'Inactive' }}</option>
+                  <option selected [value]="data.userStatus"> {{ data.userStatus == 101?'Active':data.userStatus == 102?'Suspended':'Inactive' }}</option>
                   <option value="101">Active</option>
                   <option value="102">Suspended</option>
                

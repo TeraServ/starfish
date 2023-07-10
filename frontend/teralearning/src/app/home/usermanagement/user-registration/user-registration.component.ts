@@ -51,7 +51,7 @@ export class UserRegistrationComponent implements OnInit {
     let userData:user ={
       id:0,
       firstName:this.userForm.get('firstName')?.value,
-      lastName:this.userForm.get('lastname')?.value,
+      lastName:this.userForm.get('lastName')?.value,
       userStatus:103,
       userType:this.userForm.get('userType')?.value,
       modifiedDate:"",

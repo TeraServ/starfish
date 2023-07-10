@@ -1,9 +1,12 @@
 import { Component,OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
+import { StreamService } from 'src/app/service/stream.service';
 import { Stream } from 'src/model/stream.model';
-import { StreamService } from '../service/stream.service';
+
 
 @Component({
   selector: 'app-stream',
@@ -19,7 +22,7 @@ export class StreamComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private streamService: StreamService,private snackBar: MatSnackBar) { }
+  constructor(private formBuilder: FormBuilder, private streamService: StreamService,private snackBar: MatSnackBar,private dialog :MatDialog) { }
 
   ngOnInit(): void {
 
@@ -38,10 +41,12 @@ export class StreamComponent implements OnInit {
     this.stream.streamStatus = 1;
     this.streamService.createStream(this.stream).subscribe({
       next: (data: any)=>{        
-        this.snackBar.open("Successfully created.", '', {
-          duration: 3000
+        // this.snackBar.open("Successfully created.", '', {
+        //   duration: 3000
+        // })
+        this.dialog.open(SuccessDialogComponent,{
+          data:{message:"Successfully created!"}
         })
-        
       },
       error: (e:any) => console.error(e)
     });
