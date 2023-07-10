@@ -2,15 +2,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
-
-import { DashboardComponent } from './home/dashboard/dashboard.component';
-import { HomeComponent } from './home/home.component';
-import { NewUserComponent } from './app/new-user/new-user.component';
-import { StreamListComponent } from './home/streams/stream-list/stream-list.component';
-
-import { SubjectComponent } from './home/subjects/subject/subject.component';
-
-import { SubjectListComponent } from './home/subjects/subject-list/subject-list.component';
+import { NewUserComponent } from './new-user/new-user.component';
 import { TopicComponent } from './topic/topic.component';
 import { UserProfileComponent } from './home/settings/user-profile/user-profile.component';
 
@@ -29,8 +21,9 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)
   },
   {
-    path: "register",
-    component: NewUserComponent
+    path:"register",
+    component:NewUserComponent,
+    title:"Purchase Stream"
   },
 
 

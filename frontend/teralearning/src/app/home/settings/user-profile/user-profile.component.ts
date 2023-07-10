@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit {
     password: '',
     createdDate: ''
   }
-  currentId = 121
+  currentId = 0
   streamUpdate!: boolean;
   isDialogOpen!: boolean;
   streamBtn: boolean = false;

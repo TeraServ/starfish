@@ -30,6 +30,9 @@ import { StreamComponent } from './streams/stream/stream.component';
 import { UserProfileComponent } from './settings/user-profile/user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { LoginPageComponent } from '../login-page/login-page.component';
+import { SubjectComponent } from './subjects/subject/subject.component';
+import { StreamListComponent } from './streams/stream-list/stream-list.component';
 
 @NgModule({
   declarations: [
@@ -41,11 +44,14 @@ import { MatInputModule } from '@angular/material/input';
     SettingsComponent,
     UserUpdateComponent,
     SuccessDialogComponent,
-    StreamEditComponent,
-    StreamComponent,
-    SubjectListComponent,
+    UserProfileComponent,
     SubjectEditComponent,
-    UserProfileComponent
+    SubjectListComponent,
+    SubjectComponent,
+    StreamComponent,
+    StreamEditComponent,
+    StreamListComponent
+    
     
     
   ],
@@ -56,7 +62,6 @@ import { MatInputModule } from '@angular/material/input';
     HttpClientModule,
     MatOptionModule,
     MatSelectModule,
-    ReactiveFormsModule,
     MatSnackBarModule,
     MatTableModule,
     MatPaginatorModule,

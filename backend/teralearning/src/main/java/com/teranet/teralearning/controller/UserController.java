@@ -62,7 +62,7 @@ public class UserController {
 //    }
 
     @CrossOrigin("http://localhost:4200/")
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "{id}")
     public Optional<User> getUserById(@PathVariable long id)
     {
         return userService.getUserById(id);

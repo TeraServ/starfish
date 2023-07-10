@@ -6,6 +6,8 @@ import { StreamService } from '../../../service/stream.service';
 import { SubjectService } from '../../../service/subject.service';
 import { Stream } from 'src/model/stream.model';
 import { Subject } from 'src/model/subject.model';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 
 
 @Component({
@@ -29,7 +31,7 @@ export class SubjectComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private streamService: StreamService, private subjectService: SubjectService) { }
+  constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private streamService: StreamService, private subjectService: SubjectService,private dialog :MatDialog) { }
 
   ngOnInit(): void {
     this.createSubjectForm = this.formBuilder.group({
@@ -60,8 +62,11 @@ export class SubjectComponent implements OnInit {
     console.log(this.dropStream)
     this.subjectService.createSubject(newSubject).subscribe({
       next: (data: any) => {
-        this.snackBar.open("Successfully created.", '', {
-          duration: 3000
+        // this.snackBar.open("Successfully created.", '', {
+        //   duration: 3000
+        // })
+        this.dialog.open(SuccessDialogComponent,{
+          data:{message:"Successfully created!"}
         })
       },
       error: (e: any) => console.error(e)

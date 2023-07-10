@@ -8,30 +8,23 @@ import { LoginPageComponent } from './login-page/login-page.component';
 
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgetDialogComponent } from './dialogBoxs/forget-dialog/forget-dialog.component';
-
-
-
-import { HomeModule } from './home/home.module';
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 
 import { SuccessDialogComponent } from './dialogBoxs/success-dialog/success-dialog.component';
-import { NewUserComponent } from './app/new-user/new-user.component';
-
-import { SubjectComponent } from './home/subjects/subject/subject.component';
-
-
-
-import { StreamListComponent } from './home/streams/stream-list/stream-list.component';
+import { NewUserComponent } from './new-user/new-user.component';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { TopicComponent } from './topic/topic.component';
-import { MaterialModule } from './shared/material/material.module';
-import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
+import { GooglePayButtonModule } from '@google-pay/button-angular';
 import { TitleStrategy } from '@angular/router';
-import { AngularEditorModule } from '@kolkov/angular-editor';
-
+import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
+import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 
@@ -42,10 +35,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     LoginPageComponent,
     ForgetDialogComponent,
     NewUserComponent,
-    SubjectComponent,
-    StreamListComponent,
     TopicComponent
-   
+    
   ],
   imports: [
     BrowserModule,
@@ -54,10 +45,17 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    AngularEditorModule,
-    MaterialModule
+    MatTableModule,
+    GooglePayButtonModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatDialogModule,
+    MatIconModule,
+    MatSnackBarModule
+    
+
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
