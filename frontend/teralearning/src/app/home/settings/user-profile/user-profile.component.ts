@@ -59,6 +59,7 @@ export class UserProfileComponent implements OnInit {
     this.userService.getUserById(id).subscribe(data => {
       this.user = data;
       this.DisplayFirstName = this.user.firstName
+      this.DisplayLastName = this.user.lastName
       console.log(this.user)
     })
   }
@@ -73,6 +74,7 @@ export class UserProfileComponent implements OnInit {
       this.userService.updateUser(this.user).subscribe((result: any) => {
         
         this.DisplayFirstName = this.user.firstName
+        this.DisplayLastName = this.user.lastName
         this.dialog.open(SuccessDialogComponent, {
 
         })
