@@ -58,6 +58,7 @@ public class UserService extends UserInterface {
         this.userDetailsService = userDetailsService;
         this.deletedRecordsService = deletedRecordsService;
         this.javaMailSender = javaMailSender;
+        
     }
 
     @Override

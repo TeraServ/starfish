@@ -25,7 +25,9 @@ export class PasswordResetComponent implements OnInit {
     private passwordService: PasswordService,
     private router: Router,
     private dialog:MatDialog,
-    public snackbar: MatSnackBar) {}
+    private snackbar: MatSnackBar) {
+      
+    }
 
   ngOnInit() {
     this.allowAccess();
@@ -54,7 +56,7 @@ export class PasswordResetComponent implements OnInit {
             this.passwordService.tokenChecker(this.email,this.token).subscribe((response:any)=>{
           console.log(response);},err =>{
             console.log(err.error);
-            if(err.error == "Token Expired" || err.status == 404 || err.status == 401){
+            if(err.error == "Token Expired" || err.error == null ||err.status == 404 || err.status == 401){
 
               this.router.navigate([''])
             }
@@ -78,7 +80,7 @@ export class PasswordResetComponent implements OnInit {
       console.log(response);
     },err=>{
       console.log(err);
-      if(err.error == 202){
+      if(err.error == 200){
         this.dialog.open(SuccessDialogComponent,{data:"Successfully Changed Password"});
       }
       else{

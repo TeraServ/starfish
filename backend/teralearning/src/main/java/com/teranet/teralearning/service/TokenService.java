@@ -38,7 +38,7 @@ public class TokenService implements TokenInterface {
                 updatedTokenValidity.setToken(token);
                 updatedTokenValidity.setCreatedDate(dateUtility.getDate());
                 tokenRepository.save(updatedTokenValidity);
-                log.info("TokenService:updateToken Token of " + user.getFirstName() + "updated to: " + token + "on " + dateUtility.getDateTime());
+                log.info("TokenService:updateToken Token of " + user.getFirstName() + " updated to: " + token + "on " + dateUtility.getDateTime());
             } else {
                 log.info("TokenService:updateToken User does not exist: Null Token Body");
             }
@@ -68,7 +68,7 @@ public class TokenService implements TokenInterface {
     @Override
     public ResponseEntity checkTokenValidity(String email, String token) {
         try {
-            log.info("TokenService:checkTokenValidity Init...");
+            log.info("TokenService:checkTokenValidity Init... ");
             if (userService.isUserEmailExists(email)) {
                 User user = userService.getByUserEmail(email);
                 TokenValidity tokenValidity = tokenRepository.findByUser(user);

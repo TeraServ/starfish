@@ -39,6 +39,7 @@ public class PasswordController {
         this.userService = userService;
         this.emailSenderService = emailSenderService;
         this.tokenService = tokenService;
+        
     }
 
     @PostMapping("/forgot_password")
@@ -65,7 +66,7 @@ public class PasswordController {
                 return new ResponseEntity(emailSenderService.sendSimpleMail(simpleMailBody), HttpStatus.OK);
             } else {
                 log.info("PasswordController:processForgotPassword User Does Not Exist");
-                return new ResponseEntity(null, HttpStatus.BAD_REQUEST);
+                return new ResponseEntity("User does not exist", HttpStatus.BAD_REQUEST);
             }
         }
         catch (Exception ex){

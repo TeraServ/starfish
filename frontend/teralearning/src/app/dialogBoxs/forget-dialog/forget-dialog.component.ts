@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PasswordService } from 'src/app/core/services/password.service';
 import { SuccessDialogComponent } from '../success-dialog/success-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-forget-dialog',
@@ -17,7 +18,10 @@ export class ForgetDialogComponent implements OnInit {
   constructor(private dialogRef:MatDialogRef<ForgetDialogComponent>,
     private passwordService: PasswordService,
     private formBuilder:FormBuilder,
-    private dialog:MatDialog) { }
+    private dialog:MatDialog,
+    private snackbar: MatSnackBar) {
+      
+     }
 
   ngOnInit(): void {
     
@@ -44,8 +48,13 @@ export class ForgetDialogComponent implements OnInit {
       this.passwordService.forgotPassword(email).subscribe(data=>{
       },err=>{
         console.log(err);
+        if(err.status == 200){
+          this.dialog.open(SuccessDialogComponent,{data:"Email Send Successfully"})
+        }
+        if(err.status == 400){
+          this.snackbar.open(err.error,'',{duration: 3000})
+        }
       })
-      this.dialog.open(SuccessDialogComponent,{data:"Email Send Successfully"})
       // this.forgetPasswordForm.reset()
       this.dialogRef.close();
    

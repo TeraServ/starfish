@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class PasswordService {
   private baseURL= "http://localhost:8080/api/passwordcontroller";
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient:HttpClient) {
+    
+   }
   resetPassword(email:string, validToken: string, newPassword: string){
     const paramsBody = new HttpParams({
       fromObject:{
