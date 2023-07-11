@@ -68,7 +68,7 @@ export class StreamEditComponent implements OnInit {
           console.log(data);
 
           this.dialog.open(SuccessDialogComponent, {
-            data:{message:"Successfully updated!"}
+
           })
           this.dialogRef.close();
         });

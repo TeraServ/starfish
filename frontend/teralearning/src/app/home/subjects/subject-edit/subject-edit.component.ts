@@ -83,8 +83,8 @@ export class SubjectEditComponent implements OnInit {
       if (this.streamUpdate) {
         this.subjectService.updateSubject(UpdateSubjectDetails).subscribe(data => {
           console.log(data);
-          this.dialog.open(SuccessDialogComponent,{
-            data:{message:"Successfully updated!"}
+          this.dialog.open(SuccessDialogComponent, {
+
           })
           this.dialogRef.close();
 

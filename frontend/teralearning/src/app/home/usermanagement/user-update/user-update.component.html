@@ -3,7 +3,7 @@
   </button>
   <br>
   &nbsp;
-<h2 style="color: #2C45A7;text-align: center;">Update User</h2>
+<h2>Update User</h2>
 <form [formGroup]="userForm" (ngSubmit)="updateUser()">
     <br>
     <div class="row">
@@ -39,10 +39,11 @@
         <div class="col">
             <label for="stream">Stream</label>
             <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
-            <select name="stream" class="form-control-input" [value]="data.stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
-                <option  selected [value]="data.stream">{{ data.stream.streamName}}</option> 
-                <option *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
-                
+            <select name="stream" class="form-control-input" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
+                <option value="" selected> Select </option>
+                <option >Computer Engineering</option>
+                <option >Mechanical Engineering</option>
+                <option >Electrical Engineering</option>
             </select>
             <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
                 *Required
@@ -55,9 +56,9 @@
             <label for="status">User status</label>
             <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
             <select name="status" class="form-control-input" formControlName="userStatus" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
-                  <option selected [value]="data.userStatus"> {{ data.userStatus == 101?'Active':data.userStatus == 102?'Suspended':'Inactive' }}</option>
-                  <option value="101">Active</option>
-                  <option value="102">Suspended</option>
+                <option value="" selected> Select </option>
+                <option value="101">Active</option>
+                <option value="102">Suspended</option>
                
             </select>
             <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 

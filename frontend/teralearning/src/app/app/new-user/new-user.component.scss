@@ -1,0 +1,30 @@
+
+*{
+    margin: 0;
+}
+.container-1{
+    box-shadow: 0px 2px 5px #ddd;
+    width: 500px;
+    margin: auto;
+    margin-top: 100px;
+    padding: 10px;
+}
+.form-control-input{
+    padding: 10px 12px;
+    width: 100%;
+    border-radius: 5px;
+    border-width: 1px;
+    outline-color: #2C45A7;
+    border: none;
+    box-shadow: 0px 2px 6px #ddd;
+}
+.btn-submit{
+    padding: 10px 15px;
+    background-color: #2C45A7;
+    border: none;
+    box-shadow: 0px 2px 3px #ddd;
+    width: fit-content;
+    color: #fff;
+    margin: auto;
+    border-radius: 5px;
+}

@@ -1,0 +1,55 @@
+<div class="container-1">
+    
+<h2 style="text-align: center;">New User Registration</h2>
+<form [formGroup]="userForm" (ngSubmit)="createUser()">
+    <br>
+    <div class="row">
+        
+            <label for="firstName">First name</label>
+            <input type="text" class="form-control-input" name="firstName" placeholder="First name" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" >
+            <div *ngIf="submitted && f.firstName.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+        <br>
+        <div class="row">
+            <label for="lastName">Last name</label>
+            <input type="text" class="form-control-input" name="lastName" placeholder="Last name" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+            <div *ngIf="submitted && f.lastName.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+  
+    <br>
+   
+        <br>
+        <div class="row">
+            <label for="stream">Stream</label>
+            <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
+            <select name="stream" class="form-control-input" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
+                <option value="" selected> Select </option>
+                <option >Computer Engineering</option>
+                <option >Mechanical Engineering</option>
+                <option >Electrical Engineering</option>
+            </select>
+            <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+    
+    
+        <br>
+        <div class="row">
+            <label for="phoneNumber">Phone number</label>
+            <input type="text" class="form-control-input" name="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
+            <div *ngIf="submitted && f.phoneNumber.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+   
+    <br>
+    <div class="row">
+        <input type="submit" value="Submit" class="btn-submit">
+    </div>
+</form>
+</div>
