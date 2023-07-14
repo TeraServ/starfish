@@ -69,7 +69,8 @@ import { StreamListComponent } from './streams/stream-list/stream-list.component
     FormsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    
 
 
   ]

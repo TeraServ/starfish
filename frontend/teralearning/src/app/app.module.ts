@@ -52,7 +52,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatOptionModule,
     MatDialogModule,
     MatIconModule,
-    MatSnackBarModule
+    MatSnackBarModule,
     
 
 
