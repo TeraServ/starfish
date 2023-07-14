@@ -1,0 +1,32 @@
+
+
+  
+  <!-- <tbody> -->
+    <!-- <form id="forms" [formGroup]="editForm">
+        <div [formArrayName]="'csvFormArray'"> -->
+          <!-- <div> -->
+      <!-- <tr 
+      *ngFor="let data of invalidData; let i = index"> -->
+    
+            <td [ngClass]="{'invalid': !invalidData.checkerFlags[0]}">
+                <input type="text"  value="{{ invalidData.firstName }}"   (change)="onUpdate()">
+            </td>
+              <td [ngClass]="!invalidData.checkerFlags[0] ? 'invalid' : '' " >
+                <input type="text"  value="{{ invalidData.lastName }}" >
+            </td>
+              <td [ngClass]="!invalidData.checkerFlags[1] ? 'invalid' : '' " >
+                <input type="text" value="{{ invalidData.phoneNumber }}" >
+            </td>
+              <td [ngClass]="!invalidData.checkerFlags[2] ? 'invalid' : '' " >
+                <input type="text" value="{{ invalidData.email }}" >
+            </td>
+              <td [ngClass]="!invalidData.checkerFlags[3] ? 'invalid' : '' " >
+                <input type="text" value="{{ invalidData.streamAcronym }}" >
+            </td>
+            <td>
+                <mat-icon type = "button" (click) = "onDelete(invalidData)">highlight_off</mat-icon>
+            </td>
+      <!-- </tr> -->
+  <!-- </div>
+</tbody> -->
+

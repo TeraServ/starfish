@@ -1,5 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, Injectable, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Input } from 'fcyg/@angular/core';
 
 @Component({
   selector: 'app-success-dialog',
@@ -7,11 +8,14 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./success-dialog.component.scss']
 })
 export class SuccessDialogComponent implements OnInit {
+  
+  message!:string 
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any) { }
+  constructor(public dialogRef: MatDialogRef<SuccessDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: string) { }
 
   ngOnInit(): void {
-    
+    this.message = this.data;
   }
 
 }

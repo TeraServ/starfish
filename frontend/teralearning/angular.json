@@ -37,11 +37,6 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/mdb-ui-kit/js/mdb.min.js"
-<<<<<<< HEAD
-              
-             
-=======
->>>>>>> aa1bfc204969d45131ac1aa25c4c2efd03ae0ae7
             ]
           },
           "configurations": {

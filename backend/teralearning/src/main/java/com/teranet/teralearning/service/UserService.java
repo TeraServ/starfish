@@ -1,12 +1,15 @@
 package com.teranet.teralearning.service;
 
 import com.teranet.teralearning.helper.CSVHelper;
-import com.teranet.teralearning.model.Stream;
+import com.teranet.teralearning.model.SimpleMailBody;
+import com.teranet.teralearning.model.TokenValidity;
 import com.teranet.teralearning.model.User;
+import com.teranet.teralearning.repository.TokenRepository;
 import com.teranet.teralearning.repository.UserRepository;
 import com.teranet.teralearning.util.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import com.teranet.teralearning.util.DateUtility;
 import lombok.NoArgsConstructor;
@@ -23,14 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @Service
@@ -39,7 +37,11 @@ public class UserService extends UserInterface {
     private static Logger log = LoggerFactory.getLogger(UserService.class);
     private DateUtility dateUtility;
     @Autowired
+    private JavaMailSender javaMailSender;
+    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
@@ -48,12 +50,15 @@ public class UserService extends UserInterface {
     private DeletedRecordsService deletedRecordsService;
 
 
-    public UserService(DateUtility dateUtility, UserRepository userRepository, JwtUtil jwtUtil, UserDetailsService userDetailsService, DeletedRecordsService deletedRecordsService) {
+    public UserService(DateUtility dateUtility, JavaMailSender javaMailSender,UserRepository userRepository, TokenRepository tokenRepository, JwtUtil jwtUtil, UserDetailsService userDetailsService, DeletedRecordsService deletedRecordsService) {
         this.dateUtility = dateUtility;
         this.userRepository = userRepository;
+        this.tokenRepository = tokenRepository;
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
         this.deletedRecordsService = deletedRecordsService;
+        this.javaMailSender = javaMailSender;
+        
     }
 
     @Override
@@ -62,26 +67,28 @@ public class UserService extends UserInterface {
         Optional<User> u = userRepository.findByEmail(user.getEmail());
         if(u.isPresent()){
 
-            return new ResponseEntity("Email already exists.", HttpStatus.OK);
+            return new ResponseEntity("Email already exists.", HttpStatus.CONFLICT);
         }else{
             user.setModifiedDate(getDate());
             user.setCreatedDate(getDate());
             user.setPassword(encryptPassword(user.getPassword()));
+            String token = UUID.randomUUID().toString();
+            addToken(user,token);
+            /*sendWelcomeMail(user,token);*/
             return new ResponseEntity(userRepository.save(user), HttpStatus.OK);
         }
 
     }
-    public LocalDateTime getDate(){
+    private LocalDateTime getDate(){
         //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        return now;
+        return LocalDateTime.now();
+    }
+    private LocalDate getDateOnly(){
+        return LocalDate.now();
     }
     private String encryptPassword(String password){
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
         return bCryptPasswordEncoder.encode(password);
-
-
     }
 
     Object getJson(Object message,String status,String token){
@@ -139,16 +146,26 @@ public class UserService extends UserInterface {
     public ResponseEntity updateUser(User user) {
         Optional<User> updateUser = userRepository.findById(user.getId());
         if (updateUser.isPresent()){
+            if(user.getUserStatus()==102){
+                return deleteUser(user.getId());
+            }
+            else if (user.getUserStatus()==101){
+                updateUser.get().setFirstName(user.getFirstName());
+                updateUser.get().setLastName(user.getLastName());
+                updateUser.get().setPhoneNumber(user.getPhoneNumber());
+                updateUser.get().setModifiedDate(getDate());
+                updateUser.get().setUserType(user.getUserType());
+                updateUser.get().setUserStatus(user.getUserStatus());
+                updateUser.get().setStream(user.getStream());
+                updateUser.get().setModifiedDate(getDate());
+                deletedRecordsService.clearDeletionRecord(updateUser.getClass().getSimpleName(), user.getId());
+                return new ResponseEntity(userRepository.save(updateUser.get()),HttpStatus.OK);
+            }
+            else {
 
-            updateUser.get().setFirstName(user.getFirstName());
-            updateUser.get().setLastName(user.getLastName());
-            updateUser.get().setPhoneNumber(user.getPhoneNumber());
-            updateUser.get().setModifiedDate(getDate());
-            updateUser.get().setUserType(user.getUserType());
-            updateUser.get().setUserStatus(user.getUserStatus());
-            updateUser.get().setStream(user.getStream());
-            updateUser.get().setModifiedDate(getDate());
-            return new ResponseEntity(userRepository.save(updateUser.get()),HttpStatus.OK);
+            }
+
+
         }
 
         return new ResponseEntity("No user found",HttpStatus.NOT_FOUND);
@@ -196,35 +213,26 @@ public class UserService extends UserInterface {
 
     }
 
-    public ResponseEntity createMultipleUsers(List<userResponseDTO> userResponseDTOS) {
-        log.debug("UserService:createMultipleUsers Init... ");
+    public ResponseEntity createMultipleUsers(List<User> userList) {
         try {
-            if (!userResponseDTOS.isEmpty()) {
-                log.debug("UserService:createMultipleUsers started ");
-                int count = 0;
-                List<userResponseDTO> preexistentUsers = new ArrayList<>();
+            if (!userList.isEmpty()) {
+                log.debug("UserService:createMultipleUsers Init... ");
+                int userCount = 0;
+                List<User> preExistentUsers = new ArrayList<>();
                 BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-                for (userResponseDTO dto : userResponseDTOS) {
-                    User user = new User();
-                    user.setFirstName(dto.getFirstname());
-                    user.setLastName(dto.getLastName());
-                    user.setEmail(dto.getEmail());
-                    user.setPhoneNumber(dto.getPhoneNumber());
-                    /*user.setStream(); Mapper for Acronym to Stream*/
-                    user.setPassword(bCryptPasswordEncoder.encode("Password1!"));
+                for (User user : userList) {
+                    user.setPassword("Password1!");
                     user.setUserType(103);
-                    user.setCreatedDate(dateUtility.getDateTime());
-                    user.setModifiedDate(dateUtility.getDateTime());
                     if (CreateUser(user).getStatusCode() == HttpStatus.OK) {
-                        count++;
+                        userCount++;
                         log.info("UserService:createMultipleUsers User Body created for" + user.getEmail());
                     } else {
-                        log.info("UserService:createMultipleUsers User already Exist for" + dto.getEmail());
-                        preexistentUsers.add(dto);
+                        log.info("UserService:createMultipleUsers User already Exist for" + user.getEmail());
+                        preExistentUsers.add(user);
                     }
                 }
                 log.info("UserService:createMultipleUsers - terminated");
-                /*Notification for Created users and PreexistentUSers*/
+                /*Notification for Created users and PreexistentUsers*/
                 return new ResponseEntity("Multiple user created",HttpStatus.CREATED);
 
             } else {
@@ -233,9 +241,9 @@ public class UserService extends UserInterface {
 
 
         } catch (Exception ex) {
-            log.error("UserService:createMultipleUsers - Exception Occurred");
+            log.error("UserService:createMultipleUsers - Exception Occurred:");
+            ex.printStackTrace();
             throw new UserNotFoundException("Exception occurred while fetch user from Database");
-
         }
     }
     public void CreateUsersFromCSV(MultipartFile file){
@@ -261,6 +269,7 @@ public class UserService extends UserInterface {
         }
         catch (Exception ex){
             log.error("UserService:updatePassword: - Execution occurred:"+ex);
+            ex.printStackTrace();
             throw new UserNotFoundException("Exception occurred while fetch user from Database");
         }
     }
@@ -269,6 +278,8 @@ public class UserService extends UserInterface {
             log.debug("UserService:permanentDelete Init...");
             Optional<User> permanentDeletedUser = userRepository.findById(id);
             if(permanentDeletedUser.isPresent()){
+                tokenRepository.deleteByUser(permanentDeletedUser.get());
+
                 userRepository.deleteById(id);
                 return "Success";
             }
@@ -278,9 +289,47 @@ public class UserService extends UserInterface {
         }
         catch (Exception ex){
             log.error("UserService:permanentDelete Exception Occurred:"+ex);
+            ex.printStackTrace();
             return "Exception Occurred: Failed to Delete User";
         }
     }
+
+    public void addToken (User user, String token){
+        try {
+            log.info("UserService:addToken Init...");
+            TokenValidity tokenValidity = new TokenValidity();
+            tokenValidity.setUser(user);
+            tokenValidity.setToken(token);
+            tokenValidity.setCreatedDate(getDateOnly());
+            tokenRepository.save(tokenValidity);
+        }catch (Exception ex){
+            log.info("UserService:addToken Exception Occurred:"+ex);
+            ex.printStackTrace();
+        }
+    }
+    public void sendWelcomeMail(User user, String token){
+        try {
+            log.info("UserService:sendWelcomeMail Init...");
+            SimpleMailBody simpleMailBody = new SimpleMailBody();
+            String resetPasswordLink = "http://localhost:4200/reset_password?email=" + user.getEmail() + "&token=" + token;
+            simpleMailBody.setRecipient(user.getEmail());
+            simpleMailBody.setSubject("Welcome to Tera Learning | ABC Institute ");
+            simpleMailBody.setMsgBody("Hi," + user.getFirstName() +
+                    "\nWelcome to ABC Institute's Learning Management System, a Profile was created with your email.\n" +
+                    "Login Email: " + user.getEmail() +
+                    "\nKindly change your password at: " + resetPasswordLink +
+                    "\n" +
+                    "The Link is valid only for 24 hours.\n" +
+                    "Regards, \n\n" +
+                    "Team TeraLearn");
+            Thread th = new EmailSenderService(javaMailSender,simpleMailBody);
+            th.start();
+        }catch (Exception ex){
+            log.error(String.format("UserService:sendWelcomeMail Exception Occurred:{ex})"));
+            ex.printStackTrace();
+        }
+    }
+
     public boolean isUserEmailExists(String emailID){
         return userRepository.existsByEmail(emailID);
     }

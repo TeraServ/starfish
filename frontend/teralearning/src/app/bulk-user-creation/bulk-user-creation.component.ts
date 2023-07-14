@@ -9,6 +9,13 @@ import { read, utils } from 'xlsx';
 import { CSVHandlerService } from '../core/services/csvhandler.service';
 import { CustomValidatorService } from '../core/services/custom-validator.service';
 import { CSVRecord } from 'src/model/csvrecord.model';
+import { UserService } from '../service/user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dialog.component';
+import { data } from 'fcyg/browserslist';
+import { user } from 'src/model/user.model';
+import { stream } from 'fcyg/fast-glob/out';
+import { PasswordService } from '../core/services/password.service';
 
 @Component({
   selector: 'app-bulk-user-creation',
@@ -19,7 +26,10 @@ export class BulkUserCreationComponent implements OnInit {
 
   constructor(private csvService: CSVHandlerService, 
     private customValidator: CustomValidatorService,
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private passwordService: PasswordService,
+    private dialog: MatDialog,
     public snackbar: MatSnackBar) {
       this.editForm = new FormGroup({
         formArray : this.formBuilder.array([])
@@ -166,14 +176,38 @@ pageReset(){
         console.log(editedData);
         this.onSubmit();
       }
+      csvRecordToUserList(records: CSVRecord[]): user[] {
+        const userList: user[]=[];
+        records.forEach(record=>{
+          let user: user = {
+            id:0,
+            firstName: record.firstName,
+            lastName:record.lastName,
+            userStatus: 103,
+            userType: 102,
+            modifiedDate:"",
+            email:record.email,
+            phoneNumber: parseInt(record.phoneNumber),
+            category: "classroom",
+            stream:{},
+            password:this.passwordService.generatePassword(10),
+            createdDate:""
+          }
+          userList.push(user)
+        })
+        return userList;
+      }
 
     onSubmit(){
       console.log('Validated Data:',this.validatedData);
       console.log('Invalid Data:',this.invalidData);
-      if(this.validatedData.length!=0 && this.invalidData.length==0){        
-        this.snackbar.open("Record Submitted Successfully!", '', {
-          duration: 10000,
-        });
+      if(this.validatedData.length!=0 && this.invalidData.length==0){     
+        this.userService.bulkUserCreate(this.csvRecordToUserList(this.validatedData)).subscribe(data=>{
+          this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
+        },err=>{
+          this.snackbar.open(err.error.text,'',{duration: 3000})
+          console.log(err);
+        })  
         // window.location.reload();
       }
       else{

@@ -36,8 +36,9 @@
             <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
             <select name="stream" class="form-control-input" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
                 <option value="" selected> Select </option>
-                <option *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
-                
+                <option >Computer Engineering</option>
+                <option >Mechanical Engineering</option>
+                <option >Electrical Engineering</option>
             </select>
             <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
                 *Required
