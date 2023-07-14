@@ -58,7 +58,15 @@ import { MaterialModule } from '../shared/material/material.module';
     MatPaginatorModule,
     MatIconModule,
     FormsModule,
+
+  
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    MatInputModule,
     
+
+
+
   ]
 })
 export class HomeModule { }

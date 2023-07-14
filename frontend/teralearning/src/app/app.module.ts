@@ -73,8 +73,22 @@ import { UserProfileComponent } from './home/settings/user-profile/user-profile.
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+
     BrowserAnimationsModule,
     MaterialModule
+
+    MatTableModule,
+    GooglePayButtonModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatDialogModule,
+    MatIconModule,
+    MatSnackBarModule,
+    
+
+
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

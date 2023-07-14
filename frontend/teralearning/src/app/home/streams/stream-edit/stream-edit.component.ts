@@ -15,7 +15,7 @@ export class StreamEditComponent implements OnInit {
 
   EditStream!: Stream;
   isAlert = false;
-  streamUpdate!: boolean;
+  streamUpdate: boolean = false;
   isDialogOpen!: boolean;
   streamBtn: boolean = false;
 

@@ -34,6 +34,6 @@
   Updated Successfully!
 </div>
 <div >
-  <button class="loginbtn btn" [disabled]=streamBtn>Update</button>
+  <button class="loginbtn btn" [disabled]="subjectEditForm.controls?.subjectname?.errors?.pattern || streamBtn">Update</button>
 </div>
 </form>
