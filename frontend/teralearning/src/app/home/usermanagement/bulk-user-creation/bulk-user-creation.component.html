@@ -1,0 +1,54 @@
+<main>
+    <div class="row mb-2 mt-5">
+        <div class="col-sm-6 offset-3">
+            <div class="row">   
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile" required (change)="handleImport($event)"
+                                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                            <!-- <label class="custom-file-label" for="inputGroupFile">Choose file</label> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <button (click)="handleSampleCSVDownload()" style="margin-right: 16px" class="btn btn-primary float-right">
+                        Download Sample CSV <i class="fa fa-download"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 offset-3">
+          <div *ngIf="invalidData.length  || duplicateEntry">
+              <b>Please validate the following errors</b>  <br>
+              Invalid Entry: {{this.invalidData.length}}<br>
+          </div>
+          <table class="table" *ngIf="invalidData.length || validatedData.length; else elseBlock">
+ 
+                    <td>
+                        <app-csv-edit-form [invalidData] = "this.invalidData" (editedDataEmitter)="onDataEmitted($event)"></app-csv-edit-form>
+                    </td>
+
+                  
+            </table>
+
+            <ng-template #elseBlock>
+                <tr *ngIf =" invalidData.length == 0 && validatedData.length != 0">
+                    <td>
+                All Data are valid, Click Submit to continue.
+                    </td>
+                        </tr>
+                <tr *ngIf =" invalidData.length == 0 && validatedData.length == 0" >
+                    <td colspan="5" class="text-center">No data Found</td>
+                </tr>
+            </ng-template>
+        </div>
+    </div>   
+    <!-- <div class="text-center"  *ngIf="invalidData.length == 0 && validatedData.length !=0 ">
+      <button  (click)="onSubmit()" class="btn btn-primary float-right">
+          Submit
+        </button>
+    </div> -->
+  </main>

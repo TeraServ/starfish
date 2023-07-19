@@ -1,0 +1,40 @@
+<div *ngIf="rows">
+ 
+   
+      
+      <form [formGroup]="csvTableForm">
+          <div formArrayName="rows">
+                  <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i">
+                    <td [ngClass]="row.get('checkers')?.value[0] ? '' : 'invalid' " >
+                      {{row.get('checkers[0]')?.value}}
+                      <input 
+                      type="text" formControlName="firstName" placeholder="First Name">
+                    </td>
+                    <td [ngClass]="!row.get('checkers')?.value[0]  ? 'invalid' : '' ">
+                      <input type="text" formControlName="lastName" placeholder="Last Name">
+                    </td>
+            <td [ngClass]="!row.get('checkers')?.value[1] ? 'invalid' : '' ">
+              <input type="text" formControlName="phoneNumber" placeholder="Phone Number">
+            </td>
+            <td [ngClass]="!row.get('checkers')?.value[2] ? 'invalid' : '' ">
+              <input type="text" formControlName="email" placeholder="Email">
+            </td>
+            <td [ngClass]="!row.get('checkers')?.value[3] ? 'invalid' : '' " >
+              {{row.get('checkers[3]')?.value}}
+              <input type="text" formControlName="stream" placeholder="Stream Acronym">
+            </td>
+            <td>
+              <mat-icon type="button" (click)="removeRow(i)">highlight_off</mat-icon>
+            </td>
+          </div>
+
+         
+        </div>
+        <div class="button-row">
+          <button type="button" (click)="addNewRow()"  class="btn btn-primary float-right">Add Row</button>
+          <button type="button"(click)="submitForm()" class="btn btn-primary float-right">Submit</button>
+        </div>
+      </form>
+   
+  
+    </div>

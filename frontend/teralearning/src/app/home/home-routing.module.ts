@@ -10,6 +10,8 @@ import { StreamComponent } from './streams/stream/stream.component';
 import { SubjectComponent } from './subjects/subject/subject.component';
 import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
 import { UserProfileComponent } from './settings/user-profile/user-profile.component';
+import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/bulk-user-creation.component';
+
 
 
 const routes: Routes = [
@@ -29,6 +31,10 @@ const routes: Routes = [
       {
         path:"usermanagement/users",
         component:UserListComponent
+      },
+      {
+        path:"usermanagement/CreateBulkUsers",
+        component:BulkUserCreationComponent
       },
       
       {
