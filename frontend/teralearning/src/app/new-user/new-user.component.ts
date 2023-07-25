@@ -27,20 +27,7 @@ export class NewUserComponent implements OnInit {
   userData!:user;
   isPurchased:boolean=false;
   streamList:Stream[]=[]
-//   data =[{
-//     streamName:"Computer Engineering",
-//     price:"7000",
-//     discount:"20"
 
-//   },{ streamName:"Mechanical Engineering",
-//   price:"6000",
-//   discount:"10"
-// },
-// {
-//   streamName:"Electrical Engineering",
-//   price:"5000",
-//   discount:"5"
-// }]
   constructor(private formBuilder:FormBuilder,private userService:UserService,private streamService:StreamService,private snackBar:MatSnackBar,private authService:AuthService,private router:Router) { }
 
   ngOnInit(): void {

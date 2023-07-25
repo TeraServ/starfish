@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserProfileComponent } from './user-profile.component';
+import { HomeModule } from '../../home.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { user } from 'src/model/user.model';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -8,9 +11,10 @@ describe('UserProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserProfileComponent ]
+      declarations: [UserProfileComponent],
+      imports: [ReactiveFormsModule, HomeModule]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(UserProfileComponent);
     component = fixture.componentInstance;
@@ -20,4 +24,11 @@ describe('UserProfileComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should access the ngForm reference', () => {
+    expect(component.userForm).toBeDefined();
+  });
+  
+
+  
 });

@@ -29,8 +29,8 @@ export class StreamComponent implements OnInit {
     this.createStreamForm = this.formBuilder.group({
       streamName: ['', [Validators.required]],
       acronym: ['',[Validators.required]],
-      price: ['', [Validators.required]],
-      discount: ['', [Validators.required]],
+      price: ['', [Validators.required,Validators.min(0)]],
+      discount: ['', [Validators.required,Validators.min(0),Validators.max(100)]],
 
     });
     this.getStreams();

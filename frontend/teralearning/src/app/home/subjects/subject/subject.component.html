@@ -38,11 +38,12 @@
                         <div class="col-md-6 mb-4">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" formControlName="subjectName" placeholder="subjectName"
-                                [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }" >
+                                [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }" pattern="[a-zA-Z][a-zA-Z ]+">
                                 <label for="floatingInput">Subject Name</label>
                                 <div *ngIf="submitted && createSubjectForm.controls.subjectName.errors"
                                     class="invalid-feedback">
                                     <div *ngIf="createSubjectForm.controls.subjectName.errors.required">*Required</div>
+                                    <div id="invalidSubjectName" *ngIf="createSubjectForm.controls.subjectName.errors.pattern">Invalid</div>
                                 </div>
                             </div>
                         </div>
