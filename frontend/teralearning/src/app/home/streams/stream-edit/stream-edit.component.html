@@ -9,7 +9,7 @@
 
     <label for="title"><b>Stream Name:</b></label>
     <input type="text"  [(ngModel)]="UpdatedStreamName" value="{{EditStream.streamName}}" class="form-control"
-      (ngModelChange)="valuechange($event)" id="streamname" name="streamname" #streamname="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
+      (ngModelChange)="valuechange($event )" id="streamname" name="streamname" #streamname="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
        required>
     <div *ngIf="streamEditForm.controls?.streamname?.errors?.required" class="error">*Stream Name is required
     </div>

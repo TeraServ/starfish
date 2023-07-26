@@ -2,6 +2,7 @@ package com.teranet.teralearning.service;
 
 import com.teranet.teralearning.model.User;
 import com.teranet.teralearning.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,7 +16,7 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-
+    @Autowired
     private UserRepository userRepository;
 
     public UserDetailsServiceImpl(UserRepository userRepository) {

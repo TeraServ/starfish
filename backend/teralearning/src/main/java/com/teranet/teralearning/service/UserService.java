@@ -1,9 +1,10 @@
 package com.teranet.teralearning.service;
 
-import com.teranet.teralearning.helper.CSVHelper;
+import com.teranet.teralearning.model.Notification;
 import com.teranet.teralearning.model.SimpleMailBody;
 import com.teranet.teralearning.model.TokenValidity;
 import com.teranet.teralearning.model.User;
+import com.teranet.teralearning.repository.NotificationRepository;
 import com.teranet.teralearning.repository.TokenRepository;
 import com.teranet.teralearning.repository.UserRepository;
 import com.teranet.teralearning.util.JwtUtil;
@@ -43,22 +44,23 @@ public class UserService extends UserInterface {
     @Autowired
     private TokenRepository tokenRepository;
     @Autowired
+    private NotificationRepository notificationRepository;
+    @Autowired
     private JwtUtil jwtUtil;
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
     private DeletedRecordsService deletedRecordsService;
 
-
-    public UserService(DateUtility dateUtility, JavaMailSender javaMailSender,UserRepository userRepository, TokenRepository tokenRepository, JwtUtil jwtUtil, UserDetailsService userDetailsService, DeletedRecordsService deletedRecordsService) {
+    public UserService(DateUtility dateUtility, JavaMailSender javaMailSender, UserRepository userRepository, TokenRepository tokenRepository, NotificationRepository notificationRepository, JwtUtil jwtUtil, UserDetailsService userDetailsService, DeletedRecordsService deletedRecordsService) {
         this.dateUtility = dateUtility;
+        this.javaMailSender = javaMailSender;
         this.userRepository = userRepository;
         this.tokenRepository = tokenRepository;
+        this.notificationRepository = notificationRepository;
         this.jwtUtil = jwtUtil;
         this.userDetailsService = userDetailsService;
         this.deletedRecordsService = deletedRecordsService;
-        this.javaMailSender = javaMailSender;
-        
     }
 
     @Override
@@ -69,6 +71,10 @@ public class UserService extends UserInterface {
 
             return new ResponseEntity("Email already exists.", HttpStatus.CONFLICT);
         }else{
+            if(!isPasswordStrong(user.getPassword())){
+                return new ResponseEntity("Password not Strong", HttpStatus.BAD_REQUEST);
+
+            }else {
             user.setModifiedDate(getDate());
             user.setCreatedDate(getDate());
             user.setPassword(encryptPassword(user.getPassword()));
@@ -76,6 +82,7 @@ public class UserService extends UserInterface {
             addToken(user,token);
             /*sendWelcomeMail(user,token);*/
             return new ResponseEntity(userRepository.save(user), HttpStatus.OK);
+            }
         }
 
     }
@@ -121,14 +128,7 @@ public class UserService extends UserInterface {
     }
     @Override
     public ResponseEntity GetAllUser() {
-    /*    userRepository.findAll().stream()
-                .forEach(user -> {
-                    deletedRecordsService.checkDeletionDate(user.getClass().getSimpleName(),user.getId());
-                });*/
-        userRepository.findAll().stream()
-                .forEach(user->{
-                    deletedRecordsService.checkDeletionDate(user.getClass().getSimpleName(), user.getId());
-                });
+
         return new ResponseEntity(userRepository.findAll(), HttpStatus.OK);
     }
 
@@ -190,6 +190,7 @@ public class UserService extends UserInterface {
             }
         } catch (Exception ex) {
             log.error("UserService:deleteUser Exception occurred:"+ex);
+            ex.printStackTrace();
             return new ResponseEntity("Deletion failed", HttpStatus.OK);
         }
     }
@@ -225,20 +226,18 @@ public class UserService extends UserInterface {
                     user.setUserType(103);
                     if (CreateUser(user).getStatusCode() == HttpStatus.OK) {
                         userCount++;
-                        log.info("UserService:createMultipleUsers User Body created for" + user.getEmail());
+                        log.info("UserService:createMultipleUsers User Body created for:" + user.getEmail());
                     } else {
-                        log.info("UserService:createMultipleUsers User already Exist for" + user.getEmail());
+                        log.info("UserService:createMultipleUsers User already Exist for:" + user.getEmail());
                         preExistentUsers.add(user);
                     }
                 }
-                log.info("UserService:createMultipleUsers - terminated");
-                /*Notification for Created users and PreexistentUsers*/
+                log.info("UserService:createMultipleUsers Notification Report Generated:"+createNotificationForBulkUserGeneration(userCount, preExistentUsers));
                 return new ResponseEntity("Multiple user created",HttpStatus.CREATED);
 
             } else {
                 return new ResponseEntity("Blank User List", HttpStatus.BAD_REQUEST);
             }
-
 
         } catch (Exception ex) {
             log.error("UserService:createMultipleUsers - Exception Occurred:");
@@ -246,24 +245,42 @@ public class UserService extends UserInterface {
             throw new UserNotFoundException("Exception occurred while fetch user from Database");
         }
     }
-    public void CreateUsersFromCSV(MultipartFile file){
-        log.info("UserService:CreateUsersFromCSV Init...");
-        try{
-            log.info("UserService:CreateUsersFromCSV Started");
-            List<User> users = CSVHelper.csvToUser(file.getInputStream());
-            userRepository.saveAll(users);
+    public boolean createNotificationForBulkUserGeneration(int userCount, List<User> userList){
+        log.info("UserService:createNotification Init...");
+        Notification notification = new Notification();
+        notification.setTitle("Bulk User Creation - Status");
+        notification.setBody("Total no:of successful user created:"+userCount +
+                "\n  Unsuccessful User Details: "+ userList.toString());
+        notification.setCreatedDate(getDate());
+        notification.setModifiedDate(getDate());
+        if(notificationRepository.save(notification).getBody() == notification.getBody()){
+            return true;
         }
-        catch(IOException ex){
-            log.info("UserService:CreateUsersFromCSV - Exception Occurred"+ex.getMessage());
-            throw new RuntimeException("Failed to Store CSV Data"+ex.getMessage());
+        else {
+            return false;
         }
     }
     public void updatePassword(User user, String newPassword){
         try{
             if(user!=null && isUserEmailExists(user.getEmail())){
-                user.setPassword(encryptPassword(newPassword));
+                log.info("UserService:updatePassword Init...");
+                if(user.getUserStatus() == 102){
+                    log.info("UserService:updatePassword User found to be suspended. Cannot change password");
+                } else if (user.getUserStatus() == 103 && isPasswordStrong(newPassword)) {
+                    log.info("UserService:updatePassword User account activated");
+                    user.setUserStatus(101);
+                    user.setPassword(encryptPassword(newPassword));
+                    userRepository.save(user);
+                }
+                else {
+                    if(!isPasswordStrong(newPassword)){
+                        log.info("UserService:updatePassword Not a Strong Password for "+user.getEmail());
+                    }
+                    log.info("UserService:updatePassword Password Changed for "+user.getEmail());
+                    user.setPassword(encryptPassword(newPassword));
+                    userRepository.save(user);
+                }
                 //user.setUserStatus(1); Activate Account
-                userRepository.save(user);
             }
 
         }
@@ -325,9 +342,15 @@ public class UserService extends UserInterface {
             Thread th = new EmailSenderService(javaMailSender,simpleMailBody);
             th.start();
         }catch (Exception ex){
-            log.error(String.format("UserService:sendWelcomeMail Exception Occurred:{ex})"));
+            log.info(String.format("UserService:sendWelcomeMail Exception Occurred:{ex})"));
             ex.printStackTrace();
         }
+    }
+    public boolean isPasswordStrong(String password){
+        return password.length() > 6
+                && password.matches(".*//d.*")
+                && password.matches(".*[a-z].*")
+                && password.matches(".*[A-Z].*");
     }
 
     public boolean isUserEmailExists(String emailID){

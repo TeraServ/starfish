@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { user } from 'src/model/user.model';
 import { UserService } from '../service/user.service';
-// import { ConfirmedValidator } from '../_helpers/confirmed.validator';
+import { ConfirmedValidator } from '../_helpers/confirmed.validator';
 import { StreamService } from '../service/stream.service';
 import { Stream } from 'src/model/stream.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,7 +27,20 @@ export class NewUserComponent implements OnInit {
   userData!:user;
   isPurchased:boolean=false;
   streamList:Stream[]=[]
+//   data =[{
+//     streamName:"Computer Engineering",
+//     price:"7000",
+//     discount:"20"
 
+//   },{ streamName:"Mechanical Engineering",
+//   price:"6000",
+//   discount:"10"
+// },
+// {
+//   streamName:"Electrical Engineering",
+//   price:"5000",
+//   discount:"5"
+// }]
   constructor(private formBuilder:FormBuilder,private userService:UserService,private streamService:StreamService,private snackBar:MatSnackBar,private authService:AuthService,private router:Router) { }
 
   ngOnInit(): void {
