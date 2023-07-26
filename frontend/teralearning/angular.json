@@ -37,11 +37,8 @@
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.js",
               "node_modules/mdb-ui-kit/js/mdb.min.js"
-<<<<<<< HEAD
               
              
-=======
->>>>>>> aa1bfc204969d45131ac1aa25c4c2efd03ae0ae7
             ]
           },
           "configurations": {
@@ -102,6 +99,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
+          
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",

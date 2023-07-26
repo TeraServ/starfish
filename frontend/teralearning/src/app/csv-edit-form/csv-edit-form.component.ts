@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CSVRecord } from 'app/models/csvrecord.model';
+import { CSVRecord } from 'src/model/csvrecord.model';
+
 
 @Component({
   selector: 'app-csv-edit-form',
