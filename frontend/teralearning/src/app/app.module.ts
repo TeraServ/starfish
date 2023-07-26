@@ -13,6 +13,7 @@ import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 
 
 
+
 import { TopicComponent } from './topic/topic.component';
 import { MaterialModule } from './shared/material/material.module';
 import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
@@ -25,6 +26,10 @@ import { GooglePayButtonModule } from '@google-pay/button-angular';
 import { CreateCoursesComponent } from './create-courses/create-courses.component';
 import { NewUserComponent } from './new-user/new-user.component';
 
+import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
+
+
 
 
 
@@ -35,11 +40,12 @@ import { NewUserComponent } from './new-user/new-user.component';
     AppComponent,
     LoginPageComponent,
     ForgetDialogComponent,
-    NewUserComponent,
     ViewAndSearchComponent, 
     PasswordResetComponent,
     TopicComponent,
     CreateCoursesComponent,
+    NewUserComponent
+ 
    
   ],
   imports: [
@@ -52,6 +58,8 @@ import { NewUserComponent } from './new-user/new-user.component';
     BrowserAnimationsModule,
     MaterialModule,
     GooglePayButtonModule,
+    MatInputModule,
+    MatOptionModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

@@ -14,6 +14,7 @@ import { user } from 'src/model/user.model';
 })
 export class UserListComponent implements OnInit {
 
+
   users!: user[];
   filterSelectObj: any[] = [];
   filterValues: any[] = [];
@@ -22,28 +23,10 @@ export class UserListComponent implements OnInit {
   visible: boolean = false;
   showPaginator: boolean = false;
 
-  constructor(private userService: UserService
-    , private dialog: MatDialog) {
-    // this.filterSelectObj = [
-    //   {
-    //     name: 'Stream Name',
-    //     columnProp: 'stream',
-    //     options: []
-    //   },
-    //   {
-    //     name: 'Status',
-    //     columnProp: 'userStatus',
-    //     options: []
-    //   },
-    //   {
-    //     name: 'User Type',
-    //     columnProp: 'userType',
-    //     options: []
-    //   },
+  constructor(private userService:UserService
+    ,private dialog:MatDialog) { }
+  displayedColumns: string[] = ['firstName','lastName','email','userStatus','userType','stream','phoneNumber','category','actions']
 
-    // ];
-  }
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'phoneNumber', 'userStatus', 'userType', 'stream', 'category', 'actions']
   @Input() dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

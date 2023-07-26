@@ -20,7 +20,7 @@ export class BasicAuthInterceptor implements HttpInterceptor {
                 setHeaders:
                         {
                           'Content-Type': 'application/json',
-                          'Authorization': `Bearer ` + `${currentUser}`,
+                          'Authorization': `Bearer ` + `${currentUser.token}`,
                         }
                 
             });

@@ -6,6 +6,9 @@ import { LoginPageComponent } from './login-page/login-page.component';
 
 import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
+
+import { NewUserComponent } from './new-user/new-user.component';
+
 import { StreamListComponent } from './home/streams/stream-list/stream-list.component';
 
 import { SubjectComponent } from './home/subjects/subject/subject.component';
