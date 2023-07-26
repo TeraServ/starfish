@@ -37,6 +37,8 @@ import {MatSidenavModule} from '@angular/material/sidenav'
 import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/bulk-user-creation.component';
 
 import { CSVHandlerService } from '../core/services/csvhandler.service';
+import { MaterialModule } from '../shared/material/material.module';
+import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-form.component';
 @NgModule({
   declarations: [
 
@@ -48,6 +50,7 @@ import { CSVHandlerService } from '../core/services/csvhandler.service';
     UserUpdateComponent,
     SuccessDialogComponent,
     BulkUserCreationComponent,
+    CsvEditFormComponent,
     SubjectComponent,
     SubjectListComponent,
     UserProfileComponent,
@@ -76,7 +79,8 @@ import { CSVHandlerService } from '../core/services/csvhandler.service';
     MatInputModule,
     MatProgressBarModule,
     MatSidenavModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MaterialModule
 
 
   ],

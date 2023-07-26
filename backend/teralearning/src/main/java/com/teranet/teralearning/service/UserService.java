@@ -1,5 +1,6 @@
 package com.teranet.teralearning.service;
 
+import com.teranet.teralearning.exception.InternalStandardError;
 import com.teranet.teralearning.model.Notification;
 import com.teranet.teralearning.model.SimpleMailBody;
 import com.teranet.teralearning.model.TokenValidity;
@@ -69,8 +70,9 @@ public class UserService extends UserInterface {
 
         Optional<User> u = userRepository.findByEmail(user.getEmail());
         if(u.isPresent()){
+            return new ResponseEntity(InternalStandardError.USER_ALREADY_EXIST.getErrorMessage(),InternalStandardError.USER_ALREADY_EXIST.getHttpStatus());
 
-            return new ResponseEntity("Email already exists.", HttpStatus.CONFLICT);
+       /*     return new ResponseEntity("Email already exists.", HttpStatus.CONFLICT);*/
         }else{
             if(!isPasswordStrong(user.getPassword())){
                 return new ResponseEntity("Password not Strong", HttpStatus.BAD_REQUEST);
@@ -119,12 +121,12 @@ public class UserService extends UserInterface {
             }
             if(bCryptPasswordEncoder.matches(password,user.get().getPassword())){
 
-                return new ResponseEntity(getJson(userDetailsService.loadUserByUsername(user.get().getEmail()),"Login Success",jwtUtil.generateToken(username)),HttpStatus.OK);
+                return new ResponseEntity(getJson(userDetailsService.loadUserByUsername(user.get().getEmail()),InternalStandardError.LOGIN_SUCCESSFULLY.getErrorMessage(), jwtUtil.generateToken(username)),InternalStandardError.LOGIN_SUCCESSFULLY.getHttpStatus());
             }else{
-                return new ResponseEntity("Invalid email or password!!",HttpStatus.NOT_FOUND);
+                return new ResponseEntity(InternalStandardError.INVALID_EMAIL_OR_PASSWORD.getErrorMessage(),InternalStandardError.INVALID_EMAIL_OR_PASSWORD.getHttpStatus());
             }
         }else{
-            return new ResponseEntity("Invalid email or password!!",HttpStatus.NOT_FOUND);
+            return new ResponseEntity(InternalStandardError.INVALID_EMAIL_OR_PASSWORD.getErrorMessage(),InternalStandardError.INVALID_EMAIL_OR_PASSWORD.getHttpStatus());
         }
     }
     @Override
@@ -160,7 +162,8 @@ public class UserService extends UserInterface {
                 updateUser.get().setStream(user.getStream());
                 updateUser.get().setModifiedDate(getDate());
                 deletedRecordsService.clearDeletionRecord(updateUser.getClass().getSimpleName(), user.getId());
-                return new ResponseEntity(userRepository.save(updateUser.get()),HttpStatus.OK);
+                userRepository.save(updateUser.get());
+                return new ResponseEntity(InternalStandardError.UPDATED_SUCCESSFULLY.getErrorMessage(),InternalStandardError.UPDATED_SUCCESSFULLY.getHttpStatus());
             }
             else {
 
@@ -169,7 +172,7 @@ public class UserService extends UserInterface {
 
         }
 
-        return new ResponseEntity("No user found",HttpStatus.NOT_FOUND);
+        return new ResponseEntity(InternalStandardError.USER_NOT_FOUND.getErrorMessage(),InternalStandardError.USER_NOT_FOUND.getHttpStatus());
     }
 
     @Override
@@ -183,11 +186,11 @@ public class UserService extends UserInterface {
                 userRepository.save(deletedUser.get());
                 log.info("UserService:deleteUser User found and status changed to suspended with id:"+id);
                 /*userRepository.deleteById(id);*/
-                return new ResponseEntity("Successfully deleted!!", HttpStatus.OK);
+                return new ResponseEntity(InternalStandardError.RECORD_DELETED.getErrorMessage(),InternalStandardError.RECORD_DELETED.getHttpStatus());
             }
             else {
                 log.error("UserService:deleteUser User not found where id:"+id);
-                return new ResponseEntity("User not Found", HttpStatus.NOT_FOUND);
+                return new ResponseEntity(InternalStandardError.USER_NOT_FOUND.getErrorMessage(),InternalStandardError.USER_NOT_FOUND.getHttpStatus());
             }
         } catch (Exception ex) {
             log.error("UserService:deleteUser Exception occurred:"+ex);
@@ -291,7 +294,10 @@ public class UserService extends UserInterface {
             throw new UserNotFoundException("Exception occurred while fetch user from Database");
         }
     }
-    public String permanentDelete(long id){
+    public void accessDeleteMethod(long id){
+        permanentDelete(id);
+    }
+    private void permanentDelete(long id){
         try{
             log.debug("UserService:permanentDelete Init...");
             Optional<User> permanentDeletedUser = userRepository.findById(id);
@@ -299,16 +305,16 @@ public class UserService extends UserInterface {
                 tokenRepository.deleteByUser(permanentDeletedUser.get());
 
                 userRepository.deleteById(id);
-                return "Success";
+                System.out.println( "UserService:permanentDelete Success");
             }
             else {
-                return "User not Found: Failed to Delete User";
+                System.out.println("UserService:permanentDelete User not Found: Failed to Delete User");
             }
         }
         catch (Exception ex){
             log.error("UserService:permanentDelete Exception Occurred:"+ex);
             ex.printStackTrace();
-            return "Exception Occurred: Failed to Delete User";
+            System.out.println("UserService:permanentDelete Exception Occurred: Failed to Delete User");
         }
     }
 
