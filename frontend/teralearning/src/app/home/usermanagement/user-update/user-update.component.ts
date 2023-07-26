@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angu
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { UserService } from 'src/app/service/user.service';
+import { Stream } from 'src/model/stream.model';
 import { user } from 'src/model/user.model';
 
 @Component({
@@ -17,6 +18,7 @@ export class UserUpdateComponent implements OnInit {
   userForm!:FormGroup;
   submitted:boolean = false;
   @Input() updateData!:any;
+  streamList:Stream[]=[];
   ngOnInit(): void {
    // console.log(this.data);
 

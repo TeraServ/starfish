@@ -1,6 +1,6 @@
 import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Input } from 'fcyg/@angular/core';
+
 
 @Component({
   selector: 'app-success-dialog',

@@ -14,6 +14,9 @@ export class UserService {
   addNewUser(data:any):Observable<any>{
     return this.http.post(this.Url + "new", data);
   }
+  addOnlineUser(data:any):Observable<any>{
+    return this.http.post(this.Url + "register", data);
+  }
   getAllUser():Observable<any>{
     return this.http.get(this.Url+"list");
   }

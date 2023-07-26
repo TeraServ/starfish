@@ -3,14 +3,41 @@ body {
   }
   @media (min-width: 991.98px) {
     main {
-      padding-left: 240px;
+      
     }
+  }
+  main{
+    padding-top: 10px;
   }
   .text-reset{
     text-decoration: none;
     align-items: right;
     
    
+  }
+  .menu-bar{
+    border: none;
+    padding: 10px 17px;
+    font-size: large;
+    background-color: #fff;
+    color: #2C45A7;
+  }
+  .example-container {
+    width: 100%;
+    margin-top: 48px;
+    height: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+  }
+  
+  .example-sidenav-content {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .example-sidenav {
+    padding: 20px;
   }
   #collapseExample1 li{
     padding: 10px 60px !important;
@@ -27,6 +54,8 @@ body {
     padding: 10px 60px !important;
     background-color: #f1f3fc;
     border-radius: 5px;
+    
+    
   }
   #collapseExample2 li .active{
     color: #2C45A7 !important;
@@ -38,6 +67,16 @@ body {
     padding: 10px 60px !important;
     background-color: #f1f3fc;
     border-radius: 5px;
+  }
+  #sideMenuCloseButton{
+    border: none;
+    background-color: white;
+    font-size: 20px;
+    padding: 8px 10px;
+    color: #2C45A7;
+    display: flex;
+    justify-content: space-between;
+    
   }
   #collapseExample3 li .active{
     color: #2C45A7 !important;
@@ -54,7 +93,7 @@ body {
     padding: 58px 0 0; /* Height of navbar */
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
     width: 240px;
-    z-index: 600;
+    z-index: 6000;
   }
   #sideBarNotification{
     position: fixed;
@@ -83,7 +122,7 @@ body {
   }
 
   .sidebar-sticky {
-    position: relative;
+    position: fixed;
     top: 0;
     height: calc(100vh - 48px);
     padding-top: 0.5rem;

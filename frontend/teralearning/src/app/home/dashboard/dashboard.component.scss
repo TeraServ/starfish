@@ -1,0 +1,27 @@
+.con{
+    height: 150px;
+    box-shadow: 0px 2px 5px #ddd;
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    
+}
+.fas{
+    color: #2C45A7;
+}
+
+.course-con{
+    width: 250px;
+    height: 300px;
+    padding: 10px;
+    box-shadow: 0px 2px 5px #ddd;
+    
+}
+.con-1{
+    height: 50%;
+    background-color: #2C45A7;
+}

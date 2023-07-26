@@ -9,6 +9,7 @@ import com.teranet.teralearning.repository.NotificationRepository;
 import com.teranet.teralearning.repository.TokenRepository;
 import com.teranet.teralearning.repository.UserRepository;
 import com.teranet.teralearning.util.JwtUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;

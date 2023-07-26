@@ -14,7 +14,7 @@ import { PasswordService } from 'src/app/core/services/password.service';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
 import { Stream } from 'src/model/stream.model';
-import * as e from 'fcyg/@types/cors';
+
 
 
 
