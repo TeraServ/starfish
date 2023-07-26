@@ -1,3 +1,4 @@
+import { SubjectComponent } from './subjects/subject/subject.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -22,10 +23,20 @@ import { UserUpdateComponent } from './usermanagement/user-update/user-update.co
 import { MatIconModule } from '@angular/material/icon'
 import { NoopAnimationPlayer } from '@angular/animations';
 import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dialog.component';
-import { StreamEditComponent } from './stream-edit/stream-edit.component';
-import { SubjectEditComponent } from './subject-edit/subject-edit.component';
-import { SubjectListComponent } from './subject-list/subject-list.component';
+
 import { MaterialModule } from '../shared/material/material.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { UserProfileComponent } from './settings/user-profile/user-profile.component';
+import { StreamEditComponent } from './streams/stream-edit/stream-edit.component';
+import { StreamComponent } from './streams/stream/stream.component';
+import { SubjectEditComponent } from './subjects/subject-edit/subject-edit.component';
+import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
+import { StreamListComponent } from './streams/stream-list/stream-list.component';
+import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/bulk-user-creation.component';
+import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-form.component';
+import { CSVHandlerService } from '../core/services/csvhandler.service';
+
 
 @NgModule({
   declarations: [
@@ -41,8 +52,11 @@ import { MaterialModule } from '../shared/material/material.module';
     StreamComponent,
     SubjectListComponent,
     SubjectEditComponent,
-    UserProfileComponent
-    
+    UserProfileComponent,
+    SubjectComponent,
+    StreamListComponent,
+    BulkUserCreationComponent,
+    CsvEditFormComponent,
     
   ],
   imports: [
@@ -58,15 +72,13 @@ import { MaterialModule } from '../shared/material/material.module';
     MatPaginatorModule,
     MatIconModule,
     FormsModule,
-
-  
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
-    
 
-
-
+  ],
+  providers:[
+    CSVHandlerService
   ]
 })
 export class HomeModule { }

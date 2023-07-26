@@ -10,11 +10,24 @@
     
   }
   .text-center {
-    text-align: center;
+    text-align: left;
   }
   .invalid{
     background-color: red;
   }
   .highlight{
     background-color:  green;
+  }
+  .btn {
+    background-color: #2C45A7; /* Green */
+    border: none;
+    color: white;
+   
+    text-align: left;
+    justify-content: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    
+    
   }
