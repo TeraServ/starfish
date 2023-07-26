@@ -128,14 +128,7 @@ public class UserService extends UserInterface {
     }
     @Override
     public ResponseEntity GetAllUser() {
-    /*    userRepository.findAll().stream()
-                .forEach(user -> {
-                    deletedRecordsService.checkDeletionDate(user.getClass().getSimpleName(),user.getId());
-                });*/
-        userRepository.findAll().stream()
-                .forEach(user->{
-                    deletedRecordsService.checkDeletionDate(user.getClass().getSimpleName(), user.getId());
-                });
+
         return new ResponseEntity(userRepository.findAll(), HttpStatus.OK);
     }
 
