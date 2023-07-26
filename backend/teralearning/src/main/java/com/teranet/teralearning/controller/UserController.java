@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @NoArgsConstructor
@@ -34,11 +33,9 @@ public class UserController {
 
     @PostMapping("new")
     public ResponseEntity newUser(@RequestBody User user){
-      return userService.CreateUser(user);
-    }
-    @PostMapping("create_bulk_user")
-    public ResponseEntity createBulkUser(@RequestBody List<User> userList){
-        return userService.createMultipleUsers(userList);
+
+
+        return userService.CreateUser(user);
     }
 
     @PutMapping("update")
@@ -71,7 +68,6 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    
 
 
 

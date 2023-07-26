@@ -26,7 +26,7 @@ public class TokenValidity {
     generator ="TOKEN_SEQ" )
     @Id
     private long id;
-    @OneToOne(cascade = CascadeType.ALL, targetEntity = User.class)
+    @OneToOne(cascade = CascadeType.MERGE, targetEntity = User.class)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 

@@ -9,5 +9,4 @@ public interface DeletedRecordsInterface {
     public void deleteStreamBody(Stream stream);
     public void checkDeletionDate(String type, long recordId);
     public boolean checkRecordExpiration(SoftDelete softDelete);
-    public void  clearDeletionRecord(String type, long recordId);
 }

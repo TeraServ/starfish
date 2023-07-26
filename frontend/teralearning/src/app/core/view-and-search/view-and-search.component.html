@@ -8,7 +8,7 @@
           <thead>
             <tr>
               <th *ngFor = "let heads of headers; let i= index"
-              data-priority="i+1">{{heads}}</th>
+              data-priority="i+1">{{heads|uppercase}}</th>
             </tr>
           </thead>
           <tbody *ngFor="let data of tableDetails">

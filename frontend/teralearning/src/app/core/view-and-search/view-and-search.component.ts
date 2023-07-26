@@ -1,6 +1,7 @@
 import { Component, OnInit ,Input, Output, EventEmitter} from '@angular/core';
 import { UserDetail } from 'src/model/user-detail.model';
 
+
 @Component({
   selector: 'app-view-and-search',
   templateUrl: './view-and-search.component.html',

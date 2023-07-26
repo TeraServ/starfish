@@ -1,17 +1,12 @@
 package com.teranet.teralearning.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
 public class SimpleMailBody {
     private String recipient, msgBody, subject;
-
-    public SimpleMailBody(String recipient, String msgBody, String subject) {
-        this.recipient = recipient;
-        this.msgBody = msgBody;
-        this.subject = subject;
-    }
 }

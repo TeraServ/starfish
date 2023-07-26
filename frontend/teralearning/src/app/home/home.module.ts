@@ -22,10 +22,17 @@ import { UserUpdateComponent } from './usermanagement/user-update/user-update.co
 import { MatIconModule } from '@angular/material/icon'
 import { NoopAnimationPlayer } from '@angular/animations';
 import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dialog.component';
-import { StreamEditComponent } from './stream-edit/stream-edit.component';
-import { SubjectEditComponent } from './subject-edit/subject-edit.component';
-import { SubjectListComponent } from './subject-list/subject-list.component';
-import { MaterialModule } from '../shared/material/material.module';
+
+import { SubjectEditComponent } from './subjects/subject-edit/subject-edit.component';
+import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
+import { StreamEditComponent } from './streams/stream-edit/stream-edit.component';
+import { StreamComponent } from './streams/stream/stream.component';
+import { UserProfileComponent } from './settings/user-profile/user-profile.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { LoginPageComponent } from '../login-page/login-page.component';
+import { SubjectComponent } from './subjects/subject/subject.component';
+import { StreamListComponent } from './streams/stream-list/stream-list.component';
 
 @NgModule({
   declarations: [
@@ -37,11 +44,14 @@ import { MaterialModule } from '../shared/material/material.module';
     SettingsComponent,
     UserUpdateComponent,
     SuccessDialogComponent,
-    StreamEditComponent,
-    StreamComponent,
-    SubjectListComponent,
+    UserProfileComponent,
     SubjectEditComponent,
-    UserProfileComponent
+    SubjectListComponent,
+    SubjectComponent,
+    StreamComponent,
+    StreamEditComponent,
+    StreamListComponent
+    
     
     
   ],
@@ -52,19 +62,15 @@ import { MaterialModule } from '../shared/material/material.module';
     HttpClientModule,
     MatOptionModule,
     MatSelectModule,
-    ReactiveFormsModule,
     MatSnackBarModule,
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
     FormsModule,
-
-  
     MatFormFieldModule,
     ReactiveFormsModule,
     MatInputModule,
     
-
 
 
   ]

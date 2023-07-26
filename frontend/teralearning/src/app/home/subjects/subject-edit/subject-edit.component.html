@@ -8,8 +8,8 @@
 <div class="form-group">
   <label for="stage"><b>Stream:</b></label>
   <select [(ngModel)]="UpdatedStream" class="form-control"  (ngModelChange)="valuechange($event)"  id="streamDrop" name="streamDrop" #streamDrop="ngModel" required>
-    
-    <option *ngFor="let item of streamList" value="{{EditSubject.stream.streamName}}" (ngModelChange)="valuechange($event)">
+    <option [ngValue]="UpdatedStream" selected>{{UpdatedStream.streamName}}</option>
+    <option *ngFor="let item of streamList" value="{{item}}" (ngModelChange)="valuechange($event)">
       {{item.streamName}}</option>
   </select><br>
   <div [hidden]="streamDrop.valid || streamDrop.pristine"

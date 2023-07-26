@@ -9,4 +9,5 @@ public class TeralearningApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TeralearningApplication.class, args);
 	}
+
 }

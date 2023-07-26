@@ -6,5 +6,5 @@ import org.springframework.http.ResponseEntity;
 public interface TokenInterface {
     void updateToken(User user, String token);
     void clearToken(User user);
-    ResponseEntity checkTokenValidity(String email, String token);
+    ResponseEntity checkTokenValidity(long ID, String token);
 }

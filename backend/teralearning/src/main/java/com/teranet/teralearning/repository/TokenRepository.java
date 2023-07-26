@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TokenRepository extends JpaRepository<TokenValidity,Long> {
-    long deleteByUser(User user);
 
 
     TokenValidity findByUser(User user);
