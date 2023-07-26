@@ -40,6 +40,9 @@ export class HomeComponent implements OnInit {
       
   }
   
+  
+  this.userType  = this.authService.getUserTypes();
+  console.log(this.userType)
  
     //console.log( this.router.url.split('/')[2])
    // this.getUserId();

@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +24,7 @@ import java.util.Optional;
 @SecurityScheme(name = "user-authenticate", scheme = "bearer", type = SecuritySchemeType.HTTP,bearerFormat = "JWT", in = SecuritySchemeIn.HEADER)
 public class UserController {
 
+    
     private UserService userService;
 
     @Autowired
@@ -33,6 +34,7 @@ public class UserController {
 
 
     @PostMapping("new")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity newUser(@RequestBody User user){
       return userService.CreateUser(user);
     }
@@ -40,19 +42,29 @@ public class UserController {
     public ResponseEntity createBulkUser(@RequestBody List<User> userList){
         return userService.createMultipleUsers(userList);
     }
+    @PostMapping("register")
+
+    public ResponseEntity newOnlineUser(@RequestBody User user){
+
+
+        return userService.CreateUser(user);
+    }
 
     @PutMapping("update")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity updateUser(@RequestBody User user){
         return userService.updateUser(user);
     }
 
 
     @DeleteMapping("delete/{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity deleteUser(@PathVariable Long id){
         return userService.deleteUser(id);
     }
 
     @CrossOrigin("http://localhost:4200/")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping("list")
     public ResponseEntity getUser(){
         return userService.GetAllUser();
@@ -66,6 +78,7 @@ public class UserController {
 
     @CrossOrigin("http://localhost:4200/")
     @GetMapping(value = "{id}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER)")
     public Optional<User> getUserById(@PathVariable long id)
     {
         return userService.getUserById(id);

@@ -11,7 +11,7 @@ import { ForgetDialogComponent } from './dialogBoxs/forget-dialog/forget-dialog.
 
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 
-import { NewUserComponent } from './app/new-user/new-user.component';
+
 
 
 import { TopicComponent } from './topic/topic.component';
@@ -24,6 +24,9 @@ import { TitleStrategy } from '@angular/router';
 
 import { GooglePayButtonModule } from '@google-pay/button-angular';
 import { CreateCoursesComponent } from './create-courses/create-courses.component';
+import { NewUserComponent } from './new-user/new-user.component';
+import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
 
 
 
@@ -35,11 +38,12 @@ import { CreateCoursesComponent } from './create-courses/create-courses.componen
     AppComponent,
     LoginPageComponent,
     ForgetDialogComponent,
-    NewUserComponent,
     ViewAndSearchComponent, 
     PasswordResetComponent,
     TopicComponent,
     CreateCoursesComponent,
+    NewUserComponent
+ 
    
   ],
   imports: [
@@ -52,6 +56,8 @@ import { CreateCoursesComponent } from './create-courses/create-courses.componen
     BrowserAnimationsModule,
     MaterialModule,
     GooglePayButtonModule,
+    MatInputModule,
+    MatOptionModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
