@@ -1,3 +1,4 @@
+<h2>Create Bulk Users </h2>
 <main>
     <div class="row mb-2 mt-5">
         <div class="col-sm-6 offset-3">
@@ -24,6 +25,9 @@
           <div *ngIf="invalidData.length  || duplicateEntry">
               <b>Please validate the following errors</b>  <br>
               Invalid Entry: {{this.invalidData.length}}<br>
+          </div>
+          <div *ngIf = "validatedData.length">
+            Valid Entry: {{this.validatedData.length}}
           </div>
           <table class="table" *ngIf="invalidData.length || validatedData.length; else elseBlock">
  
