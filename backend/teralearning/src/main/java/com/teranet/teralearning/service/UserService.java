@@ -5,6 +5,7 @@ import com.teranet.teralearning.model.Stream;
 import com.teranet.teralearning.model.User;
 import com.teranet.teralearning.repository.UserRepository;
 import com.teranet.teralearning.util.JwtUtil;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;

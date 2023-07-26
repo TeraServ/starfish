@@ -15,7 +15,7 @@ export class UserListComponent implements OnInit {
 
   constructor(private userService:UserService
     ,private dialog:MatDialog) { }
-  displayedColumns: string[] = ['firstName','lastName','email','userStatus','userType','stream','phoneNumber','actions']
+  displayedColumns: string[] = ['firstName','lastName','email','userStatus','userType','stream','phoneNumber','category','actions']
   @Input() dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

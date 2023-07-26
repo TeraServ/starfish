@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
+
+  userType:boolean[]=[]
   currentUserValue(): string {
      return localStorage.getItem("currentUser")!;
   }
@@ -26,5 +28,33 @@ export class AuthService {
   }
   logout(){
     localStorage.removeItem("currentUser");
+  }
+
+  getUserTypes(){
+    let user = JSON.parse(localStorage.getItem('currentUser')!).message.authorities[0].authority
+      this.userType[0] = true;
+      if(user == "ROLE_ADMIN"){
+        this.userType[1] = true;
+        this.userType[2] = true;
+        this.userType[3] = true;
+        this.userType[4] = true;
+       
+      }else if(user == "ROLE_STUDENT"){
+        this.userType[1] = false;
+        this.userType[2] = false;
+        this.userType[3] = false;
+        this.userType[4] = true;
+      
+      }else if(user == "ROLE_FACULTY"){
+        this.userType[1] = true;
+        this.userType[2] = false;
+        this.userType[3] = true;
+        this.userType[4] = true;
+       
+      }else{
+        this.userType[0] = true;
+      }
+  
+      return this.userType;
   }
 }

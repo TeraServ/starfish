@@ -40,8 +40,8 @@
             <label for="stream">Stream</label>
             <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
             <select name="stream" class="form-control-input" [value]="data.stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
-                <option  selected [value]="data.stream">{{ data.stream.streamName}}</option> 
-                <option *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
+                <option  selected [value]="data.stream">{{ data.stream?.streamName}}</option> 
+                <option *ngFor="let e of streamList" [ngValue]="e">{{e?.streamName}}</option>
                 
             </select>
             <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
@@ -60,7 +60,7 @@
                   <option value="102">Suspended</option>
                
             </select>
-            <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
+            <div *ngIf="submitted && f.userStatus.errors?.required" class="invalid-feedback"> 
                 *Required
               </div>
         </div>
@@ -74,6 +74,6 @@
     </div>
     <br>
     <div class="row">
-        <input type="submit" value="Update" class="btn-submit">
+        <input type="submit" value="Update" class="btn-submit" id="updateButton">
     </div>
 </form>

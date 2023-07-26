@@ -54,7 +54,7 @@ login() {
         this.authService.userLogin(this.loginForm.value).subscribe(data=>{
           
            if(this.loginForm.get('password')?.value && data.message){
-            localStorage.setItem("currentUser",JSON.stringify(data.token));
+            localStorage.setItem("currentUser",JSON.stringify(data));
 
             console.log(localStorage.getItem("currentUser"))
             //this.error = false;
