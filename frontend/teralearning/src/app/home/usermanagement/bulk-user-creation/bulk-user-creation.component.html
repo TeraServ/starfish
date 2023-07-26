@@ -1,3 +1,4 @@
+<h2>Create Bulk Users </h2>
 <main>
     <div class="row mb-2 mt-5">
         <div class="col-sm-6 offset-3">
@@ -25,10 +26,13 @@
               <b>Please validate the following errors</b>  <br>
               Invalid Entry: {{this.invalidData.length}}<br>
           </div>
+          <div *ngIf = "validatedData.length">
+            Valid Entry: {{this.validatedData.length}}
+          </div>
           <table class="table" *ngIf="invalidData.length || validatedData.length; else elseBlock">
  
                     <td>
-                        <app-csv-edit-form [invalidData] = "this.invalidData" (editedDataEmitter)="onDataEmitted($event)"></app-csv-edit-form>
+                        <!-- <app-csv-edit-form [invalidData] = "this.invalidData" (editedDataEmitter)="onDataEmitted($event)"></app-csv-edit-form> -->
                     </td>
 
                   
@@ -40,7 +44,7 @@
                 All Data are valid, Click Submit to continue.
                     </td>
                         </tr>
-                <tr>
+                <tr *ngIf =" invalidData.length == 0 && validatedData.length == 0" >
                     <td colspan="5" class="text-center">No data Found</td>
                 </tr>
             </ng-template>

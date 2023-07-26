@@ -9,18 +9,18 @@
 
     <label for="title"><b>Stream Name:</b></label>
     <input type="text"  [(ngModel)]="UpdatedStreamName" value="{{EditStream.streamName}}" class="form-control"
-      (ngModelChange)="valuechange($event)" id="streamname" name="streamname" #streamname="ngModel"
+      (ngModelChange)="valuechange($event )" id="streamname" name="streamname" #streamname="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
        required>
-    <div *ngIf="streamEditForm.controls.streamname.errors?.required" class="error">*Stream Name is required
+    <div *ngIf="streamEditForm.controls?.streamname?.errors?.required" class="error">*Stream Name is required
     </div>
-    <div *ngIf="streamEditForm.controls.streamname.errors?.pattern" class="error">Invalid</div>
+    <div *ngIf="streamEditForm.controls?.streamname?.errors?.pattern" class="error">Invalid</div>
   </div><br>
 
 
   <div class="form-group">
     <label for="title"><b>Acronymn:</b></label>
     <input type="text"  [(ngModel)]="UpdatedAcronym" value="{{EditStream.acronym}}" class="form-control"
-      (ngModelChange)="valuechange($event)" id="Acronymn" name="Acronymn" #Acronymn="ngModel"
+      (ngModelChange)="valuechange($event)" id="Acronymn" name="Acronymn" #Acronymn="ngModel" pattern="[a-zA-Z][a-zA-Z ]+"
        required>
     <div *ngIf="streamEditForm.controls.Acronymn.errors?.required" class="error">*Acronymn is required</div>
     <div *ngIf="streamEditForm.controls.Acronymn.errors?.pattern" class="error">Invalid</div>
@@ -52,7 +52,7 @@
     Updated Successfully!
   </div>
   <div >
-    <button class="loginbtn btn" [disabled]=streamBtn>Update</button>
+    <button class="loginbtn btn" [disabled]="streamEditForm.controls?.streamname?.errors?.pattern ||streamEditForm.controls.Acronymn.errors?.pattern || streamBtn">Update</button>
   </div>
   <!-- <div>
     <button class="loginbtn btn">Update</button>

@@ -2,13 +2,22 @@
 import { first } from 'rxjs';
 import { Component, OnInit  } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-
 import { MatSnackBar } from '@angular/material/snack-bar'
-import { FormsModule } from '@angular/forms';;
 import { read, utils } from 'xlsx';
-import { CSVHandlerService } from '../core/services/csvhandler.service';
-import { CustomValidatorService } from '../core/services/custom-validator.service';
 import { CSVRecord } from 'src/model/csvrecord.model';
+import { MatDialog } from '@angular/material/dialog';
+import { user } from 'src/model/user.model';
+import { CSVHandlerService } from 'src/app/core/services/csvhandler.service';
+import { CustomValidatorService } from 'src/app/core/services/custom-validator.service';
+import { UserService } from 'src/app/service/user.service';
+import { PasswordService } from 'src/app/core/services/password.service';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
+import { StreamService } from 'src/app/service/stream.service';
+import { Stream } from 'src/model/stream.model';
+
+
+
+
 
 @Component({
   selector: 'app-bulk-user-creation',
@@ -19,7 +28,11 @@ export class BulkUserCreationComponent implements OnInit {
 
   constructor(private csvService: CSVHandlerService, 
     private customValidator: CustomValidatorService,
-    private formBuilder: FormBuilder, 
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private streamService : StreamService,
+    private passwordService: PasswordService,
+    private dialog: MatDialog,
     public snackbar: MatSnackBar) {
       this.editForm = new FormGroup({
         formArray : this.formBuilder.array([])
@@ -30,7 +43,6 @@ export class BulkUserCreationComponent implements OnInit {
     this.pageReset();
   }
   ngOnChanges(){
-    this.exportFileName = 'Uploaded_Bulk_Create_User';
     this.onValidate(this.invalidData);
   }
 
@@ -39,16 +51,22 @@ export class BulkUserCreationComponent implements OnInit {
   invalidData!: CSVRecord[];
   hasInvalidEntry!: boolean;
   duplicateEntry!: number; 
-  validStreamAcronym!:string[];
-  csvHeaders= [[
+  validStreamAcronym:string[]=[];
+  private readonly csvHeaders= [[
     'firstName',
     'lastName',
     'phoneNumber',
     'email',
     'stream'
 ]];
-exportFileName!: string;
+private readonly userStatus:number = 103;
+private readonly userType: number = 102;
+private readonly exportFileName: string = 'Bulk Create User';
+private readonly category: string = "classroom";
+streamList:Stream[]=[];
 editForm: FormGroup;
+
+foundStream!:Stream | any;
 
 pageReset(){
   this.dataFromCSV = [];
@@ -56,9 +74,18 @@ pageReset(){
   this.invalidData = [];
   this.hasInvalidEntry= false;
   this.duplicateEntry = 0 ;
-  this.exportFileName = 'Bulk Create User';
-  this.validStreamAcronym = ['CSE','ECE','IT','ME','CE','AI'];
+  this.getAcronymFromStreamList();
 }
+
+getAcronymFromStreamList(){
+  this.streamService.getStreamList().subscribe(data => {
+    this.streamList= data;
+    data.forEach(stream=>{
+     this.validStreamAcronym.push(stream.acronym);
+    })
+   })
+}
+
 
     handleImport($event: any) {
       // this.dataFromCSV = this.csvService.importCSVData($event);
@@ -166,15 +193,58 @@ pageReset(){
         console.log(editedData);
         this.onSubmit();
       }
+      csvRecordToUserList(records: CSVRecord[]): user[] {
+        const userList: user[]=[];
+        records.forEach(async record=>{
+          let user: user = {
+            id:0,
+            firstName: record.firstName,
+            lastName:record.lastName,
+            userStatus: this.userStatus,
+            userType: this.userType,
+            modifiedDate:"",
+            email:record.email,
+            phoneNumber: parseInt(record.phoneNumber),
+            category: this.category,
+            stream:this.getStreamFromAcronym(record.streamAcronym),
+            password:this.passwordService.generatePassword(10),
+            createdDate:""
+          }
+          userList.push(user)
+        })
+        return userList;
+      }
+     getStreamFromAcronym(acronymName:string){
+      let stream;
+        this.streamList.forEach(value=>{
+          if(value.acronym == acronymName){
+            console.log(value)
+           stream =  value;
+            
+          }
+        })
+        return stream;
+      }
 
     onSubmit(){
       console.log('Validated Data:',this.validatedData);
       console.log('Invalid Data:',this.invalidData);
-      if(this.validatedData.length!=0 && this.invalidData.length==0){        
-        this.snackbar.open("Record Submitted Successfully!", '', {
-          duration: 10000,
-        });
-        // window.location.reload();
+      if(this.validatedData.length!=0 && this.invalidData.length==0){     
+        this.userService.bulkUserCreate(this.csvRecordToUserList(this.validatedData)).subscribe(data=>{
+        },err=>{
+          console.log(err);
+          if(err.error == 201){
+            this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
+            this.pageReset();
+            // window.location.reload();
+          }
+          else{
+            this.snackbar.open(err.error.text,'Close',{duration:1000 });
+            this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
+            // window.location.reload();
+          }
+        }) 
+        console.log(this.csvRecordToUserList(this.validatedData));
       }
       else{
         this.snackbar.open('Invalid Entry','Close',{duration:1000 });

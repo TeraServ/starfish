@@ -6,7 +6,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog'
 import {MatSnackBarModule} from '@angular/material/snack-bar'
 import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { MatTableModule } from '@angular/material/table';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -19,7 +21,12 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatPaginatorModule,
     MatFormFieldModule,
-    MatTableModule
+    MatTableModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatDialogModule,
+    MatInputModule
+    
   ]
 })
 export class MaterialModule { }

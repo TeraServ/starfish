@@ -13,8 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.security.RolesAllowed;
+import java.util.List;
 import java.util.Optional;
 
 @NoArgsConstructor
@@ -25,6 +24,7 @@ import java.util.Optional;
 @SecurityScheme(name = "user-authenticate", scheme = "bearer", type = SecuritySchemeType.HTTP,bearerFormat = "JWT", in = SecuritySchemeIn.HEADER)
 public class UserController {
 
+    
     private UserService userService;
 
     @Autowired
@@ -36,9 +36,11 @@ public class UserController {
     @PostMapping("new")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     public ResponseEntity newUser(@RequestBody User user){
-
-
-        return userService.CreateUser(user);
+      return userService.CreateUser(user);
+    }
+    @PostMapping("create_bulk_user")
+    public ResponseEntity createBulkUser(@RequestBody List<User> userList){
+        return userService.createMultipleUsers(userList);
     }
     @PostMapping("register")
 
@@ -82,6 +84,7 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    
 
 
 

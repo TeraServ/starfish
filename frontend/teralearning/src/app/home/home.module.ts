@@ -1,3 +1,4 @@
+import { SubjectComponent } from './subjects/subject/subject.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -23,17 +24,19 @@ import { MatIconModule } from '@angular/material/icon'
 import { NoopAnimationPlayer } from '@angular/animations';
 import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dialog.component';
 import { MatProgressBarModule} from '@angular/material/progress-bar'
-import { SubjectEditComponent } from './subjects/subject-edit/subject-edit.component';
-import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
-import { StreamEditComponent } from './streams/stream-edit/stream-edit.component';
-import { StreamComponent } from './streams/stream/stream.component';
-import { UserProfileComponent } from './settings/user-profile/user-profile.component';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { LoginPageComponent } from '../login-page/login-page.component';
-import { SubjectComponent } from './subjects/subject/subject.component';
+import { UserProfileComponent } from './settings/user-profile/user-profile.component';
+import { StreamEditComponent } from './streams/stream-edit/stream-edit.component';
+import { StreamComponent } from './streams/stream/stream.component';
+import { SubjectEditComponent } from './subjects/subject-edit/subject-edit.component';
+import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
 import { StreamListComponent } from './streams/stream-list/stream-list.component';
 import {MatSidenavModule} from '@angular/material/sidenav'
+import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/bulk-user-creation.component';
+
+import { CSVHandlerService } from '../core/services/csvhandler.service';
 @NgModule({
   declarations: [
 
@@ -44,14 +47,14 @@ import {MatSidenavModule} from '@angular/material/sidenav'
     SettingsComponent,
     UserUpdateComponent,
     SuccessDialogComponent,
-    UserProfileComponent,
-    SubjectEditComponent,
-    SubjectListComponent,
+    BulkUserCreationComponent,
     SubjectComponent,
+    SubjectListComponent,
+    UserProfileComponent,
     StreamComponent,
     StreamEditComponent,
-    StreamListComponent
-    
+    StreamListComponent,
+    SubjectEditComponent
     
     
   ],
@@ -62,6 +65,7 @@ import {MatSidenavModule} from '@angular/material/sidenav'
     HttpClientModule,
     MatOptionModule,
     MatSelectModule,
+    ReactiveFormsModule,
     MatSnackBarModule,
     MatTableModule,
     MatPaginatorModule,
@@ -71,9 +75,13 @@ import {MatSidenavModule} from '@angular/material/sidenav'
     ReactiveFormsModule,
     MatInputModule,
     MatProgressBarModule,
+    MatSidenavModule,
     MatSidenavModule
 
 
+  ],
+  providers:[
+    CSVHandlerService
   ]
 })
 export class HomeModule { }

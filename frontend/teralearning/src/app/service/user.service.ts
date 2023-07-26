@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { user } from 'src/model/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,15 @@ export class UserService {
   getUserById(id:number):Observable<any>{
     return this.http.get(this.Url + id);
   }
-  deleteUser(data:any):Observable<any>{
-   return this.http.delete(this.Url+"delete/"+data.id);
+  deleteUser(data:number):Observable<any>{
+   return this.http.delete(this.Url+"delete/"+data);
   }
 
   updateUser(data:any):Observable<any>{
     return this.http.put(this.Url+"update",data);
+  }
+  bulkUserCreate(userList:any[]){
+    return this.http.post(this.Url+"create_bulk_user",userList);
   }
 
   

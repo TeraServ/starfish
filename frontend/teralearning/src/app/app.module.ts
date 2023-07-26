@@ -8,23 +8,27 @@ import { LoginPageComponent } from './login-page/login-page.component';
 
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ForgetDialogComponent } from './dialogBoxs/forget-dialog/forget-dialog.component';
+
 import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 
-import { SuccessDialogComponent } from './dialogBoxs/success-dialog/success-dialog.component';
-import { NewUserComponent } from './new-user/new-user.component';
 
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 import { TopicComponent } from './topic/topic.component';
-import { GooglePayButtonModule } from '@google-pay/button-angular';
-import { TitleStrategy } from '@angular/router';
+import { MaterialModule } from './shared/material/material.module';
 import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
-import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
+import { ViewAndSearchComponent } from './core/view-and-search/view-and-search.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
+
+import { TitleStrategy } from '@angular/router';
+
+import { GooglePayButtonModule } from '@google-pay/button-angular';
+import { CreateCoursesComponent } from './create-courses/create-courses.component';
+import { NewUserComponent } from './new-user/new-user.component';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+
+
 
 
 
@@ -34,9 +38,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AppComponent,
     LoginPageComponent,
     ForgetDialogComponent,
-    NewUserComponent,
-    TopicComponent
-    
+    ViewAndSearchComponent, 
+    PasswordResetComponent,
+    TopicComponent,
+    CreateCoursesComponent,
+    NewUserComponent
+ 
+   
   ],
   imports: [
     BrowserModule,
@@ -45,17 +53,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    MatTableModule,
+    BrowserAnimationsModule,
+    MaterialModule,
     GooglePayButtonModule,
-    MatPaginatorModule,
-    MatFormFieldModule,
-    MatOptionModule,
-    MatDialogModule,
-    MatIconModule,
-    MatSnackBarModule
-    
-
-
+    MatInputModule,
+    MatOptionModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

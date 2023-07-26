@@ -15,7 +15,7 @@ export class StreamEditComponent implements OnInit {
 
   EditStream!: Stream;
   isAlert = false;
-  streamUpdate!: boolean;
+  streamUpdate: boolean = false;
   isDialogOpen!: boolean;
   streamBtn: boolean = false;
 
@@ -68,7 +68,7 @@ export class StreamEditComponent implements OnInit {
           console.log(data);
 
           this.dialog.open(SuccessDialogComponent, {
-            data:{message:"Successfully updated!"}
+
           })
           this.dialogRef.close();
         });

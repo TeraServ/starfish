@@ -68,6 +68,7 @@ public class DeletedRecordsService implements DeletedRecordsInterface {
             log.error("DeletedRecordsService:deleteStreamBody Exception occurred:"+ex);
         }
     }
+
     @Override
     public void checkDeletionDate(String type, long recordId){
         try{
@@ -108,12 +109,12 @@ public class DeletedRecordsService implements DeletedRecordsInterface {
     private void permanentlyDeleteRecord(long id,long recordID){
         try {
             if(id == 0){
-                log.info("DeletedRecordsService:permanentlyDeleteRecord No such Record Id");
+                log.error("DeletedRecordsService:permanentlyDeleteRecord No such Record Id");
             }
             else{
                 log.info("DeletedRecordsService:permanentlyDeleteRecord Init...");
                 deletedRecordsRepository.deleteById(id);
-                log.info(userService.permanentDelete(recordID));
+                log.info("DeletedRecordsService:permanentlyDeleteRecord > UserService-->"+userService.permanentDelete(recordID));
                 log.info("DeletedRecordsService:permanentlyDeleteRecord Record deleted:"+id);
             }
         }
@@ -122,6 +123,29 @@ public class DeletedRecordsService implements DeletedRecordsInterface {
 
         }
     }
+    @Override
+    public void  clearDeletionRecord(String type, long recordId){
+        try{
+                log.info("DeletedRecordsService:clearDeleteAction Init...");
+                SoftDelete clearRecord  = deletedRecordsRepository.findByRecordId(recordId);
+                if( clearRecord == null) {
+                    log.error("DeletedRecordsService:clearDeleteAction Record not found in deleted records");
+                }
+                else {
+                    if(clearRecord.getType().equals(type)){
+                        deletedRecordsRepository.deleteById(clearRecord.getId());
+                        log.info("DeletedRecordsService:clearDeleteAction Deletion-Record removed for User id:"+clearRecord.getRecordId());
+                    }
+                    else{
+                        log.error("DeletedRecordsService:clearDeleteAction Invalid-Record not found in deleted records");
+                    }
+                }
+        }
+        catch (Exception ex){
+            log.error("DeletedRecordsService:clearDeleteAction Exception Occurred:"+ex);
+        }
+    }
+
     public LocalDate getDate(){
         return LocalDate.now();
     }

@@ -158,7 +158,7 @@ export class NewUserComponent implements OnInit {
     const eventDetail = event as CustomEvent<google.payments.api.PaymentData>;
     console.log('load payment data', eventDetail.detail);
     console.log(this.userData)
-    this.userService.addOnlineUser(this.userData).subscribe(data=>{
+    this.userService.addNewUser(this.userData).subscribe(data=>{
       console.log(data)
       this.loginUser()
     })
@@ -198,7 +198,9 @@ export class NewUserComponent implements OnInit {
    
 }
   
-  onPaymentDataAuthorized: google.payments.api.PaymentAuthorizedHandler = (paymentData:any) => {
+  onPaymentDataAuthorized: google.payments.api.PaymentAuthorizedHandler = (
+    paymentData
+    ) => {
       console.log('payment authorized', paymentData);
       return {
         transactionState: 'SUCCESS'

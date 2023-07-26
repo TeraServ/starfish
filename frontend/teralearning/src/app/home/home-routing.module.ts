@@ -10,6 +10,8 @@ import { StreamComponent } from './streams/stream/stream.component';
 import { SubjectComponent } from './subjects/subject/subject.component';
 import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
 import { UserProfileComponent } from './settings/user-profile/user-profile.component';
+import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/bulk-user-creation.component';
+
 
 
 const routes: Routes = [
@@ -20,18 +22,19 @@ const routes: Routes = [
   children:[
      {
       path:"dashboard",
-      component: DashboardComponent,
-      title:"Dashboard"
+      component: DashboardComponent
      },
       {
         path:"usermanagement/create",
-        component:UserRegistrationComponent,
-        title:"Create User"
+        component:UserRegistrationComponent
       },
       {
         path:"usermanagement/users",
-        component:UserListComponent,
-        title:"Users"
+        component:UserListComponent
+      },
+      {
+        path:"usermanagement/CreateBulkUsers",
+        component:BulkUserCreationComponent
       },
       
       {
