@@ -102,8 +102,9 @@ public class DeletedRecordsService implements DeletedRecordsInterface {
     @Override
     public boolean checkRecordExpiration(SoftDelete softDelete){
         log.info("DeletedRecordsService:checkRecordExpiration Checking expiration for record:"+softDelete.getRecordId());
+        int suspendedDays = 10;
         Period period = Period.between(softDelete.getDeletionDate(), getDate());
-        boolean isExpired = period.getYears()>=1 || period.getMonths()>=1 || period.getDays()>=10;
+        boolean isExpired = period.getYears()>=1 || period.getMonths()>=1 || period.getDays() >= suspendedDays;
         return isExpired ? true : false;
     }
     private void permanentlyDeleteRecord(long id,long recordID){
@@ -114,7 +115,8 @@ public class DeletedRecordsService implements DeletedRecordsInterface {
             else{
                 log.info("DeletedRecordsService:permanentlyDeleteRecord Init...");
                 deletedRecordsRepository.deleteById(id);
-                log.info("DeletedRecordsService:permanentlyDeleteRecord > UserService-->"+userService.permanentDelete(recordID));
+                userService.accessDeleteMethod(recordID);
+                log.info("DeletedRecordsService:permanentlyDeleteRecord > UserService:");
                 log.info("DeletedRecordsService:permanentlyDeleteRecord Record deleted:"+id);
             }
         }
