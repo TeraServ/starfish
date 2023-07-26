@@ -14,7 +14,7 @@ public class EmailSenderService extends Thread{
     @Autowired
     private JavaMailSender javaMailSender;
 
-    public SimpleMailBody simpleMailBody;
+    private SimpleMailBody simpleMailBody;
     @Value("${spring.mail.username}") private String sender;
     public  EmailSenderService(){}
 

@@ -1,5 +1,6 @@
 package com.teranet.teralearning.service;
 
+import com.teranet.teralearning.exception.InternalStandardError;
 import com.teranet.teralearning.model.TokenValidity;
 import com.teranet.teralearning.model.User;
 import com.teranet.teralearning.repository.TokenRepository;
@@ -77,20 +78,20 @@ public class TokenService implements TokenInterface {
                     return new ResponseEntity("No Token Found", HttpStatus.NOT_FOUND);
                 } else if (dateUtility.isExpired(tokenValidity.getCreatedDate(), dateUtility.getDate())) {
                     log.info("TokenService:checkTokenValidity Token Expired for Email:" + email);
-                    return new ResponseEntity<>("Token Expired", HttpStatus.UNAUTHORIZED);
+                    return new ResponseEntity<>(InternalStandardError.TOKEN_EXPIRED.getErrorMessage(),InternalStandardError.TOKEN_EXPIRED.getHttpStatus());
                 } else {
                     if (tokenValidity.getToken() != null && tokenValidity.getToken().equals(token)) {
                         log.info("TokenService:checkTokenValidity Valid Reset Token from Email:" + email);
-                        return new ResponseEntity<>("Valid Reset Token", HttpStatus.OK);
+                        return new ResponseEntity<>(InternalStandardError.TOKEN_VALID.getErrorMessage(), InternalStandardError.TOKEN_VALID.getHttpStatus());
                     } else {
                         log.info("TokenService:checkTokenValidity Invalid Reset Token from Email:" + email);
                         log.info("TokenService:checkTokenValidity Token does not match. Invalid Token:" + token);
-                        return new ResponseEntity<>("Invalid Reset Token", HttpStatus.NOT_FOUND);
+                        return new ResponseEntity<>(InternalStandardError.TOKEN_INVALID.getErrorMessage(),InternalStandardError.TOKEN_INVALID.getHttpStatus());
                     }
                 }
             } else {
                 log.info("TokenService:checkTokenValidity User Not found");
-                return new ResponseEntity("User Not Found!", HttpStatus.NOT_FOUND);
+                return new ResponseEntity(InternalStandardError.USER_NOT_FOUND.getErrorMessage(), InternalStandardError.USER_NOT_FOUND.getHttpStatus());
             }
         } catch (Exception ex) {
             log.error("TokenService:checkTokenValidity Exception occurred:"+ex);
