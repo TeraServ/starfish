@@ -1,10 +1,22 @@
+import { Title } from '@angular/platform-browser';
 
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { NewUserComponent } from './new-user/new-user.component';
+
+import { DashboardComponent } from './home/dashboard/dashboard.component';
+import { HomeComponent } from './home/home.component';
+import { NewUserComponent } from './app/new-user/new-user.component';
+import { StreamListComponent } from './home/streams/stream-list/stream-list.component';
+
+import { SubjectComponent } from './home/subjects/subject/subject.component';
+
+import { SubjectListComponent } from './home/subjects/subject-list/subject-list.component';
 import { TopicComponent } from './topic/topic.component';
-import { UserProfileComponent } from './home/settings/user-profile/user-profile.component';
+
+import { CreateCoursesComponent } from './create-courses/create-courses.component';
+import { ViewAndSearchComponent } from './core/view-and-search/view-and-search.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 
 
@@ -21,23 +33,47 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)
   },
   {
-    path:"register",
-    component:NewUserComponent,
-    title:"Purchase Stream"
+    path: "register",
+    component: NewUserComponent
   },
 
 
 
+ 
   {
-    path: "topic",
+    path:"streamList",
+    component: StreamListComponent
+  },
+  {
+    path:"subject",
+    component: SubjectComponent
+  },
+  {
+    path:"subjectList",
+    component: SubjectListComponent,
+    title:'Create a Course'
+  },
+  {
+    path:"topic",
     component: TopicComponent
   },
 
+  
   {
-    path: "userProfile",
-    component: UserProfileComponent
-  }
-
+    path: "createCourse",
+    component:CreateCoursesComponent,
+    title: "Create a Course"
+  },{
+    path:'viewandsearch',
+    component:ViewAndSearchComponent,
+    title: "View Users"
+  },
+  {
+    path:"resetpassword",
+    component:PasswordResetComponent,
+    title:"Reset Password"
+  },
+  
 
 ];
 

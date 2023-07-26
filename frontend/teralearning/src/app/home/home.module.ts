@@ -23,16 +23,15 @@ import { MatIconModule } from '@angular/material/icon'
 import { NoopAnimationPlayer } from '@angular/animations';
 import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dialog.component';
 
+
+
+import { MaterialModule } from '../shared/material/material.module';
+import { StreamEditComponent } from './streams/stream-edit/stream-edit.component';
 import { SubjectEditComponent } from './subjects/subject-edit/subject-edit.component';
 import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
-import { StreamEditComponent } from './streams/stream-edit/stream-edit.component';
 import { StreamComponent } from './streams/stream/stream.component';
 import { UserProfileComponent } from './settings/user-profile/user-profile.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { LoginPageComponent } from '../login-page/login-page.component';
-import { SubjectComponent } from './subjects/subject/subject.component';
-import { StreamListComponent } from './streams/stream-list/stream-list.component';
 
 @NgModule({
   declarations: [
@@ -44,14 +43,11 @@ import { StreamListComponent } from './streams/stream-list/stream-list.component
     SettingsComponent,
     UserUpdateComponent,
     SuccessDialogComponent,
-    UserProfileComponent,
-    SubjectEditComponent,
-    SubjectListComponent,
-    SubjectComponent,
-    StreamComponent,
     StreamEditComponent,
-    StreamListComponent
-    
+    StreamComponent,
+    SubjectListComponent,
+    SubjectEditComponent,
+    UserProfileComponent
     
     
   ],
@@ -62,15 +58,17 @@ import { StreamListComponent } from './streams/stream-list/stream-list.component
     HttpClientModule,
     MatOptionModule,
     MatSelectModule,
+    ReactiveFormsModule,
     MatSnackBarModule,
     MatTableModule,
     MatPaginatorModule,
     MatIconModule,
-    FormsModule,
+    FormsModule,  
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule,
+    MatIconModule,
     
+
 
 
   ]

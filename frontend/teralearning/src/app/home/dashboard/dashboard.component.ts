@@ -10,6 +10,9 @@ export class DashboardComponent implements OnInit {
   constructor() { }
   greetingMessage!:String;
   ngOnInit(): void {
+    this.greetUser();
+  }
+  greetUser(){
     const greetings: String[] = ['Good Morning','Good Afternoon','Good Evening'];
     const currentDate: Date = new Date();
     const currentHour:number = currentDate.getHours();

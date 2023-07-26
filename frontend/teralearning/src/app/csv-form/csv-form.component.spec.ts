@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PasswordResetComponent } from './password-reset.component';
+import { CsvFormComponent } from './csv-form.component';
 
-describe('PasswordResetComponent', () => {
-  let component: PasswordResetComponent;
-  let fixture: ComponentFixture<PasswordResetComponent>;
+describe('CsvFormComponent', () => {
+  let component: CsvFormComponent;
+  let fixture: ComponentFixture<CsvFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PasswordResetComponent ]
+      declarations: [ CsvFormComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PasswordResetComponent);
+    fixture = TestBed.createComponent(CsvFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -20,6 +20,4 @@ describe('PasswordResetComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  
-  
 });

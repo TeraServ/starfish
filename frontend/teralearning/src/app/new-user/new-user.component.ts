@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { user } from 'src/model/user.model';
 import { UserService } from '../service/user.service';
-import { ConfirmedValidator } from '../_helpers/confirmed.validator';
+// import { ConfirmedValidator } from '../_helpers/confirmed.validator';
 import { StreamService } from '../service/stream.service';
 import { Stream } from 'src/model/stream.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
