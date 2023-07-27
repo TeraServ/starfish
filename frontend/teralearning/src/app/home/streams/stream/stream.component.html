@@ -23,10 +23,11 @@
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" formControlName="streamName"
                                     placeholder="Stream name"
-                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.streamName.errors }">
+                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.streamName.errors }" pattern="[a-zA-Z][a-zA-Z ]+">
                                 <label for="floatingInput">Stream Name</label>
                                 <div *ngIf="submitted && createStreamForm.controls.streamName.errors" class="invalid-feedback">
                                     <div *ngIf="createStreamForm.controls.streamName.errors.required">*Required</div>
+                                    <div id="invalidStreamName" *ngIf="createStreamForm.controls.streamName.errors.pattern">Invalid</div>
                                 </div>
                             </div>
                         </div>
@@ -36,10 +37,11 @@
                         <div class="col-md-6 mb-4">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" formControlName="acronym" placeholder="acronym"
-                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.acronym.errors }">
-                                <label for="floatingInput">acronym</label>
+                                    [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.acronym.errors }" pattern="[a-zA-Z][a-zA-Z ]+">
+                                <label for="floatingInput">Acronym</label>
                                 <div *ngIf="submitted && createStreamForm.controls.acronym.errors" class="invalid-feedback">
                                     <div *ngIf="createStreamForm.controls.acronym.errors.required">*Required</div>
+                                    <div id="invalidacronym" *ngIf="createStreamForm.controls.acronym.errors.pattern">Invalid</div>
                                 </div>
                             </div>
                         </div>
@@ -54,11 +56,12 @@
 
                         <div class="col-md-6 mb-4">
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control" formControlName="price" placeholder="price"
+                                <input id="priceInput" type="number" class="form-control" formControlName="price" min="0" placeholder="price"
                                     [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.price.errors }">
                                 <label for="floatingInput">Price ₹</label>
                                 <div *ngIf="submitted && createStreamForm.controls.price.errors" class="invalid-feedback">
-                                    <div *ngIf="createStreamForm.controls.price.errors.required">*Required</div>
+                                    <div id="priceValue_null_validation" *ngIf="createStreamForm.controls.price.errors.required">*Required</div>
+                                    <div id="priceValue_0_validation" *ngIf="createStreamForm.controls.price.errors.min">Value must be at least 0</div>
                                 </div>
                             </div>
                         </div>
@@ -66,13 +69,13 @@
 
                         <div class="col-md-6 mb-4">
                             <div class="form-floating mb-3">
-                                <input type="number" min="0" max="100" class="form-control" formControlName="discount"
-                                    placeholder="discount"
+                                <input id="discountInput" type="number" min="0" max="100" class="form-control" formControlName="discount"
+                                    placeholder="discount" min=0 max=100
                                     [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.discount.errors }">
                                 <label for="floatingInput">Discount %</label>
                                 <div *ngIf="submitted && createStreamForm.controls.discount.errors" class="invalid-feedback">
                                     <div *ngIf="createStreamForm.controls.discount.errors.required">*Required</div>     
-                                    <div *ngIf="createStreamForm.controls.discount.errors.max">*Cannot exceed above 100</div>                               
+                                    <div id="discount_min_max_validation" *ngIf="createStreamForm.controls.discount.errors.max || createStreamForm.controls.discount.errors.min ">Value must be between 0 and 100</div>                               
                                 </div>
                             </div>
                         </div>

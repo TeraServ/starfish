@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { user } from 'src/model/user.model';
@@ -210,4 +211,5 @@ export class NewUserComponent implements OnInit {
   onError = (event: ErrorEvent): void => {
     console.error('error', event.error);
   }
+
 }

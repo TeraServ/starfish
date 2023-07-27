@@ -61,6 +61,8 @@ export class UserRegistrationComponent implements OnInit {
       console.log(err)
     })
     this.userForm.reset()
+    this.userForm.clearValidators();
+    this.submitted = false;
     console.log(this.userForm.value)
 
 

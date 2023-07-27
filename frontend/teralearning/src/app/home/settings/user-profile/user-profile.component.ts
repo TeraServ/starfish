@@ -1,9 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../../service/user.service';
 import { user } from 'src/model/user.model';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, } from '@angular/material/dialog';
 import { SuccessDialogComponent } from '../../../dialogBoxs/success-dialog/success-dialog.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,6 +16,8 @@ export class UserProfileComponent implements OnInit {
   userList!: user[];
   DisplayFirstName!:String
   DisplayLastName!:String
+  
+  @ViewChild('userProfileEditForm') userForm!: ElementRef;
   //here we defined a model for avoiding null error in console
   user: user={
     firstName: '',

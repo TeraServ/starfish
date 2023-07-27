@@ -57,21 +57,6 @@
     background-color: #2C45A7;
     box-shadow: 0px 2px 5px #2C45A7 !important;
   }
-  .mat-header-cell {
-    min-width: 70px;
-    color: #000;
-    max-width: max-content;
-  }
-  
-  .mat-elevation-z8 {
-    overflow-x: scroll !important;
-    width: 100%;
-  }
-  
-  table {
-    width: 150%;
-    overflow-x: hidden !important;
-  }
   
   
   //search bar
@@ -79,5 +64,33 @@
   padding-top: 0px;
   float: right;
   
+  }    
+ 
+  .advanceSearch{
+    background-color: #fff !important;
+    color: #2C45A7;
+    padding: 5px 8px;
+    border: none;
+    border-radius: 5px;
+    text-align: center;  
+    box-shadow: 0px 2px 5px #ddd !important;
   }
-    
+  
+  .Rightspace {
+    margin-right: 100px; /* Adjust the value as needed for your desired spacing */
+  }
+  .Rightspace1 {
+    margin-right: 40px; /* Adjust the value as needed for your desired spacing */
+  }
+  .Rightspace2 {
+    margin-right: 20px; /* Adjust the value as needed for your desired spacing */
+  }
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    /* Add styling for the icon font (e.g., Font Awesome) */
+    font-family: "Font Awesome";
+    font-size: 16px;
+  } 
