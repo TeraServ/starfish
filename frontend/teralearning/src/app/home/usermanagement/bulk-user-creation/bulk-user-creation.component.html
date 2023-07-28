@@ -32,7 +32,7 @@
           <table class="table" *ngIf="invalidData.length || validatedData.length; else elseBlock">
  
                     <td>
-                        <!-- <app-csv-edit-form [invalidData] = "this.invalidData" (editedDataEmitter)="onDataEmitted($event)"></app-csv-edit-form> -->
+                        <app-csv-edit-form [invalidData] = "this.invalidData" (editedDataEmitter)="onDataEmitted($event)"></app-csv-edit-form>
                     </td>
 
                   
