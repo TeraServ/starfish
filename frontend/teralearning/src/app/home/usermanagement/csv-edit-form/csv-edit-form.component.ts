@@ -25,7 +25,8 @@ export class CsvEditFormComponent implements OnInit {
       }
       ngOnInit(){
         
-        this.loadInvalidData()
+        this.loadInvalidData();
+        console.log(this.csvTableForm)
        
       }
   buildForm(){
