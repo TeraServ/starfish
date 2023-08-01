@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { user } from 'src/model/user.model';
@@ -10,6 +10,10 @@ export class UserService {
 
   Url:string = "http://localhost:8080/api/user/"
   constructor(private http:HttpClient) { }
+
+  private headers= new HttpHeaders()
+    .set('Access-Control-Allow-Origin', '*')
+
 
   addNewUser(data:any):Observable<any>{
     return this.http.post(this.Url + "new", data);
@@ -32,6 +36,9 @@ export class UserService {
   }
   bulkUserCreate(userList:any[]){
     return this.http.post(this.Url+"create_bulk_user",userList);
+  }
+  getAllUserStream():Observable<any>{
+    return this.http.get(this.Url+"stream", {headers: this.headers,responseType: 'text'});
   }
 
   

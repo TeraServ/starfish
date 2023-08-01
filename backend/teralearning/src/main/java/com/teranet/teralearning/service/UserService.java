@@ -23,8 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.teranet.teralearning.dto.userResponseDTO;
 import com.teranet.teralearning.exception.UserNotFoundException;
-import org.springframework.web.multipart.MultipartFile;
-
+import reactor.core.publisher.Flux;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -32,6 +31,7 @@ import java.time.Period;
 import java.util.*;
 
 import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 
 @Service
@@ -134,7 +134,13 @@ public class UserService extends UserInterface {
 
         return new ResponseEntity(userRepository.findAll(), HttpStatus.OK);
     }
-
+    public Flux<User> loadAllUserStream(){
+        long start = System.currentTimeMillis();
+        Flux<User> users = Flux.fromIterable(userRepository.findAll());
+        long end = System.currentTimeMillis();
+        System.out.println("Total Execution time:"+(end-start));
+        return users;
+    }
 
     @Override
     public Optional<User> getUserById(long id){
