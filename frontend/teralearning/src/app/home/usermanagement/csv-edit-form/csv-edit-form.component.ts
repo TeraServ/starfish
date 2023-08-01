@@ -26,7 +26,7 @@ export class CsvEditFormComponent implements OnInit {
       ngOnInit(){
         
         this.loadInvalidData();
-        console.log(this.csvTableForm)
+        // console.log(this.csvTableForm)
        
       }
   buildForm(){
@@ -40,14 +40,14 @@ export class CsvEditFormComponent implements OnInit {
       const row = this.formBuilder.group({
         firstName: [data.firstName,Validators.required],
         lastName: [data.lastName],
-        phoneNumber: [data.phoneNumber, Validators.pattern('[0-9]{11}')],
+        phoneNumber: [data.phoneNumber, Validators.pattern('[0-9]{10}')],
         email: [data.email,Validators.email],
-        stream: [data.streamAcronym, Validators.pattern('[A-Za-z]{3}')],
+        stream: [data.streamAcronym, Validators.pattern('[A-Za-z]{2,3}')],
         checkers: [data.checkerFlags]
       });
       (this.csvTableForm.get('rows') as FormArray).push(row);
     });
-    console.log(this.dataSource)
+    // console.log(this.dataSource)
   }
 
 
@@ -104,11 +104,10 @@ addNewRow() {
 
 
 submitForm() {
-  console.log('Emit Data:',this.csvTableForm.value)
-
-  this.emitData(this.csvTableForm.value.rows);
+  
   if(this.csvTableForm.valid){
-    console.log(this.csvTableForm.value.rows);
+    console.log('Emit Data:',this.csvTableForm.value.rows)
+    this.emitData(this.csvTableForm.value.rows);
   }else{
     this.snackbar.open('Invalid Submission', 'Close', {
            duration: 3000,});

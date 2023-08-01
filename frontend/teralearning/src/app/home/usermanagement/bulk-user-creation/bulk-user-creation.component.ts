@@ -189,7 +189,6 @@ getAcronymFromStreamList(){
       onDataEmitted(editedData: any[]){
         this.invalidData =[];
         this.onValidate(editedData);
-        console.log(editedData);
         this.onSubmit();
       }
       csvRecordToUserList(records: CSVRecord[]): user[] {
@@ -217,17 +216,15 @@ getAcronymFromStreamList(){
       let stream;
         this.streamList.forEach(value=>{
           if(value.acronym == acronymName){
-            console.log(value)
            stream =  value;
-            
           }
         })
         return stream;
       }
 
     onSubmit(){
-      console.log('Validated Data:',this.validatedData);
-      console.log('Invalid Data:',this.invalidData);
+      // console.log('Validated Data:',this.validatedData);
+      // console.log('Invalid Data:',this.invalidData);
       if(this.validatedData.length!=0 && this.invalidData.length==0){     
         this.userService.bulkUserCreate(this.csvRecordToUserList(this.validatedData)).subscribe(data=>{
         },err=>{
@@ -235,12 +232,12 @@ getAcronymFromStreamList(){
           if(err.error == 201){
             this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
             this.pageReset();
-            // window.location.reload();
+            window.location.reload();
           }
           else{
             this.snackbar.open(err.error.text,'Close',{duration:1000 });
             this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
-            // window.location.reload();
+            window.location.reload();
           }
         }) 
         console.log(this.csvRecordToUserList(this.validatedData));

@@ -1,96 +1,31 @@
-.invalid{
-    background-color: red;
+.ng-invalid:not(form):not([csvTableForm]) {
+    border:  2px solid red;
+  }
+  table{
+    width: 100%;
   }
   .button-row {
     display: flex;
+    
     justify-content: center;
     align-content: center;
     gap: 1em;
     margin-top: 1em;
   }
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  .mat-table {
-    width: 100%;
-    overflow-x: hidden !important; 
-  }
   
-  // td {
-  //   min-width: 130px;
-  //   margin: 5px !important;
-  // }
-  .ng-invalid:not(form):not([csvTableForm]) {
-    border:  1px solid red;
-  }
-  .mat-header-cell {
-    min-width: 70px;
-    color: #000;
-    max-width: max-content;
-  }
-  
-  
-  .mat-elevation-z8 {
-    overflow-x: scroll !important;
-    width: 100%;
-  }
-  
-  table {
-    width: 150%;
-    overflow-x: hidden !important;
-  }
-  
-  
-  //search bar
-  .example-header {
-  padding-top: 0px;
-  float: right;
-  
-  }
-  .mat-table {
-    overflow-x: hidden !important; 
-  }
-  
-  // td {
-  //   min-width: 130px;
-  //   margin: 5px !important;
-  // }
-  .mat-spinner{
-    ::ng-deep circle {
-      stroke: #2C45A7;
-  }
-  }
-  .btn-success{
-    background-color: #2C45A7;
+  .btn {
+    background-color: #2C45A7; 
+    border: none;
+    color: white;
    
-  }
-  .btn{
+    text-align: left;
+    justify-content: left;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
     
-    background-color: #2C45A7;
-    box-shadow: 0px 2px 5px #2C45A7 !important;
-  }
-  .mat-header-cell {
-    min-width: 70px;
-    color: #000;
-    max-width: max-content;
+    
   }
   
-  .mat-elevation-z8 {
-    overflow-x: scroll !important;
-    width: 100%;
-  }
-  
-  table {
-    width: 150%;
-    overflow-x: hidden !important;
-  }
-  
-  
-  //search bar
-  .example-header {
-  padding-top: 0px;
-  float: right;
-  
-  }
+
   
