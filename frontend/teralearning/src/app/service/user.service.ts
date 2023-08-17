@@ -41,5 +41,9 @@ export class UserService {
     return this.http.get(this.Url+"stream", {headers: this.headers,responseType: 'text'});
   }
 
+  findUserByEmail(email:string){
+    return this.http.post(this.Url+"userExistByEmail",{email})
+  }
+
   
 }

@@ -19,6 +19,16 @@ export class AuthService {
       return false;
     }
   }
+  isTokenExpired(){
+    
+    const expiry = 12;
+    if(expiry * 1000 > Date.now()){
+      this.logout()
+    }
+    else{
+      
+    }
+  }
 
   url:string = "http://localhost:8080/api/auth/";
   constructor(private httpClient:HttpClient) { }
@@ -57,4 +67,8 @@ export class AuthService {
   
       return this.userType;
   }
+  getUserEmail(){
+    return JSON.parse(localStorage.getItem('currentUser')!).message.username;
+  }
+ 
 }
