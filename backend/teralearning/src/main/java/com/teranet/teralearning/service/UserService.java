@@ -120,6 +120,7 @@ public class UserService extends UserInterface {
                 return new ResponseEntity("Access denied!",HttpStatus.NOT_FOUND);
             }
             if(bCryptPasswordEncoder.matches(password,user.get().getPassword())){
+                log.info(jwtUtil.generateToken(username));
 
                 return new ResponseEntity(getJson(userDetailsService.loadUserByUsername(user.get().getEmail()),InternalStandardError.LOGIN_SUCCESSFULLY.getErrorMessage(), jwtUtil.generateToken(username)),InternalStandardError.LOGIN_SUCCESSFULLY.getHttpStatus());
             }else{

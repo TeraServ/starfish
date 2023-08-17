@@ -92,6 +92,11 @@ public class UserController {
     public Flux<User> getAllUsersStream(){
         return  userService.loadAllUserStream();
     }
+
+    @PostMapping("userExistByEmail")
+    public ResponseEntity userExistByEmail(@RequestBody String email){
+        return new ResponseEntity<>(userService.isUserEmailExists(email),HttpStatus.ACCEPTED);
+    }
     
 
 
