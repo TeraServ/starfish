@@ -21,9 +21,9 @@
   //   min-width: 130px;
   //   margin: 5px !important;
   // }
-  .ng-invalid:not(form):not([csvTableForm]) {
-    border:  1px solid red;
-  }
+  // .ng-invalid:not(form):not([csvTableForm]) {
+  //   border:  1px solid red;
+  // }
   .mat-header-cell {
     min-width: 70px;
     color: #000;
@@ -94,3 +94,9 @@
   
   }
   
+  .formCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    }

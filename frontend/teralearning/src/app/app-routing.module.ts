@@ -18,7 +18,8 @@ import { TopicComponent } from './topic/topic.component';
 import { CreateCoursesComponent } from './create-courses/create-courses.component';
 import { ViewAndSearchComponent } from './core/view-and-search/view-and-search.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
-import { NewUserComponent } from './new-user/new-user.component';
+import { AddQuestionComponent } from './home/course/add-question/add-question.component';
+
 
 
 
@@ -57,6 +58,11 @@ const routes: Routes = [
     component:PasswordResetComponent,
     title:"Reset Password"
   },
+  {
+    path:"addQuestion",
+    component:AddQuestionComponent,
+    title: "Add a Question"
+  }
   
 
 ];
