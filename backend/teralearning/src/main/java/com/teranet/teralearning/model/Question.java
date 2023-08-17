@@ -1,6 +1,7 @@
 package com.teranet.teralearning.model;
 
 
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -12,9 +13,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
-
+@Data
 @Entity(name="QuestionEntity")
-@Component
 @Table(name="questions")
 public class Question {
     @SequenceGenerator(
@@ -25,53 +25,54 @@ public class Question {
     @GeneratedValue (strategy = SEQUENCE,
     generator = "QUESTION_SEQ")
     @Id
-    private long id;
+    private long questionId;
     @OneToOne
-    @JoinColumn(name="topic",referencedColumnName = "id")
+    @JoinColumn(name="topic",referencedColumnName = "id", nullable = true)
     private Topic topic;
     @Column(name="question_type",nullable = false)
-    private int questionType;
-    @Column(name="question",nullable = false)
-    private String question;
-    @ElementCollection
-    @CollectionTable(name = "questions_options")
-    @Column(name="options",nullable = true)
-    private Set<String> options = new HashSet<String>();
-    @ElementCollection
-    @CollectionTable(name = "questions_answer")
-    @Column(name="answer")
-    private Set<String> answer = new HashSet<String>();
+    private String questionType;
+    @Column(name="question_text",nullable = false)
+    private String questionText;
+    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.MERGE)
+
+    private Set<Answer> answers;
     @Column(name = "explanation",nullable = true)
     private String explanation;
-    @Column(name="maximum_marks",nullable = true)
-    private int maxMarks;
+    @Column(name = "maximum_selection", nullable = false)
+    private int maximumSelectionAllowed;
     @Column(name="quiz_id",nullable = true)
     private long quizId;
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
+    private User creator;
+    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
+    private User modifier;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
     public Question(){}
 
-    public Question(Topic topic, int questionType, String question, Set<String> options, Set<String> answer, String explanation, int maxMarks, long quizId, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public Question(long questionId, Topic topic, String questionType, String questionText, Set<Answer> answers, String explanation, int maximumSelectionAllowed, long quizId, User creator, User modifier, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+        this.questionId = questionId;
         this.topic = topic;
         this.questionType = questionType;
-        this.question = question;
-        this.options = options;
-        this.answer = answer;
+        this.questionText = questionText;
+        this.answers = answers;
         this.explanation = explanation;
-        this.maxMarks = maxMarks;
+        this.maximumSelectionAllowed = maximumSelectionAllowed;
         this.quizId = quizId;
+        this.creator = creator;
+        this.modifier = modifier;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }
 
-    public long getId() {
-        return id;
+    public long getQuestionId() {
+        return questionId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setQuestionId(long questionId) {
+        this.questionId = questionId;
     }
 
     public Topic getTopic() {
@@ -82,36 +83,28 @@ public class Question {
         this.topic = topic;
     }
 
-    public int getQuestionType() {
+    public String getQuestionType() {
         return questionType;
     }
 
-    public void setQuestionType(int questionType) {
+    public void setQuestionType(String questionType) {
         this.questionType = questionType;
     }
 
-    public String getQuestion() {
-        return question;
+    public String getQuestionText() {
+        return questionText;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
     }
 
-    public Set<String> getOptions() {
-        return options;
+    public Set<Answer> getAnswers() {
+        return answers;
     }
 
-    public void setOptions(Set<String> options) {
-        this.options = options;
-    }
-
-    public Set<String> getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(Set<String> answer) {
-        this.answer = answer;
+    public void setAnswers(Set<Answer> answers) {
+        this.answers = answers;
     }
 
     public String getExplanation() {
@@ -122,12 +115,12 @@ public class Question {
         this.explanation = explanation;
     }
 
-    public int getMaxMarks() {
-        return maxMarks;
+    public int getMaximumSelectionAllowed() {
+        return maximumSelectionAllowed;
     }
 
-    public void setMaxMarks(int maxMarks) {
-        this.maxMarks = maxMarks;
+    public void setMaximumSelectionAllowed(int maximumSelectionAllowed) {
+        this.maximumSelectionAllowed = maximumSelectionAllowed;
     }
 
     public long getQuizId() {
@@ -136,6 +129,22 @@ public class Question {
 
     public void setQuizId(long quizId) {
         this.quizId = quizId;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public User getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(User modifier) {
+        this.modifier = modifier;
     }
 
     public LocalDateTime getCreatedDate() {

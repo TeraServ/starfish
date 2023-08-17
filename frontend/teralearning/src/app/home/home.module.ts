@@ -39,6 +39,8 @@ import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/b
 import { CSVHandlerService } from '../core/services/csvhandler.service';
 import { MaterialModule } from '../shared/material/material.module';
 import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-form.component';
+import { AddQuestionComponent } from './course/add-question/add-question.component';
+import { PreviewQuestionComponent } from './course/preview-question/preview-question.component';
 @NgModule({
   declarations: [
 
@@ -57,7 +59,9 @@ import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-fo
     StreamComponent,
     StreamEditComponent,
     StreamListComponent,
-    SubjectEditComponent
+    SubjectEditComponent,
+    AddQuestionComponent,
+    PreviewQuestionComponent
     
     
   ],
@@ -80,7 +84,8 @@ import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-fo
     MatProgressBarModule,
     MatSidenavModule,
     MatSidenavModule,
-    MaterialModule
+    MaterialModule,
+    
 
 
   ],

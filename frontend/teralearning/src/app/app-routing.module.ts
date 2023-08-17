@@ -57,7 +57,6 @@ const routes: Routes = [
     component:PasswordResetComponent,
     title:"Reset Password"
   },
-  
 
 ];
 

@@ -1,0 +1,33 @@
+
+<h1>{{labels.pageTitle}}</h1>
+<!-- <pre>{{questionBody | json}}</pre> -->
+
+    
+    <h2><b>{{labels.contentHeading}}</b></h2>
+    <p> 
+        {{questionBody?.type}}
+    </p>
+    
+    <h2>{{labels.questionHeading}}</h2>
+    <div>
+        {{questionBody?.questionText}}
+    </div>
+
+    <h2>{{labels.answerHeading}}</h2>
+    <ng-template *ngIf="questionBody?.type == 'singleAnswer' ">
+        {{questionBody?.answers}}
+    </ng-template>
+
+    <h2>{{labels.answerExplanationHeading}}</h2>
+    <div>
+        {{questionBody?.explanation}}
+    </div>
+<input  class="save-button btn" type="submit" value = "Save" (click)="onSave()">
+
+
+
+<ng-template *ngIf="questionBody == null || quizId == null">
+    <h1>
+        No Data
+    </h1>
+</ng-template>
