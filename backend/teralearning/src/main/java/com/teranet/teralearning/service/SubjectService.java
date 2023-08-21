@@ -74,4 +74,9 @@ public class SubjectService implements SubjectInterface{
             return null;
         }
     }
+
+    public ResponseEntity getSubjectByStream(long streamId){
+
+        return new ResponseEntity(subjectRepository.findSubjectByStream(streamId),HttpStatus.OK);
+    }
 }

@@ -69,15 +69,12 @@ public class UserService extends UserInterface {
     public ResponseEntity CreateUser(User user){
 
         Optional<User> u = userRepository.findByEmail(user.getEmail());
+        System.out.println("user body:" + user);
         if(u.isPresent()){
             return new ResponseEntity(InternalStandardError.USER_ALREADY_EXIST.getErrorMessage(),InternalStandardError.USER_ALREADY_EXIST.getHttpStatus());
 
        /*     return new ResponseEntity("Email already exists.", HttpStatus.CONFLICT);*/
         }else{
-            if(!isPasswordStrong(user.getPassword())){
-                return new ResponseEntity("Password not Strong", HttpStatus.BAD_REQUEST);
-
-            }else {
             user.setModifiedDate(getDate());
             user.setCreatedDate(getDate());
             user.setPassword(encryptPassword(user.getPassword()));
@@ -85,7 +82,7 @@ public class UserService extends UserInterface {
             addToken(user,token);
             /*sendWelcomeMail(user,token);*/
             return new ResponseEntity(userRepository.save(user), HttpStatus.OK);
-            }
+
         }
 
     }
@@ -120,7 +117,7 @@ public class UserService extends UserInterface {
                 return new ResponseEntity("Access denied!",HttpStatus.NOT_FOUND);
             }
             if(bCryptPasswordEncoder.matches(password,user.get().getPassword())){
-
+                log.info(jwtUtil.generateToken(username));
                 return new ResponseEntity(getJson(userDetailsService.loadUserByUsername(user.get().getEmail()),InternalStandardError.LOGIN_SUCCESSFULLY.getErrorMessage(), jwtUtil.generateToken(username)),InternalStandardError.LOGIN_SUCCESSFULLY.getHttpStatus());
             }else{
                 return new ResponseEntity(InternalStandardError.INVALID_EMAIL_OR_PASSWORD.getErrorMessage(),InternalStandardError.INVALID_EMAIL_OR_PASSWORD.getHttpStatus());
@@ -353,7 +350,8 @@ public class UserService extends UserInterface {
             ex.printStackTrace();
         }
     }
-    public boolean isPasswordStrong(String password){
+    public boolean
+    isPasswordStrong(String password){
         return password.length() > 6
                 && password.matches(".*//d.*")
                 && password.matches(".*[a-z].*")

@@ -34,7 +34,7 @@ public class TopicService implements TopicInterface{
         Topic updateTopic = topicRepository.getReferenceById(id);
         if(topicRepository.existsById(id)){
 
-            updateTopic.setSubjectName((topicDetails.getSubjectName()));
+            updateTopic.setSubject((topicDetails.getSubject()));
             updateTopic.setTopicName((topicDetails.getTopicName()));
             updateTopic.setCreatedBy(topicDetails.getCreatedBy());
             updateTopic.setModifiedBy((topicDetails.getModifiedBy()));
@@ -56,5 +56,10 @@ public class TopicService implements TopicInterface{
         else {
             return null;
         }
+    }
+
+    public ResponseEntity getTopicBySubject(long subjectId){
+
+        return new ResponseEntity(topicRepository.findTopicBySubject(subjectId),HttpStatus.OK);
     }
 }
