@@ -39,6 +39,11 @@ import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/b
 import { CSVHandlerService } from '../core/services/csvhandler.service';
 import { MaterialModule } from '../shared/material/material.module';
 import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-form.component';
+import { AddQuizComponent } from './quizes/add-quiz/add-quiz.component';
+import { QuizComponent } from './quizes/quiz/quiz.component';
+import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
 
@@ -57,7 +62,11 @@ import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-fo
     StreamComponent,
     StreamEditComponent,
     StreamListComponent,
-    SubjectEditComponent
+    SubjectEditComponent,
+    AddQuizComponent,
+    QuizComponent,
+    EditQuizComponent
+    
     
     
   ],
@@ -80,7 +89,9 @@ import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-fo
     MatProgressBarModule,
     MatSidenavModule,
     MatSidenavModule,
-    MaterialModule
+    MaterialModule,
+    MatButtonModule,
+    MatTooltipModule
 
 
   ],

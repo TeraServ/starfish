@@ -11,6 +11,8 @@ import { SubjectComponent } from './subjects/subject/subject.component';
 import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
 import { UserProfileComponent } from './settings/user-profile/user-profile.component';
 import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/bulk-user-creation.component';
+import { QuizComponent } from './quizes/quiz/quiz.component';
+import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
 
 
 
@@ -60,7 +62,16 @@ const routes: Routes = [
       {
         path:"settings/userProfile",
         component: UserProfileComponent
+      },
+      {
+        path:"quizes/quiz",
+        component: QuizComponent
+      },
+      {
+        path:"quizes/quiz/edit",
+        component: EditQuizComponent
       }
+
   ]
  }
 ];
