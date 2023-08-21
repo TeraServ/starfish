@@ -1,0 +1,135 @@
+<div>
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+</div>
+<br>
+&nbsp;
+<title>Add Quiz</title>
+<section class="vh-100 gradient-custom">
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center ">
+            <div class="col">
+
+                <form [formGroup]="createQuizForm">
+                    <div class="row">
+
+                        <div class="col">
+                            <h1>Create Quiz</h1><br>
+                        </div>
+                    </div>
+                    <!-- Stream Name  -->
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <select formControlName="stream" class="form-control" placeholder="stream"
+                                    (change)="getSubjectList()"
+                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.stream.errors }">
+                                    <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
+                                </select>
+                                <label for="floatingInput">Select Stream</label>
+                                <div *ngIf="submitted && createQuizForm.controls.stream.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="createQuizForm.controls.stream.errors.required">*Required</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <select formControlName="subject" class="form-control" placeholder="subject"
+                                    (change)="getTopicList()"
+                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.subject.errors }">
+                                    <option *ngFor="let item of FilteredsubjectList" [ngValue]=item>{{item.subjectName}}
+                                    </option>
+                                </select>
+                                <label for="floatingInput">Select Subject</label>
+                                <div *ngIf="submitted && createQuizForm.controls.subject.errors"
+                                    class="invalid-feedback">
+                                    <!-- <div *ngIf="createQuizForm.controls.subject.errors.required">*Required</div> -->
+                                    <div *ngIf="FilteredsubjectList.length == 0">*Select Stream</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating mb-3">
+                                <select formControlName="topic" class="form-control" placeholder="topic"
+                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.topic.errors }">
+                                    <option *ngFor="let item of FilteredtopicList" [ngValue]=item>{{item.topicName}}
+                                    </option>
+                                </select>
+                                <label for="floatingInput">Select Topic</label>
+                                <div *ngIf="submitted && createQuizForm.controls.topic.errors" class="invalid-feedback">
+                                    <!-- <div *ngIf="createQuizForm.controls.topic.errors.required">*Required</div> -->
+                                    <div *ngIf="FilteredtopicList.length == 0">*Select Subject</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><br>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" formControlName="quizName"
+                                    placeholder="quizName"
+                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.quizName.errors }"
+                                    pattern="[a-zA-Z][a-zA-Z ]+">
+                                <label for="floatingInput">Quiz Name</label>
+                                <div *ngIf="submitted && createQuizForm.controls.quizName.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="createQuizForm.controls.quizName.errors.required">*Required</div>
+                                    <div id="invalidSubjectName"
+                                        *ngIf="createQuizForm.controls.quizName.errors.pattern">Invalid</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="form-floating mb-3">
+                                <input type="number" class="form-control"
+                                    onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"
+                                    formControlName="passCriteria" placeholder="passCriteria" min="1"
+                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.passCriteria.errors }">
+                                <label for="floatingInput">Min No.of Question</label>
+                                <div *ngIf="submitted && createQuizForm.controls.passCriteria.errors"
+                                    class="invalid-feedback">
+                                    <div *ngIf="createQuizForm.controls.passCriteria.errors.required">*Required</div>
+                                    <div *ngIf="createQuizForm.controls.passCriteria.errors.min">Invalid</div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <input type="checkbox" formControlName="allowRetake" class="form-check-input"
+                                (click)="checkerChange($event)">
+                            <label>Allow Retake</label>
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Button -->
+                    <div class="col">
+                        <div class="text-center">
+                            <div class="mt-4 pt-2">
+                                <input class="loginbtn btn" type="submit" value="Save" (click)="onSubmit()">
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+
+                </form>
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+    </div>
+</section>

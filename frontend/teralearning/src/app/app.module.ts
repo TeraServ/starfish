@@ -28,6 +28,8 @@ import { NewUserComponent } from './new-user/new-user.component';
 
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -59,6 +61,8 @@ import { MatOptionModule } from '@angular/material/core';
     GooglePayButtonModule,
     MatInputModule,
     MatOptionModule,
+    MatIconModule,
+    MatFormFieldModule,
     
   ],
   providers: [

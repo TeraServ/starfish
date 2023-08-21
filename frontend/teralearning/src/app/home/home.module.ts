@@ -39,8 +39,15 @@ import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/b
 import { CSVHandlerService } from '../core/services/csvhandler.service';
 import { MaterialModule } from '../shared/material/material.module';
 import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-form.component';
+import { AddQuizComponent } from './quizes/add-quiz/add-quiz.component';
+import { QuizComponent } from './quizes/quiz/quiz.component';
+import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import { AddQuestionComponent } from './course/add-question/add-question.component';
 import { PreviewQuestionComponent } from './course/preview-question/preview-question.component';
+import { DeleteDialogComponent } from '../dialogBoxs/delete-dialog/delete-dialog.component';
+import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialog/delete-message-dialog.component';
 @NgModule({
   declarations: [
 
@@ -60,8 +67,14 @@ import { PreviewQuestionComponent } from './course/preview-question/preview-ques
     StreamEditComponent,
     StreamListComponent,
     SubjectEditComponent,
+    AddQuizComponent,
+    QuizComponent,
+    EditQuizComponent,    
     AddQuestionComponent,
-    PreviewQuestionComponent
+    PreviewQuestionComponent,
+    SuccessDialogComponent,
+    DeleteDialogComponent,
+    DeleteMessageDialogComponent
     
     
   ],
@@ -85,7 +98,8 @@ import { PreviewQuestionComponent } from './course/preview-question/preview-ques
     MatSidenavModule,
     MatSidenavModule,
     MaterialModule,
-    
+    MatButtonModule,
+    MatTooltipModule
 
 
   ],

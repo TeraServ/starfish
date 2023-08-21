@@ -12,10 +12,10 @@ export class SuccessDialogComponent implements OnInit {
   message!:string 
 
   constructor(public dialogRef: MatDialogRef<SuccessDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit(): void {
-    this.message = this.data;
+    
   }
 
 }

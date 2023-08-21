@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = {"*"})
 @RequestMapping("/api/topic/")
 @Validated
 public class TopicController{
@@ -27,6 +28,11 @@ public class TopicController{
     @GetMapping("list")
     public ResponseEntity getTopic(){
         return new ResponseEntity(topicService.getTopics(), HttpStatus.OK);
+    }
+
+    @GetMapping("Filteredlist/{subjectId}")
+    public ResponseEntity getTopicBySubject(@PathVariable long subjectId){
+        return new ResponseEntity(topicService.getTopicBySubject(subjectId), HttpStatus.OK);
     }
 
     @PutMapping("update/{id}")

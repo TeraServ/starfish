@@ -1,0 +1,105 @@
+<form #quizEditForm="ngForm" class="formCenter" >
+    <br><br>
+    <div class="row">
+        <div class="col">
+            <h1>Edit Quiz</h1>
+        </div>
+        <div class="col"><input type="submit" value="Add Question" class="btn-submit" id="submitButton">
+        </div>
+    </div><br>
+    <div class="row">
+        <div class="col">
+
+            <label for="stage"><b>Stream:</b></label>
+            <select [(ngModel)]="UpdatedStreamId" class="form-control" (change)="onStreamChange($event)" id="streamDrop"
+                name="streamDrop" #streamDrop="ngModel" (ngModelChange)="valuechange($event)" required>
+                <!-- <option selected value="{{EditQuiz?.topic?.subject?.stream?.streamName}}">
+                    {{EditQuiz?.topic?.subject?.stream?.streamName}}</option> -->
+                <option value="">-- Please Select--</option>
+                <option *ngFor="let item of streamList" [value]="item?.id">
+                    {{item.streamName}}</option>
+            </select><br>
+            <div *ngIf="quizEditForm?.controls?.streamDrop?.errors?.required" class="error">
+                *Stream Name is required
+            </div>
+            <br>
+        </div>
+
+        <div class="col">
+            <label for="title"><b>Subject Name:</b></label>
+            <select [(ngModel)]="UpdatedSubjectId" class="form-control" (change)="onSubjectChange($event)"
+                id="subjectDrop" name="subjectDrop" #subjectDrop="ngModel" (ngModelChange)="valuechange($event)" required>
+                <option value="">-- Please Select--</option>
+                <option *ngFor="let item of FilteredsubjectList" [value]="item?.id">
+                    {{item.subjectName}}</option>
+            </select><br>
+            <div *ngIf="quizEditForm?.controls?.subjectDrop?.errors?.required" class="error">*Subject Name is required
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+
+            <label for="title"><b>Topic Name:</b></label>
+            <select [(ngModel)]="UpdatedTopicId" class="form-control" id="topicDrop" name="topicDrop" #topicDrop="ngModel" (ngModelChange)="valuechange($event)"
+                required>
+                <option [ngValue]=""> -- Please Select--</option>
+                <option *ngFor="let item of FilteredtopicList" [ngValue]="item.id">
+                    {{item.topicName}}</option>
+            </select><br>
+            <!-- <input type="text" [(ngModel)]="UpdatedTopic.topicName" value="{{EditQuiz.topic.topicName}}" class="form-control"
+                (ngModelChange)="valuechange($event)" id="topic" name="topic" #topic="ngModel" required> -->
+            <div *ngIf="quizEditForm?.controls?.topicDrop?.errors?.required" class="error">*Topic Name is required</div>
+        </div><br><br>
+
+        <div class="col">
+            <label for="title"><b>Quiz Name:</b></label>
+            <input type="text" [(ngModel)]="UpdatedQuizName" value="{{EditQuiz?.quizName}}" class="form-control"
+                (ngModelChange)="valuechange($event)" id="quizName" name="quizName" #quizName="ngModel" required><br>
+            <div *ngIf="quizEditForm?.controls?.quizName?.errors?.required" class="error">*Quiz Name is required</div>
+        </div>
+    </div><br>
+
+
+    <div class="row">
+        <div class="col">
+            <label for="title"><b>Min No.Of Question:</b></label>
+            <input type="text" [(ngModel)]="UpdatedPassCriteria" value="{{EditQuiz?.passCriteria}}" class="form-control"
+                (ngModelChange)="valuechange($event)" id="passCriteria" name="passCriteria" #passCriteria="ngModel"
+                required><br>
+            <div *ngIf="quizEditForm?.controls?.passCriteria?.errors?.required" class="error">*Min No. Of Question is
+                required
+            </div>
+        </div><br>
+
+        <div class="col">
+            <!-- <label for="title"><b>Total No.Of Question:</b></label>
+            <input type="text" [(ngModel)]="UpdatedTotalNoOfQuestion" value="20" class="form-control"
+                (ngModelChange)="valuechange($event)" id="TotalNoOfQuestion" name="TotalNoOfQuestion" #TotalNoOfQuestion="ngModel"
+                required> -->
+            <!-- <div *ngIf="quizEditForm.controls.TotalNoOfQuestion.errors?.required" class="error">*Total No.Of Question is required
+            </div> -->
+
+        </div><br>
+    </div><br><br>
+
+
+    <div class="col">
+        <div class="text-center">
+            <input type="submit" (click)="UpdateQuizDetails()" value="Save" [disabled]="quizBtn" class="btn" id="submitButton">
+
+        </div>
+
+        <br>
+    </div>
+
+    
+    <!-- <div >
+      <button class="loginbtn btn" [disabled]="EditQuiz.controls.streamname.errors?.pattern ||EditQuiz.controls.Acronymn.errors?.pattern || streamBtn">Update</button>
+    </div> -->
+    <!-- <div>
+      <button class="loginbtn btn">Update</button>
+    </div> -->
+</form>

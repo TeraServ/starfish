@@ -29,6 +29,11 @@ public class SubjectController {
         return new ResponseEntity(subjectService.getSubjects(), HttpStatus.OK);
     }
 
+    @GetMapping("Filteredlist/{streamId}")
+    public ResponseEntity getSubjectByStream(@PathVariable long streamId){
+        return new ResponseEntity(subjectService.getSubjectByStream(streamId), HttpStatus.OK);
+    }
+
     @PutMapping("update/{id}")
     public ResponseEntity<Subject> updateSubject(@PathVariable long id, @RequestBody Subject subjectDetails){
         return subjectService.updateSubjects(id,subjectDetails);
