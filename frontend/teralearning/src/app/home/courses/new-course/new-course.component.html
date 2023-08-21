@@ -1,0 +1,81 @@
+
+<!-- <div>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div> -->
+<form   [formGroup]="courseForm" (onSubmit)="onSubmit()">
+    <div >
+        <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+            <mat-icon class="close-icon" color="warn">close</mat-icon>
+          </button>
+        <h2>{{title}}</h2>
+    
+        <div class="row">
+            <div class="col">
+                <label for="">Stream</label>
+                <select name="stream" (change)="getSubjectByStream()" formControlName="stream">
+                    <option value="" selected>--Please Select--</option>
+                    <option  *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
+                </select>
+                
+                <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
+                    *Required
+                  </div>
+            </div>
+    
+            <div class="col">
+                <label for=""> Subject</label>
+                <select name="" id="" formControlName="subject">
+                    <option value="" selected>--Please Select--</option>
+                    <option  *ngFor="let e of subjectList" [ngValue]="e">{{subjectList.length != 0 ? e.subjectName :'No data'}}</option>
+                </select> 
+                <div *ngIf="submitted && f.subject.errors?.required" class="invalid-feedback"> 
+                    *Required
+                  </div>
+            </div>
+    
+            <div class="col">
+                <label for="">Topic</label>
+                <select name="" id="" formControlName="topic">
+                    <option value="">--Please Select--</option>
+                    <option value="sample_topic">Topic Name</option>
+                </select>
+                <div *ngIf="submitted && f.topic.errors?.required" class="invalid-feedback"> 
+                    *Required
+                  </div>
+            </div>
+        </div>
+      
+       
+       
+       
+        
+       <label for="">Course Name</label>
+        <input type="text" placeholder="Enter course name." formControlName="courseName">
+        <div *ngIf="submitted && f.courseName.errors?.required" class="invalid-feedback"> 
+            *Required
+          </div>
+
+        
+            <label for="">Cover Image</label>
+       <input type="file" accept="image/*" (change)="uploadCover($event)" formControlName="imageFile">
+       <div *ngIf="submitted && f.imageFile.errors?.required" class="invalid-feedback"> 
+        *Required
+      </div>
+   
+        
+
+
+
+        <label for="">Course Description</label>
+        <textarea name="" id="" cols="25" rows="5" placeholder="Enter course description" formControlName="description"></textarea>
+
+        <div *ngIf="submitted && f.description.errors?.required" class="invalid-feedback"> 
+            *Required
+          </div>
+          <br>
+        <div style="width: 100%;display: flex;justify-content: center;">
+            <button type="submit" class="btn-submit" (click)="onSubmit()">Submit</button>
+        </div>
+        
+    </div>
+</form>

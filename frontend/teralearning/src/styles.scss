@@ -17,7 +17,15 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+// .mat-drawer{
+//     z-index: 5000;
+//     background-color: #2C45A7;
+// }
 
+//there is a default style for heading tag. this will override that....
+h1,h2,h3,h4,h5,h6{
+    margin-bottom: 0 !important;
+}
 .btn-check:checked+.btn,
 .btn.active,
 .btn.show,

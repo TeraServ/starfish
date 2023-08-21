@@ -24,4 +24,8 @@ export class SubjectService {
     return this.httpClient.put<Subject>(`${this.baseURL}`+'update/'+subject.id,subject);
   }
 
+  getSubjectByStreamId(id:any):Observable<any>{
+
+    return this.httpClient.get(`${this.baseURL}`+'subjectbystream/'+id)
+  }
 }

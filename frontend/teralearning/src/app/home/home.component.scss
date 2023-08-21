@@ -8,6 +8,7 @@ body {
   }
   main{
     padding-top: 10px;
+    
   }
   .text-reset{
     text-decoration: none;
@@ -17,10 +18,13 @@ body {
   }
   .menu-bar{
     border: none;
-    padding: 10px 17px;
-    font-size: large;
+    padding: 10px 14px;
+    font-size: medium;
     background-color: #fff;
     color: #2C45A7;
+  }
+  #sidebarMenu{
+    z-index: 100;
   }
   .example-container {
     width: 100%;
@@ -30,14 +34,16 @@ body {
   }
   
   .example-sidenav-content {
-    display: flex;
     height: 100%;
     align-items: center;
     justify-content: center;
   }
-  
+  .mat-drawer{
+    z-index: 1000 !important;
+  }
   .example-sidenav {
     padding: 20px;
+    z-index: 1000 !important;
   }
   #collapseExample1 li{
     padding: 10px 60px !important;

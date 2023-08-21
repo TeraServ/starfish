@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   activeTab:string = "dahboard";
 
   userType:boolean[]=[];
-
+  @ViewChild('drawer') drawer!:ElementRef;;
   userId!:number;
   notificationCount:any[]=[];
   notificationCounts:number=0;
@@ -38,6 +38,7 @@ export class HomeComponent implements OnInit {
     if(!this.authService.isLoggedIn()){
       this.router.navigate([""])
       
+     
   }
   
   

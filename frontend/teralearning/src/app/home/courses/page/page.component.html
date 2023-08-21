@@ -1,0 +1,15 @@
+
+<div>
+    <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+        <mat-icon class="close-icon" color="warn">close</mat-icon>
+      </button>
+    <h1>Add Page</h1>
+
+</div>
+<form [formGroup]="pageForm" (ngSubmit)="addPage()" >
+  <input type="text" placeholder="Page Title" formControlName="title">
+<angular-editor [config]="editorConfig" formControlName="body"></angular-editor>
+<div style="width: 100%;display: flex;justify-content: center;">
+  <button type="submit" class="btn-course" >Submit</button>
+</div>
+</form>

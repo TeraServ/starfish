@@ -39,6 +39,16 @@ import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/b
 import { CSVHandlerService } from '../core/services/csvhandler.service';
 import { MaterialModule } from '../shared/material/material.module';
 import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-form.component';
+import { CourseComponent } from './courses/course/course.component';
+
+import { NewCourseComponent } from './courses/new-course/new-course.component';
+import { EditCourseComponent } from './courses/edit-course/edit-course.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { PageComponent } from './courses/page/page.component';
+import { ChapterComponent } from './courses/chapter/chapter.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu'
+import {DragDropModule} from '@angular/cdk/drag-drop';
 @NgModule({
   declarations: [
 
@@ -57,7 +67,12 @@ import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-fo
     StreamComponent,
     StreamEditComponent,
     StreamListComponent,
-    SubjectEditComponent
+    SubjectEditComponent,
+    CourseComponent,
+    NewCourseComponent,
+    EditCourseComponent,
+    PageComponent,
+    ChapterComponent
     
     
   ],
@@ -80,8 +95,13 @@ import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-fo
     MatProgressBarModule,
     MatSidenavModule,
     MatSidenavModule,
-    MaterialModule
-
+    MaterialModule,
+    AngularEditorModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    DragDropModule
+    
 
   ],
   providers:[

@@ -29,6 +29,10 @@ export class AuthService {
   logout(){
     localStorage.removeItem("currentUser");
   }
+  getCurrentUserDetails(){
+    let user = JSON.parse(localStorage.getItem('currentUser')!).body;
+    return user;
+  }
 
   getUserTypes(){
     let user = JSON.parse(localStorage.getItem('currentUser')!).message.authorities[0].authority
@@ -56,5 +60,9 @@ export class AuthService {
       }
   
       return this.userType;
+  }
+
+  isTokenExpired(){
+
   }
 }

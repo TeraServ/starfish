@@ -11,6 +11,8 @@ import { SubjectComponent } from './subjects/subject/subject.component';
 import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
 import { UserProfileComponent } from './settings/user-profile/user-profile.component';
 import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/bulk-user-creation.component';
+import { CourseComponent } from './courses/course/course.component';
+import { EditCourseComponent } from './courses/edit-course/edit-course.component';
 
 
 
@@ -22,15 +24,18 @@ const routes: Routes = [
   children:[
      {
       path:"dashboard",
-      component: DashboardComponent
+      component: DashboardComponent,
+      title:"Dashboard"
      },
       {
         path:"usermanagement/create",
-        component:UserRegistrationComponent
+        component:UserRegistrationComponent,
+        title:"New User"
       },
       {
         path:"usermanagement/users",
-        component:UserListComponent
+        component:UserListComponent,
+        title:"Users"
       },
       {
         path:"usermanagement/CreateBulkUsers",
@@ -60,6 +65,15 @@ const routes: Routes = [
       {
         path:"settings/userProfile",
         component: UserProfileComponent
+      },{
+        path:"courses",
+        component:CourseComponent,
+        title:"Courses"
+      },
+      {
+        path:"courses/edit",
+        component:EditCourseComponent,
+        title:"Edit Course"
       }
   ]
  }

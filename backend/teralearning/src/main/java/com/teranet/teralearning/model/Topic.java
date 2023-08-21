@@ -13,8 +13,7 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
 
-    @OneToOne(targetEntity = Stream.class)
-    private String streamName;
+
 
     @OneToOne(targetEntity = Subject.class)
     private String subjectName;
@@ -36,9 +35,8 @@ public class Topic {
 
     public Topic(){}
 
-    public Topic(long id, String streamName, String subjectName, String topicName, LocalDateTime createdDate, LocalDateTime modifiedDate, String createdBy, String modifiedBy) {
+    public Topic(long id, String subjectName, String topicName, LocalDateTime createdDate, LocalDateTime modifiedDate, String createdBy, String modifiedBy) {
         Id = id;
-        this.streamName = streamName;
         this.subjectName = subjectName;
         this.topicName = topicName;
         this.createdDate = createdDate;
@@ -55,13 +53,7 @@ public class Topic {
         Id = id;
     }
 
-    public String getStreamName() {
-        return streamName;
-    }
 
-    public void setStreamName(String streamName) {
-        this.streamName = streamName;
-    }
 
     public String getSubjectName() {
         return subjectName;

@@ -24,7 +24,7 @@ import java.util.Optional;
 @SecurityScheme(name = "user-authenticate", scheme = "bearer", type = SecuritySchemeType.HTTP,bearerFormat = "JWT", in = SecuritySchemeIn.HEADER)
 public class UserController {
 
-    
+
     private UserService userService;
 
     @Autowired

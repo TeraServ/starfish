@@ -2,7 +2,6 @@ package com.teranet.teralearning.controller;
 
 import com.teranet.teralearning.model.Stream;
 import com.teranet.teralearning.model.Subject;
-import com.teranet.teralearning.service.StreamService;
 import com.teranet.teralearning.service.SubjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,5 +37,10 @@ public class SubjectController {
     public ResponseEntity<Stream> deleteSubject(@PathVariable long id){
 
         return subjectService.deleteSubjectById(id);
+    }
+
+    @GetMapping("subjectbystream/{id}")
+    public ResponseEntity getSubjectByStreamId(@PathVariable long id){
+        return subjectService.getSubjectByStream(id);
     }
 }
