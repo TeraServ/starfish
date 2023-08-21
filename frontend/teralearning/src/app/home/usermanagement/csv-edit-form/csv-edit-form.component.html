@@ -1,4 +1,4 @@
-<form [formGroup]="csvTableForm">
+<form [formGroup]="csvTableForm" class="formCenter">
   <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" formArrayName="rows">
     <!-- <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i"> -->
 
@@ -10,6 +10,7 @@
         <mat-form-field floatLabel="never">
           <mat-label>First Name</mat-label>
           <input matInput placeholder="First Name" formControlName="firstName" required>
+          <mat-error *ngIf="csvTableForm.value.firstName">*Required</mat-error>
         </mat-form-field>
       </td>
     </ng-container>
@@ -17,9 +18,9 @@
 
     <ng-container matColumnDef="lastName">
       <th mat-header-cell *matHeaderCellDef>Last Name</th>
-      <td mat-cell *matCellDef="let element,index as i">
+      <td mat-cell *matCellDef="let element,index as i" [formGroupName]="i">
         <mat-form-field floatLabel="never">
-          <input matInput placeholder="Last Name" [value]="element.get('lastName').value" required>
+          <input matInput placeholder="Last Name" formControlName = "lastName" required>
         </mat-form-field>
       </td>
     </ng-container>
@@ -28,27 +29,28 @@
 
     <ng-container matColumnDef="streamAcronym">
       <th mat-header-cell *matHeaderCellDef> Stream</th>
-      <td mat-cell *matCellDef="let element,index as i">
+      <td mat-cell *matCellDef="let element,index as i" [formGroupName]="i">
         <mat-form-field floatLabel="never">
-          <input matInput placeholder="Stream" [value]="element.get('stream').value" required>
+          <input matInput placeholder="Stream" formControlName = "stream" required>
         </mat-form-field>
       </td>
     </ng-container>
 
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef> Email</th>
-      <td mat-cell *matCellDef="let element,index as i">
+      <td mat-cell *matCellDef="let element,index as i" [formGroupName]="i">
         <mat-form-field floatLabel="never">
-          <input matInput placeholder="Email" [value]="element.get('email').value" required>
+          <input matInput placeholder="Email" formControlName = "email" required>
         </mat-form-field>
       </td>
     </ng-container>
+    
 
     <ng-container matColumnDef="phoneNumber">
       <th mat-header-cell *matHeaderCellDef> Phone Number </th>
-      <td mat-cell *matCellDef="let element,index as i">
+      <td mat-cell *matCellDef="let element,index as i" [formGroupName]="i">
         <mat-form-field floatLabel="never">
-          <input matInput placeholder="Phone Number" [value]="element.get('phoneNumber').value" required>
+          <input matInput placeholder="Phone Number" formControlName = "phoneNumber" required>
         </mat-form-field>
       </td>
     </ng-container>

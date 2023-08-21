@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient,} from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { Stream } from 'src/model/stream.model';
@@ -19,6 +19,15 @@ export class StreamService {
 
   getStreamList(): Observable<Stream[]> {
     return this.httpClient.get<Stream[]>(`${this.baseURL}` + 'list');
+  }
+  getStreamAcronym():string[]{
+    let streamAcronyms:string[] = [];
+    this.getStreamList().subscribe((data)=>{
+      data.forEach(stream=>{
+        streamAcronyms.push(stream.acronym);
+      });
+    });
+    return streamAcronyms;
   }
 
   updateStream(stream:Stream):Observable<any>{

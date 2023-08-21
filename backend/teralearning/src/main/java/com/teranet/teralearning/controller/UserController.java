@@ -10,9 +10,12 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -84,6 +87,16 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER)")
+    @GetMapping(value = "stream",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<User> getAllUsersStream(){
+        return  userService.loadAllUserStream();
+    }
+
+    @PostMapping("userExistByEmail")
+    public ResponseEntity userExistByEmail(@RequestBody String email){
+        return new ResponseEntity<>(userService.isUserEmailExists(email),HttpStatus.ACCEPTED);
+    }
     
 
 

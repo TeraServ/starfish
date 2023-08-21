@@ -168,7 +168,7 @@ export class NewUserComponent implements OnInit {
   loginUser(){
     this.authService.userLogin({"username":this.userForm.get("email")?.value,"password":this.userForm.get("password1")?.value}).subscribe(data=>{
           
-     
+
        localStorage.setItem("currentUser",JSON.stringify(data.token));
 
        console.log(localStorage.getItem("currentUser"))

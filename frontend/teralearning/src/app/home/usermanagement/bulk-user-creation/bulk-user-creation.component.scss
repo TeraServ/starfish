@@ -19,7 +19,7 @@
     background-color:  green;
   }
   .btn {
-    background-color: #2C45A7; /* Green */
+    background-color: #2C45A7; 
     border: none;
     color: white;
    
@@ -28,6 +28,14 @@
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    
-    
   }
+  .fill-remaining-space{
+    flex: auto;
+  }
+  
+  .formCenter{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    }

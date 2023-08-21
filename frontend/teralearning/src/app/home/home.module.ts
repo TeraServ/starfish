@@ -44,6 +44,10 @@ import { QuizComponent } from './quizes/quiz/quiz.component';
 import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { AddQuestionComponent } from './course/add-question/add-question.component';
+import { PreviewQuestionComponent } from './course/preview-question/preview-question.component';
+import { DeleteDialogComponent } from '../dialogBoxs/delete-dialog/delete-dialog.component';
+import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialog/delete-message-dialog.component';
 @NgModule({
   declarations: [
 
@@ -65,8 +69,12 @@ import { MatButtonModule } from '@angular/material/button';
     SubjectEditComponent,
     AddQuizComponent,
     QuizComponent,
-    EditQuizComponent
-    
+    EditQuizComponent,    
+    AddQuestionComponent,
+    PreviewQuestionComponent,
+    SuccessDialogComponent,
+    DeleteDialogComponent,
+    DeleteMessageDialogComponent
     
     
   ],

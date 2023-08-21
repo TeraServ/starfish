@@ -11,9 +11,7 @@ export class AuthService {
   currentUserValue(): string {
     return localStorage.getItem("currentUser")!;
   }
-  getUserEmail() {
-    return JSON.parse(localStorage.getItem('currentUser')!).message.username;
-  }
+
 
   getUserId(){
     return 121;
@@ -26,6 +24,16 @@ export class AuthService {
       return true;
     } else {
       return false;
+    }
+  }
+  isTokenExpired(){
+    
+    const expiry = 12;
+    if(expiry * 1000 > Date.now()){
+      this.logout()
+    }
+    else{
+      
     }
   }
 
@@ -66,4 +74,8 @@ export class AuthService {
 
     return this.userType;
   }
+  getUserEmail(){
+    return JSON.parse(localStorage.getItem('currentUser')!).message.username;
+  }
+ 
 }
