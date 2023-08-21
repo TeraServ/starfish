@@ -39,6 +39,7 @@
                 <option >Computer Engineering</option>
                 <option >Mechanical Engineering</option>
                 <option >Electrical Engineering</option>
+                <option *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
             </select>
             <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
                 *Required
