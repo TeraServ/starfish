@@ -5,6 +5,8 @@ import { UserService } from 'src/app/service/user.service';
 import { user } from 'src/model/user.model';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { StreamService } from 'src/app/service/stream.service';
+import { Stream } from 'src/model/stream.model';
 
 @Component({
   selector: 'app-user-registration',
@@ -13,9 +15,9 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class UserRegistrationComponent implements OnInit {
 
-  constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar, private dialog:MatDialog) { }
-  userForm!:FormGroup;
+  constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar,private dialog:MatDialog,private streamService:StreamService) { }    userForm!:FormGroup;
   submitted:boolean = false;
+  streamList:Stream[]=[]
 
 
 
@@ -28,8 +30,15 @@ export class UserRegistrationComponent implements OnInit {
       phoneNumber:['',Validators.required],
       stream:['',Validators.required],
 
-    })  
+    })
+    this.getAllStreams()  
   }
+  getAllStreams(){
+       this.streamService.getStreamList().subscribe(data=>{
+         this.streamList = data;
+        })
+       }
+
   get f(){return this.userForm.controls}
   createUser(){
     this.submitted = true;
@@ -48,7 +57,7 @@ export class UserRegistrationComponent implements OnInit {
       email:this.userForm.get('email')?.value,
       phoneNumber: this.userForm.get('phoneNumber')?.value,
       category: "classroom",
-      stream: {streamName: this.userForm.get('stream')?.value},
+      stream: this.userForm.get('stream')?.value,
       password:"dsgvdfvb",
       createdDate:""
 
@@ -56,6 +65,7 @@ export class UserRegistrationComponent implements OnInit {
     this.userService.addNewUser(userData).subscribe(data=>{
         this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
       // this.snackBar.open("Successfully created!!",'',{duration:3000})
+      this.dialog.open(SuccessDialogComponent,{data:{message:"Successfully created"}}) 
     },err=>{
       this.snackBar.open(err.error.text,'',{duration:3000})
       console.log(err)
