@@ -1,12 +1,14 @@
 package com.teranet.teralearning.service;
 
 import com.teranet.teralearning.model.Question;
+import com.teranet.teralearning.repository.AnswerSetRepository;
 import com.teranet.teralearning.repository.QuestionSetRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,9 +16,11 @@ import java.util.Optional;
 @Service
 public class QuestionSetService implements QuestionSetInterface{
     private QuestionSetRepository questionSetRepository;
+    private AnswerSetRepository answerSetRepository;
 
-    public QuestionSetService(QuestionSetRepository questionSetRepository) {
+    public QuestionSetService(QuestionSetRepository questionSetRepository, AnswerSetRepository answerSetRepository) {
         this.questionSetRepository = questionSetRepository;
+        this.answerSetRepository = answerSetRepository;
     }
 
     @Override
@@ -24,6 +28,8 @@ public class QuestionSetService implements QuestionSetInterface{
         try {
             if(question != null) {
                 log.info("QuestionSetService:createQuestion Init...");
+                question.setCreatedDate(getDateOnly());
+                question.setModifiedDate(getDateOnly());
                 return new ResponseEntity(questionSetRepository.save(question), HttpStatus.OK);
             }
             else {
@@ -65,9 +71,9 @@ public class QuestionSetService implements QuestionSetInterface{
             return new ResponseEntity("Exception Occurred",HttpStatus.BAD_REQUEST);
         }
     }
-    public ResponseEntity updateQuestion(Question question){
+/*    public ResponseEntity updateQuestion(Question question){
         try{
-            if(doesQuestionExist(question.getId())) {
+            if(doesQuestionExist(question.())) {
                 log.info("QuestionSetService:createQuestion Init...");
                 return new ResponseEntity(questionSetRepository.save(question), HttpStatus.OK);
             }
@@ -80,11 +86,14 @@ public class QuestionSetService implements QuestionSetInterface{
             ex.printStackTrace();
             return new ResponseEntity("Exception Occurred",HttpStatus.BAD_REQUEST);
         }
-    }
+    }*/
     private boolean doesQuestionExist(Long questionId){
         return questionSetRepository.existsById(questionId);
     }
     private void permanentDeleteQuestion(long id){
     questionSetRepository.deleteById(id);
 }
+    private LocalDateTime getDateOnly(){
+        return LocalDateTime.now();
+    }
 }

@@ -40,6 +40,7 @@ export class UserListComponent implements OnInit {
     const deptData = this.userService.getAllUser();
     console.log(deptData, "deptdata")
     this.dataSource.filterPredicate = this.createFilter();
+    this.loadUserStream();
   }
 
   // showPaginator(){
@@ -65,6 +66,10 @@ export class UserListComponent implements OnInit {
   }
   togglePaginator() {
     this.showPaginator = !this.showPaginator;
+  }
+  loadUserStream(){
+    this.userService.getAllUserStream().subscribe(data=>
+      console.log(data));
   }
 
 

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CSVRecord } from 'src/model/csvrecord.model';
+import { SnackbarNotificationService } from '../service/snackbar-notification.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class CsvEditFormComponent implements OnInit {
   touchedRows: any;
   constructor( 
     private formBuilder: FormBuilder,
-    public snackbar: MatSnackBar) {
+    public snackBar: SnackbarNotificationService) {
       this.csvTableForm = this.formBuilder.group({
         rows: this.formBuilder.array([])});
       }
@@ -49,9 +50,7 @@ onDelete(record:any, uq?:string){
   else{
     this.invalidData.splice(index,1);
     console.log('Record Deleted',record);
-    this.snackbar.open('Record Deleted Successfully', 'Close', {
-      duration: 3000,
-    });
+    this.snackBar.warning('Record Deleted Successfully')
   }
 }
  
@@ -68,11 +67,7 @@ addNewRow() {
   });
 
   this.rows.push(newRow);
-  this.snackbar.open('New Row Added', 'Close', {
-    verticalPosition: 'top',
-    horizontalPosition:'right',
-    duration: 3000,
-  });
+  this.snackBar.success('New Row Added');
 }
 
 removeRow(index: number) {
@@ -81,9 +76,7 @@ removeRow(index: number) {
   const uniqValue: string = formValues.rows[index].email !==null ? 'email' : formValues.rows[index].phoneNumber.length !==0 ? 'phoneNumber' : '';
   this.onDelete(formValues.rows[index], uniqValue );
   this.rows.removeAt(index);
-  this.snackbar.open('Row Removed', 'Close', {
-    duration: 3000,
-  });
+  this.snackBar.warning('Row Removed');
 }
 
 submitForm() {
