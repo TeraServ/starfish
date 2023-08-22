@@ -1,12 +1,12 @@
+import { Question } from './../../../models/question.model';
 import { QuestionOption } from 'src/app/models/question.option.model';
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder,  FormGroup, NgControlStatus, Validators } from '@angular/forms';
+import { Component, OnInit,Input } from '@angular/core';
+import { FormArray, FormBuilder,  FormGroup, NgControlStatus, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { AngularRichTextEditorValidator } from 'src/app/custom-validators/angular-rich-text-editor-validator';
 import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
 import {QuestionType, MaximumQuestionMark, MinimumQuestionOptions, NegativeQuestionMark, MaximumOptionCharacter, MaximumOptionSelection} from 'src/app/models/questionDetailEnum';
-import { Question } from 'src/app/models/question.model';
 import { RichTextEditorService } from 'src/app/service/rich-text-editor.service';
 import { SnackbarNotificationService } from 'src/app/service/snackbar-notification.service';
 import { AuthService } from 'src/app/service/auth.service';
@@ -22,7 +22,7 @@ export const LABELS = {
   questionType:'Question Type',
   questionTitle: 'Question',
   answerTitle: 'Answer',
-  mcqTitle: 'Add an Option',
+  mcqTitle: 'Add Options',
   msqTitle:'Add Options',
   answerExplanationLabel: 'Answer Explanation'
 };
@@ -44,6 +44,8 @@ export const PLACEHOLDERS = {
   providers:[RichTextEditorService]
 })
 export class AddQuestionComponent implements OnInit {
+  
+  @Input() quizId:number = 33 ;
 
   public readonly labels = LABELS;
   public readonly placeholders = PLACEHOLDERS;
@@ -54,10 +56,8 @@ export class AddQuestionComponent implements OnInit {
   isMultipleChoiceType!:boolean; 
   isMultipleSelectType!:boolean; 
   hasMultipleChoice:boolean[] = new Array<boolean>(2);
-  selectedMCQOption!:number;
   isSubmitted!:boolean;
-  newQuestion!: Question | undefined;
-  quizId!:number;
+  newQuestion: Question = {} as Question;
   editorConfig!: AngularEditorConfig;
 
   constructor(
@@ -82,7 +82,6 @@ export class AddQuestionComponent implements OnInit {
     this.hasMultipleChoice.fill(false);
     this.isSubmitted = false;
     this.defaultQuestionType = QuestionType.singleAnswer;
-    this.quizId = 33;
     this.editorConfig = this._editor.editorConfig('');
     this.questionTypes = [
       {value: QuestionType.singleAnswer, viewValue: 'Single Answer'},
@@ -169,24 +168,22 @@ export class AddQuestionComponent implements OnInit {
     return this.mcqOptions.at(index);
   }
 
-  getMCQOptionText(selectedIndex:number):string {
-    return this.getCurrentMCQOption(selectedIndex).get('optionText')?.value;
-  }
-
   radioButtonChange(mrChange: MatRadioChange,selectedIndex: number){
-    // let mrButton: MatRadioButton = mrChange.source;
-    // console.log(mrButton.checked);
+    let mrButton: MatRadioButton = mrChange.source;
+    mrButton.checked = true;
     const currentOption = this.getCurrentMCQOption(selectedIndex);
     currentOption.get('isAnswer')?.setValue(true);
     this.handleMCQFieldChange(selectedIndex);
   }
 
-
-  handleMCQFieldChange(selectedIndex:number){
- 
+  checkMinimumMCQOptionCount(){
     if(this.mcqOptions.length < MinimumQuestionOptions.MultipleChoiceSingleAnswer){
       this.addNewMCQOption();
-    }else{
+    }
+  }
+
+  handleMCQFieldChange(selectedIndex:number){
+    this.checkMinimumMCQOptionCount();
     const currentOption = this.getCurrentMCQOption(selectedIndex);
     if(currentOption.get('isAnswer')?.value){
       this.mcqOptions.controls.forEach((control,i)=>
@@ -202,7 +199,7 @@ export class AddQuestionComponent implements OnInit {
         currentOption.get('isAnswer')?.setValue(true);
       }
     }
-    }}
+    }
   
   removeMCQOption(index:number){
     this.mcqOptions.removeAt(index);
@@ -235,10 +232,10 @@ export class AddQuestionComponent implements OnInit {
     }else{
       const currentOption = this.msqOptions.at(index);
       const isAtLeastOneTrue = this.msqOptions.controls.some(control => control.get('isAnswer')?.value);
-      const isAtLeastOneFalse = this.msqOptions.controls.some(control => !control.get('isAnswer')?.value);
-      if(isAtLeastOneTrue && isAtLeastOneFalse){}
+      // const isAtLeastOneFalse = this.msqOptions.controls.some(control => !control.get('isAnswer')?.value);
+      if(isAtLeastOneTrue){}
       else{
-        this._snackbar.warning('Minimum one correct and wrong answer should be checked.')
+        this._snackbar.warning('Minimum one correct should be checked.')
         currentOption.get('isAnswer')?.setValue(!(currentOption.get('isAnswer')?.value));
       }
     }
@@ -289,7 +286,7 @@ export class AddQuestionComponent implements OnInit {
         }
         this.newQuestion = newSingleAnswerQuestion;
         console.log('New Question:',newSingleAnswerQuestion);
-        this._questionService.createNewQuestion(newSingleAnswerQuestion).subscribe(data=>{
+        this._questionService.addNewQuestion(newSingleAnswerQuestion).subscribe(data=>{
           console.log("Data Send:",data);
         },err=>{
           console.log("Error:",err);
@@ -337,7 +334,7 @@ export class AddQuestionComponent implements OnInit {
           questionText: this.addQuestionForm.get('questionText')?.value,
           answers:msqAnswers,
           explanation:this.addQuestionForm.get('answerExplanation')?.value,
-          maxSelection: (msqAnswers.length -1),
+          maxSelection: (msqAnswers.length),
           creator: this._authService.getUserEmail()
         };
         this.newQuestion = newMSQQuestion;
@@ -353,6 +350,7 @@ export class AddQuestionComponent implements OnInit {
 
   onPreview(){
     this.isSubmitted = true;
+    this._questionService.sendQuestion(this.newQuestion);
   }
   onBack(){
     this.isSubmitted = false;

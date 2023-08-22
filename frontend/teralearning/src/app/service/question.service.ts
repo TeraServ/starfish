@@ -3,17 +3,24 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup,FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Question } from '../models/question.model';
+import { BehaviorSubject } from 'rxjs';
+import { QuestionType } from '../models/questionDetailEnum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionService {
 
-  baseURL:string = "http://localhost:8080/api/quizcontroller/"
+  private baseURL:string = "http://localhost:8080/api/quizcontroller/"
+  private defaultQuestion: Question = {} as Question;
+  private questionSource = new BehaviorSubject <Question>(this.defaultQuestion);
+  questionData$ = this.questionSource.asObservable();
+  sendQuestion(newQuestion: Question){
+    this.questionSource.next(newQuestion);
+  }
   constructor(private http:HttpClient) { }
 
-
-  defaultQuestionType:string = 'singleAnswer'
+  defaultQuestionType:string = QuestionType.singleAnswer;
   hasDefaultQuestionType:boolean = this.defaultQuestionType.length!=0 ? true : false; 
 
   questionForm: FormGroup = new FormGroup({
@@ -37,7 +44,7 @@ export class QuestionService {
     });
   }
 
-  createNewQuestion(newQuestion: any): Observable<any>{
+  addNewQuestion(newQuestion: any): Observable<any>{
     return this.http.post(this.baseURL+"addQuestion",newQuestion);
   }
 

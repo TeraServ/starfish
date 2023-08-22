@@ -45,7 +45,7 @@
       <button class="btn btn-success px-2" (click)="addNewMCQOption()">{{labels.mcqTitle}}</button>
       <ng-container *ngIf="hasMultipleChoice[0]">
         <div formArrayName="mcqOptions">
-          <ng-container *ngFor="let optionCtrl of mcqOptions.controls; let i = index" [formGroupName]="i">
+          <div *ngFor="let optionCtrl of mcqOptions.controls; let i = index" [formGroupName]="i">
           <mat-radio-group
           aria-label = "Write options for MCQ"
           name="MCQOption"
@@ -56,22 +56,22 @@
               <mat-form-field >
                 <input 
                 type="text" 
-                (click)="handleMCQFieldChange(i)"
+                (click)="checkMinimumMCQOptionCount()"
                 matInput placeholder="{{placeholders.mcqOptionPlaceholder}}" 
                 formControlName="optionText">
               </mat-form-field>
               <mat-icon (click) = removeMCQOption(i) aria-hidden = "true">highlight_off</mat-icon>
               </mat-radio-button>
           </mat-radio-group>
-          </ng-container>
+        </div>
         </div>
        <!-- <br>
        <strong>
          Correct Answer:
        </strong>
-       <pre>{{this.mcqOptions.value | json}}</pre> -->
+       <pre>{{this.mcqOptions.value | json}}</pre>
 
-        <br> 
+        <br>  -->
       </ng-container>
     </ng-template>
             
@@ -80,12 +80,12 @@
       <ng-container *ngIf="hasMultipleChoice[1]">
         <div formArrayName="msqOptions">
           <div *ngFor="let optionCtrl of msqOptions.controls; let i = index" [formGroupName]="i">
-            <mat-form-field (click) = "handleMSQCheckboxChange(i)">
+            <mat-checkbox  (change)="handleMSQCheckboxChange(i)" formControlName="isAnswer">
+            </mat-checkbox>&nbsp;
+           <mat-form-field (click) = "handleMSQCheckboxChange(i)">
               <input matInput placeholder="{{placeholders.mcqOptionPlaceholder}}" formControlName="optionText">
             </mat-form-field>
-            <mat-checkbox  (change)="handleMSQCheckboxChange(i)" formControlName="isAnswer">
-              <mat-icon (click) = removeMSQOption(i)>highlight_off</mat-icon>
-            </mat-checkbox>
+            <mat-icon (click) = removeMSQOption(i)>highlight_off</mat-icon>
           </div>
         </div>
        <!-- <br>
@@ -109,29 +109,27 @@
     </ng-template>
 
     <br>
-
   </form>
   </div>
 
-  <ng-template *ngIf = "isSubmitted" class = "container" >
+  <div *ngIf = "isSubmitted" class = "container" >
     <app-preview-question 
     [questionBody] = "this.newQuestion" 
-    [quizId]="this.quizId" 
     (saveQuestion) = "onSaveConfirmation($event)">
     </app-preview-question>
-  </ng-template>
+  </div>
 
 </mat-dialog-content>
 
 <mat-dialog-actions>
   <div class="col">
     <div class="text-center">
-      <div class="mt-4 pt-2">
-        <input *ngIf = "!isSubmitted"class="save-button btn" value="Preview" (click)="onSubmit()">
+      <div class="mt-4 pt-2" *ngIf = "!isSubmitted">
+        <button  class="save-button btn" (click)="onSubmit()">Preview</button>
       </div>
       <div *ngIf = "isSubmitted">
-        <input  class="save-button btn" value="Back"  (click)="onBack()">
-        <input  class="save-button btn" value = "Save" (click)="onSave()">
+        <button class="save-button btn" (click)="onBack()">Back</button>
+        <button  class="save-button btn" (click)="onSave()">Save</button>
       </div>
     </div>
   </div>

@@ -35,7 +35,7 @@ export class PasswordResetComponent implements OnInit {
       newPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)]],
       confirmPassword: ['', Validators.required]
     }, {
-      validators: this.passwordMatchValidator
+      validators: this.passwordService.passwordMatchValidator
     });
   }
 
@@ -92,16 +92,5 @@ export class PasswordResetComponent implements OnInit {
 
   toggleFieldTextType() {
     this.fieldTextType = !this.fieldTextType;
-  }
-
-  passwordMatchValidator(group: FormGroup) {
-    const password = group.get('newPassword')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-
-    if (password !== confirmPassword) {
-      group.get('confirmPassword')?.setErrors({ passwordMismatch: true });
-    } else {
-      group.get('confirmPassword')?.setErrors(null);
-    }
   }
 }

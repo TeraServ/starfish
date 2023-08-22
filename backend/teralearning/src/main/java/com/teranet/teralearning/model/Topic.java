@@ -12,9 +12,8 @@ public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
-
-
-    @OneToOne(targetEntity = Subject.class)
+    @OneToOne(targetEntity = Subject.class,cascade = CascadeType.MERGE)
+    @JoinColumn(name = "subject",referencedColumnName = "id",nullable = false)
     private Subject subject;
 
     @Column(name = "topic_name")
@@ -34,6 +33,7 @@ public class Topic {
 
     public Topic(){}
 
+
     public Topic(long id, Subject subject, String topicName, LocalDateTime createdDate, LocalDateTime modifiedDate, String createdBy, String modifiedBy) {
         Id = id;
         this.subject = subject;
@@ -51,6 +51,7 @@ public class Topic {
     public void setId(long id) {
         Id = id;
     }
+
 
     public Subject getSubject() {
         return subject;

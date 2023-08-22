@@ -1,13 +1,7 @@
 
 <h1>{{labels.pageTitle}}</h1>
-<!-- <pre>{{questionBody | json}}</pre> -->
-
-    
-    <h2><b>{{labels.contentHeading}}</b></h2>
-    <p> 
-        {{questionBody?.type}}
-    </p>
-    
+<pre>{{questionBody | json}}</pre>
+    <!-- <h2>{{labels.contentHeading}}</h2>{{questionBody?.type}}
     <h2>{{labels.questionHeading}}</h2>
     <div>
         {{questionBody?.questionText}}
@@ -21,13 +15,12 @@
     <h2>{{labels.answerExplanationHeading}}</h2>
     <div>
         {{questionBody?.explanation}}
-    </div>
-<input  class="save-button btn" type="submit" value = "Save" (click)="onSave()">
+    </div> -->
 
+<button class="save-button btn" (click)="onSave()"></button>
 
-
-<ng-template *ngIf="questionBody == null || quizId == null">
-    <h1>
+<ng-template *ngIf="questionBody == null">
+    <p>
         No Data
-    </h1>
+    </p>
 </ng-template>
