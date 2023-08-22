@@ -12,12 +12,9 @@ public class Topic {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
-
-    @OneToOne(targetEntity = Stream.class)
-    private String streamName;
-
-    @OneToOne(targetEntity = Subject.class)
-    private String subjectName;
+    @OneToOne(targetEntity = Subject.class,cascade = CascadeType.MERGE)
+    @JoinColumn(name = "subject",referencedColumnName = "id",nullable = false)
+    private Subject subject;
 
     @Column(name = "topic_name")
     private String topicName;
@@ -36,10 +33,10 @@ public class Topic {
 
     public Topic(){}
 
-    public Topic(long id, String streamName, String subjectName, String topicName, LocalDateTime createdDate, LocalDateTime modifiedDate, String createdBy, String modifiedBy) {
+
+    public Topic(long id, Subject subject, String topicName, LocalDateTime createdDate, LocalDateTime modifiedDate, String createdBy, String modifiedBy) {
         Id = id;
-        this.streamName = streamName;
-        this.subjectName = subjectName;
+        this.subject = subject;
         this.topicName = topicName;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
@@ -55,20 +52,13 @@ public class Topic {
         Id = id;
     }
 
-    public String getStreamName() {
-        return streamName;
+
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setStreamName(String streamName) {
-        this.streamName = streamName;
-    }
-
-    public String getSubjectName() {
-        return subjectName;
-    }
-
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
     public String getTopicName() {

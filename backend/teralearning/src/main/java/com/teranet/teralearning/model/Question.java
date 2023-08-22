@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 
 import java.time.LocalDateTime;
@@ -22,19 +23,20 @@ public class Question {
             sequenceName = "QUESTION_SEQ",
             allocationSize = 1
     )
-    @GeneratedValue (strategy = SEQUENCE,
-    generator = "QUESTION_SEQ")
+    @GeneratedValue(strategy = SEQUENCE,
+            generator = "QUESTION_SEQ")
     @Id
-    private long questionId;
+    private long Id;
     @OneToOne
     @JoinColumn(name="topic",referencedColumnName = "id", nullable = true)
     private Topic topic;
-    @Column(name="question_type",nullable = false)
+    @Column(name="question_type")
+    @NotNull
     private String questionType;
-    @Column(name="question_text",nullable = false)
+    @Column(name="question_text")
+    @NotNull
     private String questionText;
     @OneToMany(targetEntity = Answer.class, cascade = CascadeType.MERGE)
-
     private Set<Answer> answers;
     @Column(name = "explanation",nullable = true)
     private String explanation;
@@ -43,8 +45,10 @@ public class Question {
     @Column(name="quiz_id",nullable = true)
     private long quizId;
     @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
+    @JoinColumn(name="creator",referencedColumnName = "id",nullable = false)
     private User creator;
     @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
+    @JoinColumn(name = "modifier",referencedColumnName = "id",nullable = false)
     private User modifier;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
@@ -52,8 +56,8 @@ public class Question {
     private LocalDateTime modifiedDate;
     public Question(){}
 
-    public Question(long questionId, Topic topic, String questionType, String questionText, Set<Answer> answers, String explanation, int maximumSelectionAllowed, long quizId, User creator, User modifier, LocalDateTime createdDate, LocalDateTime modifiedDate) {
-        this.questionId = questionId;
+    public Question(long id, Topic topic, String questionType, String questionText, Set<Answer> answers, String explanation, int maximumSelectionAllowed, long quizId, User creator, User modifier, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+        Id = id;
         this.topic = topic;
         this.questionType = questionType;
         this.questionText = questionText;
@@ -67,12 +71,8 @@ public class Question {
         this.modifiedDate = modifiedDate;
     }
 
-    public long getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(long questionId) {
-        this.questionId = questionId;
+    public long getId() {
+        return Id;
     }
 
     public Topic getTopic() {
@@ -161,5 +161,23 @@ public class Question {
 
     public void setModifiedDate(LocalDateTime modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "Id=" + Id +
+                ", topic=" + topic +
+                ", questionType='" + questionType + '\'' +
+                ", questionText='" + questionText + '\'' +
+                ", answers=" + answers +
+                ", explanation='" + explanation + '\'' +
+                ", maximumSelectionAllowed=" + maximumSelectionAllowed +
+                ", quizId=" + quizId +
+                ", creator=" + creator +
+                ", modifier=" + modifier +
+                ", createdDate=" + createdDate +
+                ", modifiedDate=" + modifiedDate +
+                '}';
     }
 }
