@@ -52,7 +52,7 @@ public class QuestionSetService implements QuestionSetInterface{
             Optional<Question> question = questionSetRepository.findById(questionId);
             if(question.isPresent()){
                 log.info("QuestionSetService:deleteQuestion Question body found");
-                if(question.get().getQuizId() != 0){
+                if(question.get().getQuizId().getId() != 0){
                     log.warn("QuestionSetService:delete Warning: Question Question mapped to a quiz");
                     return new ResponseEntity("Cannot delete question",HttpStatus.CONFLICT);
                 }else {

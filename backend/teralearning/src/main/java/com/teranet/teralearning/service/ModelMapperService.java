@@ -2,11 +2,9 @@ package com.teranet.teralearning.service;
 
 import com.teranet.teralearning.dto.optionResponseDTO;
 import com.teranet.teralearning.dto.questionResponseDTO;
-import com.teranet.teralearning.model.Answer;
-import com.teranet.teralearning.model.Question;
-import com.teranet.teralearning.model.Topic;
-import com.teranet.teralearning.model.User;
+import com.teranet.teralearning.model.*;
 import com.teranet.teralearning.repository.AnswerSetRepository;
+import com.teranet.teralearning.repository.QuizRepository;
 import com.teranet.teralearning.repository.TopicRepository;
 import com.teranet.teralearning.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -29,6 +27,8 @@ public class ModelMapperService {
     private UserRepository userRepository;
     @Autowired
     private AnswerSetRepository answerSetRepository;
+    @Autowired
+    private QuizRepository quizRepository;
     public ModelMapperService(){}
 
     private User getUserFromEmail(String email){
@@ -38,21 +38,19 @@ public class ModelMapperService {
         return topicRepository.findById(topicId).orElse(null);
     }
 
+    private Quiz getQuizFromQuizId(long quizId){ return quizRepository.findById(quizId).orElse(null);}
 
     public Question questionDTOtoQuestion(questionResponseDTO questionDTO) {
         log.info("ModelMapperService:questionDTOtoQuestion Init...");
         log.trace("ModelMapperService:questionDTOtoQuestion QuestionDTO Body:"+questionDTO.toString());
         Question question = new Question();
-        question.setQuizId(questionDTO.getQuizId());
+        question.setQuizId(getQuizFromQuizId(questionDTO.getQuizId()));
         question.setTopic(getTopicFromTopicId(questionDTO.getTopic()));
         question.setQuestionType(questionDTO.getType());
         question.setQuestionText(questionDTO.getQuestionText());
         question.setAnswers(getAnswersFromAnswerDTOs(questionDTO.getAnswers()));
         question.setExplanation(questionDTO.getExplanation());
         question.setMaximumSelectionAllowed(questionDTO.getMaxSelection());
-        question.setQuizId(questionDTO.getQuizId());
-        question.setCreator(getUserFromEmail(questionDTO.getCreator()));
-        question.setModifier(getUserFromEmail(questionDTO.getModifier()));
         log.info("ModelMapperService:questionDTOtoQuestion Question Body:"+question.toString());
         return question;
     }

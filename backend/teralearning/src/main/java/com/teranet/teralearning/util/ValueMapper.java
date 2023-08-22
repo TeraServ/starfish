@@ -40,8 +40,4 @@ public static reviewResponseDTO convertReviewToReviewDTO(Review review){
     responseDTO.setDate(review.getModifiedDate());
     return responseDTO;
 }
-
-
-
-
 }

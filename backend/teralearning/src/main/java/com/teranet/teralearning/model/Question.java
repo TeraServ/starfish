@@ -27,7 +27,7 @@ public class Question {
             generator = "QUESTION_SEQ")
     @Id
     private long Id;
-    @OneToOne
+    @OneToOne(targetEntity = Topic.class,cascade = CascadeType.MERGE)
     @JoinColumn(name="topic",referencedColumnName = "id", nullable = true)
     private Topic topic;
     @Column(name="question_type")
@@ -42,21 +42,20 @@ public class Question {
     private String explanation;
     @Column(name = "maximum_selection", nullable = false)
     private int maximumSelectionAllowed;
-    @Column(name="quiz_id",nullable = true)
-    private long quizId;
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
-    @JoinColumn(name="creator",referencedColumnName = "id",nullable = false)
-    private User creator;
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
-    @JoinColumn(name = "modifier",referencedColumnName = "id",nullable = false)
-    private User modifier;
+    @OneToOne(targetEntity = Quiz.class,cascade = CascadeType.MERGE)
+    @JoinColumn(name="quiz",referencedColumnName = "id",nullable = false)
+    private Quiz quizId;
+    @Column(name="creator_id",nullable = false)
+    private long creator;
+    @Column(name="modifier_id",nullable = false)
+    private long modifier;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
     public Question(){}
 
-    public Question(long id, Topic topic, String questionType, String questionText, Set<Answer> answers, String explanation, int maximumSelectionAllowed, long quizId, User creator, User modifier, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public Question(long id, Topic topic, String questionType, String questionText, Set<Answer> answers, String explanation, int maximumSelectionAllowed, Quiz quizId, long creator, long modifier, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         Id = id;
         this.topic = topic;
         this.questionType = questionType;
@@ -123,27 +122,31 @@ public class Question {
         this.maximumSelectionAllowed = maximumSelectionAllowed;
     }
 
-    public long getQuizId() {
+    public void setId(long id) {
+        Id = id;
+    }
+
+    public Quiz getQuizId() {
         return quizId;
     }
 
-    public void setQuizId(long quizId) {
+    public void setQuizId(Quiz quizId) {
         this.quizId = quizId;
     }
 
-    public User getCreator() {
+    public long getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(long creator) {
         this.creator = creator;
     }
 
-    public User getModifier() {
+    public long getModifier() {
         return modifier;
     }
 
-    public void setModifier(User modifier) {
+    public void setModifier(long modifier) {
         this.modifier = modifier;
     }
 

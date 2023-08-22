@@ -53,8 +53,6 @@ public class QuizController {
                 log.info("QuizController:addAQuestion Init ...");
                 Question question = modelMapperService.questionDTOtoQuestion(newQuestion);
                 log.debug("QuizController:addAQuestion Question Body:"+question.toString());
-                question.setCreator(userService.getByUserEmail(newQuestion.getCreator()));
-                question.setModifier(userService.getByUserEmail(newQuestion.getCreator()));
                 return questionSetService.createQuestion(question);
             }else {
                 return new ResponseEntity(InternalStandardError.USER_NOT_FOUND.getErrorMessage(),InternalStandardError.USER_NOT_FOUND.getHttpStatus());
