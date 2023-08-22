@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from 'src/app/models/question.model';
+import { QuestionService } from 'src/app/service/question.service';
 
 export const LABELS = {
   pageTitle: 'Question Preview',
@@ -18,22 +19,20 @@ export const LABELS = {
 export class PreviewQuestionComponent implements OnInit {
 
 
-  @Input() questionBody = {} as Question | undefined;
-  @Input() quizId!: Partial<number>;
+  @Input() questionBody!:Question ;
   @Output() saveQuestion: EventEmitter<boolean> = new EventEmitter();
 
   public readonly labels = LABELS;
-
-  constructor() {
-    setTimeout(()=>{
-      console.log(this.questionBody);
-      console.log(this.quizId);
-    },3000)
+  
+  constructor(private _questionService: QuestionService) {
    }
 
   ngOnInit(): void {
-
-
+    console.log(this.questionBody);
+    this._questionService.questionData$.subscribe(rxdData =>{
+      console.log(rxdData);
+      this.questionBody = rxdData;
+    })
   }
 
 
