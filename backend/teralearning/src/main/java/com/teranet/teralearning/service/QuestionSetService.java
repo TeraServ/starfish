@@ -26,7 +26,7 @@ public class QuestionSetService implements QuestionSetInterface{
     @Override
     public ResponseEntity createQuestion(Question question){
         try {
-            if(question != null) {
+            if(question != null && !questionSetRepository.existsById(question.getId())) {
                 log.info("QuestionSetService:createQuestion Init...");
                 question.setCreatedDate(getDateOnly());
                 question.setModifiedDate(getDateOnly());
@@ -52,7 +52,7 @@ public class QuestionSetService implements QuestionSetInterface{
             Optional<Question> question = questionSetRepository.findById(questionId);
             if(question.isPresent()){
                 log.info("QuestionSetService:deleteQuestion Question body found");
-                if(question.get().getQuizId() != 0){
+                if(question.get().getQuizId().getId() != 0){
                     log.warn("QuestionSetService:delete Warning: Question Question mapped to a quiz");
                     return new ResponseEntity("Cannot delete question",HttpStatus.CONFLICT);
                 }else {
@@ -63,7 +63,7 @@ public class QuestionSetService implements QuestionSetInterface{
             }
             else {
                 log.info("QuestionSetService:deleteQuestion Question not found");
-                return new ResponseEntity("Quesion not found",HttpStatus.NOT_FOUND);
+                return new ResponseEntity("Question not found",HttpStatus.NOT_FOUND);
             }
         }catch (Exception ex){
             log.info("QuestionSetService:deleteQuestion Exception Occurred");

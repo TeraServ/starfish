@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import {FormGroup} from '@angular/forms'
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,16 @@ export class PasswordService {
     }
   
     return password;
+  }
+  passwordMatchValidator(group: FormGroup) {
+    const password = group.get('newPassword')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+
+    if (password !== confirmPassword) {
+      group.get('confirmPassword')?.setErrors({ passwordMismatch: true });
+    } else {
+      group.get('confirmPassword')?.setErrors(null);
+    }
   }
 
   
