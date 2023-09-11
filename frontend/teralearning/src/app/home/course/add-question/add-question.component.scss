@@ -1,6 +1,11 @@
 h1 {
   text-align: center;
   }
+.header {  
+    margin-top: 100px;
+    text-align: center;
+    margin-bottom: 40px;
+  }
 .container {  
   max-width: 720px;
   margin-right: auto;
@@ -37,4 +42,14 @@ h1 {
   .mat-mdc-radio-button ~ .mat-mdc-radio-button {
     margin-left: 16px;
   }
-  
+  // .mat-form-field{ width:100%;}
+.mat-input-field{
+  width: 100% !important;
+}
+  .form-field-width{
+    width: 100%;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    width: auto !important;
+}
