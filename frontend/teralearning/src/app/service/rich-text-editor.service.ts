@@ -15,6 +15,7 @@ export class RichTextEditorService {
   const config: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
+    sanitize:false,
     height: 'auto',
     minHeight: '5rem',
     enableToolbar: true,
