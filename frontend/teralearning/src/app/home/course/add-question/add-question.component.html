@@ -7,15 +7,17 @@
   <div *ngIf="!isSubmitted" class = "container">
   <form [formGroup]="addQuestionForm" class="normal-form" autocomplete="off">
 
-    <mat-form-field>
+    <!-- <mat-form-field> -->
       <mat-label *ngIf="isSubmitted">{{labels.questionType}}</mat-label>
         <mat-select  formControlName = "questionType" (selectionChange)="onQuestionTypeChange()" required>
+          <mat-label><b>{{labels.questionType}}</b></mat-label>
           <ng-container  *ngFor = "let type of questionTypes" > 
             <mat-option [value]="type.value" >{{type.viewValue}}</mat-option>
           </ng-container>
         </mat-select>
           <div *ngIf="addQuestionForm.get('addQuestionForm')?.errors?.['required']">Question Type is required.</div>
-     </mat-form-field>
+    <!-- </mat-form-field> -->
+    <br><br>
 
 
     <div class="form-element">
@@ -54,7 +56,7 @@
               <mat-radio-button
               [aria-label] = "optionCtrl.get('optionText')?.value"
               value="Option - {{i+1}}">
-              <mat-form-field   style="width: 100%;">
+              <mat-form-field>
                 <input 
                 type="text" 
                 (click)="checkMinimumMCQOptionCount()"
@@ -74,10 +76,17 @@
       <ng-container *ngIf="hasMultipleChoice[1]">
         <div formArrayName="msqOptions">
           <div *ngFor="let optionCtrl of msqOptions.controls; let i = index" [formGroupName]="i">
-            <mat-checkbox  (change)="handleMSQCheckboxChange(i)" formControlName="isAnswer">
+            <mat-checkbox  
+            [aria-label]="optionCtrl.get('optionText')?.value"
+            (change)="handleMSQCheckboxChange(i)" 
+            formControlName="isAnswer">
             </mat-checkbox>&nbsp;
            <mat-form-field (click) = "handleMSQCheckboxChange(i)">
-              <input matInput placeholder="{{placeholders.mcqOptionPlaceholder}}" formControlName="optionText">
+              <input 
+              class="msq-option-text-box"
+              aria-describedby="optionCtrl.get('optionText')?.value"
+              matInput placeholder="{{placeholders.mcqOptionPlaceholder}}" 
+              formControlName="optionText">
             </mat-form-field>
             <mat-icon (click) = removeMSQOption(i)>highlight_off</mat-icon>
           </div>

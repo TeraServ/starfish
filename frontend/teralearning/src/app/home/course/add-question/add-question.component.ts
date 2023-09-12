@@ -307,11 +307,6 @@ export class AddQuestionComponent implements OnInit {
         }
         this.newQuestion = newSingleAnswerQuestion;
         console.log('New Question:',newSingleAnswerQuestion);
-        this._questionService.addNewQuestion(newSingleAnswerQuestion).subscribe(data=>{
-          console.log("Data Send:",data);
-        },err=>{
-          console.log("Error:",err);
-        })
         break;
         
       case this.questionTypes[1].value:
@@ -403,13 +398,13 @@ export class AddQuestionComponent implements OnInit {
     this.isSubmitted = false;
   }
   onSave(){
-    
-    this._dialog.open(SuccessDialogComponent,{data:{message:QuestionMessageBox.questionAdded}})
-    .afterClosed().subscribe(data=>{
-      this._router.navigate(['/']);
-    });
+    this.onPreview();
     if(this.isSubmitted){
-      console.log(this.newQuestion);
+      this._questionService.addNewQuestion(this.newQuestion);
+      this._dialog.open(SuccessDialogComponent,{data:{message:QuestionMessageBox.questionAdded}})
+      .afterClosed().subscribe(data=>{
+        this._router.navigate(['/']);
+      });
     }
     // window.location.reload();
   }

@@ -32,12 +32,12 @@
             <p style="color: #0000ff"><b>{{labels.answerHeading}}</b></p>
             <div *ngFor="let mcqOption of this.questionBody.answers, let i = index">
                 <div *ngIf="mcqOption.correct">
-                    <mat-form-field><textarea
+                    <mat-form-field><input
                         matInput 
                         readonly
                         upperCaseInput 
                         value="{{mcqOption.answer}}">
-                        </textarea></mat-form-field>
+                        </mat-form-field>
                 </div>
             </div>
         </div>
