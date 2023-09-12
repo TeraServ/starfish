@@ -4,11 +4,12 @@ import com.teranet.teralearning.model.Stream;
 import com.teranet.teralearning.model.Subject;
 import com.teranet.teralearning.model.Topic;
 import com.teranet.teralearning.service.TopicService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
+@Slf4j
 @RestController
 @CrossOrigin(origins = {"*"})
 @RequestMapping("/api/topic/")
@@ -23,6 +24,7 @@ public class TopicController{
 
     @PostMapping("new")
     public ResponseEntity newTopic(@RequestBody Topic topic ){
+        log.info("topic controler: new topic init ...");
         return topicService.createTopic(topic);
     }
     @GetMapping("list")

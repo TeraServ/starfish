@@ -13,7 +13,7 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
     @OneToOne(targetEntity = Subject.class,cascade = CascadeType.MERGE)
-    @JoinColumn(name = "subject",referencedColumnName = "id",nullable = false)
+    @JoinColumn(name = "subject",referencedColumnName = "id")
     private Subject subject;
 
     @Column(name = "topic_name")

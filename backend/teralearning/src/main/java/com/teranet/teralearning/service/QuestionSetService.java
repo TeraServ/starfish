@@ -1,5 +1,6 @@
 package com.teranet.teralearning.service;
 
+import com.teranet.teralearning.model.Answer;
 import com.teranet.teralearning.model.Question;
 import com.teranet.teralearning.repository.AnswerSetRepository;
 import com.teranet.teralearning.repository.QuestionSetRepository;
@@ -28,6 +29,8 @@ public class QuestionSetService implements QuestionSetInterface{
         try {
             if(question != null && !questionSetRepository.existsById(question.getId())) {
                 log.info("QuestionSetService:createQuestion Init...");
+
+
                 question.setCreatedDate(getDateOnly());
                 question.setModifiedDate(getDateOnly());
                 return new ResponseEntity(questionSetRepository.save(question), HttpStatus.OK);
@@ -52,11 +55,12 @@ public class QuestionSetService implements QuestionSetInterface{
             Optional<Question> question = questionSetRepository.findById(questionId);
             if(question.isPresent()){
                 log.info("QuestionSetService:deleteQuestion Question body found");
-                if(question.get().getQuizId().getId() != 0){
+                if(question.getClass()==null){
                     log.warn("QuestionSetService:delete Warning: Question Question mapped to a quiz");
                     return new ResponseEntity("Cannot delete question",HttpStatus.CONFLICT);
                 }else {
                     log.info("QuestionSetService:deleteQuestion Question not mapped to a quiz");
+                    permanentDeleteAnswers(questionId);
                     permanentDeleteQuestion(questionId);
                     return new ResponseEntity<>("Question deleted",HttpStatus.OK);
                 }
@@ -71,7 +75,29 @@ public class QuestionSetService implements QuestionSetInterface{
             return new ResponseEntity("Exception Occurred",HttpStatus.BAD_REQUEST);
         }
     }
-/*    public ResponseEntity updateQuestion(Question question){
+
+    public ResponseEntity updateQuestion(long id, Question questionDetails){
+        Question updateQuestion = questionSetRepository.getReferenceById(id);
+        if(questionSetRepository.existsById(id)){
+
+            updateQuestion.setQuestionText(questionDetails.getQuestionText());
+            updateQuestion.setAnswers(questionDetails.getAnswers());
+            updateQuestion.setExplanation(questionDetails.getExplanation());
+            updateQuestion.setModifier(questionDetails.getModifier());
+
+            return new ResponseEntity<>(questionSetRepository.save(updateQuestion),HttpStatus.OK);
+
+        }
+        else {
+            return new ResponseEntity("No Body",HttpStatus.NOT_FOUND);
+        }
+
+
+
+    }
+
+
+/*    public ResponseEntity updateQuestion(long id, Question questionDetails){
         try{
             if(doesQuestionExist(question.())) {
                 log.info("QuestionSetService:createQuestion Init...");
@@ -93,6 +119,12 @@ public class QuestionSetService implements QuestionSetInterface{
     private void permanentDeleteQuestion(long id){
     questionSetRepository.deleteById(id);
 }
+    private void permanentDeleteAnswers(long id){
+        Question question = questionSetRepository.getReferenceById(id);
+        for(Answer answer: question.getAnswers()) {
+            answerSetRepository.deleteById(answer.getId());
+        }
+    }
     private LocalDateTime getDateOnly(){
         return LocalDateTime.now();
     }

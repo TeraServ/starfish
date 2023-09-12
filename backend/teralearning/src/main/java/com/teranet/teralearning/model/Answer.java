@@ -12,15 +12,11 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Entity(name="QuestionOption")
 @Table(name = "answers")
 public class Answer {
-    @SequenceGenerator(
-            name = "seqGenForAnswer",
-            sequenceName = "ANSWER_SEQ",
-            allocationSize = 1
-    )
-    @GeneratedValue (generator = "seqGenForAnswer",
-    strategy = SEQUENCE)
+
+
     @Id
-    private long answerId;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long Id;
     @Column(name = "option_id", nullable = true)
     private int optionId;
     @Column(name = "answer_display_text",nullable = true)
@@ -33,9 +29,9 @@ public class Answer {
     private String answer;
     @Column(name = "disabled", nullable = true)
     private boolean disabled;
-    @Column(name = "created_date",nullable = false)
+    @Column(name = "created_date")
     private LocalDateTime createdDate;
-    @Column(name = "modified_date",nullable = false)
+    @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
     @Column(name = "owner",nullable = false)
     private String ownerEmail;
@@ -43,8 +39,8 @@ public class Answer {
     private String modifierEmail;
     public Answer(){}
 
-    public Answer(long answerId, int optionId, String text, boolean correct, float value, String answer, boolean disabled, LocalDateTime createdDate, LocalDateTime modifiedDate, String ownerEmail, String modifierEmail) {
-        this.answerId = answerId;
+    public Answer(long id, int optionId, String text, boolean correct, float value, String answer, boolean disabled, LocalDateTime createdDate, LocalDateTime modifiedDate, String ownerEmail, String modifierEmail) {
+        Id = id;
         this.optionId = optionId;
         this.text = text;
         this.correct = correct;
@@ -57,12 +53,12 @@ public class Answer {
         this.modifierEmail = modifierEmail;
     }
 
-    public long getAnswerId() {
-        return answerId;
+    public long getId() {
+        return Id;
     }
 
-    public void setAnswerId(long answerId) {
-        this.answerId = answerId;
+    public void setId(long id) {
+        Id = id;
     }
 
     public int getOptionId() {
