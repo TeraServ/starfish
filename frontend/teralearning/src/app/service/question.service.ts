@@ -42,7 +42,7 @@ export class QuestionService {
     });
   }
 
-  addNewQuestion(newQuestion: any): Observable<any>{
+  addNewQuestion(newQuestion: Question): Observable<any>{
     return this.http.post(this.baseURL+"addQuestion",newQuestion);
   }
 

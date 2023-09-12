@@ -38,16 +38,16 @@ export class AuthService {
       this.logout()
     }else{ }
   }
-  autoLogOut(expirationDate: number){
+  autoLogOut(expirationPeriod: number){
     this.clearTimeout= setTimeout(()=>{
       this.logout();
-    },expirationDate);
+    },expirationPeriod);
   }
 
   url: string = "http://localhost:8080/api/auth/";
   constructor(private httpClient: HttpClient) {
     const expireTime = this.userLoggedTime * 1000 * 60 *60*24;
-    this.autoLogOut(expireTime);
+    // this.autoLogOut(expireTime);
 
    }
 
