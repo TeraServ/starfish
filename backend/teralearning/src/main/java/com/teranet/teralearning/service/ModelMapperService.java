@@ -44,8 +44,7 @@ public class ModelMapperService {
         log.info("ModelMapperService:questionDTOtoQuestion Init...");
         log.trace("ModelMapperService:questionDTOtoQuestion QuestionDTO Body:"+questionDTO.toString());
         Question question = new Question();
-        question.setQuizId(getQuizFromQuizId(questionDTO.getQuizId()));
-        question.setTopic(getTopicFromTopicId(questionDTO.getTopic()));
+
         question.setQuestionType(questionDTO.getType());
         question.setQuestionText(questionDTO.getQuestionText());
         question.setAnswers(getAnswersFromAnswerDTOs(questionDTO.getAnswers()));
