@@ -1,50 +1,34 @@
 package com.teranet.teralearning.model;
-
-
 import lombok.*;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
-
 import java.time.LocalDateTime;
-import java.util.HashSet;
-
 import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
-@Data
+
 @Entity(name="QuestionEntity")
 @Table(name="questions")
 public class Question {
-    @SequenceGenerator(
-            name="seqGenForQuestion",
-            sequenceName = "QUESTION_SEQ",
-            allocationSize = 1
-    )
-    @GeneratedValue(strategy = SEQUENCE,
-            generator = "QUESTION_SEQ")
+
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
-    @OneToOne(targetEntity = Topic.class,cascade = CascadeType.MERGE)
-    @JoinColumn(name="topic",referencedColumnName = "id", nullable = true)
-    private Topic topic;
     @Column(name="question_type")
     @NotNull
     private String questionType;
     @Column(name="question_text")
     @NotNull
     private String questionText;
-    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.MERGE)
+    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL)
     private Set<Answer> answers;
     @Column(name = "explanation",nullable = true)
     private String explanation;
     @Column(name = "maximum_selection", nullable = false)
     private int maximumSelectionAllowed;
+
     @OneToOne(targetEntity = Quiz.class,cascade = CascadeType.MERGE)
-    @JoinColumn(name="quiz",referencedColumnName = "id",nullable = false)
-    private Quiz quizId;
+    private Quiz quiz;
     @Column(name="creator_id",nullable = false)
     private long creator;
     @Column(name="modifier_id",nullable = false)
@@ -55,15 +39,14 @@ public class Question {
     private LocalDateTime modifiedDate;
     public Question(){}
 
-    public Question(long id, Topic topic, String questionType, String questionText, Set<Answer> answers, String explanation, int maximumSelectionAllowed, Quiz quizId, long creator, long modifier, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public Question(long id, String questionType, String questionText, Set<Answer> answers, String explanation, int maximumSelectionAllowed, Quiz quiz, long creator, long modifier, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         Id = id;
-        this.topic = topic;
         this.questionType = questionType;
         this.questionText = questionText;
         this.answers = answers;
         this.explanation = explanation;
         this.maximumSelectionAllowed = maximumSelectionAllowed;
-        this.quizId = quizId;
+        this.quiz = quiz;
         this.creator = creator;
         this.modifier = modifier;
         this.createdDate = createdDate;
@@ -74,13 +57,6 @@ public class Question {
         return Id;
     }
 
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
 
     public String getQuestionType() {
         return questionType;
@@ -126,12 +102,12 @@ public class Question {
         Id = id;
     }
 
-    public Quiz getQuizId() {
-        return quizId;
+    public Quiz getQuiz() {
+        return quiz;
     }
 
-    public void setQuizId(Quiz quizId) {
-        this.quizId = quizId;
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 
     public long getCreator() {
@@ -166,21 +142,5 @@ public class Question {
         this.modifiedDate = modifiedDate;
     }
 
-    @Override
-    public String toString() {
-        return "Question{" +
-                "Id=" + Id +
-                ", topic=" + topic +
-                ", questionType='" + questionType + '\'' +
-                ", questionText='" + questionText + '\'' +
-                ", answers=" + answers +
-                ", explanation='" + explanation + '\'' +
-                ", maximumSelectionAllowed=" + maximumSelectionAllowed +
-                ", quizId=" + quizId +
-                ", creator=" + creator +
-                ", modifier=" + modifier +
-                ", createdDate=" + createdDate +
-                ", modifiedDate=" + modifiedDate +
-                '}';
-    }
+
 }
