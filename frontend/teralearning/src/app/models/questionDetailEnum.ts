@@ -34,7 +34,18 @@ export enum MaximumOptionSelection{
     
     singleAnswer = 0,
     MultipleChoiceSingleAnswer = 1,
-    MultipleChoiceMultipleAnswer = 1
+    // MultipleChoiceMultipleAnswer = 1
+}
+
+export enum QuestionMessageBox{
+    addNewMCQOption = 'MCQ Option Added',
+    addNewMSQOption = 'MSQ Option Added',
+    removeMCQOption = 'MCQ Option Removed',
+    removeMSQOption = 'MSQ Option Removed',
+    oneCorrectMCQOption = 'MCQ should have one correct answer',
+    oneCorrectMSQOption = 'Minimum one correct should be checked.',
+    noQuestionPreview = 'No Question to Preview',
+    questionAdded = 'Successfully Added Question',
 }
 
 

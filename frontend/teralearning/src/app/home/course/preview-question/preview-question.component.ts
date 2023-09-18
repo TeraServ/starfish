@@ -4,10 +4,15 @@ import { QuestionService } from 'src/app/service/question.service';
 
 export const LABELS = {
   pageTitle: 'Question Preview',
-  contentHeading: 'Question Type:',
+  questionType: 'Question Type:',
   questionHeading: 'Question:',
-  answerHeading: 'Answer:',
-  answerExplanationHeading: 'Answer Explanation:'
+  singleAnswer:` Single Answer`,
+  multipleChoice: ` Multiple Choice`,
+  multipleSelect:` Multiple Select`,
+  option:`Option: `,
+  answerHeading: 'Correct Answer:',
+  answerExplanationHeading: 'Answer Explanation:',
+  noData:`No Data`
 }
 
 @Component({
@@ -19,20 +24,14 @@ export const LABELS = {
 export class PreviewQuestionComponent implements OnInit {
 
 
-  @Input() questionBody!:Question ;
+  @Input() questionBody!:any ;
   @Output() saveQuestion: EventEmitter<boolean> = new EventEmitter();
 
   public readonly labels = LABELS;
   
-  constructor(private _questionService: QuestionService) {
-   }
 
   ngOnInit(): void {
     console.log(this.questionBody);
-    this._questionService.questionData$.subscribe(rxdData =>{
-      console.log(rxdData);
-      this.questionBody = rxdData;
-    })
   }
 
 

@@ -1,16 +1,21 @@
 import { Question } from './../../../models/question.model';
 import { QuestionOption } from 'src/app/models/question.option.model';
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit, Input, Optional } from '@angular/core';
 import { FormArray, FormBuilder,  FormGroup, NgControlStatus, NgForm, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { AngularRichTextEditorValidator } from 'src/app/custom-validators/angular-rich-text-editor-validator';
 import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
-import {QuestionType, MaximumQuestionMark, MinimumQuestionOptions, NegativeQuestionMark, MaximumOptionCharacter, MaximumOptionSelection} from 'src/app/models/questionDetailEnum';
+import {QuestionType, MaximumQuestionMark, MinimumQuestionOptions, NegativeQuestionMark, MaximumOptionCharacter, MaximumOptionSelection, QuestionMessageBox} from 'src/app/models/questionDetailEnum';
 import { RichTextEditorService } from 'src/app/service/rich-text-editor.service';
 import { SnackbarNotificationService } from 'src/app/service/snackbar-notification.service';
 import { AuthService } from 'src/app/service/auth.service';
 import { QuestionService } from 'src/app/service/question.service';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
+import { Router } from '@angular/router';
+import { Quiz } from 'src/app/models/quiz.model';
+import { topic } from 'src/model/topic.model';
+
   
 interface QuestionTypeDropDown{
   value: string;
@@ -45,7 +50,8 @@ export const PLACEHOLDERS = {
 })
 export class AddQuestionComponent implements OnInit {
   
-  @Input() quizId:number = 33 ;
+  @Input() currentQuiz: Quiz = {} as Quiz ;
+  @Input() topic:any = {};
 
   public readonly labels = LABELS;
   public readonly placeholders = PLACEHOLDERS;
@@ -66,6 +72,8 @@ export class AddQuestionComponent implements OnInit {
     public _editor:RichTextEditorService,
     private _authService: AuthService,
     private _questionService : QuestionService,
+    private _dialog: MatDialog,
+    private _router: Router,
     public dialogRef: MatDialogRef<AddQuestionComponent>) { }
 
   ngOnInit(): void {
@@ -99,7 +107,7 @@ export class AddQuestionComponent implements OnInit {
       mcqOptions: this.formBuilder.array([]),
       msqOptions: this.formBuilder.array([]),
       answerExplanation: ['',AngularRichTextEditorValidator.required()]
-    })
+    });
   }
 
   get mcqOptions(): FormArray {
@@ -119,6 +127,7 @@ export class AddQuestionComponent implements OnInit {
         this.hasMultipleChoice.fill(false);
         this.isSubmitted = false;
         this.mcqOptions.clear();
+        this.msqOptions.clear();
         break;
       case this.questionTypes[1].value:
         this.isMultipleChoiceType = true;
@@ -162,7 +171,7 @@ export class AddQuestionComponent implements OnInit {
     else{
       this.createNewMCQOption();
     }
-    this._snackbar.success('MCQ Option Added');
+    this._snackbar.success(QuestionMessageBox.addNewMCQOption);
   }
   getCurrentMCQOption(index:number){
     return this.mcqOptions.at(index);
@@ -195,7 +204,7 @@ export class AddQuestionComponent implements OnInit {
       // this._snackbar.warning('Click the correct option');
       const isAtLeastOneTrue = this.mcqOptions.controls.some(control => control.get('isAnswer')?.value);
       if(!isAtLeastOneTrue){
-        this._snackbar.warning('MCQ should have one correct answer');
+        this._snackbar.warning(QuestionMessageBox.oneCorrectMCQOption);
         currentOption.get('isAnswer')?.setValue(true);
       }
     }
@@ -203,7 +212,7 @@ export class AddQuestionComponent implements OnInit {
   
   removeMCQOption(index:number){
     this.mcqOptions.removeAt(index);
-    this._snackbar.warning('MCQ Option Removed');
+    this._snackbar.warning(QuestionMessageBox.removeMCQOption);
   }
 
   createNewMSQOption(){
@@ -223,7 +232,7 @@ export class AddQuestionComponent implements OnInit {
     }else{
       this.createNewMSQOption();
     }
-    this._snackbar.success('MSQ Option Added');
+    this._snackbar.success(QuestionMessageBox.addNewMSQOption);
   }
 
   handleMSQCheckboxChange(index: number){
@@ -235,7 +244,7 @@ export class AddQuestionComponent implements OnInit {
       // const isAtLeastOneFalse = this.msqOptions.controls.some(control => !control.get('isAnswer')?.value);
       if(isAtLeastOneTrue){}
       else{
-        this._snackbar.warning('Minimum one correct should be checked.')
+        this._snackbar.warning(QuestionMessageBox.oneCorrectMSQOption);
         currentOption.get('isAnswer')?.setValue(!(currentOption.get('isAnswer')?.value));
       }
     }
@@ -243,7 +252,7 @@ export class AddQuestionComponent implements OnInit {
   
   removeMSQOption(index:any){
     this.msqOptions.removeAt(index);
-    this._snackbar.warning('MSQ Option Removed');
+    this._snackbar.warning(QuestionMessageBox.removeMSQOption);
   }
 
   getAnswers():any{
@@ -271,47 +280,65 @@ export class AddQuestionComponent implements OnInit {
       case this.questionTypes[0].value:
         console.log('New Question Type:',questionType);
         let singleAnswer: QuestionOption = {
+          id:0,
+          optionId:1,
+          text:this.getAnswers(),
           correct:true,
           value: MaximumQuestionMark.singleAnswer,
-          answer:this.getAnswers()
+          answer:this.getAnswers(),
+          disabled: false,
+          ownerEmail:this._authService.getCurrentUserEmail(),
+          modifierEmail: this._authService.getCurrentUserEmail(),
+          createdDate:Date.now().toString(),
+          modifierDate:Date.now().toString(),
         }
         let newSingleAnswerQuestion: Question = {
-          quizId:this.quizId,
-          type: QuestionType.singleAnswer,
+          id:0,
+          questionType: QuestionType.singleAnswer,
           questionText: this.addQuestionForm.get('questionText')?.value,
           answers:[singleAnswer],
           explanation: this.addQuestionForm.get('answerExplanation')?.value,
-          maxSelection:MaximumOptionSelection.singleAnswer,
-          creator: this._authService.getUserEmail()
+          maximumSelectionAllowed:MaximumOptionSelection.singleAnswer,
+          quiz: this.currentQuiz,
+          creator: this._authService.getCurrentUserEmail(),
+          modifier:0,
+          createdDate:Date.now().toString(),
+          modifiedDate:Date.now().toString()
         }
         this.newQuestion = newSingleAnswerQuestion;
         console.log('New Question:',newSingleAnswerQuestion);
-        this._questionService.addNewQuestion(newSingleAnswerQuestion).subscribe(data=>{
-          console.log("Data Send:",data);
-        },err=>{
-          console.log("Error:",err);
-        })
         break;
         
       case this.questionTypes[1].value:
         let mcqAnswers: QuestionOption[] = [];
         this.mcqOptions.controls.forEach((control,index)=>{
           let mcqAnswer:QuestionOption = {
+            id:0,
             optionId:(index+1),
+            text:control.get('optionText')?.value,
             correct:control.get('isAnswer')?.value,
             value:(control.get('isAnswer')?.value) ? MaximumQuestionMark.MultipleChoiceSingleAnswer : NegativeQuestionMark.MultipleChoiceSingleAnswer,
             answer: control.get('optionText')?.value,
+            disabled: false,
+            ownerEmail:this._authService.getCurrentUserEmail(),
+            modifierEmail: this._authService.getCurrentUserEmail(),
+            createdDate:Date.now().toString(),
+            modifierDate:Date.now().toString(),
           }
           mcqAnswers.push(mcqAnswer);
         });
         let newMCQQuestion: Question = {
-          quizId:this.quizId,
-          type: QuestionType.MultipleChoiceSingleAnswer,
+          id:0,
+          questionType: QuestionType.MultipleChoiceSingleAnswer,
           questionText: this.addQuestionForm.get('questionText')?.value,
           answers: mcqAnswers,
           explanation: this.addQuestionForm.get('answerExplanation')?.value,
-          maxSelection: MaximumOptionSelection.MultipleChoiceSingleAnswer,
-          creator: this._authService.getUserEmail()
+          maximumSelectionAllowed: MaximumOptionSelection.MultipleChoiceSingleAnswer,
+          quiz: this.currentQuiz,
+          creator: this._authService.getCurrentUserEmail(),
+          modifier:0,
+          createdDate:Date.now().toString(),
+          modifiedDate:Date.now().toString(),
         }
         this.newQuestion = newMCQQuestion;
         console.log('New Question:',newMCQQuestion);
@@ -321,21 +348,32 @@ export class AddQuestionComponent implements OnInit {
         let msqAnswers: QuestionOption[] = [];
         this.msqOptions.controls.forEach((control,index)=>{
           let msqAnswer:QuestionOption = {
+            id:0,
             optionId:(index+1),
+            text:control.get('optionText')?.value,
             correct:control.get('isAnswer')?.value,
             value: (control.get('isAnswer')?.value) ? MaximumQuestionMark.MultipleChoiceMultipleAnswer : NegativeQuestionMark.MultipleChoiceMultipleAnswer,
             answer: control.get('optionText')?.value,
+            disabled: false,
+            ownerEmail:this._authService.getCurrentUserEmail(),
+            modifierEmail: this._authService.getCurrentUserEmail(),
+            createdDate:Date.now().toString(),
+            modifierDate:Date.now().toString(),
           };
           msqAnswers.push(msqAnswer);
         });
         let newMSQQuestion: Question = {
-          quizId:this.quizId,
-          type: QuestionType.MultipleChoiceMultipleAnswer,
+          id:0,
+          questionType: QuestionType.MultipleChoiceMultipleAnswer,
           questionText: this.addQuestionForm.get('questionText')?.value,
           answers:msqAnswers,
           explanation:this.addQuestionForm.get('answerExplanation')?.value,
-          maxSelection: (msqAnswers.length),
-          creator: this._authService.getUserEmail()
+          maximumSelectionAllowed: (msqAnswers.length),
+          quiz: this.currentQuiz,
+          creator: this._authService.getCurrentUserEmail(),
+          modifier:0,
+          createdDate:Date.now().toString(),
+          modifiedDate:Date.now().toString(),
         };
         this.newQuestion = newMSQQuestion;
         console.log('New Question:',newMSQQuestion);
@@ -349,16 +387,26 @@ export class AddQuestionComponent implements OnInit {
   }
 
   onPreview(){
-    this.isSubmitted = true;
-    this._questionService.sendQuestion(this.newQuestion);
+    if(this.addQuestionForm.get('questionText')?.value){
+      this.isSubmitted = true;
+    }else{
+      this._snackbar.warning(QuestionMessageBox.noQuestionPreview);
+    }
+    // this._questionService.sendQuestion(this.newQuestion);
   }
   onBack(){
     this.isSubmitted = false;
   }
   onSave(){
+    this.onPreview();
     if(this.isSubmitted){
-      console.log(this.newQuestion);
+      this._questionService.addNewQuestion(this.newQuestion);
+      this._dialog.open(SuccessDialogComponent,{data:{message:QuestionMessageBox.questionAdded}})
+      .afterClosed().subscribe(data=>{
+        this._router.navigate(['/']);
+      });
     }
+    // window.location.reload();
   }
   onSaveConfirmation(confirmation:any){
     console.log('Save the question:',confirmation);

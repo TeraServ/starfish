@@ -1,26 +1,70 @@
-
-<h1>{{labels.pageTitle}}</h1>
-<pre>{{questionBody | json}}</pre>
-    <!-- <h2>{{labels.contentHeading}}</h2>{{questionBody?.type}}
-    <h2>{{labels.questionHeading}}</h2>
-    <div>
-        {{questionBody?.questionText}}
+<h1><b>{{labels.pageTitle}}</b></h1>
+<div class="question-block">
+    <p><b>{{labels.questionHeading}}</b></p>
+    <div class="question-desciption">
+        <p><div [innerHTML]="this.questionBody.questionText | safeHtml"></div>
+    </div>
+    
+    <div *ngIf="this.questionBody.questionType == 'singleAnswer'" >
+        <div class="question-singleAnswer">
+            <p><b>{{labels.questionType}}</b>{{labels.singleAnswer}}</p>
+            <p style="color: #0000ff"><b>{{labels.answerHeading}}</b></p>
+            <span *ngIf="this.questionBody.answers">
+                <div [innerHTML]="this.questionBody.answers[0].answer.value | safeHtml"></div>
+            </span>
+        </div>
     </div>
 
-    <h2>{{labels.answerHeading}}</h2>
-    <ng-template *ngIf="questionBody?.type == 'singleAnswer' ">
-        {{questionBody?.answers}}
-    </ng-template>
+   <div  *ngIf="this.questionBody.questionType == 'multipleChoice'" >
+    <div class="question-multipleChoice">
+        <p><b>{{labels.questionType}}</b>{{labels.multipleChoice}}</p>
+        <div *ngFor="let mcqOption of this.questionBody.answers, let i = index">
+            <mat-form-field>
+                <input 
+                matInput
+                readonly
+                upperCaseInput
+                value="{{mcqOption.answer}}">
+            </mat-form-field>
+        </div>
 
-    <h2>{{labels.answerExplanationHeading}}</h2>
-    <div>
-        {{questionBody?.explanation}}
-    </div> -->
+        <div class="question-answer">
+            <p style="color: #0000ff"><b>{{labels.answerHeading}}</b></p>
+            <div *ngFor="let mcqOption of this.questionBody.answers, let i = index">
+                <div *ngIf="mcqOption.correct">
+                    <mat-form-field><input
+                        matInput 
+                        readonly
+                        upperCaseInput 
+                        value="{{mcqOption.answer}}">
+                        </mat-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<button class="save-button btn" (click)="onSave()"></button>
+   </div>
 
-<ng-template *ngIf="questionBody == null">
-    <p>
-        No Data
-    </p>
-</ng-template>
+   <div *ngIf="this.questionBody.questionType == 'multipleSelect'" >
+    <div  class="question-multipleSelect">
+        <p> <b>{{labels.questionType}}</b>{{labels.multipleSelect}}</p>
+        <div *ngFor="let msqOption of this.questionBody.answers, let i = index">
+            <mat-form-field><input 
+                matInput
+                readonly
+                upperCaseInput
+                value="{{msqOption.answer}}"
+                ></mat-form-field>
+                <mat-icon *ngIf="msqOption.correct">done</mat-icon>
+        </div>
+    </div>
+   </div>
+
+<div class="question-explanation">
+    <p style="color: #0000ff;"><b>{{labels.answerExplanationHeading}}</b></p>
+    <div [innerHTML]="this.questionBody.explanation | safeHtml"></div>
+</div>
+
+
+
+</div>

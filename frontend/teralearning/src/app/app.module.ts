@@ -30,6 +30,8 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CacheResultPipe } from './pipes/cache-result.pipe';
+import { ResourceNotFoundComponent } from './resource-not-found/resource-not-found.component';
 
 
 
@@ -47,6 +49,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     TopicComponent,
     CreateCoursesComponent,
     NewUserComponent,
+    PasswordResetComponent,
+    CacheResultPipe,
+    ResourceNotFoundComponent
  
    
   ],

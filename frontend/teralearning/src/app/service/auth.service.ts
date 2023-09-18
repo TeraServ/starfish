@@ -1,15 +1,20 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private userLoggedTime!: number;
+  private clearTimeout:any;
 
   userType: boolean[] = []
   currentUserValue(): string {
     return localStorage.getItem("currentUser")!;
+  }
+  public setUserLogTime(value:any){
+    this.userLoggedTime = value;
   }
 
 
@@ -31,20 +36,29 @@ export class AuthService {
     const expiry = 12;
     if(expiry * 1000 > Date.now()){
       this.logout()
-    }
-    else{
-      
-    }
+    }else{ }
+  }
+  autoLogOut(expirationPeriod: number){
+    this.clearTimeout= setTimeout(()=>{
+      this.logout();
+    },expirationPeriod);
   }
 
   url: string = "http://localhost:8080/api/auth/";
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    const expireTime = this.userLoggedTime * 1000 * 60 *60*24;
+    // this.autoLogOut(expireTime);
+
+   }
 
   userLogin(user: any): Observable<any> {
     return this.httpClient.post(this.url + "login", user);
   }
   logout() {
     localStorage.removeItem("currentUser");
+    if(this.clearTimeout){
+      clearTimeout(this.clearTimeout);
+    }
   }
 
   getUserTypes() {
@@ -74,7 +88,7 @@ export class AuthService {
 
     return this.userType;
   }
-  getUserEmail(){
+  getCurrentUserEmail(){
     return JSON.parse(localStorage.getItem('currentUser')!).message.username;
   }
  

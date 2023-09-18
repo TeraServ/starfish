@@ -48,6 +48,7 @@ import { AddQuestionComponent } from './course/add-question/add-question.compone
 import { PreviewQuestionComponent } from './course/preview-question/preview-question.component';
 import { DeleteDialogComponent } from '../dialogBoxs/delete-dialog/delete-dialog.component';
 import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialog/delete-message-dialog.component';
+import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 @NgModule({
   declarations: [
 
@@ -74,8 +75,8 @@ import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialo
     PreviewQuestionComponent,
     SuccessDialogComponent,
     DeleteDialogComponent,
-    DeleteMessageDialogComponent
-    
+    DeleteMessageDialogComponent,
+    SafeHtmlPipe
     
   ],
   imports: [
@@ -100,7 +101,6 @@ import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialo
     MaterialModule,
     MatButtonModule,
     MatTooltipModule
-
 
   ],
   providers:[

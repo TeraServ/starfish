@@ -11,7 +11,7 @@ import { QuestionType } from '../models/questionDetailEnum';
 })
 export class QuestionService {
 
-  private baseURL:string = "http://localhost:8080/api/quizcontroller/"
+  private baseURL:string = "http://localhost:8080/api/quiz/"
   private defaultQuestion: Question = {} as Question;
   private questionSource = new BehaviorSubject <Question>(this.defaultQuestion);
   questionData$ = this.questionSource.asObservable();
@@ -20,8 +20,7 @@ export class QuestionService {
   }
   constructor(private http:HttpClient) { }
 
-  defaultQuestionType:string = QuestionType.singleAnswer;
-  hasDefaultQuestionType:boolean = this.defaultQuestionType.length!=0 ? true : false; 
+  defaultQuestionType:string = QuestionType.singleAnswer; 
 
   questionForm: FormGroup = new FormGroup({
     $key: new FormControl(null),
@@ -31,7 +30,6 @@ export class QuestionService {
     mcqOptions: new FormArray([]),
     msqOptions: new FormArray([]),
     answerExplanation: new FormControl('',Validators.required),
-    isSingleAnswer: new FormControl(this.hasDefaultQuestionType)
   });
 
 
@@ -44,7 +42,7 @@ export class QuestionService {
     });
   }
 
-  addNewQuestion(newQuestion: any): Observable<any>{
+  addNewQuestion(newQuestion: Question): Observable<any>{
     return this.http.post(this.baseURL+"addQuestion",newQuestion);
   }
 
