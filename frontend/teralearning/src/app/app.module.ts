@@ -30,6 +30,8 @@ import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { EditQuestionComponent } from './home/quizes/edit-question/edit-question.component';
+import { CustomeArraySortPipe } from './custome-array-sort.pipe';
 
 
 
@@ -47,6 +49,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     TopicComponent,
     CreateCoursesComponent,
     NewUserComponent,
+    EditQuestionComponent
  
    
   ],
@@ -63,6 +66,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatOptionModule,
     MatIconModule,
     MatFormFieldModule,
+    
     
   ],
   providers: [

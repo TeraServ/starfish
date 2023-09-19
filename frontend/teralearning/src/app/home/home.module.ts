@@ -7,7 +7,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
-import { MatDialogModule,MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -23,7 +23,7 @@ import { UserUpdateComponent } from './usermanagement/user-update/user-update.co
 import { MatIconModule } from '@angular/material/icon'
 import { NoopAnimationPlayer } from '@angular/animations';
 import { SuccessDialogComponent } from '../dialogBoxs/success-dialog/success-dialog.component';
-import { MatProgressBarModule} from '@angular/material/progress-bar'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -33,7 +33,7 @@ import { StreamComponent } from './streams/stream/stream.component';
 import { SubjectEditComponent } from './subjects/subject-edit/subject-edit.component';
 import { SubjectListComponent } from './subjects/subject-list/subject-list.component';
 import { StreamListComponent } from './streams/stream-list/stream-list.component';
-import {MatSidenavModule} from '@angular/material/sidenav'
+import { MatSidenavModule } from '@angular/material/sidenav'
 import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/bulk-user-creation.component';
 
 import { CSVHandlerService } from '../core/services/csvhandler.service';
@@ -48,6 +48,8 @@ import { AddQuestionComponent } from './course/add-question/add-question.compone
 import { PreviewQuestionComponent } from './course/preview-question/preview-question.component';
 import { DeleteDialogComponent } from '../dialogBoxs/delete-dialog/delete-dialog.component';
 import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialog/delete-message-dialog.component';
+import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
+import { EditQuestionComponent } from './quizes/edit-question/edit-question.component';
 @NgModule({
   declarations: [
 
@@ -69,14 +71,15 @@ import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialo
     SubjectEditComponent,
     AddQuizComponent,
     QuizComponent,
-    EditQuizComponent,    
+    EditQuizComponent,
     AddQuestionComponent,
     PreviewQuestionComponent,
     SuccessDialogComponent,
     DeleteDialogComponent,
-    DeleteMessageDialogComponent
-    
-    
+    DeleteMessageDialogComponent,
+    CustomeArraySortPipe
+
+
   ],
   imports: [
     CommonModule,
@@ -103,7 +106,7 @@ import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialo
 
 
   ],
-  providers:[
+  providers: [
     CSVHandlerService
   ]
 })
