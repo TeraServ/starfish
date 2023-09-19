@@ -289,8 +289,8 @@ export class AddQuestionComponent implements OnInit {
           disabled: false,
           ownerEmail:this._authService.getCurrentUserEmail(),
           modifierEmail: this._authService.getCurrentUserEmail(),
-          createdDate:Date.now().toString(),
-          modifierDate:Date.now().toString(),
+          createdDate:'',
+          modifierDate:'',
         }
         let newSingleAnswerQuestion: Question = {
           id:0,
@@ -302,8 +302,8 @@ export class AddQuestionComponent implements OnInit {
           quiz: this.currentQuiz,
           creator: this._authService.getCurrentUserEmail(),
           modifier:0,
-          createdDate:Date.now().toString(),
-          modifiedDate:Date.now().toString()
+          createdDate:'',
+          modifiedDate:''
         }
         this.newQuestion = newSingleAnswerQuestion;
         console.log('New Question:',newSingleAnswerQuestion);
@@ -322,8 +322,8 @@ export class AddQuestionComponent implements OnInit {
             disabled: false,
             ownerEmail:this._authService.getCurrentUserEmail(),
             modifierEmail: this._authService.getCurrentUserEmail(),
-            createdDate:Date.now().toString(),
-            modifierDate:Date.now().toString(),
+            createdDate:'',
+            modifierDate:'',
           }
           mcqAnswers.push(mcqAnswer);
         });
@@ -337,8 +337,8 @@ export class AddQuestionComponent implements OnInit {
           quiz: this.currentQuiz,
           creator: this._authService.getCurrentUserEmail(),
           modifier:0,
-          createdDate:Date.now().toString(),
-          modifiedDate:Date.now().toString(),
+          createdDate:'',
+          modifiedDate:'',
         }
         this.newQuestion = newMCQQuestion;
         console.log('New Question:',newMCQQuestion);
@@ -357,8 +357,8 @@ export class AddQuestionComponent implements OnInit {
             disabled: false,
             ownerEmail:this._authService.getCurrentUserEmail(),
             modifierEmail: this._authService.getCurrentUserEmail(),
-            createdDate:Date.now().toString(),
-            modifierDate:Date.now().toString(),
+            createdDate:'',
+            modifierDate:'',
           };
           msqAnswers.push(msqAnswer);
         });
@@ -372,8 +372,8 @@ export class AddQuestionComponent implements OnInit {
           quiz: this.currentQuiz,
           creator: this._authService.getCurrentUserEmail(),
           modifier:0,
-          createdDate:Date.now().toString(),
-          modifiedDate:Date.now().toString(),
+          createdDate:'',
+          modifiedDate:'',
         };
         this.newQuestion = newMSQQuestion;
         console.log('New Question:',newMSQQuestion);
