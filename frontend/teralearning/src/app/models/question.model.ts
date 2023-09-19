@@ -1,18 +1,22 @@
 import { QuestionOption } from "./question.option.model";
 import {QuestionType} from './questionDetailEnum';
+import { Quiz } from "./quiz.model";
 
 export interface Question {
-    questionId?:number;
-    quizId:number; 
+    id?:number;
+    quiz?:Quiz; 
     topic?:number;
-    type: QuestionType;
+    questionType: QuestionType;
     questionText: string;
     options?: Options;
     answers?: Options;
     explanation?: string;
-    maxSelection?: number
-    creator: Email;
+    maximumSelectionAllowed?: number
+    creator: Email | number;
+    modifier?: Email | number;
+    createdDate?: string;
+    modifiedDate?: string;
 }
 type Options = QuestionOption[];
 type DomainName = "com" | "ca" | "in";
-type Email = `${ string | number}@ ${string | number}.${DomainName}`;
+export type Email = `${ string | number}@ ${string | number}.${DomainName}`;

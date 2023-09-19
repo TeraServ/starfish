@@ -1,10 +1,11 @@
-<form #quizEditForm="ngForm" class="formCenter" >
+<form #quizEditForm="ngForm" class="formCenter">
     <br><br>
     <div class="row">
         <div class="col">
             <h1>Edit Quiz</h1>
         </div>
-        <div class="col"><input type="submit" value="Add Question" class="btn-submit" id="submitButton">
+        <div class="col"><input type="submit" value="Add Question" (click)="AddaQuestion()" class="btn-submit"
+                id="submitButton">
         </div>
     </div><br>
     <div class="row">
@@ -28,7 +29,8 @@
         <div class="col">
             <label for="title"><b>Subject Name:</b></label>
             <select [(ngModel)]="UpdatedSubjectId" class="form-control" (change)="onSubjectChange($event)"
-                id="subjectDrop" name="subjectDrop" #subjectDrop="ngModel" (ngModelChange)="valuechange($event)" required>
+                id="subjectDrop" name="subjectDrop" #subjectDrop="ngModel" (ngModelChange)="valuechange($event)"
+                required>
                 <option value="">-- Please Select--</option>
                 <option *ngFor="let item of FilteredsubjectList" [value]="item?.id">
                     {{item.subjectName}}</option>
@@ -43,8 +45,8 @@
         <div class="col">
 
             <label for="title"><b>Topic Name:</b></label>
-            <select [(ngModel)]="UpdatedTopicId" class="form-control" id="topicDrop" name="topicDrop" #topicDrop="ngModel" (ngModelChange)="valuechange($event)"
-                required>
+            <select [(ngModel)]="UpdatedTopicId" class="form-control" id="topicDrop" name="topicDrop"
+                #topicDrop="ngModel" (ngModelChange)="valuechange($event)" required>
                 <option [ngValue]=""> -- Please Select--</option>
                 <option *ngFor="let item of FilteredtopicList" [ngValue]="item.id">
                     {{item.topicName}}</option>
@@ -88,18 +90,84 @@
 
     <div class="col">
         <div class="text-center">
-            <input type="submit" (click)="UpdateQuizDetails()" value="Save" [disabled]="quizBtn" class="btn" id="submitButton">
+            <input type="submit" (click)="UpdateQuizDetails()" value="Save" [disabled]="quizBtn" class="btn"
+                id="submitButton">
 
         </div>
 
         <br>
     </div>
 
-    
+
     <!-- <div >
       <button class="loginbtn btn" [disabled]="EditQuiz.controls.streamname.errors?.pattern ||EditQuiz.controls.Acronymn.errors?.pattern || streamBtn">Update</button>
     </div> -->
     <!-- <div>
       <button class="loginbtn btn">Update</button>
     </div> -->
+    <br><br>
+    <hr width="100%">
+    <h1>Question List</h1>
+
+    <body class="containerStyle">
+
+        <div class="accordion">
+            <div *ngFor="let question of questionList, let i = index" class="contentBx">
+
+                <div class="question">
+                    <div>
+                        <!-- {{question.questionText}} -->
+                        <div [innerHTML]="question.questionText"></div>
+                    </div>
+                    <div>
+                        <button (click)="getQuestionList(i)" class="dropDown-button"><i class="bi bi-arrow-down-short"
+                                aria-hidden="true" title="edit"></i></button>
+                        <button (click)="openEditQuestionDialog(question)" class="edit-button"><i class="bi bi-pencil-square"
+                                aria-hidden="true" title="edit"></i></button>
+                        <button (click)="openDeleteDialog(question.id)" class="delete-button"><i class="bi bi-trash-fill"
+                                aria-hidden="true" title="delete"></i></button>
+                    </div>
+                </div>
+
+                <div [ngClass]="this.isActive[i] ? 'content-active' : 'content-inactive'">
+                    <div *ngIf="question.questionType=='singleAnswer'">
+                        <div *ngFor="let item of question.answers">
+                            <p><b>Answer:</b> {{item.answer}}</p>
+                            <p><b>Explanation:</b> {{question.explanation}} </p>
+                        </div>
+                    </div>
+                    
+                    <div *ngIf="question.questionType=='multipleChoice'">
+                        <div class="tick" *ngFor="let answer of question.answers | customeArraySort:'optionId'">    
+                        <p><b>Option {{answer.optionId}}:</b> {{answer.answer}}</p> 
+                        <div *ngIf="answer.correct"> <i class="bi bi-check"
+                            aria-hidden="true" title="delete" style="color: green;width: 50%;"></i></div>                                            
+                        </div>                       
+                       
+                        <p><b>Explanation:</b> {{question.explanation}} </p>
+                    </div>
+
+                    <div *ngIf="question.questionType=='multipleSelect'">
+                        <div class="tick" *ngFor="let answer of question.answers | customeArraySort:'optionId'">  
+                                
+                        <p><b>Option {{answer.optionId}}:</b> {{answer.answer}}</p> 
+                         <div *ngIf="answer.correct"> <i class="bi bi-check"
+                            aria-hidden="true" title="delete" style="color: green;width: 20%;"></i></div>
+                        
+                                                                    
+                        </div>
+                        <p><b>Explanation:</b> </p><div class="p" [innerHTML]="question.explanation"></div>
+                     
+                        
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        
+
+    </body>
+
+
 </form>
