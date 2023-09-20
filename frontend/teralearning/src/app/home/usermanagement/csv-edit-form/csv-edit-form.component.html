@@ -1,5 +1,7 @@
 <form [formGroup]="csvTableForm" class="formCenter">
-  <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" formArrayName="rows">
+  <table class="mat-elevation-z8" mat-table [dataSource]="dataSource" 
+  (change)="updateTable()"
+  formArrayName="rows">
     <!-- <div *ngFor="let row of rows.controls; let i = index" [formGroupName]="i"> -->
 
 

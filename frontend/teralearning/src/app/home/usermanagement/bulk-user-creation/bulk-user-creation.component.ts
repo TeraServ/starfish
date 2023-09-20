@@ -48,6 +48,7 @@ export class BulkUserCreationComponent implements OnInit {
   dataFromCSV!: any[]
   validatedData!: CSVRecord[];
   invalidData!: CSVRecord[];
+  displayData!: CSVRecord[];
   hasInvalidEntry!: boolean;
   duplicateEntry!: number; 
   validStreamAcronym:string[]=[];
@@ -152,7 +153,9 @@ getAcronymFromStreamList(){
       else if ((hasName && hasValidEmail && hasValidPhoneNumber && hasValidStream) || !this.validatedData.includes(csvRecord)){
         this.hasInvalidEntry = false;
         this.addDataToValidRecord(csvRecord);
-      }}
+      }
+      this.sendDataToTable();
+    }
     
       addDataToValidRecord(data:CSVRecord){
         this.validatedData.findIndex(x => x.email === data.email) === -1 ?
@@ -171,6 +174,9 @@ getAcronymFromStreamList(){
       //   this.invalidData[index] = data;
       //   this.invalidEntry--;
       // }
+      sendDataToTable(){
+        this.displayData = this.validatedData.concat(this.invalidData);
+      }
       onDelete(record:any){
         let uniqueField: string = record.email 
         const index = this.invalidData.findIndex(x=>x.email === uniqueField);
@@ -186,13 +192,25 @@ getAcronymFromStreamList(){
           });
         }
       }
+
+      checkWithinInvalidDataset(newDataset: any[]){
+        newDataset.forEach(newData=>{
+          this.invalidData.forEach((invData,index)=>{
+            if(newData.email == invData.email){
+              this.invalidData.splice(index,1);
+            }})});
+      }
+
+
+
       onDataEmitted(editedData: any[]){
         this.invalidData =[];
+        // this.checkWithinInvalidDataset(editedData);
         this.onValidate(editedData);
         this.onSubmit();
       }
       csvRecordToUserList(records: CSVRecord[]): user[] {
-        const userList: user[]=[];
+        let userList: user[]=[];
         records.forEach(async record=>{
           let user: user = {
             id:0,
@@ -213,35 +231,37 @@ getAcronymFromStreamList(){
         return userList;
       }
      getStreamFromAcronym(acronymName:string){
-      let stream;
+      let stream!:Stream ;
         this.streamList.forEach(value=>{
           if(value.acronym == acronymName){
            stream =  value;
           }
         })
-        return stream;
+        return stream ? stream : undefined;
       }
 
     onSubmit(){
       // console.log('Validated Data:',this.validatedData);
       // console.log('Invalid Data:',this.invalidData);
       if(this.validatedData.length!=0 && this.invalidData.length==0){     
+        this.snackbar.open("All are valid")
         this.userService.bulkUserCreate(this.csvRecordToUserList(this.validatedData)).subscribe(data=>{
         },err=>{
           console.log(err);
           if(err.error == 201){
             this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
             this.pageReset();
-            window.location.reload();
+            // window.location.reload();
           }
           else{
-            this.snackbar.open(err.error.text,'Close',{duration:1000 });
-            this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
-            window.location.reload();
+            this.snackbar.open(err.error.text,'Close',{duration:100000 });
+            // this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
+            // window.location.reload();
           }
         }) 
         console.log(this.csvRecordToUserList(this.validatedData));
-      }
+      
+     }
       else{
         this.snackbar.open('Invalid Entry','Close',{duration:1000 });
       }

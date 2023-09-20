@@ -45,7 +45,7 @@ export class CsvEditFormComponent implements OnInit {
       const row = this.formBuilder.group({
         firstName: [data.firstName,Validators.required],
         lastName: [data.lastName,Validators.required],
-        phoneNumber: [data.phoneNumber, Validators.pattern('[0-9]{11}')],
+        phoneNumber: [data.phoneNumber, Validators.pattern('[0-9]{10}')],
         email: [data.email,Validators.email],
         stream: [data.streamAcronym,StreamValidator.acronym(this._streamService.getStreamAcronym())],
         checkers: [data.checkerFlags]
@@ -96,8 +96,7 @@ addNewRow() {
   this.rows.push(newRow);
   this.updateTable();
   this.snackbar.success('Row Added');
-
-
+  
 }
 
 
@@ -118,9 +117,12 @@ submitForm() {
 emitData(data:any[]){
   this.editedDataEmitter.emit(data);
 }
+
+
 updateTable(){
   this.dataSource._updateChangeSubscription();
   this.invalidData = this.rows.value;
+  this.emitData(this.csvTableForm.value.rows);
 }
 
 }
