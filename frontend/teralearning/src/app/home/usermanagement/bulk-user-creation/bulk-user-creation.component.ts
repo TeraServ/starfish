@@ -207,7 +207,6 @@ getAcronymFromStreamList(){
         this.invalidData =[];
         // this.checkWithinInvalidDataset(editedData);
         this.onValidate(editedData);
-        this.onSubmit();
       }
       csvRecordToUserList(records: CSVRecord[]): user[] {
         let userList: user[]=[];
@@ -255,7 +254,7 @@ getAcronymFromStreamList(){
           }
           else{
             this.snackbar.open(err.error.text,'Close',{duration:100000 });
-            // this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
+            this.dialog.open(SuccessDialogComponent,{data:"Successfully created !"})
             // window.location.reload();
           }
         }) 
@@ -265,6 +264,11 @@ getAcronymFromStreamList(){
       else{
         this.snackbar.open('Invalid Entry','Close',{duration:1000 });
       }
+    }
+
+    onSubmitClicked(rxdValue:boolean){
+      console.log("Submission Clicked:",rxdValue);
+      this.onSubmit();
     }
 
 

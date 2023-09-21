@@ -19,6 +19,7 @@ export class CsvEditFormComponent implements OnInit {
 
   @Input() invalidData:CSVRecord[]=[];
   @Output() editedDataEmitter: EventEmitter<any[]> = new EventEmitter <any[]> ();
+  @Output() submissionEmitter: EventEmitter<boolean> = new EventEmitter <boolean>(false);
   readonly displayedColumns = ['firstName', 'lastName', 'phoneNumber', 'email', 'streamAcronym','actions'];
   csvTableForm!:FormGroup;
   dataSource:MatTableDataSource<any> = new MatTableDataSource();
@@ -30,9 +31,7 @@ export class CsvEditFormComponent implements OnInit {
       }
       ngOnInit(){
         
-        this.loadInvalidData();
-        // console.log(this.csvTableForm)
-       
+        this.loadInvalidData();       
       }
   buildForm(){
       this.csvTableForm = this.formBuilder.group({
@@ -105,18 +104,20 @@ submitForm() {
   
   if(this.csvTableForm.valid){
     console.log('Emit Data:',this.csvTableForm.value.rows)
-    this.emitData(this.csvTableForm.value.rows);
+    this.submissionEmitter.emit(true);
+    // this.emitData(this.csvTableForm.value.rows);
   }else{
-    this.snackbar.warning('Invalid Submission');
+    this.snackbar.warning('Invalid Entry');
   }
-  
-  // if (this.csvTableForm.valid && this.invalidData.length==0) {
-  //   const formValues = this.csvTableForm.value;
-  // } 
 }
+
+
+
 emitData(data:any[]){
   this.editedDataEmitter.emit(data);
 }
+
+
 
 
 updateTable(){
