@@ -34,21 +34,19 @@ export class HomeComponent implements OnInit {
 
 
 
-
   ngOnInit(): void {
     // localStorage.removeItem("currentUser")
     this.authService.isTokenExpired();
     if (!this.authService.isLoggedIn()) {
       this.router.navigate([""])
-
-    }
-
-
-
-    this.userType = this.authService.getUserTypes();
-    console.log(this.userType)
-    console.log(this.authService.getUserEmail());
-
+      
+     
+  }
+  
+  
+  this.userType  = this.authService.getUserTypes();
+  console.log(this.userType)
+ 
     //console.log( this.router.url.split('/')[2])
     // this.getUserId();
     this.activeTab = this.router.url.split('/')[2]

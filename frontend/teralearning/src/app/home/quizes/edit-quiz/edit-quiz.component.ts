@@ -8,7 +8,7 @@ import { SubjectService } from 'src/app/service/subject.service';
 import { quiz } from 'src/model/quiz.model';
 import { Stream } from 'src/model/stream.model';
 import { Subject } from 'src/model/subject.model';
-import { topic } from 'src/model/topic.model';
+import { Topic } from 'src/model/topic.model';
 import { StreamEditComponent } from '../../streams/stream-edit/stream-edit.component';
 import { QuizService } from 'src/app/service/quiz.service';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
@@ -34,7 +34,7 @@ export class EditQuizComponent implements OnInit {
   streamList: Stream[] = [];
   questionList: Question[] = [];
   FilteredsubjectList: Subject[] = [];
-  FilteredtopicList: topic[] = [];
+  FilteredtopicList: Topic[] = [];
   EditQuiz!: quiz
 
 
@@ -45,7 +45,7 @@ export class EditQuizComponent implements OnInit {
   }
   UpdatedStream!: string;
   UpdatedSubject!: string;
-  UpdatedTopic: topic = {
+  UpdatedTopic: Topic = {
     id: 0,
     topicName: '',
     subject: new Subject

@@ -19,7 +19,7 @@ export class BasicAuthInterceptor implements HttpInterceptor {
             request = request.clone({
                 setHeaders:
                         {
-                          'Content-Type': 'application/json',
+                          
                           'Authorization': `Bearer ` + `${currentUser.token}`,
                         }
                 

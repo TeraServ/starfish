@@ -34,10 +34,10 @@ export enum MaximumOptionSelection {
 
     singleAnswer = 0,
     MultipleChoiceSingleAnswer = 1,
-    MultipleChoiceMultipleAnswer = 1
+    // MultipleChoiceMultipleAnswer = 1
 }
 
-export enum QuestionMessageBox {
+export enum QuestionMessageBox{
     addNewMCQOption = 'MCQ Option Added',
     addNewMSQOption = 'MSQ Option Added',
     removeMCQOption = 'MCQ Option Removed',
@@ -47,6 +47,8 @@ export enum QuestionMessageBox {
     noQuestionPreview = 'No Question to Preview',
     questionAdded = 'Successfully Added Question',
 }
+
+
 
 
 export function getQuestionTypeArray(): Array<string> {

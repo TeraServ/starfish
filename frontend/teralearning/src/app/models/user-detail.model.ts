@@ -9,3 +9,5 @@ export interface UserDetail {
     status: String ;
     action: String ;
 }
+
+type customUserModel = Partial<UserDetail>

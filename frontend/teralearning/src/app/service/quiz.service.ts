@@ -27,7 +27,6 @@ export class QuizService {
   }
 
   deleteQuiz(id:number){
-
     return this.httpClient.delete(`${this.baseURL}`+'delete/'+ id)
   }
 

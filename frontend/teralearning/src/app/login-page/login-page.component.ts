@@ -55,6 +55,7 @@ login() {
           
            if(this.loginForm.get('password')?.value && data.message){
             localStorage.setItem("currentUser",JSON.stringify(data));
+            this.authService.setUserLogTime(Date.now())
 
             console.log(localStorage.getItem("currentUser"))
             //this.error = false;

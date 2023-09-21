@@ -13,4 +13,9 @@ public interface TopicInterface {
     ResponseEntity<Topic> updateTopics(long id, Topic topicDetails);
 
     ResponseEntity deleteTopicById(long id);
+
+
+    ResponseEntity getTopicBySubjectId(long id);
+
+    ResponseEntity getTopicBySubject(long id);
 }

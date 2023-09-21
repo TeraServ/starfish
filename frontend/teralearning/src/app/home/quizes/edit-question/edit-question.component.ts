@@ -204,7 +204,7 @@ export class EditQuestionComponent implements OnInit {
     const newMCQOption = this.formBuilder.group({
       optionText: ['', Validators.maxLength(MaximumOptionCharacter.MultipleChoiceSingleAnswer)],
       isAnswer: [false],
-      optionOwner: this._authService.getUserEmail()
+      optionOwner: this._authService.getCurrentUserEmail()
     });
     this.mcqOptions.push(newMCQOption);
   }
@@ -267,7 +267,7 @@ export class EditQuestionComponent implements OnInit {
     const newMSQOption = this.formBuilder.group({
       optionText: ['', Validators.maxLength(MaximumOptionCharacter.MultipleChoiceMultipleAnswer)],
       isAnswer: [false],
-      optionOwner:this._authService.getUserEmail()
+      optionOwner:this._authService.getCurrentUserEmail()
     })
     this.msqOptions.push(newMSQOption);
   }
@@ -334,8 +334,8 @@ export class EditQuestionComponent implements OnInit {
       questionType: questionType,
       maximumSelectionAllowed: MaximumOptionSelection.singleAnswer,
       quiz: this.editQuiz,
-      creator: 121,
-      modifier: 0,
+      creator: this._authService.getCurrentUserDetails().id,
+      modifier: this._authService.getCurrentUserDetails().id,
       createdDate: '',
       modifiedDate: '',
     }
@@ -360,7 +360,7 @@ export class EditQuestionComponent implements OnInit {
             answer: this.editQuestionForm.get('answer')?.value,
             disabled: false,
             ownerEmail: this.editQuestion.answers?.at(0)?.ownerEmail,
-            modifierEmail: this._authService.getUserEmail(),
+            modifierEmail: this._authService.getCurrentUserEmail(),
             createdDate: '',
             modifiedDate: ''
           }
@@ -378,7 +378,7 @@ export class EditQuestionComponent implements OnInit {
               answer: control.get('optionText')?.value,
               disabled: false,
               ownerEmail: control.get('optionOwner')?.value,
-              modifierEmail: this._authService.getUserEmail(),
+              modifierEmail: this._authService.getCurrentUserEmail(),
               createdDate: '',
               modifiedDate: '',
             }
@@ -398,7 +398,7 @@ export class EditQuestionComponent implements OnInit {
               answer: control.get('optionText')?.value,
               disabled: false,
               ownerEmail: control.get('optionOwner')?.value,
-              modifierEmail: this._authService.getUserEmail(),
+              modifierEmail: this._authService.getCurrentUserEmail(),
               createdDate: '',
               modifiedDate: '',
             };

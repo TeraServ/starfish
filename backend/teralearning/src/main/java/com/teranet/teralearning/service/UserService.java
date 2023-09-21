@@ -75,6 +75,7 @@ public class UserService extends UserInterface {
 
        /*     return new ResponseEntity("Email already exists.", HttpStatus.CONFLICT);*/
         }else{
+
             user.setModifiedDate(getDate());
             user.setCreatedDate(getDate());
             user.setPassword(encryptPassword(user.getPassword()));
@@ -83,8 +84,8 @@ public class UserService extends UserInterface {
             /*sendWelcomeMail(user,token);*/
             return new ResponseEntity(userRepository.save(user), HttpStatus.OK);
 
-        }
 
+        }
     }
     private LocalDateTime getDate(){
         //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -98,11 +99,12 @@ public class UserService extends UserInterface {
         return bCryptPasswordEncoder.encode(password);
     }
 
-    Object getJson(Object message,String status,String token){
+    Object getJson(Object message,String status,String token,Object body){
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("message", message);
         map.put("status", status);
         map.put("token",token);
+        map.put("body",body);
         return map;
     }
     @Override
@@ -119,7 +121,7 @@ public class UserService extends UserInterface {
             if(bCryptPasswordEncoder.matches(password,user.get().getPassword())){
                 log.info(jwtUtil.generateToken(username));
 
-                return new ResponseEntity(getJson(userDetailsService.loadUserByUsername(user.get().getEmail()),InternalStandardError.LOGIN_SUCCESSFULLY.getErrorMessage(), jwtUtil.generateToken(username)),InternalStandardError.LOGIN_SUCCESSFULLY.getHttpStatus());
+                return new ResponseEntity(getJson(userDetailsService.loadUserByUsername(user.get().getEmail()),InternalStandardError.LOGIN_SUCCESSFULLY.getErrorMessage(), jwtUtil.generateToken(username),user.get()),InternalStandardError.LOGIN_SUCCESSFULLY.getHttpStatus());
             }else{
                 return new ResponseEntity(InternalStandardError.INVALID_EMAIL_OR_PASSWORD.getErrorMessage(),InternalStandardError.INVALID_EMAIL_OR_PASSWORD.getHttpStatus());
             }

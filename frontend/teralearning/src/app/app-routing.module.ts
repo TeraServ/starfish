@@ -18,6 +18,9 @@ import { TopicComponent } from './topic/topic.component';
 import { CreateCoursesComponent } from './create-courses/create-courses.component';
 import { ViewAndSearchComponent } from './core/view-and-search/view-and-search.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
+import { QuizComponent } from './home/quizes/quiz/quiz.component';
+import { EditQuizComponent } from './home/quizes/edit-quiz/edit-quiz.component';
+import { ResourceNotFoundComponent } from './resource-not-found/resource-not-found.component';
 
 
 
@@ -57,6 +60,18 @@ const routes: Routes = [
     component:PasswordResetComponent,
     title:"Reset Password"
   },
+  {
+    path:"quizes/quiz",
+    component: QuizComponent
+  },
+  {
+    path:"quizes/quiz/edit",
+    component: EditQuizComponent
+  },
+  // {
+  //   path: "**",pathMatch:'full',
+  //   component: ResourceNotFoundComponent
+  // }
 
 ];
 
