@@ -1,0 +1,24 @@
+<div class="chapter-con">
+    <div class="div-row-flex">
+        <input type="text" placeholder="Chapter Name" #chapterName (change)="changed()" [value]="chapterData.chapterName">
+        <button class="btn-course" (click)="addPage()">+ Page</button>
+        <button class="btn-course" (click)="saveChapter()" [disabled]="!dataChanged">Save</button>
+        <button class="btn-course"  (click)="removeChapter()" [disabled]="!dataChanged"> <i class="fas fa-trash"></i></button>
+    </div>
+
+
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+      <div class="div-row-flex example-box" *ngFor="let item of chapterData.pages,index as i;" cdkDrag>
+        <h3>{{ item?.title }}</h3>
+       <div >
+        <button mat-icon-button  aria-label="Edit buttpon" (click)="editPage(item)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button  aria-label="Remove buttpon" (click)="removePage(i)">
+         <mat-icon>delete</mat-icon>
+       </button>
+       </div>
+     </div>
+    </div>
+   
+    </div>

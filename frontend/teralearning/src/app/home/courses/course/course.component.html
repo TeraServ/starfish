@@ -1,0 +1,120 @@
+<div id="main-course-body">
+    <div class="row">
+        <div class="top-bar">
+            <h2>Courses</h2>
+           <div>
+
+            
+            <button class="light-btn" (click)="openDialog()">New Course</button>
+           </div>
+        </div>
+
+       <form [formGroup]="searchForm">
+        <div class="filtered-search-box">
+       
+
+          <div>
+            <label for="">Stream</label><br>
+           <select name="" id="" class="filter-dropdown" (change)="getAllSubject()" #streamFilter formControlName="stream">
+            <option value="All">All</option>
+            <option  *ngFor="let item of streamList;"  [value]="item.id" >{{ item.streamName }}</option>
+           </select>
+          </div>
+          <div>
+            <label for="">Subject</label><br>
+            <select name="" id="" class="filter-dropdown" (change)="getAllTopicBySubject()" formControlName="subject">
+              <option value="All">All</option>
+              <option *ngFor="let item of subjectList"  [value]="item.id" >{{ item.subjectName }}</option>
+             </select>
+          </div>
+  
+          <div>
+            <label for="">Topic</label><br>
+            <select name="" id="" class="filter-dropdown" (change)="filterByTopic()" formControlName="topic">
+              <option value="All">All</option>
+              <option  *ngFor="let item of topicList" [value]="item.id" >{{ item.topicName}}</option>
+             </select>
+          </div>
+          <div>
+            <label for="">Course Name</label><br>
+            <input id="searchBar" type="search" placeholder="Search " (change)="searchByCourseName()" formControlName="search">
+          </div>
+          <div>
+            <br>
+            <button class="light-btn" (click)="searchByCourseName()"><i class="fas fa-search"></i> Search </button>
+          </div>
+         
+          
+          </div>
+       </form>
+
+        
+       <div class="radio-btn-con">
+        <mat-radio-group aria-label="Select an option" (change)="radioButtonChange($event)">
+        
+         
+          
+         
+          <mat-radio-button value="1" checked="">All Courses</mat-radio-button>
+          &nbsp;
+          <mat-radio-button value="2" >My Courses</mat-radio-button>
+        </mat-radio-group>
+       </div>
+    </div>
+    <br>
+    <div class="row course-view">
+
+
+
+      
+
+        
+        <div class="course-con" *ngFor="let course of courseList;">
+            <div class="cover-body">
+                <div class="con-top-buttons">
+                  <button mat-icon-button (click)="editCourseDialog(course)"  aria-label="edit button" title="Edit">
+                    <mat-icon>mode_edit</mat-icon>
+                  </button>
+                    <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #menu="matMenu">
+                        <button mat-menu-item  routerLink="edit" routerLinkActive="active">
+                          <mat-icon>add_box</mat-icon>
+                          <span> Add Content</span>
+                        </button>
+                        <button mat-menu-item >
+                          <mat-icon>preview</mat-icon>
+                       <span> Preview</span>
+                        </button>
+                        <button mat-menu-item>
+                          <mat-icon>delete</mat-icon>
+                          <span>Remove</span>
+                        </button>
+                      </mat-menu> -->
+
+                      <button mat-icon-button aria-label="add content button" title="Add Content" (click)="shareData(course)" routerLink="edit" routerLinkActive="active">
+                        <mat-icon>edit_note</mat-icon>
+                      </button>
+                </div>
+                
+                <img [src]="getImage(course.coverUrl)" alt="" class="cover-img">
+               
+            </div>
+            <div class="btm-body" >
+               <div>
+                <h3 >{{course.courseName}}</h3>
+                <h5>{{course.topic.topicName}}</h5>
+               </div>
+               <div>
+               <i class="fas fa-book-open"></i> Chapters : 0 
+                &nbsp;
+                <i class="fas fa-clock"></i> Duration: 0 hours
+               </div>
+            </div>
+        </div>
+       
+        
+    
+    </div>
+</div>

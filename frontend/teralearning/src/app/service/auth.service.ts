@@ -60,6 +60,10 @@ export class AuthService {
       clearTimeout(this.clearTimeout);
     }
   }
+  getCurrentUserDetails(){
+    let user = JSON.parse(localStorage.getItem('currentUser')!).body;
+    return user;
+  }
 
   getUserTypes() {
     let user = JSON.parse(localStorage.getItem('currentUser')!).message.authorities[0].authority

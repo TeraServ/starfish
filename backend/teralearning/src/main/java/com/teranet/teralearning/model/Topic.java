@@ -26,15 +26,15 @@ public class Topic {
     private LocalDateTime modifiedDate;
 
     @Column(name = "created_by")
-    private String createdBy;
+    private long createdBy;
 
     @Column(name = "modified_by")
     private String modifiedBy;
 
     public Topic(){}
 
+    public Topic(long id, Subject subject, String topicName, LocalDateTime createdDate, LocalDateTime modifiedDate, long createdBy, String modifiedBy) {
 
-    public Topic(long id, Subject subject, String topicName, LocalDateTime createdDate, LocalDateTime modifiedDate, String createdBy, String modifiedBy) {
         Id = id;
         this.subject = subject;
         this.topicName = topicName;
@@ -59,6 +59,7 @@ public class Topic {
 
     public void setSubject(Subject subject) {
         this.subject = subject;
+
     }
 
     public String getTopicName() {
@@ -85,11 +86,11 @@ public class Topic {
         this.modifiedDate = modifiedDate;
     }
 
-    public String getCreatedBy() {
+    public long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(long createdBy) {
         this.createdBy = createdBy;
     }
 
