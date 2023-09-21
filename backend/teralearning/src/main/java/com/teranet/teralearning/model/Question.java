@@ -1,87 +1,62 @@
 package com.teranet.teralearning.model;
-
-
 import lombok.*;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
-
-
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-
 import java.util.Set;
 
 import static javax.persistence.GenerationType.SEQUENCE;
-@Data
+
 @Entity(name="QuestionEntity")
 @Table(name="questions")
 public class Question {
-    @SequenceGenerator(
-            name="seqGenForQuestion",
-            sequenceName = "QUESTION_SEQ",
-            allocationSize = 1
-    )
-    @GeneratedValue (strategy = SEQUENCE,
-    generator = "QUESTION_SEQ")
-    @Id
-    private long questionId;
-    @OneToOne
-    @JoinColumn(name="topic",referencedColumnName = "id", nullable = true)
-    private Topic topic;
-    @Column(name="question_type",nullable = false)
-    private String questionType;
-    @Column(name="question_text",nullable = false)
-    private String questionText;
-    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.MERGE)
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long Id;
+    @Column(name="question_type")
+    @NotNull
+    private String questionType;
+    @Column(name="question_text")
+    @NotNull
+    private String questionText;
+    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL)
     private Set<Answer> answers;
     @Column(name = "explanation",nullable = true)
     private String explanation;
     @Column(name = "maximum_selection", nullable = false)
     private int maximumSelectionAllowed;
-    @Column(name="quiz_id",nullable = true)
-    private long quizId;
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
-    private User creator;
-    @OneToOne(targetEntity = User.class,cascade = CascadeType.MERGE)
-    private User modifier;
+
+    @OneToOne(targetEntity = Quiz.class,cascade = CascadeType.MERGE)
+    private Quiz quiz;
+    @Column(name="creator_id",nullable = false)
+    private long creator;
+    @Column(name="modifier_id",nullable = false)
+    private long modifier;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
     public Question(){}
 
-    public Question(long questionId, Topic topic, String questionType, String questionText, Set<Answer> answers, String explanation, int maximumSelectionAllowed, long quizId, User creator, User modifier, LocalDateTime createdDate, LocalDateTime modifiedDate) {
-        this.questionId = questionId;
-        this.topic = topic;
+    public Question(long id, String questionType, String questionText, Set<Answer> answers, String explanation, int maximumSelectionAllowed, Quiz quiz, long creator, long modifier, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+        Id = id;
         this.questionType = questionType;
         this.questionText = questionText;
         this.answers = answers;
         this.explanation = explanation;
         this.maximumSelectionAllowed = maximumSelectionAllowed;
-        this.quizId = quizId;
+        this.quiz = quiz;
         this.creator = creator;
         this.modifier = modifier;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
     }
 
-    public long getQuestionId() {
-        return questionId;
+    public long getId() {
+        return Id;
     }
 
-    public void setQuestionId(long questionId) {
-        this.questionId = questionId;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
-    }
 
     public String getQuestionType() {
         return questionType;
@@ -123,27 +98,31 @@ public class Question {
         this.maximumSelectionAllowed = maximumSelectionAllowed;
     }
 
-    public long getQuizId() {
-        return quizId;
+    public void setId(long id) {
+        Id = id;
     }
 
-    public void setQuizId(long quizId) {
-        this.quizId = quizId;
+    public Quiz getQuiz() {
+        return quiz;
     }
 
-    public User getCreator() {
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
+    }
+
+    public long getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(long creator) {
         this.creator = creator;
     }
 
-    public User getModifier() {
+    public long getModifier() {
         return modifier;
     }
 
-    public void setModifier(User modifier) {
+    public void setModifier(long modifier) {
         this.modifier = modifier;
     }
 
@@ -162,4 +141,6 @@ public class Question {
     public void setModifiedDate(LocalDateTime modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
+
+
 }

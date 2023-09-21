@@ -35,7 +35,6 @@ public class TopicService implements TopicInterface{
         Topic updateTopic = topicRepository.getReferenceById(id);
         if(topicRepository.existsById(id)){
 
-            updateTopic.setSubject((topicDetails.getSubject()));
             updateTopic.setTopicName((topicDetails.getTopicName()));
             updateTopic.setCreatedBy(topicDetails.getCreatedBy());
             updateTopic.setModifiedBy((topicDetails.getModifiedBy()));

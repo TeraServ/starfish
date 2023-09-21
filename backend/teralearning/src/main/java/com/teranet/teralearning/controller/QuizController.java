@@ -5,8 +5,9 @@ import com.teranet.teralearning.dto.QuizDTO;
 import com.teranet.teralearning.dto.optionResponseDTO;
 import com.teranet.teralearning.dto.questionResponseDTO;
 import com.teranet.teralearning.exception.InternalStandardError;
-import com.teranet.teralearning.model.Question;
-import com.teranet.teralearning.model.Quiz;
+import com.teranet.teralearning.model.*;
+import com.teranet.teralearning.repository.*;
+import com.teranet.teralearning.service.ModelMapperService;
 import com.teranet.teralearning.service.QuestionSetService;
 import com.teranet.teralearning.service.QuizService;
 import com.teranet.teralearning.service.UserService;
@@ -30,53 +31,24 @@ import java.util.Set;
 @Slf4j
 public class QuizController {
     @Autowired
+    private QuizRepository quizRepository;
+    @Autowired
+    private TopicRepository topicRepository;
+
+    @Autowired
     private QuizService quizService;
     @Autowired
     private QuestionSetService questionSetService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private ModelMapperService modelMapperService;
+    @Autowired
+    private StreamRepository streamRepository;
+    @Autowired
+    private SubjectRepository subjectRepository;
     private ValueMapper valueMapper;
-
-
-
-
     public QuizController(){}
-    @PostMapping("/addQuestion")
-    public ResponseEntity addAQuestion(@RequestBody questionResponseDTO newQuestion){
-        try{
-            if(userService.isUserEmailExists(newQuestion.getCreator())){
-                log.info("QuizController:addAQuestion Init ...");
-                Question question = valueMapper.questionDTOtoQuestion(newQuestion);
-                question.setCreator(userService.getByUserEmail(newQuestion.getCreator()));
-                question.setModifier(userService.getByUserEmail(newQuestion.getCreator()));
-                return questionSetService.createQuestion(question);
-            }else {
-                return new ResponseEntity(InternalStandardError.USER_NOT_FOUND.getErrorMessage(),InternalStandardError.USER_NOT_FOUND.getHttpStatus());
-            }
-
-        }
-        catch (Exception ex){
-            log.info("QuizController:addAQuestion Exception Occurred");
-            ex.printStackTrace();
-            throw new RuntimeException();
-        }
-
-    }
-    @GetMapping("/mockDataPoint")
-    public ResponseEntity mockDataPoint(){
-        questionResponseDTO DTO = new questionResponseDTO();
-        Set<optionResponseDTO> answers = new HashSet<>();
-        DTO.setQuizId(11);
-        DTO.setExplanation("Explain here");
-        DTO.setType("Single Answer");
-        DTO.setMaxSelection(1);
-        DTO.setQuestionText("Write a question ?");
-        DTO.setAnswers(answers);
-        DTO.setCreator("Something@mail.com");
-        DTO.setTopic(11);
-        return new ResponseEntity<>(DTO, HttpStatus.OK);
-    }
-
 
     @PostMapping("new")
     public ResponseEntity newQuiz(@RequestBody QuizDTO quizDTO ){
@@ -99,5 +71,67 @@ public class QuizController {
         return quizService.deleteQuizById(id);
     }
 
+
+
+    @GetMapping("/createMockQuestion")
+    public ResponseEntity mockQuestionCreation(){
+        Question newquestion = new Question();
+        long id = 552;
+        newquestion.setQuiz(quizRepository.findById(id).get());
+        newquestion.setQuestionType("singleAnswer");
+        newquestion.setQuestionText("What is an array?");
+        Answer newAnswer = new Answer();
+        newAnswer.setAnswer("Array is a collection for storing simikar data type");
+        newAnswer.setCorrect(true);
+        newAnswer.setDisabled(false);
+        newAnswer.setOptionId(1);
+        newAnswer.setValue(2);
+        newAnswer.setOwnerEmail("lavanya@mail.com");
+        Set<Answer> answers = new HashSet<>();
+        answers.add(newAnswer);
+        newquestion.setAnswers(answers);
+        newquestion.setCreator(121);
+        newquestion.setModifier(121);
+        newquestion.setMaximumSelectionAllowed(1);
+        newquestion.setExplanation("This is correct from theory.");
+        return new ResponseEntity<>(questionSetService.createQuestion(newquestion), HttpStatus.OK);
+    }
+
+    @PostMapping("/addQuestion")
+    public ResponseEntity addAQuestion(@RequestBody Question newQuestion){
+        try{
+            if(userService.findById(newQuestion.getCreator()).get()!=null){
+                log.info("QuizController:addAQuestion Init ...");
+
+                log.debug("QuizController:addAQuestion Question Body:");
+                return questionSetService.createQuestion(newQuestion);
+            }else {
+                return new ResponseEntity(InternalStandardError.USER_NOT_FOUND.getErrorMessage(),InternalStandardError.USER_NOT_FOUND.getHttpStatus());
+            }
+
+        }
+        catch (Exception ex){
+            log.error("QuizController:addAQuestion Exception Occurred");
+            ex.printStackTrace();
+            throw new RuntimeException();
+        }
+
+    }
+
+    @PutMapping("updateQuestion/{id}")
+    public ResponseEntity<Question> updateQuestion(@PathVariable long id, @RequestBody Question questionDetails){
+        return questionSetService.updateQuestion(id,questionDetails);
+    }
+
+    @GetMapping("questionList/{id}")
+    public ResponseEntity getQuestionFromQuiz(@PathVariable long id){
+        return new ResponseEntity(questionSetService.getQuestionFromQuiz(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("deleteQuestion/{id}")
+    public ResponseEntity<Question> deleteQuestion(@PathVariable long id){
+
+        return questionSetService.deleteQuestion(id);
+    }
 }
 

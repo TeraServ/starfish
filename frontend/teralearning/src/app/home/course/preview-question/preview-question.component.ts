@@ -1,12 +1,18 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from 'src/app/models/question.model';
+import { QuestionService } from 'src/app/service/question.service';
 
 export const LABELS = {
   pageTitle: 'Question Preview',
-  contentHeading: 'Question Type:',
+  questionType: 'Question Type:',
   questionHeading: 'Question:',
-  answerHeading: 'Answer:',
-  answerExplanationHeading: 'Answer Explanation:'
+  singleAnswer:` Single Answer`,
+  multipleChoice: ` Multiple Choice`,
+  multipleSelect:` Multiple Select`,
+  option:`Option: `,
+  answerHeading: 'Correct Answer:',
+  answerExplanationHeading: 'Answer Explanation:',
+  noData:`No Data`
 }
 
 @Component({
@@ -18,22 +24,14 @@ export const LABELS = {
 export class PreviewQuestionComponent implements OnInit {
 
 
-  @Input() questionBody = {} as Question | undefined;
-  @Input() quizId!: Partial<number>;
+  @Input() questionBody!:any ;
   @Output() saveQuestion: EventEmitter<boolean> = new EventEmitter();
 
   public readonly labels = LABELS;
-
-  constructor() {
-    setTimeout(()=>{
-      console.log(this.questionBody);
-      console.log(this.quizId);
-    },3000)
-   }
+  
 
   ngOnInit(): void {
-
-
+    console.log(this.questionBody);
   }
 
 

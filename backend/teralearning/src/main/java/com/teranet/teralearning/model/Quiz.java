@@ -36,7 +36,7 @@ public class Quiz {
 
     private long modifier;
     @ElementCollection
-    @CollectionTable(name = "questions")
+    @CollectionTable(name = "quiz_questions")
     @Column(name = "questions")
     private List<Question> questions = new ArrayList<>();
     @Column(name = "pass_criteria")

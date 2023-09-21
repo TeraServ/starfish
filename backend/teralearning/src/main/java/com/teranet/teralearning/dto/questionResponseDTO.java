@@ -22,5 +22,6 @@ public class questionResponseDTO {
     private String explanation;
     private int maxSelection;
     private String creator;
+    private String modifier;
 
 }

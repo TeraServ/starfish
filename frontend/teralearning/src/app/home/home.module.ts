@@ -57,6 +57,7 @@ import { AddQuizComponent } from './quizes/add-quiz/add-quiz.component';
 import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
 import { QuizComponent } from './quizes/quiz/quiz.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 @NgModule({
   declarations: [
 
@@ -88,8 +89,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     PreviewQuestionComponent,
     SuccessDialogComponent,
     DeleteDialogComponent,
-    DeleteMessageDialogComponent
-    
+    DeleteMessageDialogComponent,
+    SafeHtmlPipe
     
   ],
   imports: [
@@ -118,7 +119,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatProgressBarModule,
     DragDropModule,
     MatTooltipModule
-
 
   ],
   providers:[
