@@ -9,7 +9,7 @@ const WAIT_INTERVAL = 10; //in seconda
   styleUrls: ['./resource-not-found.component.scss']
 })
 export class ResourceNotFoundComponent implements OnInit {
-  
+
 
   constructor(private _authService: AuthService,
     private _router: Router,) { }
@@ -17,11 +17,11 @@ export class ResourceNotFoundComponent implements OnInit {
   ngOnInit(): void {
     this.navigateToLoginPage();
   }
-  navigateToLoginPage(){
-    setTimeout(()=>{
-      this._authService.logout();
+  navigateToLoginPage() {
+    setTimeout(() => {
+      // this._authService.logout();
       this._router.navigate(['']);
-    },WAIT_INTERVAL *1000);
+    }, WAIT_INTERVAL * 1000);
 
   }
 

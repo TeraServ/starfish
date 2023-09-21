@@ -5,33 +5,33 @@ export enum QuestionType {
     TrueOrFalse = 'trueOrFalse'
 }
 
-export enum MaximumQuestionMark{
+export enum MaximumQuestionMark {
     singleAnswer = 1,
     MultipleChoiceSingleAnswer = 2,
     MultipleChoiceMultipleAnswer = 3,
     TrueOrFalse = 1
 }
 
-export enum NegativeQuestionMark{
+export enum NegativeQuestionMark {
     singleAnswer = -0.25,
     MultipleChoiceSingleAnswer = -0.5,
     MultipleChoiceMultipleAnswer = 0,
     TrueOrFalse = -0.25
 }
 
-export enum MinimumQuestionOptions{
+export enum MinimumQuestionOptions {
     MultipleChoiceSingleAnswer = 2,
     MultipleChoiceMultipleAnswer = 2
 
 }
 
-export enum MaximumOptionCharacter{
+export enum MaximumOptionCharacter {
     MultipleChoiceSingleAnswer = 100,
     MultipleChoiceMultipleAnswer = 99
 }
 
-export enum MaximumOptionSelection{
-    
+export enum MaximumOptionSelection {
+
     singleAnswer = 0,
     MultipleChoiceSingleAnswer = 1,
     // MultipleChoiceMultipleAnswer = 1
@@ -49,7 +49,9 @@ export enum QuestionMessageBox{
 }
 
 
-export function getQuestionTypeArray(): Array<string>{
+
+
+export function getQuestionTypeArray(): Array<string> {
     return Object.keys(QuestionType).filter(key => isNaN(+key));
 }
 
