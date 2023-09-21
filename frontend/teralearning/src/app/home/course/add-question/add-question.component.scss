@@ -1,40 +1,105 @@
-h1 {
-  text-align: center;
-  }
-.container {  
-  max-width: 720px;
-  margin-right: auto;
-  margin-left: auto;    
-}
-.button-container {
-    display: flex;
-    justify-content: center;
-    width: 120px;
-  }
-  .close-button{
-    float: right;
-    top:-24px;
-    right:-24px;
-    background-color: transparent;
-    border-color: transparent;
-  }
+// h1 {
+//   text-align: center;
+//   }
+// .container {  
+//   max-width: 720px;
+//   margin-right: auto;
+//   margin-left: auto;    
+// }
+// .button-container {
+//     display: flex;
+//     justify-content: center;
+//     width: 120px;
+//   }
+//   .close-button{
+//     float: right;
+//     top:-24px;
+//     right:-24px;
+//     background-color: transparent;
+//     border-color: transparent;
+//   }
 
-  .save-button {
-    background-color: #2C45A7;
-    border: none;
-    color: white;
-    padding: 10px 50px;
+//   .save-button {
+//     background-color: #2C45A7;
+//     border: none;
+//     color: white;
+//     padding: 10px 50px;
+//     text-align: center;
+//     text-decoration: none;
+//     display: inline-block;
+//     font-size: 16px;
+//   }
+
+//   .btn-success {
+//     background-color: #2C45A7;
+
+//   }
+//   .mat-mdc-radio-button ~ .mat-mdc-radio-button {
+//     margin-left: 16px;
+//   }
+  
+
+
+
+  h1 {
     text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+    }
+  .header {  
+      margin-top: 100px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+  .container {  
+    max-width: 720px;
+    margin-right: auto;
+    margin-left: auto;    
   }
-
-  .btn-success {
-    background-color: #2C45A7;
-
+  .button-container {
+      display: flex;
+      justify-content: center;
+      width: 120px;
+    }
+    .close-button{
+      float: right;
+      top:-24px;
+      right:-24px;
+      background-color: transparent;
+      border-color: transparent;
+    }
+  
+    .save-button {
+      background-color: #2C45A7;
+      border: none;
+      color: white;
+      padding: 10px 50px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+    }
+  
+    .btn-success {
+      background-color: #2C45A7;
+  
+    }
+    .mat-mdc-radio-button ~ .mat-mdc-radio-button {
+      margin-left: 16px;
+    }
+    // .mat-form-field{ width:100%;}
+  .mat-input-field{
+    width: 100% !important;
   }
-  .mat-mdc-radio-button ~ .mat-mdc-radio-button {
-    margin-left: 16px;
+    .form-field-width{
+      width: 100%;
+    }
+  
+    ::ng-deep .mat-form-field-infix {
+      width: 600px !important;
+  }
+  .msq-option-text-box{
+    resize: horizontal;
   }
   
+  // ::ng-deep .width-480{
+  //   width: 480px;
+  // }
