@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 @Service
 public class CourseService implements CourseInterface {
 
@@ -20,6 +22,8 @@ public class CourseService implements CourseInterface {
 
     @Override
     public ResponseEntity addCourse(Course course){
+        course.setCreatedDate(LocalDate.now());
+        course.setModifiedData(LocalDate.now());
         return new ResponseEntity(courseRepository.save(course), HttpStatus.OK);
     }
 
@@ -30,7 +34,7 @@ public class CourseService implements CourseInterface {
 
     @Override
     public ResponseEntity getCourseByUserId(long userId) {
-        return new ResponseEntity<>(courseRepository.getAllCourseByUserId(userId),HttpStatus.OK);
+        return new ResponseEntity(courseRepository.getAllCourseByUserId(userId),HttpStatus.OK);
     }
 
 

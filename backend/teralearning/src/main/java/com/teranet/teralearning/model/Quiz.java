@@ -15,7 +15,7 @@ import static javax.persistence.GenerationType.SEQUENCE;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+
 public class Quiz {
     @SequenceGenerator(
             name="seqGenForQuiz",
@@ -31,12 +31,10 @@ public class Quiz {
     @OneToOne
     @JoinColumn(name = "topic",referencedColumnName = "id")
     private Topic topic;
-    @OneToOne
-    @JoinColumn(name = "creator",referencedColumnName = "id")
-    private User creator;
-    @OneToOne
-    @JoinColumn(name = "modifier",referencedColumnName = "id")
-    private User modifier;
+
+    private long creator;
+
+    private long modifier;
     @ElementCollection
     @CollectionTable(name = "questions")
     @Column(name = "questions")
@@ -50,5 +48,81 @@ public class Quiz {
     @Column(name = "modified_date")
     private LocalDateTime modifiedDate;
 
+    public long getId() {
+        return id;
+    }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getQuizName() {
+        return quizName;
+    }
+
+    public void setQuizName(String quizName) {
+        this.quizName = quizName;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public long getCreator() {
+        return creator;
+    }
+
+    public void setCreator(long creator) {
+        this.creator = creator;
+    }
+
+    public void setModifier(long modifier) {
+        this.modifier = modifier;
+    }
+
+
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public long getPassCriteria() {
+        return passCriteria;
+    }
+
+    public void setPassCriteria(long passCriteria) {
+        this.passCriteria = passCriteria;
+    }
+
+    public boolean isAllowRetake() {
+        return allowRetake;
+    }
+
+    public void setAllowRetake(boolean allowRetake) {
+        this.allowRetake = allowRetake;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
 }

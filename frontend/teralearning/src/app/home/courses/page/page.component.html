@@ -9,7 +9,7 @@
 <form [formGroup]="pageForm" (ngSubmit)="addPage()" >
   <input type="text" placeholder="Page Title" formControlName="title">
 <angular-editor [config]="editorConfig" formControlName="body"></angular-editor>
-<div style="width: 100%;display: flex;justify-content: center;">
+<div style="width: 100%;display: flex;justify-content: center;padding: 5px;">
   <button type="submit" class="btn-course" >Submit</button>
 </div>
 </form>

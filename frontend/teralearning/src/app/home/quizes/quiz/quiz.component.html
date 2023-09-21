@@ -1,0 +1,123 @@
+<br>
+<h2>Quiz List</h2>
+
+<div>
+    <input type="text" #input (keyup)="filterQuizName($event)" placeholder='Search Quiz Name' /><i
+        class="fas fa-search "></i>&nbsp;&nbsp;
+   <mat-form-field class="Rightspace2">
+
+    <mat-label><i class="fa fa-filter"></i> Filter Stream</mat-label>
+        <div>
+            <select matNativeControl name="quiz" (change)="filterStreamTable($event)">
+                <option value=""> All </option>
+                <option *ngFor="let item of streamFilterList" value="{{item}}">
+                    {{item}}
+                </option>
+            </select>
+        </div>
+    </mat-form-field>
+   
+    <mat-form-field class="Rightspace2">
+        <mat-label><i class="fa fa-filter"></i> Filter Subject</mat-label>
+        <div>
+            <select matNativeControl name="quiz" (change)="filterSubjectTable($event)">
+                <option value=""> All </option>
+                <option *ngFor="let item of subjectFilterList" value="{{item}}">
+                    {{item}}
+                </option>
+            </select>
+        </div>
+    </mat-form-field>
+      
+    <mat-form-field class="Rightspace2">
+        <mat-label><i class="fa fa-filter"></i> Filter Topic</mat-label>
+        <div>
+            <select matNativeControl name="quiz" (change)="filterTopicTable($event)">
+                <option value=""> All </option>
+                <option *ngFor="let item of topicFilterList" value="{{item}}">
+                    {{item}}
+                </option>
+            </select>
+        </div>
+    </mat-form-field> 
+    <input (click)="openAddDialog()" type="submit" value="Add Quiz" class="btn-submit" id="submitButton">
+</div><br>
+
+<div>
+    <input type="checkbox" class="form-check-input" (click)="getResult($event)">
+    <label>Show only my quizzes</label>
+
+</div><br><br>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+
+
+        <ng-container matColumnDef="QuizName">
+            <th mat-header-cell *matHeaderCellDef>Quiz Name</th>
+            <td mat-cell *matCellDef="let element,index as i">{{element.quizName}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Stream">
+            <th mat-header-cell *matHeaderCellDef>Stream Name</th>
+            <td mat-cell *matCellDef="let element,index as i">{{element.topic?.subject?.stream?.streamName}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Subject">
+            <th mat-header-cell *matHeaderCellDef> Subject Name </th>
+            <td mat-cell *matCellDef="let element,index as i">{{element.topic?.subject?.subjectName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Topic">
+            <th mat-header-cell *matHeaderCellDef> Topic Name </th>
+            <td mat-cell *matCellDef="let element,index as i"> {{element.topic?.topicName}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="TotalNoOfQuestions">
+            <th mat-header-cell *matHeaderCellDef>  </th>
+            <td mat-cell *matCellDef="let element,index as i"> {{element.TotalNoOfQuestions}}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Actions">
+            <th mat-header-cell *matHeaderCellDef> Actions </th>
+            <td mat-cell *matCellDef="let element,index as i">
+
+
+                <!-- <button (click)="navigateEditQuiz()" class="btn btn-success px-3" id="editButton" ><i class="bi bi-pencil-square" aria-hidden="true"
+                        title="edit"></i></button>&nbsp; -->
+                <button (click)="passDataToService(element)" class="btn btn-success px-3" id="editButton" routerLink="edit" ><i class="bi bi-pencil-square" aria-hidden="true"
+                        title="edit"></i></button>&nbsp;
+                <button  (click)="openDialog(element.id)" class="btn btn-danger px-3"><i class="bi bi-trash-fill" aria-hidden="true" title="delete"></i>
+                </button> &nbsp;
+                <!-- <button class="edit-btn" mat-raised-button matTooltip="Add Question" [matTooltipPosition]="'right'" aria-label="Button that displays a tooltip when focused or hovered over" > <i class="fas fa-solid fa-plus" style="color: white;"></i></button> -->
+                
+                
+                   
+
+                <!-- <button [disabled]="userType == 'ROLE_HR' || userType == 'ROLE_IN'" (click)="openDialog(element.id,element.title)" class="btn btn-danger px-3"><i
+                        class="bi bi-trash-fill" aria-hidden="true" title="delete"></i></button> -->
+
+
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+    </table>
+</div>
+<div *ngIf="dataSource.data.length == 0">
+    <p>No data!</p>
+</div>
+<!-- 
+<mat-spinner [diameter]="40" class="text-center" *ngIf="!isloaded"></mat-spinner> -->
+
+<mat-paginator [length]="100"  [ngStyle]="{'display': showPaginator ? 'block' : 'none'}" [pageSizeOptions]="[5,10,15,20]" [pageSize]="5" showFirstLastButtons
+        aria-label="Select page of periodic elements">
+    </mat-paginator>

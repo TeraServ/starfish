@@ -32,7 +32,6 @@ public class AuthController {
 
     private String encryptPassword(String password) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-
         return bCryptPasswordEncoder.encode(password);
     }
 

@@ -4,11 +4,64 @@
             <h2>Courses</h2>
            <div>
 
-            <input id="searchBar" type="search" placeholder="Search ">
+            
             <button class="light-btn" (click)="openDialog()">New Course</button>
            </div>
         </div>
+
+       <form [formGroup]="searchForm">
+        <div class="filtered-search-box">
+       
+
+          <div>
+            <label for="">Stream</label><br>
+           <select name="" id="" class="filter-dropdown" (change)="getAllSubject()" #streamFilter formControlName="stream">
+            <option value="All">All</option>
+            <option  *ngFor="let item of streamList;"  [value]="item.id" >{{ item.streamName }}</option>
+           </select>
+          </div>
+          <div>
+            <label for="">Subject</label><br>
+            <select name="" id="" class="filter-dropdown" (change)="getAllTopicBySubject()" formControlName="subject">
+              <option value="All">All</option>
+              <option *ngFor="let item of subjectList"  [value]="item.id" >{{ item.subjectName }}</option>
+             </select>
+          </div>
+  
+          <div>
+            <label for="">Topic</label><br>
+            <select name="" id="" class="filter-dropdown" (change)="filterByTopic()" formControlName="topic">
+              <option value="All">All</option>
+              <option  *ngFor="let item of topicList" [value]="item.id" >{{ item.topicName}}</option>
+             </select>
+          </div>
+          <div>
+            <label for="">Course Name</label><br>
+            <input id="searchBar" type="search" placeholder="Search " (change)="searchByCourseName()" formControlName="search">
+          </div>
+          <div>
+            <br>
+            <button class="light-btn" (click)="searchByCourseName()"><i class="fas fa-search"></i> Search </button>
+          </div>
+         
+          
+          </div>
+       </form>
+
+        
+       <div class="radio-btn-con">
+        <mat-radio-group aria-label="Select an option" (change)="radioButtonChange($event)">
+        
+         
+          
+         
+          <mat-radio-button value="1" checked="">All Courses</mat-radio-button>
+          &nbsp;
+          <mat-radio-button value="2" >My Courses</mat-radio-button>
+        </mat-radio-group>
+       </div>
     </div>
+    <br>
     <div class="row course-view">
 
 
@@ -16,7 +69,7 @@
       
 
         
-        <div class="course-con" *ngFor="let course of courseList,index as i">
+        <div class="course-con" *ngFor="let course of courseList;">
             <div class="cover-body">
                 <div class="con-top-buttons">
                   <button mat-icon-button (click)="editCourseDialog(course)"  aria-label="edit button" title="Edit">
@@ -51,7 +104,7 @@
             <div class="btm-body" >
                <div>
                 <h3 >{{course.courseName}}</h3>
-                <h5>{{course.topicName}}</h5>
+                <h5>{{course.topic.topicName}}</h5>
                </div>
                <div>
                <i class="fas fa-book-open"></i> Chapters : 0 

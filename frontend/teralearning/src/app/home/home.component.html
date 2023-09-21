@@ -64,6 +64,20 @@
                   <a routerLink="/home/subjects/list" routerLinkActive="active" class="text-reset">Subject List</a>
                 </li>
               </ul>
+
+             
+ 
+               <a  *ngIf="userType[3]" href="#" #quizTab routerLink="/home/quizes" routerLinkActive="active"
+               class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
+ 
+               <i class="fas fa-solid fa-lightbulb"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Quiz</span>
+             </a>
+ 
+               <ul *ngIf="userType[3]" id="collapseExample4"  [ngStyle]="{display:displayStyle3}" class="collapse show list-group list-group-flush">
+                 <li class="list-group-item py-2">
+                   <a routerLink="/home/quizes/quiz" routerLinkActive="active" class="text-reset">Quiz List</a>
+                 </li>
+               </ul>
       
               <!-- Collapse 1 -->
               <!-- <a

@@ -49,6 +49,14 @@ import { ChapterComponent } from './courses/chapter/chapter.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu'
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DeleteDialogComponent } from '../dialogBoxs/delete-dialog/delete-dialog.component';
+import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialog/delete-message-dialog.component';
+import { AddQuestionComponent } from './course/add-question/add-question.component';
+import { PreviewQuestionComponent } from './course/preview-question/preview-question.component';
+import { AddQuizComponent } from './quizes/add-quiz/add-quiz.component';
+import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
+import { QuizComponent } from './quizes/quiz/quiz.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 @NgModule({
   declarations: [
 
@@ -72,7 +80,15 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     NewCourseComponent,
     EditCourseComponent,
     PageComponent,
-    ChapterComponent
+    ChapterComponent,
+    AddQuizComponent,
+    QuizComponent,
+    EditQuizComponent,    
+    AddQuestionComponent,
+    PreviewQuestionComponent,
+    SuccessDialogComponent,
+    DeleteDialogComponent,
+    DeleteMessageDialogComponent
     
     
   ],
@@ -100,8 +116,9 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatMenuModule,
     MatButtonModule,
     MatProgressBarModule,
-    DragDropModule
-    
+    DragDropModule,
+    MatTooltipModule
+
 
   ],
   providers:[

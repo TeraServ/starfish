@@ -1,0 +1,13 @@
+<h3 mat-dialog-title><i class="fas fa-exclamation-triangle"></i>
+  Delete</h3>
+<div mat-dialog-content>
+  <p>{{data.message }}</p>
+ 
+ 
+</div>
+<div mat-dialog-actions>
+  <button mat-button class="btn" (click)="onYesClick(data.funId)" cdkFocusInitial>Yes</button>
+  &nbsp;
+  <button class="btn" mat-button (click)="onNoClick()">No</button>
+  
+</div>

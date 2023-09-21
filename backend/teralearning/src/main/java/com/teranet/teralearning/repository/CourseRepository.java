@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
-    @Query("select c from Course c where c.createdBy = ?1")
-    List<Subject> getAllCourseByUserId(long Id);
+    @Query("Select c from Course c where c.createdBy = ?1")
+    List<Course> getAllCourseByUserId(long Id);
 }

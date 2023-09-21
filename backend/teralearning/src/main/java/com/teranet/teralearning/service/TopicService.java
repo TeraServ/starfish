@@ -1,8 +1,8 @@
 package com.teranet.teralearning.service;
 
-import com.teranet.teralearning.model.Subject;
 import com.teranet.teralearning.model.Topic;
 import com.teranet.teralearning.repository.TopicRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 public class TopicService implements TopicInterface{
 
+    @Autowired
     private TopicRepository topicRepository;
 
     public TopicService(TopicRepository topicRepository){
@@ -34,7 +35,7 @@ public class TopicService implements TopicInterface{
         Topic updateTopic = topicRepository.getReferenceById(id);
         if(topicRepository.existsById(id)){
 
-            updateTopic.setSubjectName((topicDetails.getSubjectName()));
+            updateTopic.setSubject((topicDetails.getSubject()));
             updateTopic.setTopicName((topicDetails.getTopicName()));
             updateTopic.setCreatedBy(topicDetails.getCreatedBy());
             updateTopic.setModifiedBy((topicDetails.getModifiedBy()));
@@ -56,5 +57,15 @@ public class TopicService implements TopicInterface{
         else {
             return null;
         }
+    }
+
+    @Override
+    public ResponseEntity getTopicBySubjectId(long id){
+        return new ResponseEntity(topicRepository.findTopicsBySubject(id),HttpStatus.OK);
+    }
+
+    public ResponseEntity getTopicBySubject(long subjectId){
+
+        return new ResponseEntity(topicRepository.findTopicBySubject(subjectId),HttpStatus.OK);
     }
 }

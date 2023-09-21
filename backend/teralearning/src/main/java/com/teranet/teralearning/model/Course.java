@@ -3,6 +3,7 @@ package com.teranet.teralearning.model;
 
 import javax.persistence.*;
 import java.io.File;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -25,28 +26,44 @@ public class Course {
     private long createdBy;
     @Column(name = "cover_url")
     private String coverUrl;
-    @Column(name = "topic_name")
-    private String topicName;
+    @OneToOne(targetEntity = Topic.class,cascade = CascadeType.MERGE)
+    private Topic topic;
 
 //    @OneToMany(fetch = FetchType.EAGER)
 //    private Set<Chapter> chapters = new HashSet<>();
 
     @Column(name = "modified_date")
-    private String modifiedData;
+    private LocalDate modifiedData;
     @Column(name = "created_date")
-    private String createdDate;
+    private LocalDate createdDate;
 
     public Course(){}
 
-    public Course(long id, String courseName, String description, long createdBy, String coverUrl, String topicName, String modifiedData, String createdDate) {
+    public Course(long id, String courseName, String description, long createdBy, String coverUrl, Topic topic, LocalDate modifiedData, LocalDate createdDate) {
         Id = id;
         this.courseName = courseName;
         this.description = description;
         this.createdBy = createdBy;
         this.coverUrl = coverUrl;
-        this.topicName = topicName;
+        this.topic = topic;
         this.modifiedData = modifiedData;
         this.createdDate = createdDate;
+    }
+
+    public long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(long createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
     public long getId() {
@@ -81,27 +98,21 @@ public class Course {
         this.coverUrl = coverUrl;
     }
 
-    public String getTopicName() {
-        return topicName;
-    }
 
-    public void setTopicName(String topicName) {
-        this.topicName = topicName;
-    }
 
-    public String getModifiedData() {
+    public LocalDate getModifiedData() {
         return modifiedData;
     }
 
-    public void setModifiedData(String modifiedData) {
+    public void setModifiedData(LocalDate modifiedData) {
         this.modifiedData = modifiedData;
     }
 
-    public String getCreatedDate() {
+    public LocalDate getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(String createdDate) {
+    public void setCreatedDate(LocalDate createdDate) {
         this.createdDate = createdDate;
     }
 }

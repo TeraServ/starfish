@@ -7,26 +7,43 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  userType:boolean[]=[]
+  userType: boolean[] = []
   currentUserValue(): string {
-     return localStorage.getItem("currentUser")!;
+    return localStorage.getItem("currentUser")!;
   }
 
+
+  getUserId(){
+    return 121;
+
+  }
+ 
+
   isLoggedIn() {
-    if(localStorage.getItem("currentUser") != null){
+    if (localStorage.getItem("currentUser") != null) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
-
-  url:string = "http://localhost:8080/api/auth/";
-  constructor(private httpClient:HttpClient) { }
-
-  userLogin(user:any):Observable<any>{
-    return this.httpClient.post(this.url+"login",user);
+  isTokenExpired(){
+    
+    const expiry = 12;
+    if(expiry * 1000 > Date.now()){
+      this.logout()
+    }
+    else{
+      
+    }
   }
-  logout(){
+
+  url: string = "http://localhost:8080/api/auth/";
+  constructor(private httpClient: HttpClient) { }
+
+  userLogin(user: any): Observable<any> {
+    return this.httpClient.post(this.url + "login", user);
+  }
+  logout() {
     localStorage.removeItem("currentUser");
   }
   getCurrentUserDetails(){
@@ -34,35 +51,35 @@ export class AuthService {
     return user;
   }
 
-  getUserTypes(){
+  getUserTypes() {
     let user = JSON.parse(localStorage.getItem('currentUser')!).message.authorities[0].authority
+    this.userType[0] = true;
+    if (user == "ROLE_ADMIN") {
+      this.userType[1] = true;
+      this.userType[2] = true;
+      this.userType[3] = true;
+      this.userType[4] = true;
+
+    } else if (user == "ROLE_STUDENT") {
+      this.userType[1] = false;
+      this.userType[2] = false;
+      this.userType[3] = false;
+      this.userType[4] = true;
+
+    } else if (user == "ROLE_FACULTY") {
+      this.userType[1] = true;
+      this.userType[2] = false;
+      this.userType[3] = true;
+      this.userType[4] = true;
+
+    } else {
       this.userType[0] = true;
-      if(user == "ROLE_ADMIN"){
-        this.userType[1] = true;
-        this.userType[2] = true;
-        this.userType[3] = true;
-        this.userType[4] = true;
-       
-      }else if(user == "ROLE_STUDENT"){
-        this.userType[1] = false;
-        this.userType[2] = false;
-        this.userType[3] = false;
-        this.userType[4] = true;
-      
-      }else if(user == "ROLE_FACULTY"){
-        this.userType[1] = true;
-        this.userType[2] = false;
-        this.userType[3] = true;
-        this.userType[4] = true;
-       
-      }else{
-        this.userType[0] = true;
-      }
-  
-      return this.userType;
-  }
+    }
 
-  isTokenExpired(){
-
+    return this.userType;
   }
+  getUserEmail(){
+    return JSON.parse(localStorage.getItem('currentUser')!).message.username;
+  }
+ 
 }

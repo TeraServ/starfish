@@ -74,6 +74,25 @@ body {
     background-color: #f1f3fc;
     border-radius: 5px;
   }
+
+     #collapseExample3 li .active{
+         color: #2C45A7 !important;
+         box-shadow: none;
+         background-color: #f1f3fc;
+         border-radius: 5px;
+       }
+       #collapseExample4 li{
+         padding: 10px 60px !important;
+         background-color: #f1f3fc;
+         border-radius: 5px;
+       }
+       #collapseExample4 li .active{
+         color: #2C45A7 !important;
+         box-shadow: none;
+         background-color: #f1f3fc;
+         border-radius: 5px;
+       }
+
   #sideMenuCloseButton{
     border: none;
     background-color: white;
@@ -84,12 +103,12 @@ body {
     justify-content: space-between;
     
   }
-  #collapseExample3 li .active{
-    color: #2C45A7 !important;
-    box-shadow: none;
-    background-color: #f1f3fc;
-    border-radius: 5px;
-  }
+  // #collapseExample3 li .active{
+  //   color: #2C45A7 !important;
+  //   box-shadow: none;
+  //   background-color: #f1f3fc;
+  //   border-radius: 5px;
+  // }
   /* Sidebar */
   .sidebar {
     position: fixed;

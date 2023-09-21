@@ -13,6 +13,8 @@ import { UserProfileComponent } from './settings/user-profile/user-profile.compo
 import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/bulk-user-creation.component';
 import { CourseComponent } from './courses/course/course.component';
 import { EditCourseComponent } from './courses/edit-course/edit-course.component';
+import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
+import { QuizComponent } from './quizes/quiz/quiz.component';
 
 
 
@@ -74,7 +76,16 @@ const routes: Routes = [
         path:"courses/edit",
         component:EditCourseComponent,
         title:"Edit Course"
+      },
+      {
+        path:"quizes/quiz",
+        component: QuizComponent
+      },
+      {
+        path:"quizes/quiz/edit",
+        component: EditQuizComponent
       }
+
   ]
  }
 ];

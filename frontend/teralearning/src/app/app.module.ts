@@ -28,6 +28,8 @@ import { NewUserComponent } from './new-user/new-user.component';
 
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -44,7 +46,7 @@ import { MatOptionModule } from '@angular/material/core';
     PasswordResetComponent,
     TopicComponent,
     CreateCoursesComponent,
-    NewUserComponent
+    NewUserComponent,
  
    
   ],
@@ -55,11 +57,13 @@ import { MatOptionModule } from '@angular/material/core';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserAnimationsModule,
     MaterialModule,
     GooglePayButtonModule,
     MatInputModule,
-    MatOptionModule
+    MatOptionModule,
+    MatIconModule,
+    MatFormFieldModule,
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },

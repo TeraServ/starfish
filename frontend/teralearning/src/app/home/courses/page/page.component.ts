@@ -18,7 +18,8 @@ export class PageComponent implements OnInit {
     this.pageForm = this.formBuilder.group({
       id:[0],
       title:['',Validators.required],
-      body:['',Validators.required]
+      body:['',Validators.required],
+      readTime:[60]
     })
     if(this.data != null){
       console.log(this.data)
@@ -31,8 +32,8 @@ export class PageComponent implements OnInit {
   editorConfig: AngularEditorConfig = {
     editable: true,
       spellcheck: true,
-      height: 'auto',
-      minHeight: '100',
+      height: '16rem',
+      minHeight: '5rem',
       maxHeight: 'auto',
       width: 'auto',
       minWidth: '0',

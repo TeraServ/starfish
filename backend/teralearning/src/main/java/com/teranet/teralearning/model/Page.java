@@ -17,13 +17,25 @@ public class Page {
     @Column(name = "body")
     private String body;
 
+    @Column(name = "readTime")
+    private long readTime;
+
     public Page(){
 
     }
-    public Page(long id, String title, String body) {
+    public Page(long id, String title, String body,long readTime) {
         Id = id;
         this.title = title;
         this.body = body;
+        this.readTime = readTime;
+    }
+
+    public long getReadTime() {
+        return readTime;
+    }
+
+    public void setReadTime(long readTime) {
+        this.readTime = readTime;
     }
 
     public long getId() {

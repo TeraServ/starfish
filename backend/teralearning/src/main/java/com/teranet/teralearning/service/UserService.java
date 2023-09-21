@@ -23,8 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.teranet.teralearning.dto.userResponseDTO;
 import com.teranet.teralearning.exception.UserNotFoundException;
-import org.springframework.web.multipart.MultipartFile;
-
+import reactor.core.publisher.Flux;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -32,6 +31,7 @@ import java.time.Period;
 import java.util.*;
 
 import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 
 @Service
@@ -69,6 +69,7 @@ public class UserService extends UserInterface {
     public ResponseEntity CreateUser(User user){
 
         Optional<User> u = userRepository.findByEmail(user.getEmail());
+        System.out.println("user body:" + user);
         if(u.isPresent()){
             return new ResponseEntity(InternalStandardError.USER_ALREADY_EXIST.getErrorMessage(),InternalStandardError.USER_ALREADY_EXIST.getHttpStatus());
 
@@ -82,9 +83,9 @@ public class UserService extends UserInterface {
             addToken(user,token);
             /*sendWelcomeMail(user,token);*/
             return new ResponseEntity(userRepository.save(user), HttpStatus.OK);
-            }
 
 
+        }
     }
     private LocalDateTime getDate(){
         //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
@@ -118,6 +119,7 @@ public class UserService extends UserInterface {
                 return new ResponseEntity("Access denied!",HttpStatus.NOT_FOUND);
             }
             if(bCryptPasswordEncoder.matches(password,user.get().getPassword())){
+                log.info(jwtUtil.generateToken(username));
 
                 return new ResponseEntity(getJson(userDetailsService.loadUserByUsername(user.get().getEmail()),InternalStandardError.LOGIN_SUCCESSFULLY.getErrorMessage(), jwtUtil.generateToken(username),user.get()),InternalStandardError.LOGIN_SUCCESSFULLY.getHttpStatus());
             }else{
@@ -132,7 +134,13 @@ public class UserService extends UserInterface {
 
         return new ResponseEntity(userRepository.findAll(), HttpStatus.OK);
     }
-
+    public Flux<User> loadAllUserStream(){
+        long start = System.currentTimeMillis();
+        Flux<User> users = Flux.fromIterable(userRepository.findAll());
+        long end = System.currentTimeMillis();
+        System.out.println("Total Execution time:"+(end-start));
+        return users;
+    }
 
     @Override
     public Optional<User> getUserById(long id){
@@ -351,7 +359,8 @@ public class UserService extends UserInterface {
             ex.printStackTrace();
         }
     }
-    public boolean isPasswordStrong(String password){
+    public boolean
+    isPasswordStrong(String password){
         return password.length() > 6
                 && password.matches(".*//d.*")
                 && password.matches(".*[a-z].*")

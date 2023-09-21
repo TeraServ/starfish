@@ -24,8 +24,8 @@ public enum InternalStandardError {
     USER_NOT_FOUND("User Not Found!","M024",HttpStatus.NOT_FOUND);
 
 
-    private String errorMessage;
-    private String logCode;
-    private HttpStatus httpStatus;
+    private final String errorMessage;
+    private final String logCode;
+    private final HttpStatus httpStatus;
 
 }

@@ -15,8 +15,7 @@ import { user } from 'src/model/user.model';
 })
 export class UserRegistrationComponent implements OnInit {
 
-  constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar,private dialog:MatDialog,private streamService:StreamService) { }
-  userForm!:FormGroup;
+  constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar,private dialog:MatDialog,private streamService:StreamService) { }    userForm!:FormGroup;
   submitted:boolean = false;
   streamList:Stream[]=[]
 
@@ -36,10 +35,11 @@ export class UserRegistrationComponent implements OnInit {
   }
 
   getAllStreams(){
-    this.streamService.getStreamList().subscribe(data=>{
-      this.streamList = data;
-    })
-  }
+       this.streamService.getStreamList().subscribe(data=>{
+         this.streamList = data;
+        })
+       }
+
   get f(){return this.userForm.controls}
   createUser(){
     this.submitted = true;

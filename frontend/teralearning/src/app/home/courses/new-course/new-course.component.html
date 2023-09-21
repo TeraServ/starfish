@@ -13,7 +13,7 @@
             <div class="col">
                 <label for="">Stream</label>
                 <select name="stream" (change)="getSubjectByStream()" formControlName="stream">
-                    <option value="" selected>--Please Select--</option>
+                    <option [ngValue]="f.stream.value" selected>{{f.stream.value != "" ? f.stream.value?.streamName: "--Please Select--"}}</option>
                     <option  *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
                 </select>
                 
@@ -24,8 +24,8 @@
     
             <div class="col">
                 <label for=""> Subject</label>
-                <select name="" id="" formControlName="subject">
-                    <option value="" selected>--Please Select--</option>
+                <select name="subject" id="" formControlName="subject" (change)="getTopicBySubject()">
+                    <option [ngValue]="f.subject.value" selected>{{f.subject.value != "" ? f.subject.value?.subjectName: "--Please Select--"}}</option>
                     <option  *ngFor="let e of subjectList" [ngValue]="e">{{subjectList.length != 0 ? e.subjectName :'No data'}}</option>
                 </select> 
                 <div *ngIf="submitted && f.subject.errors?.required" class="invalid-feedback"> 
@@ -35,9 +35,9 @@
     
             <div class="col">
                 <label for="">Topic</label>
-                <select name="" id="" formControlName="topic">
-                    <option value="">--Please Select--</option>
-                    <option value="sample_topic">Topic Name</option>
+                <select name="topic" id="" formControlName="topic">
+                    <option [ngValue]="f.topic.value" selected>{{f.topic.value != "" ? f.topic.value?.topicName: "--Please Select--"}}</option>
+                    <option  *ngFor="let e of topic" [ngValue]="e">{{e?.topicName}}</option>
                 </select>
                 <div *ngIf="submitted && f.topic.errors?.required" class="invalid-feedback"> 
                     *Required

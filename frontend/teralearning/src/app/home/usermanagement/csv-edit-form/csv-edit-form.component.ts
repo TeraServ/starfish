@@ -1,7 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
+import { StreamValidator } from 'src/app/custom-validators/stream-validator';
+
+
+import { SnackbarNotificationService } from 'src/app/service/snackbar-notification.service';
+import { StreamService } from 'src/app/service/stream.service';
 import { CSVRecord } from 'src/model/csvrecord.model';
 
 
@@ -20,12 +24,14 @@ export class CsvEditFormComponent implements OnInit {
   dataSource:MatTableDataSource<any> = new MatTableDataSource();
   constructor( 
     private formBuilder: FormBuilder,
-    public snackbar: MatSnackBar) {
+    public snackbar: SnackbarNotificationService,
+    private _streamService: StreamService) {
       this.buildForm();
       }
       ngOnInit(){
         
-        this.loadInvalidData()
+        this.loadInvalidData();
+        // console.log(this.csvTableForm)
        
       }
   buildForm(){
@@ -38,15 +44,15 @@ export class CsvEditFormComponent implements OnInit {
     this.invalidData.forEach((data)=>{
       const row = this.formBuilder.group({
         firstName: [data.firstName,Validators.required],
-        lastName: [data.lastName],
+        lastName: [data.lastName,Validators.required],
         phoneNumber: [data.phoneNumber, Validators.pattern('[0-9]{11}')],
         email: [data.email,Validators.email],
-        stream: [data.streamAcronym, Validators.pattern('[A-Za-z]{3}')],
+        stream: [data.streamAcronym,StreamValidator.acronym(this._streamService.getStreamAcronym())],
         checkers: [data.checkerFlags]
       });
       (this.csvTableForm.get('rows') as FormArray).push(row);
     });
-    console.log(this.dataSource)
+    // console.log(this.dataSource)
   }
 
 
@@ -54,7 +60,7 @@ export class CsvEditFormComponent implements OnInit {
     return this.csvTableForm.get('rows') as FormArray;
   }
   onDelete(record:any, uq?:string){
-    let uniqueField: string = uq === '' ? record.email : record.uq ; 
+    // let uniqueField: string = uq === '' ? record.email : record.uq ; 
     let index = this.invalidData.indexOf(record) ; 
     // const index = this.invalidData.findIndex(x=>x.email === uniqueField);
     if(index==(-1)){
@@ -63,9 +69,7 @@ export class CsvEditFormComponent implements OnInit {
     else{
       this.invalidData.splice(index,1);
       console.log('Record Deleted',record);
-      this.snackbar.open('Record Deleted Successfully', 'Close', {
-        duration: 3000,
-      });
+      this.snackbar.warning('Record Deleted Successfully');
     }
   }
 
@@ -77,9 +81,7 @@ export class CsvEditFormComponent implements OnInit {
     this.onDelete(formValues.rows[index], uniqValue );
     this.rows.removeAt(index);
     this.updateTable();
-    this.snackbar.open('Row Removed', 'Close', {
-          duration: 3000,
-        });
+    this.snackbar.warning('Row Removed');
   }
 
 addNewRow() {
@@ -88,14 +90,12 @@ addNewRow() {
     lastName: [''],
     phoneNumber: [''],
     email: ['',{Validators:[Validators.required,Validators.email]}],
-    stream: [''],
+    stream: ['',StreamValidator.acronym(this._streamService.getStreamAcronym())],
     checkers:new Array <boolean> (false,false,false,false)
   });
   this.rows.push(newRow);
   this.updateTable();
-  this.snackbar.open('Row Added', 'Close', {
-    duration: 3000,
-  });
+  this.snackbar.success('Row Added');
 
 
 }
@@ -103,14 +103,12 @@ addNewRow() {
 
 
 submitForm() {
-  console.log('Emit Data:',this.csvTableForm.value)
-
-  this.emitData(this.csvTableForm.value.rows);
+  
   if(this.csvTableForm.valid){
-    console.log(this.csvTableForm.value.rows);
+    console.log('Emit Data:',this.csvTableForm.value.rows)
+    this.emitData(this.csvTableForm.value.rows);
   }else{
-    this.snackbar.open('Invalid Submission', 'Close', {
-           duration: 3000,});
+    this.snackbar.warning('Invalid Submission');
   }
   
   // if (this.csvTableForm.valid && this.invalidData.length==0) {

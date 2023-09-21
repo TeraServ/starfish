@@ -14,9 +14,8 @@ public class Topic {
     private long Id;
 
 
-
     @OneToOne(targetEntity = Subject.class)
-    private String subjectName;
+    private Subject subject;
 
     @Column(name = "topic_name")
     private String topicName;
@@ -28,16 +27,17 @@ public class Topic {
     private LocalDateTime modifiedDate;
 
     @Column(name = "created_by")
-    private String createdBy;
+    private long createdBy;
 
     @Column(name = "modified_by")
     private String modifiedBy;
 
     public Topic(){}
 
-    public Topic(long id, String subjectName, String topicName, LocalDateTime createdDate, LocalDateTime modifiedDate, String createdBy, String modifiedBy) {
+
+    public Topic(long id, Subject subject, String topicName, LocalDateTime createdDate, LocalDateTime modifiedDate, long createdBy, String modifiedBy) {
         Id = id;
-        this.subjectName = subjectName;
+        this.subject = subject;
         this.topicName = topicName;
         this.createdDate = createdDate;
         this.modifiedDate = modifiedDate;
@@ -53,14 +53,13 @@ public class Topic {
         Id = id;
     }
 
-
-
-    public String getSubjectName() {
-        return subjectName;
+    public Subject getSubject() {
+        return subject;
     }
 
-    public void setSubjectName(String subjectName) {
-        this.subjectName = subjectName;
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+
     }
 
     public String getTopicName() {
@@ -87,11 +86,11 @@ public class Topic {
         this.modifiedDate = modifiedDate;
     }
 
-    public String getCreatedBy() {
+    public long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(long createdBy) {
         this.createdBy = createdBy;
     }
 
