@@ -1,0 +1,48 @@
+select,input{
+    padding: 10px 14px;
+    border: none;
+    box-shadow:  0px 3px 5px #ddd;
+    width: 100%;
+    margin: 5px;
+    outline-color: #2C45A7;
+    border-radius: 5px;
+}
+.anchor-tag{
+    font-size: larger bold;
+    color: #2C45A7;
+
+}
+#top-bar{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.chapter-con{
+    height: auto;
+    width: 100%;
+    margin: 5px;
+    padding: 5px;
+    box-shadow: 0px 1px 7px #ddd;
+}
+.btn-course{
+    padding: 8px 12px;
+    border: none;
+    width: 100px;
+    border-radius: 5px;
+    margin: 5px;
+    justify-content: space-between;
+    background-color: #2C45A7;
+    color: #fff;
+    box-shadow: 0px 3px 5px #ddd;
+}
+.path{
+    padding: 10px 12px;
+    margin-top: 5px;
+}
+.div-row-flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}

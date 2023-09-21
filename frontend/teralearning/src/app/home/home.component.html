@@ -85,7 +85,10 @@
                  class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active"
                  ><i class="fas fa-lock fa-fw me-3"></i><span>Onboarding</span></a
                 > -->
-      
+                <a  *ngIf="userType[2]" href="#" #streamTab routerLink="/home/courses" routerLinkActive="active"
+                class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
+                <i class='fas fa-chalkboard-teacher'></i> &nbsp;&nbsp;&nbsp;&nbsp;<span>Courses</span>
+                </a>
       
               <a *ngIf="userType[4]" routerLink="/home/settings" routerLinkActive="active" onclick="changeTab(this.location.href)"
                 href="/home/settings" class="list-group-item list-group-item-action py-2 ripple"><i
@@ -109,7 +112,7 @@
          
          
         </button>
-        <button type="button" class="menu-bar" mat-button (click)="drawer.toggle()">
+        <button type="button" class="menu-bar"  (click)="drawer.toggle()">
           <i class="fas fa-bars"></i>
         </button>
         <!-- Brand -->
@@ -205,13 +208,13 @@
 <!--Main layout-->
 
  <main>
-  <router-outlet></router-outlet>
+ 
 
  </main>
 <!--Main layout-->
 
 <div class="example-sidenav-content">
-
+  <router-outlet></router-outlet>
 </div>
 
 </mat-drawer-container>

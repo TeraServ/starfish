@@ -1,0 +1,50 @@
+input{
+    padding: 10px 14px;
+    border: none;
+    box-shadow:  0px 3px 5px #ddd;
+    width: 100%;
+    margin: 5px;
+    outline-color: #2C45A7;
+    border-radius: 5px;
+}
+.btn-course{
+    padding: 8px 12px;
+    border: none;
+    width: 100px;
+    border-radius: 5px;
+    margin: 5px;
+    justify-content: space-between;
+    background-color: #2C45A7;
+    color: #fff;
+    margin: auto;
+    align-self: flex-end;
+    box-shadow: 0px 3px 5px #ddd;
+}
+.angular-editor-textarea,.angular-editor-wrapper{
+  height: 400px !important;
+}
+.close-button{
+    float: right;
+    top:-24px;
+    right:-24px;
+    background-color: transparent;
+    border-color: transparent;
+  }
+  .close-icon {
+      transition: 1s ease-in-out;
+     
+      
+    }
+    
+    .close-icon:hover {
+      transform: rotate(180deg);
+    }
+    
+    ::ng-deep .icon-outside .close-button{
+      float: right;
+      top:-52px;
+      right:-52px;
+    }
+    ::ng-deep .icon-outside .mat-dialog-container {
+     overflow: unset
+    }

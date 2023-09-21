@@ -1,0 +1,144 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.btn-course{
+    padding: 5px 14px;
+    border: none;
+    box-shadow: 0px 3px 5px #2C45A7;
+    background-color: #2C45A7;
+    color: white;
+}
+.top-bar{
+    
+    display: flex;
+    position: sticky;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50px;
+    overflow: hidden;
+}
+.course-view{
+    flex-direction: row;
+    display: flex;
+    justify-content: space-around;
+}
+#main-course-body{
+    overflow: hidden;
+    margin: 10px;
+   
+   
+}
+#searchBar{
+    padding: 10px 12px;
+    margin: 5px;
+    width: 250px;
+    border-radius: 5px;
+    outline-color: #2C45A7;
+    border: none;
+    box-shadow: 0px 2px 5px #ddd;
+}
+.course-con{
+    width:300px;
+    height: 320px;
+    overflow: hidden;
+    margin: 5px;
+    box-shadow: 0px 2px 8px #ddd; 
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+// .course-con :hover{
+//     .light-btn{
+
+//         display: block;
+//     }
+    
+// }
+.filtered-search-box{
+    height: 80px;
+    width: 95%;
+    padding: 10px;
+    margin: auto;
+    box-shadow: 0px 1px 8px #b1bce4;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    overflow: hidden;
+    align-items: center;
+}
+.filtered-search-box div{
+    width: 100px;
+}
+.radio-btn-con{
+    padding: 10px;
+    margin-left: 50px;
+
+}
+label{
+    color: #000;
+}
+.filter-dropdown{
+    min-width: 200px;
+    max-width: 100%;
+    padding: 10px 12px;
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: 0px 2px 5px #ddd;
+    border: none;
+}
+.con-top-buttons{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+.mat-icon{
+    color: #2C45A7;
+}
+.light-btn{
+    border: none;
+    height: fit-content;
+    background-color: #b0c0fc;
+    color: #2C45A7;
+    box-shadow: 0px 3px 5px #b0c0fc;
+    border-radius: 2px;
+    padding: 8px 12px;
+    margin: 5px;
+    border-width: .5px;
+
+}
+.cover-body{
+    overflow: hidden;
+    height: 70%;
+    background-size: cover;
+}
+.btm-body{
+   
+    height: 40%;
+    color: #000;
+    display: flex;
+    overflow: hidden;
+    z-index: -100;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+    box-shadow: 0px -4px 4px #ddd;
+    
+}
+.cover-img{
+    width: 100%;
+    background-size: cover;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: #2C45A7 !important;
+  }
+  
+  ::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: #2C45A7 !important;   /*inner circle color change*/
+  }
+  
+  ::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+   border-color:#2C45A7 !important; /*outer ring color change*/
+  }

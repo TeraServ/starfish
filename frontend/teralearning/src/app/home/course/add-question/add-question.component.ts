@@ -14,7 +14,6 @@ import { QuestionService } from 'src/app/service/question.service';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { Router } from '@angular/router';
 import { Quiz } from 'src/app/models/quiz.model';
-import { topic } from 'src/model/topic.model';
 
   
 interface QuestionTypeDropDown{

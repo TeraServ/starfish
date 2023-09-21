@@ -65,6 +65,12 @@ public class SubjectService implements SubjectInterface{
         }
 
     }
+
+    public ResponseEntity getSubjectByStream(long streamId){
+
+
+        return new ResponseEntity(subjectRepository.findSubjectByStream(streamId),HttpStatus.OK);
+    }
     public ResponseEntity deleteSubjectById(long id){
         if(subjectRepository.existsById(id)){
             subjectRepository.deleteById(id);
@@ -75,8 +81,5 @@ public class SubjectService implements SubjectInterface{
         }
     }
 
-    public ResponseEntity getSubjectByStream(long streamId){
 
-        return new ResponseEntity(subjectRepository.findSubjectByStream(streamId),HttpStatus.OK);
-    }
 }

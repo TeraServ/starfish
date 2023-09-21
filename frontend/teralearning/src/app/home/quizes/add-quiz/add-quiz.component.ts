@@ -11,7 +11,8 @@ import { TopicService } from 'src/app/service/topic.service';
 import { quiz } from 'src/model/quiz.model';
 import { Stream } from 'src/model/stream.model';
 import { Subject } from 'src/model/subject.model';
-import { topic } from 'src/model/topic.model';
+import { Topic } from 'src/model/topic.model';
+
 
 @Component({
   selector: 'app-add-quiz',
@@ -25,14 +26,14 @@ export class AddQuizComponent implements OnInit {
   streamList: Stream[] = [];
   subjectList: Subject[] = [];
   FilteredsubjectList: Subject[] = [];
-  FilteredtopicList: topic[] = [];
-  topicList: topic[] = [];
+  FilteredtopicList: Topic[] = [];
+  topicList: Topic[] = [];
   submitted: boolean = false;
   id!: number;
   stream!: Stream;
   subject: Subject = new Subject();
   quiz: quiz = new quiz();
-  topic!: topic;
+  topic!: Topic;
   quizName!: string;
   defaultChecker: boolean = true;
 

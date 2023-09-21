@@ -39,15 +39,24 @@ import { BulkUserCreationComponent } from './usermanagement/bulk-user-creation/b
 import { CSVHandlerService } from '../core/services/csvhandler.service';
 import { MaterialModule } from '../shared/material/material.module';
 import { CsvEditFormComponent } from './usermanagement/csv-edit-form/csv-edit-form.component';
-import { AddQuizComponent } from './quizes/add-quiz/add-quiz.component';
-import { QuizComponent } from './quizes/quiz/quiz.component';
-import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { CourseComponent } from './courses/course/course.component';
+
+import { NewCourseComponent } from './courses/new-course/new-course.component';
+import { EditCourseComponent } from './courses/edit-course/edit-course.component';
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { PageComponent } from './courses/page/page.component';
+import { ChapterComponent } from './courses/chapter/chapter.component';
 import { MatButtonModule } from '@angular/material/button';
-import { AddQuestionComponent } from './course/add-question/add-question.component';
-import { PreviewQuestionComponent } from './course/preview-question/preview-question.component';
+import { MatMenuModule } from '@angular/material/menu'
+import {DragDropModule} from '@angular/cdk/drag-drop';
 import { DeleteDialogComponent } from '../dialogBoxs/delete-dialog/delete-dialog.component';
 import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialog/delete-message-dialog.component';
+import { AddQuestionComponent } from './course/add-question/add-question.component';
+import { PreviewQuestionComponent } from './course/preview-question/preview-question.component';
+import { AddQuizComponent } from './quizes/add-quiz/add-quiz.component';
+import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
+import { QuizComponent } from './quizes/quiz/quiz.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 @NgModule({
   declarations: [
@@ -68,6 +77,11 @@ import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
     StreamEditComponent,
     StreamListComponent,
     SubjectEditComponent,
+    CourseComponent,
+    NewCourseComponent,
+    EditCourseComponent,
+    PageComponent,
+    ChapterComponent,
     AddQuizComponent,
     QuizComponent,
     EditQuizComponent,    
@@ -99,7 +113,11 @@ import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
     MatSidenavModule,
     MatSidenavModule,
     MaterialModule,
+    AngularEditorModule,
+    MatMenuModule,
     MatButtonModule,
+    MatProgressBarModule,
+    DragDropModule,
     MatTooltipModule
 
   ],

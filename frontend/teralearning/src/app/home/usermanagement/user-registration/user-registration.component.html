@@ -36,10 +36,15 @@
             <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
             <select name="stream" class="form-control-input" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
                 <option value="" selected> Select </option>
+<<<<<<< HEAD
+                <option *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
+                
+=======
                 <option >Computer Engineering</option>
                 <option >Mechanical Engineering</option>
                 <option >Electrical Engineering</option>
                 <option *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
+>>>>>>> 606a1e12268caf818ffe10b218e5de2089cf308a
             </select>
             <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
                 *Required
@@ -65,6 +70,6 @@
     </div>
     <br>
     <div class="row">
-        <input type="submit" value="Submit" class="btn-submit" id="submitButton">
+        <input type="submit" value="Submit" class="btn-submit">
     </div>
 </form>
