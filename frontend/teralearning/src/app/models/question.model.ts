@@ -1,3 +1,4 @@
+import { quiz } from "src/model/quiz.model";
 import { QuestionOption } from "./question.option.model";
 import {QuestionType} from './questionDetailEnum';
 import { Quiz } from "./quiz.model";
@@ -5,7 +6,7 @@ import { Quiz } from "./quiz.model";
 
 export interface Question {
     id?:number;
-    quiz?:Quiz; 
+    quiz?:quiz; 
     topic?:number;
     questionType: QuestionType;
     questionText: string;

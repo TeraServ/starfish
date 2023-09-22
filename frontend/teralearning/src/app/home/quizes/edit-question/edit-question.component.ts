@@ -15,6 +15,7 @@ import { AddQuestionComponent } from '../../course/add-question/add-question.com
 import { MatIconModule } from '@angular/material/icon';
 import { Quiz } from 'src/app/models/quiz.model';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
+import { quiz } from 'src/model/quiz.model';
 
 
 
@@ -52,7 +53,7 @@ export const PLACEHOLDERS = {
 })
 export class EditQuestionComponent implements OnInit {
 
-  @Input() editQuiz: Quiz = {} as Quiz;
+  @Input() editQuiz!: quiz;
   @Input() editQuestion!: Question;
 
 
@@ -333,7 +334,7 @@ export class EditQuestionComponent implements OnInit {
       explanation: this.editQuestionForm.get('answerExplanation')?.value,
       questionType: questionType,
       maximumSelectionAllowed: MaximumOptionSelection.singleAnswer,
-      quiz: this.editQuiz,
+      quiz:this.editQuiz,
       creator: this._authService.getCurrentUserDetails().id,
       modifier: this._authService.getCurrentUserDetails().id,
       createdDate: '',

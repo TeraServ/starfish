@@ -44,7 +44,7 @@ export class QuestionService {
     });
   }
 
-  addNewQuestion(newQuestion: any): Observable<any> {
+  addNewQuestion(newQuestion: Question): Observable<any> {
     return this.httpClient.post(this.baseURL + "addQuestion", newQuestion);
   }
 

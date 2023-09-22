@@ -23,17 +23,18 @@
     </div>
     <div class="row">
         <div class="col-sm-6 offset-3">
-          <div *ngIf="invalidData.length  || duplicateEntry">
-              <b>Please validate the following errors</b>  <br>
-              Invalid Entry: {{this.invalidData.length}}<br>
-          </div>
+       
           <div *ngIf = "validatedData.length">
             Valid Entry: {{this.validatedData.length}}
+            <div *ngIf="invalidData.length  || duplicateEntry">
+                <b>Please validate the following errors</b>  <br>
+                Invalid Entry: {{this.invalidData.length}}<br>
+            </div>
           </div>
           <table class="table" *ngIf="invalidData.length || validatedData.length; else elseBlock">
  
                     <td>
-                        <app-csv-edit-form [invalidData] = "this.invalidData" (editedDataEmitter)="onDataEmitted($event)"></app-csv-edit-form>
+                        <app-csv-edit-form [invalidData] = "this.displayData" (editedDataEmitter)="onDataEmitted($event)" (submissionEmitter)="onSubmitClicked($event)"></app-csv-edit-form>
                     </td>
 
                   

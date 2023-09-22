@@ -7,7 +7,6 @@ export interface QuestionOption {
     optionId?: number;
     text?: DisplayText;
     correct: boolean;
-   
     value?: Mark;
     answer?: Answers;
     selected?: boolean;

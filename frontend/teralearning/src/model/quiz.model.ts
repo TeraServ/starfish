@@ -1,3 +1,4 @@
+import { Question } from "src/app/models/question.model";
 import { Stream } from "./stream.model";
 import { Subject } from "./subject.model";
 import { Topic } from "./topic.model";
@@ -12,6 +13,7 @@ export class quiz {
     modifier!:number;
     TotalNoOfQuestion?:number | any;
     allowRetake!:boolean;
+    questions?: Question[];
 
 
 }

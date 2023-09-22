@@ -71,6 +71,9 @@ public class SubjectService implements SubjectInterface{
 
         return new ResponseEntity(subjectRepository.findSubjectByStream(streamId),HttpStatus.OK);
     }
+    public ResponseEntity getSubjectById(long subjectId){
+        return new ResponseEntity(subjectRepository.findById(subjectId).isPresent() ? subjectRepository.findById(subjectId).get() : "Subject not found",HttpStatus.OK);
+    }
     public ResponseEntity deleteSubjectById(long id){
         if(subjectRepository.existsById(id)){
             subjectRepository.deleteById(id);

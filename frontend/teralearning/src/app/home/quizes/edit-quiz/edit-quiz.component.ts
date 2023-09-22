@@ -176,12 +176,12 @@ export class EditQuizComponent implements OnInit {
 
     this.topicService.getFilteredTopic(this.UpdatedSubjectId).subscribe((data) => {
       this.FilteredtopicList = data;
-      console.log("topiclist", data)
+
     })
 
   }
   AddaQuestion() {
-    this.dialog.open(AddQuestionComponent);
+    this.dialog.open(AddQuestionComponent,{data:this.EditQuiz});
   }
 
   valuechange(newValue: any) {

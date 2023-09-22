@@ -43,6 +43,10 @@ public class SubjectController {
 
         return subjectService.deleteSubjectById(id);
     }
+    @GetMapping("getSubject/{id}")
+    public ResponseEntity<Subject> getSubject(@PathVariable long id){
+        return subjectService.getSubjectById(id);
+    }
 
     @GetMapping("subjectbystream/{id}")
     public ResponseEntity getSubjectByStreamId(@PathVariable long id){

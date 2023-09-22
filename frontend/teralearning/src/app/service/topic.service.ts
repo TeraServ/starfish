@@ -24,4 +24,13 @@ export class TopicService {
   getTopicBySubject(id:any):Observable<any>{
     return this.httpClient.get(`${this.baseURL}`+'topicBySubject/'+id);
   }
+  createTopic(newTopic:Topic):Observable<any>{
+    return this.httpClient.post(`${this.baseURL}`+'new',newTopic);
+  }
+  updateTopic(updatedTopic:Topic):Observable<any>{
+    return this.httpClient.put<Topic>(`${this.baseURL}`+'update/'+updatedTopic.id,updatedTopic);
+  }
+  deleteTopic(deletedTopic:Topic):Observable<any>{
+    return this.httpClient.delete(`${this.baseURL}`+'delete/'+deletedTopic.id);
+  }
 }
