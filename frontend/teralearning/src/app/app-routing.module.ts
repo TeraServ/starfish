@@ -68,10 +68,10 @@ const routes: Routes = [
     path:"quizes/quiz/edit",
     component: EditQuizComponent
   },
-  {
-    path: "**",pathMatch:'full',
-    component: ResourceNotFoundComponent
-  }
+  // {
+  //   path: "**",pathMatch:'full',
+  //   component: ResourceNotFoundComponent
+  // }
 
 ];
 

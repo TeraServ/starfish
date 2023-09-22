@@ -32,6 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CacheResultPipe } from './pipes/cache-result.pipe';
 import { ResourceNotFoundComponent } from './resource-not-found/resource-not-found.component';
+import { EditQuestionComponent } from './home/quizes/edit-question/edit-question.component';
+import { CustomeArraySortPipe } from './custome-array-sort.pipe';
 
 
 
@@ -51,7 +53,8 @@ import { ResourceNotFoundComponent } from './resource-not-found/resource-not-fou
     NewUserComponent,
     PasswordResetComponent,
     CacheResultPipe,
-    ResourceNotFoundComponent
+    ResourceNotFoundComponent,
+    EditQuestionComponent
  
    
   ],
@@ -68,6 +71,7 @@ import { ResourceNotFoundComponent } from './resource-not-found/resource-not-fou
     MatOptionModule,
     MatIconModule,
     MatFormFieldModule,
+    
     
   ],
   providers: [

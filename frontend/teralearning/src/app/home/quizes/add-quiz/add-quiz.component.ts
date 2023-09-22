@@ -79,7 +79,7 @@ export class AddQuizComponent implements OnInit {
   }
   getTopicList() {
     this.topicService.getFilteredTopic(this.createQuizForm.get('subject')?.value.id).subscribe((data) => {
-      this.FilteredtopicList = data.body;
+      this.FilteredtopicList = data;
       console.log("topiclist", this.FilteredtopicList)
     })
 
