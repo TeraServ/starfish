@@ -5,6 +5,7 @@ import { DialogData } from 'src/model/dialog.model';
 import { DeleteMessageDialogComponent } from '../delete-message-dialog/delete-message-dialog.component';
 import { DialogRef } from '@angular/cdk/dialog';
 import { QuestionService } from 'src/app/service/question.service';
+import { Router } from '@angular/router';
 
 
 
@@ -19,7 +20,7 @@ export class DeleteDialogComponent implements OnInit {
   funId!:number
 
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>,private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private quizService: QuizService,private questionService:QuestionService) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private quizService: QuizService,private questionService:QuestionService,private router: Router) { }
 
   ngOnInit(): void {
    
@@ -44,7 +45,14 @@ export class DeleteDialogComponent implements OnInit {
           this.dialog.open(DeleteMessageDialogComponent, { data: { message: "Successfully deleted" } })
           this.dialogRef.close();
         },  
-        error: (e: any) => console.error(e)
+        error: (e: any) => {
+          console.error(e)
+          if(e.status ==200){
+            this.dialog.open(DeleteMessageDialogComponent, { data: { message: "Successfully deleted" } }).afterClosed().subscribe(data => {
+              this.dialogRef.close();
+            });
+          }
+        }
       });
 
 

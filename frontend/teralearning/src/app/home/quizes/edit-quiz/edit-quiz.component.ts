@@ -98,6 +98,7 @@ export class EditQuizComponent implements OnInit {
 
 
   getQuestion() {
+    console.log("QuizId",this.EditQuiz.id)
     this.questionService.getQuestionList(this.EditQuiz.id).subscribe(data => {
       this.questionList = data.body;
       console.log("questionList", this.questionList)
@@ -107,49 +108,24 @@ export class EditQuizComponent implements OnInit {
   }
 
 
-  dummyQuestionList: any[] = [{
-    question: 'What is an array? ',
-    answer: 'An array is a collection of objects of same data type.',
-    explain: 'An array in C is a fixed-size collection of similar data items stored in contiguous memory locations',
-    type: 'singleAnswer'
-  },
-  {
-    question: 'What is tuple? ',
-    option1: 'Tuple is one of 4 built-in data types in Python used to store collections of data',
-    option2: 'Pointers are one of the core components of the C programming language',
-    answer: 'Tuple is one of 4 built-in data types in Python used to store collections of data.',
-    explain: 'Tuple is one of 4 built-in data types in Python used to store collections of data',
-    type: 'multipleChoice'
-
-  },
-  {
-    question: 'What is List? ',
-    option1: 'List comprehension is a syntax construction',
-    option2: 'Pointers are one of the core components of the C programming language',
-    option3: 'List comprehension is a syntax construction to ease the creation of a list based on existing iterable.',
-    answer: 'List comprehension is a syntax construction.List comprehension is a syntax construction to ease the creation of a list based on existing iterable.',
-    explain: 'List is a syntax construction to ease the creation of a list based on existing iterable.',
-    type: 'multipleSelect'
-
-  }]
-
+  
   openDeleteDialog(id: any): void {
-    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+    this.dialog.open(DeleteDialogComponent, {
       data: { id: id, message: "Are you sure want to delete ", funId: 2 },
-    }).afterClosed().subscribe(data => {
-      // this.getQuiz()
+    }).afterClosed().subscribe(data => {    
+      this.getQuestion();
     });
 
 
 
   }
 
-  openEditQuestionDialog(question:Question) {
+  openEditQuestionDialog(question: Question) {
     console.log("questionEdit")
     this.dialog.open(EditQuestionComponent, {
       width: "800px",
       height: "500px",
-      data:question
+      data: question
 
     }).afterClosed().subscribe(data => {
       this.getQuestion();
@@ -200,7 +176,7 @@ export class EditQuizComponent implements OnInit {
 
     this.topicService.getFilteredTopic(this.UpdatedSubjectId).subscribe((data) => {
       this.FilteredtopicList = data;
-      console.log("topiclist", this.FilteredtopicList)
+
     })
 
   }

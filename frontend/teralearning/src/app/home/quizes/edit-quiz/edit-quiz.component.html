@@ -103,9 +103,9 @@
     <!-- <div>
       <button class="loginbtn btn">Update</button>
     </div> -->
-    <br><br>
+    <br>
     <hr width="100%">
-    <h1>Question List</h1>
+    <h1>Question List</h1><br>
 
     <body class="containerStyle">
 
@@ -130,8 +130,10 @@
                 <div [ngClass]="this.isActive[i] ? 'content-active' : 'content-inactive'">
                     <div *ngIf="question.questionType=='singleAnswer'">
                         <div *ngFor="let item of question.answers">
-                            <p><b>Answer:</b></p><div class="p" [innerHTML]="item.answer"></div>
-                            <p><b>Explanation:</b> </p><div class="p" [innerHTML]="question.explanation"></div>
+                            <p><b>Answer:</b></p>
+                            <div class="p" [innerHTML]="item.answer"></div>
+                            <p><b>Explanation:</b> </p>
+                            <div class="p" [innerHTML]="question.explanation"></div>
                         </div>
                     </div>
                     
