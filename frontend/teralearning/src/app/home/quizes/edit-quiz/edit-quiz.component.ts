@@ -181,7 +181,15 @@ export class EditQuizComponent implements OnInit {
 
   }
   AddaQuestion() {
-    this.dialog.open(AddQuestionComponent,{data:this.EditQuiz});
+    this.dialog.open(AddQuestionComponent,{
+      width: "800px",
+      height: "500px",
+      data: this.EditQuiz
+
+    }).afterClosed().subscribe(data => {    
+      this.getQuestion();
+    });
+
   }
 
   valuechange(newValue: any) {
