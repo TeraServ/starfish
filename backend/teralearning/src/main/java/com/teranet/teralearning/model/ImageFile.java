@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class ImageFile {
@@ -16,6 +17,7 @@ public class ImageFile {
     private String type;
 
     private String name;
+    @Lob
 
     private byte[] data;
 

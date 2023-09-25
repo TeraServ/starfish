@@ -19,7 +19,7 @@ public class Course {
     @Column(name = "course_name")
     private String courseName;
 
-    @Column(name = "description")
+    @Column(name = "description",length = 512)
     private String description;
 
     @Column(name = "created_by")
