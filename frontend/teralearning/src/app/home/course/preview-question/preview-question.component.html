@@ -8,9 +8,9 @@
     <div *ngIf="this.questionBody.questionType == 'singleAnswer'" >
         <div class="question-singleAnswer">
             <p><b>{{labels.questionType}}</b>{{labels.singleAnswer}}</p>
-            <p style="color: #0000ff"><b>{{labels.answerHeading}}</b></p>
+            <p style="color: #068637"><b>{{labels.answerHeading}}</b></p>
             <span *ngIf="this.questionBody.answers">
-                <div [innerHTML]="this.questionBody.answers[0].answer.value | safeHtml"></div>
+                <div [innerHTML]="this.questionBody.answers[0]?.answer | safeHtml"></div>
             </span>
         </div>
     </div>
@@ -29,7 +29,7 @@
         </div>
 
         <div class="question-answer">
-            <p style="color: #0000ff"><b>{{labels.answerHeading}}</b></p>
+            <p style="color: #068637"><b>{{labels.answerHeading}}</b></p>
             <div *ngFor="let mcqOption of this.questionBody.answers, let i = index">
                 <div *ngIf="mcqOption.correct">
                     <mat-form-field><input
@@ -61,7 +61,7 @@
    </div>
 
 <div class="question-explanation">
-    <p style="color: #0000ff;"><b>{{labels.answerExplanationHeading}}</b></p>
+    <p style="color: #2C45A7;;"><b>{{labels.answerExplanationHeading}}</b></p>
     <div [innerHTML]="this.questionBody.explanation | safeHtml"></div>
 </div>
 

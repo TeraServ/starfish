@@ -1,121 +1,109 @@
-<button  mat-icon-button class="close-button" [mat-dialog-close] = "true" s onclick="onClose()">
+<button mat-icon-button class="close-button" [mat-dialog-close]="true" s onclick="onClose()">
   <mat-icon class="close-icon" color="warn">close</mat-icon></button>
 <h1 mat-dialog-title><b>{{labels.pageTitle}}</b></h1>
 <mat-dialog-content>
 
 
-  <div *ngIf="!isSubmitted" class = "container">
-  <form [formGroup]="addQuestionForm" class="normal-form" autocomplete="off">
+  <div *ngIf="!isPreviewed" class="container">
+    <form [formGroup]="addQuestionForm" class="normal-form" autocomplete="off">
 
-    <!-- <mat-form-field> -->
-      <mat-label *ngIf="isSubmitted">{{labels.questionType}}</mat-label>
-        <mat-select  formControlName = "questionType" (selectionChange)="onQuestionTypeChange()" required>
-          <mat-label><b>{{labels.questionType}}</b></mat-label>
-          <ng-container  *ngFor = "let type of questionTypes" > 
-            <mat-option [value]="type.value" >{{type.viewValue}}</mat-option>
-          </ng-container>
-        </mat-select>
-          <div *ngIf="addQuestionForm.get('addQuestionForm')?.errors?.['required']">Question Type is required.</div>
-    <!-- </mat-form-field> -->
-    <br><br>
+      <!-- <mat-form-field> -->
+      <mat-label *ngIf="isPreviewed">{{labels.questionType}}</mat-label>
+      <mat-select formControlName="questionType" (selectionChange)="onQuestionTypeChange()" required>
+        <mat-label><b>{{labels.questionType}}</b></mat-label>
+        <ng-container *ngFor="let type of questionTypes">
+          <mat-option [value]="type.value">{{type.viewValue}}</mat-option>
+        </ng-container>
+      </mat-select>
+      <div *ngIf="addQuestionForm.get('addQuestionForm')?.errors?.['required']">Question Type is required.</div>
+      <!-- </mat-form-field> -->
+      <br><br>
 
 
-    <div class="form-element">
-      <mat-label><strong>{{labels.questionTitle}}</strong></mat-label>
-      <angular-editor formControlName = "questionText" placeholder = "{{placeholders.questionTextPlaceholder}}" [config] = "editorConfig"></angular-editor>
-      <div *ngIf ="addQuestionForm.get('questionText')?.hasError('!initialHtmlPattern')">
-        The input text is required
-      </div>
-    </div>
-    
-   
-    <br>
-    
-    <div *ngIf = "isSingleAnswerType">
       <div class="form-element">
-        <mat-label><strong>{{labels.answerTitle}}</strong></mat-label>
-          <angular-editor formControlName = "answer"  placeholder = "{{placeholders.answerTextPlaceholder}}" [config] = "editorConfig" label = "Answer"></angular-editor>
-          <div *ngIf ="addQuestionForm.get('answer')?.hasError('!initialHtmlPattern')">
+        <mat-label><strong>{{labels.questionTitle}}</strong></mat-label>
+        <angular-editor formControlName="questionText" placeholder="{{placeholders.questionTextPlaceholder}}"
+          [config]="editorConfig"></angular-editor>
+        <div *ngIf="addQuestionForm.get('questionText')?.hasError('!initialHtmlPattern')">
+          The input text is required
+        </div>
+      </div>
+
+
+      <br>
+
+      <div *ngIf="isSingleAnswerType">
+        <div class="form-element">
+          <mat-label><strong>{{labels.answerTitle}}</strong></mat-label>
+          <angular-editor formControlName="answer" placeholder="{{placeholders.answerTextPlaceholder}}"
+            [config]="editorConfig" label="Answer"></angular-editor>
+          <div *ngIf="addQuestionForm.get('answer')?.hasError('!initialHtmlPattern')">
             The answer text is required
           </div>
+        </div>
       </div>
-    </div>
 
-    <br>
+      <br>
 
-    <ng-template [ngIf]="isMultipleChoiceType">
-      <button class="btn btn-success px-2" (click)="addNewMCQOption()">{{labels.mcqTitle}}</button>
-      <ng-container *ngIf="hasMultipleChoice[0]">
-        <div formArrayName="mcqOptions" style="width: 100%;">
-          <div *ngFor="let optionCtrl of mcqOptions.controls; let i = index" [formGroupName]="i" >
-          <mat-radio-group
-          aria-label = "Write options for MCQ"
-          name="MCQOption"
-          (change)="radioButtonChange($event,i)"
-          >
-              <mat-radio-button
-              [aria-label] = "optionCtrl.get('optionText')?.value"
-              value="Option - {{i+1}}">
-              <mat-form-field>
-                <input 
-                type="text" 
-                (click)="checkMinimumMCQOptionCount()"
-                matInput placeholder="{{placeholders.mcqOptionPlaceholder}}" 
-                formControlName="optionText">
-              </mat-form-field>
-              <mat-icon (click) = removeMCQOption(i) aria-hidden = "true">highlight_off</mat-icon>
-              </mat-radio-button>
-          </mat-radio-group>
-        </div>
-        </div>
-      </ng-container>
-    </ng-template>
-            
-    <ng-template [ngIf] = "isMultipleSelectType">
-      <button class="btn btn-success px-2" (click)="addNewMSQOption()">{{labels.msqTitle}}</button>
-      <ng-container *ngIf="hasMultipleChoice[1]">
-        <div formArrayName="msqOptions">
-          <div *ngFor="let optionCtrl of msqOptions.controls; let i = index" [formGroupName]="i">
-            <mat-checkbox  
-            [aria-label]="optionCtrl.get('optionText')?.value"
-            (change)="handleMSQCheckboxChange(i)" 
-            formControlName="isAnswer">
-            </mat-checkbox>&nbsp;
-           <mat-form-field (click) = "handleMSQCheckboxChange(i)">
-              <input 
-              class="msq-option-text-box"
-              aria-describedby="optionCtrl.get('optionText')?.value"
-              matInput placeholder="{{placeholders.mcqOptionPlaceholder}}" 
-              formControlName="optionText">
-            </mat-form-field>
-            <mat-icon (click) = removeMSQOption(i)>highlight_off</mat-icon>
+      <ng-template [ngIf]="isMultipleChoiceType">
+        <button class="btn btn-success px-2" (click)="addNewMCQOption()">{{labels.mcqTitle}}</button>
+        <ng-container *ngIf="hasMultipleChoice[0]">
+          <div formArrayName="mcqOptions" style="width: 100%;">
+            <div *ngFor="let optionCtrl of mcqOptions.controls; let i = index" [formGroupName]="i">
+              <mat-radio-group aria-label="Write options for MCQ" name="MCQOption"
+                (change)="radioButtonChange($event,i)">
+                <mat-radio-button [aria-label]="optionCtrl.get('optionText')?.value" value="Option - {{i+1}}">
+                  <mat-form-field>
+                    <input type="text" (click)="checkMinimumMCQOptionCount()" matInput
+                      placeholder="{{placeholders.mcqOptionPlaceholder}}" formControlName="optionText">
+                  </mat-form-field>
+                  <mat-icon (click)=removeMCQOption(i) aria-hidden="true">highlight_off</mat-icon>
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
           </div>
+        </ng-container>
+      </ng-template>
+
+      <ng-template [ngIf]="isMultipleSelectType">
+        <button class="btn btn-success px-2" (click)="addNewMSQOption()">{{labels.msqTitle}}</button>
+        <ng-container *ngIf="hasMultipleChoice[1]">
+          <div formArrayName="msqOptions">
+            <div *ngFor="let optionCtrl of msqOptions.controls; let i = index" [formGroupName]="i">
+              <mat-checkbox [aria-label]="optionCtrl.get('optionText')?.value" (change)="handleMSQCheckboxChange(i)"
+                formControlName="isAnswer">
+              </mat-checkbox>&nbsp;
+              <mat-form-field (click)="handleMSQCheckboxChange(i)">
+                <input class="msq-option-text-box" aria-describedby="optionCtrl.get('optionText')?.value" matInput
+                  placeholder="{{placeholders.mcqOptionPlaceholder}}" formControlName="optionText">
+              </mat-form-field>
+              <mat-icon (click)=removeMSQOption(i)>highlight_off</mat-icon>
+            </div>
+          </div>
+        </ng-container>
+
+      </ng-template>
+
+      <br>
+
+      <ng-template [ngIf]="isSingleAnswerType || isMultipleChoiceType || isMultipleSelectType">
+
+        <div class="form-element">
+          <mat-label><strong>{{labels.answerExplanationLabel}}</strong></mat-label>
+          <angular-editor formControlName="answerExplanation"
+            placeholder="{{placeholders.answerExplanationPlaceholder}}" [config]="editorConfig"></angular-editor>
         </div>
-      </ng-container>
+        <div *ngIf="addQuestionForm.get('answerExplanation')?.hasError('!initialHtmlPattern')">
+          The Answer Explanation is required
+        </div>
+      </ng-template>
 
-    </ng-template>
-
-    <br>
-
-    <ng-template [ngIf] = "isSingleAnswerType || isMultipleChoiceType || isMultipleSelectType">
-          
-      <div class="form-element">
-        <mat-label><strong>{{labels.answerExplanationLabel}}</strong></mat-label>
-        <angular-editor formControlName = "answerExplanation" placeholder = "{{placeholders.answerExplanationPlaceholder}}"  [config] = "editorConfig"></angular-editor>
-      </div>  
-      <div *ngIf ="addQuestionForm.get('answerExplanation')?.hasError('!initialHtmlPattern')">
-        The Answer Explanation is required
-      </div>
-    </ng-template>
-
-    <br>
-  </form>
+      <br>
+    </form>
   </div>
 
-  <div *ngIf = "isSubmitted" class = "container" >
-    <app-preview-question 
-    [questionBody] = "this.newQuestion" 
-    (saveQuestion) = "onSaveConfirmation($event)">
+  <div *ngIf="isPreviewed" class="container">
+    <app-preview-question [questionBody]="this.newQuestion" (saveQuestion)="onSaveConfirmation($event)">
     </app-preview-question>
   </div>
 
@@ -124,12 +112,12 @@
 <mat-dialog-actions>
   <div class="col">
     <div class="text-center">
-      <div class="mt-4 pt-2" *ngIf = "!isSubmitted">
-        <button  class="save-button btn" (click)="onSubmit()">Preview</button>
+      <div class="mt-4 pt-2" *ngIf="!isPreviewed">
+        <button class="save-button btn" (click)="onSubmit()">Preview</button>
       </div>
-      <div *ngIf = "isSubmitted">
+      <div *ngIf="isPreviewed">
         <button class="save-button btn" (click)="onBack()">Back</button>&nbsp;
-        <button  class="save-button btn" (click)="onSave()">Save</button>
+        <button class="save-button btn" (click)="onSave()">Save</button>
       </div>
     </div>
   </div>
