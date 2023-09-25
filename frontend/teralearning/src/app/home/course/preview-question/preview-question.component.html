@@ -10,7 +10,7 @@
             <p><b>{{labels.questionType}}</b>{{labels.singleAnswer}}</p>
             <p style="color: #0000ff"><b>{{labels.answerHeading}}</b></p>
             <span *ngIf="this.questionBody.answers">
-                <div [innerHTML]="this.questionBody.answers[0].answer.value | safeHtml"></div>
+                <div [innerHTML]="this.questionBody.answers[0].answer | safeHtml"></div>
             </span>
         </div>
     </div>

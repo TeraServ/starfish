@@ -4,11 +4,11 @@
 <mat-dialog-content>
 
 
-  <div *ngIf="!isSubmitted" class = "container">
+  <div *ngIf="!isPreviewed" class = "container">
   <form [formGroup]="addQuestionForm" class="normal-form" autocomplete="off">
 
     <!-- <mat-form-field> -->
-      <mat-label *ngIf="isSubmitted">{{labels.questionType}}</mat-label>
+      <!-- <mat-label *ngIf="isPreviewed">{{labels.questionType}}</mat-label> -->
         <mat-select  formControlName = "questionType" (selectionChange)="onQuestionTypeChange()" required>
           <mat-label><b>{{labels.questionType}}</b></mat-label>
           <ng-container  *ngFor = "let type of questionTypes" > 
@@ -112,7 +112,7 @@
   </form>
   </div>
 
-  <div *ngIf = "isSubmitted" class = "container" >
+  <div *ngIf = "isPreviewed" class = "container" >
     <app-preview-question 
     [questionBody] = "this.newQuestion" 
     (saveQuestion) = "onSaveConfirmation($event)">
@@ -124,10 +124,10 @@
 <mat-dialog-actions>
   <div class="col">
     <div class="text-center">
-      <div class="mt-4 pt-2" *ngIf = "!isSubmitted">
+      <div class="mt-4 pt-2" *ngIf = "!isPreviewed">
         <button  class="save-button btn" (click)="onSubmit()">Preview</button>
       </div>
-      <div *ngIf = "isSubmitted">
+      <div *ngIf = "isPreviewed">
         <button class="save-button btn" (click)="onBack()">Back</button>&nbsp;
         <button  class="save-button btn" (click)="onSave()">Save</button>
       </div>
