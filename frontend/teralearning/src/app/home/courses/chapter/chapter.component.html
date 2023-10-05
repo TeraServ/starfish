@@ -2,6 +2,7 @@
     <div class="div-row-flex">
         <input type="text" placeholder="Chapter Name" #chapterName (change)="changed()" [value]="chapterData.chapterName">
         <button class="btn-course" (click)="addPage()">+ Page</button>
+        <button class="btn-course" (click)="addQuiz()">+ Quiz</button>
         <button class="btn-course" (click)="saveChapter()" [disabled]="!dataChanged">Save</button>
         <button class="btn-course"  (click)="removeChapter()" [disabled]="!dataChanged"> <i class="fas fa-trash"></i></button>
     </div>
