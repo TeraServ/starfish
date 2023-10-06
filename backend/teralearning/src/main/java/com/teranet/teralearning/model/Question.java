@@ -17,12 +17,12 @@ public class Question {
     @Column(name="question_type")
     @NotNull
     private String questionType;
-    @Column(name="question_text")
+    @Column(name="question_text",length = 512)
     @NotNull
     private String questionText;
     @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL)
     private Set<Answer> answers;
-    @Column(name = "explanation",nullable = true)
+    @Column(name = "explanation",nullable = true,length = 512)
     private String explanation;
     @Column(name = "maximum_selection", nullable = false)
     private int maximumSelectionAllowed;

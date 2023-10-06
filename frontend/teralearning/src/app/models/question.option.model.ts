@@ -1,4 +1,5 @@
 import { Email } from "./question.model";
+
 import { MaximumQuestionMark, NegativeQuestionMark } from "./questionDetailEnum";
 
 export interface QuestionOption {
@@ -14,7 +15,7 @@ export interface QuestionOption {
     ownerEmail?: Email;
     modifierEmail?: Email;
     createdDate?: string,
-    modifierDate?: string
+    modifiedDate?: string
 }
 
 type DisplayText = string | number;

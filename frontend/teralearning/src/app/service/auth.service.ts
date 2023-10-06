@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Email } from '../models/question.model';
 
 @Injectable({
   providedIn: 'root'
@@ -92,7 +93,7 @@ export class AuthService {
 
     return this.userType;
   }
-  getCurrentUserEmail(){
+  getCurrentUserEmail():Email{
     return JSON.parse(localStorage.getItem('currentUser')!).message.username;
   }
  

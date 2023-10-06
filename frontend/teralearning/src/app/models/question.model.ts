@@ -1,10 +1,12 @@
+import { quiz } from "src/model/quiz.model";
 import { QuestionOption } from "./question.option.model";
 import {QuestionType} from './questionDetailEnum';
 import { Quiz } from "./quiz.model";
 
+
 export interface Question {
     id?:number;
-    quiz?:Quiz; 
+    quiz?:quiz; 
     topic?:number;
     questionType: QuestionType;
     questionText: string;
@@ -16,6 +18,7 @@ export interface Question {
     modifier?: Email | number;
     createdDate?: string;
     modifiedDate?: string;
+   
 }
 type Options = QuestionOption[];
 type DomainName = "com" | "ca" | "in";

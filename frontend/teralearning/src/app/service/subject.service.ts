@@ -35,4 +35,7 @@ export class SubjectService {
 
     return this.httpClient.get(`${this.baseURL}`+'subjectbystream/'+id)
   }
+  getSubjectById(subjectId:number):Observable<any>{
+    return this.httpClient.get(`${this.baseURL}`+'getSubject/'+subjectId);
+  }
 }

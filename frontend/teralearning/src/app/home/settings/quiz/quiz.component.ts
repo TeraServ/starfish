@@ -36,7 +36,7 @@ export class QuizComponent implements OnInit {
 
   displayedColumns: string[] = ['QuizName', 'Stream', 'Subject', 'Topic', 'TotalNoOfQuestions', 'Actions']
 
-  dataSource = new MatTableDataSource<quiz>();
+  @Input() dataSource = new MatTableDataSource<quiz>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
 
@@ -105,9 +105,9 @@ export class QuizComponent implements OnInit {
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       data: { id: id, message: "Are you sure want to delete ", funId: 1 },
-    }).afterClosed().subscribe(data => {    
-      this.getQuiz();
     });
+
+    this.getQuiz();
 
   }
 

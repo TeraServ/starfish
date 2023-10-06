@@ -1,0 +1,100 @@
+<div>
+  <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" style="color: red;">close</mat-icon>
+  </button>
+</div>
+<h1>Add Quiz</h1>
+<form [formGroup]="searchForm">
+  <div class="filtered-search-box">
+    <div>
+      <label for="">Stream</label><br>
+      <select name="quiz"  class="filter-dropdown">
+        <option value=""> All </option>
+        <option *ngFor="let item of streamFilterList" value="{{item}}">
+            {{item}}
+        </option>
+    </select>
+    </div>
+    <div>
+      <label for="">Subject</label><br>
+      <select name="quiz" class="filter-dropdown" (change)="filterSubjectTable($event)">
+        <option value=""> All </option>
+        <option *ngFor="let item of subjectFilterList" value="{{item}}">
+            {{item}}
+        </option>
+    </select>
+    </div>
+
+    <div>
+      <label for="">Topic</label><br>
+      <select  name="quiz" class="filter-dropdown" (change)="filterTopicTable($event)">
+        <option value=""> All </option>
+        <option *ngFor="let item of topicFilterList" value="{{item}}">
+            {{item}}
+        </option>
+    </select>
+    </div>
+    <div>
+      <label for="">Quiz Name</label><br>
+      <input id="searchBar" type="search" placeholder="Search " (change)="searchByQuizName()" formControlName="search"
+        style="width: auto;">
+    </div>
+    <div>
+      <br>
+      <button class="light-btn" (click)="searchByQuizName()"><i class="fas fa-search"></i> Search </button>
+    </div>
+
+  </div> <br>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+
+
+      <ng-container matColumnDef="QuizName">
+        <th mat-header-cell *matHeaderCellDef>Quiz Name</th>
+        <td mat-cell *matCellDef="let element,index as i">{{element.quizName}}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Stream">
+        <th mat-header-cell *matHeaderCellDef>Stream Name</th>
+        <td mat-cell *matCellDef="let element,index as i">{{element.topic?.subject?.stream?.streamName}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Subject">
+        <th mat-header-cell *matHeaderCellDef> Subject Name </th>
+        <td mat-cell *matCellDef="let element,index as i">{{element.topic?.subject?.subjectName}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Topic">
+        <th mat-header-cell *matHeaderCellDef> Topic Name </th>
+        <td mat-cell *matCellDef="let element,index as i"> {{element.topic?.topicName}}</td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element,index as i">
+
+          <button (click)="AddQuizToChapter(element)" class="btn-submit" id="editButton"
+            routerLink="edit">Add</button>&nbsp;
+
+
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+    </table>
+  </div>
+  <mat-paginator [length]="100"  [ngStyle]="{'display': showPaginator ? 'block' : 'none'}" [pageSizeOptions]="[5,10,15,20]" [pageSize]="5" showFirstLastButtons
+  aria-label="Select page of periodic elements">
+</mat-paginator>
+
+
+</form>
