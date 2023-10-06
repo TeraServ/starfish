@@ -8,7 +8,7 @@
 
     <mat-label><i class="fa fa-filter"></i> Filter Stream</mat-label>
         <div>
-            <select matNativeControl name="quiz" (change)="filterStreamTable($event)">
+            <select matNativeControl name="quiz"  >
                 <option value=""> All </option>
                 <option *ngFor="let item of streamFilterList" value="{{item}}">
                     {{item}}
