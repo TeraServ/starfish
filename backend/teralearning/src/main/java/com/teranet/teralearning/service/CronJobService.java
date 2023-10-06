@@ -1,5 +1,6 @@
 package com.teranet.teralearning.service;
 
+import com.teranet.teralearning.repository.QuestionConfigRepository;
 import com.teranet.teralearning.repository.UserRepository;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,10 @@ import java.util.Date;
 public class CronJobService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private QuestionConfigRepository questionConfigRepository;
+    @Autowired
+    private QuestionConfigService questionConfigService;
     @Autowired
     private DeletedRecordsService deletedRecordsService;
     public CronJobService(){}
@@ -37,6 +42,17 @@ public class CronJobService {
                 .forEach(user->{
                     deletedRecordsService.checkDeletionDate(user.getClass().getSimpleName(), user.getId());
                 });
+
+    }
+    @SneakyThrows
+    @Scheduled(cron = "0 50 10 * * *")
+    @Async
+    public void addDefaultQuestionConfigs(){
+      boolean hasOneActiveQuestionType = questionConfigRepository.findAll().stream()
+              .anyMatch(questionType->questionType.isActive() == true);
+      if(!hasOneActiveQuestionType) {
+          questionConfigService.setDefaultQuestionConfig();
+      }
 
     }
 
