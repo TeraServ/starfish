@@ -60,6 +60,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
 import { EditQuestionComponent } from './quizes/edit-question/edit-question.component';
+import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.component';
 @NgModule({
   declarations: [
 
@@ -93,7 +94,8 @@ import { EditQuestionComponent } from './quizes/edit-question/edit-question.comp
     DeleteDialogComponent,
     DeleteMessageDialogComponent,
     CustomeArraySortPipe,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    ChapterQuizComponent
 
   ],
   imports: [

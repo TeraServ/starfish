@@ -51,7 +51,13 @@ export class ChapterComponent implements OnInit {
 
   addQuiz() {
     this.matDialog.open(ChapterQuizComponent, { height: "90%", width: "100%" }).afterClosed().subscribe(value => {
-      console.log(value.chosenQuiz)
+      if (value.event == "Add") {
+        console.log(value.chosenQuiz)
+      } else if (value.event == "Cancel") {
+
+      } else {
+        console.log(value)
+      }
 
     })
   }

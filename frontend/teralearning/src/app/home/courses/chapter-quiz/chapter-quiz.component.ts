@@ -89,18 +89,18 @@ export class ChapterQuizComponent implements OnInit {
 
   AddQuizToChapter(element: any) {
     this.choosenQuiz = element;
-    console.log("Chosen Quiz:", element);
+    console.log("Chosen Quiz:", element.value);
     this.showSuccessDialogBox();
   }
   showSuccessDialogBox() {
     this._dialog.open(SuccessDialogComponent, { data: { message: "Successfully Added to Course" } })
       .afterClosed().subscribe(val => {
-        this.closeDialogBox();
+        this.dialogRef.close({ event: "Add", chosenQuiz: this.choosenQuiz });
       })
   }
 
   closeDialogBox() {
-    this.dialogRef.close({ chosenQuiz: this.choosenQuiz });
+    this.dialogRef.close({ event: "Cancel", chosenQuiz: null });
   }
 
   getQuiz() {
