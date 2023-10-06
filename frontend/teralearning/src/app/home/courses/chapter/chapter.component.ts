@@ -8,7 +8,8 @@ import { CdkDragDrop, CdkDropList, CdkDrag, moveItemInArray } from '@angular/cdk
 import { Course } from 'src/model/course.model';
 import { CourseService } from 'src/app/service/course.service';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
-import { QuizComponent } from '../../quizes/quiz/quiz.component';
+import { CHBody } from 'src/model/chbody.model';
+import { ChapterDataService } from 'src/app/service/chapter-data.service';
 import { ChapterQuizComponent } from '../chapter-quiz/chapter-quiz.component';
 @Component({
   selector: 'app-chapter',
@@ -18,37 +19,54 @@ import { ChapterQuizComponent } from '../chapter-quiz/chapter-quiz.component';
 })
 export class ChapterComponent implements OnInit {
 
-  constructor(private matDialog: MatDialog, private componentFactoryResolver: ComponentFactoryResolver, private courseService: CourseService) { }
+  constructor(private matDialog:MatDialog,private componentFactoryResolver: ComponentFactoryResolver,private courseService:CourseService,private chapterDataService:ChapterDataService) { }
 
   // pageData:Page[]=[];
-  chapterData: Chapter = new Chapter;
-
+  chapterData:Chapter =new Chapter;
+  //chapters:CHBody[]=[];
   @Input() data!: Chapter[];
 
   @ViewChild("chapterName") chapterName!: ElementRef;
   dataChanged: boolean = false;
   ngOnInit(): void {
-
     this.chapterData = this.data[0]
-
-
-
-
+    this.getChapters();
   }
-
-  addPage() {
+  getChapters(){
+    this.chapterDataService.getChapterData(this.chapterData.id).subscribe(data=>{
+      if(data){
+        this.chapterData.bodies.push(data);
+      }
+      console.log(data);
+    })
+  }
+  addPage(){
     //this.chapterData.title = "Chapter 1"
-    this.matDialog.open(PageComponent, { height: "90%" }).afterClosed().subscribe(data => {
-      if (data.data != undefined) {
-
-        // this.pageData.push(data.data);  
-        this.chapterData.pages.push(data.data)
+    this.matDialog.open(PageComponent,{height:"90%"}).afterClosed().subscribe(data=>{
+      if(data.data != undefined){
+       
+        let chbody:CHBody ={
+          id:0,
+          type:"page",
+          pages:data.data,
+          quizList:{}
+        } 
+        this.chapterData.bodies.push(chbody);
+        // this.pageData.push(data.data); 
+        // this.chapterDataService.addChapterPageAndQuiz(body).subscribe(data=>{
+        //   this.chapterData.body.push(data)
+        // }) 
+       // this.chapterData.body.push(chbody)
+        
         this.dataChanged = true;
       }
     });
 
   }
 
+  changed(){
+    this.dataChanged = true;
+  }
   addQuiz() {
     this.matDialog.open(ChapterQuizComponent, { height: "90%", width: "100%" }).afterClosed().subscribe(value => {
       if (value.event == "Add") {
@@ -60,10 +78,6 @@ export class ChapterComponent implements OnInit {
       }
 
     })
-  }
-
-  changed() {
-    this.dataChanged = true;
   }
   saveChapter() {
 
@@ -81,23 +95,24 @@ export class ChapterComponent implements OnInit {
     }
 
   }
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.chapterData.pages, event.previousIndex, event.currentIndex);
 
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.chapterData.bodies, event.previousIndex, event.currentIndex);
+   
     this.dataChanged = true;
   }
   removeChapter() { }
   removePage(index: number) {
     console.log("delete");
-    this.chapterData.pages.splice(index, 1);
+    this.chapterData.bodies.splice(index,1);
     // this.chapterData.pages = this.pageData;
     this.dataChanged = true;
   }
 
-  editPage(data: Page) {
-
-    this.matDialog.open(PageComponent, { data: data, height: "90%" }).afterClosed().subscribe(data => {
-
+  editPage(data:Page){
+    
+    this.matDialog.open(PageComponent,{data:data,height:"90%"}).afterClosed().subscribe(data=>{
+      
     })
   }
 

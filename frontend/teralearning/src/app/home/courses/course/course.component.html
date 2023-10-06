@@ -37,11 +37,10 @@
           </div>
           <div>
             <label for="">Course Name</label><br>
-            <input id="searchBar" type="search" placeholder="Search " (change)="searchByCourseName()" formControlName="search">
+            <input id="searchBar" type="search" placeholder="Search " (keyup)="searchByCourseName()" formControlName="search">
           </div>
           <div>
-            <br>
-            <button class="light-btn" (click)="searchByCourseName()"><i class="fas fa-search"></i> Search </button>
+          
           </div>
          
           

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { CourseService } from 'src/app/service/course.service';
 import { Chapter } from 'src/model/chapter.model';
 import { Page } from 'src/model/page.model';
+import { ChapterDataService } from 'src/app/service/chapter-data.service';
 
 @Component({
   selector: 'app-edit-course',
@@ -20,7 +21,7 @@ export class EditCourseComponent implements OnInit {
 
   @ViewChild('chapterlist',{read:ViewContainerRef}) parent!:ViewContainerRef;
   private componentRef!:ComponentRef<any>
-constructor(private matDialog:MatDialog,private courseService:CourseService,private componentFactoryResolver: ComponentFactoryResolver,private courseDataService:CourseDataService,private route:Router) { }
+constructor(private matDialog:MatDialog,private courseService:CourseService,private componentFactoryResolver: ComponentFactoryResolver,private courseDataService:CourseDataService,private route:Router,private chapterService:CourseDataService) { }
 
   @Output() addPageEvent = new EventEmitter();
   updateData!:any;
@@ -37,9 +38,9 @@ constructor(private matDialog:MatDialog,private courseService:CourseService,priv
       }else{
         this.emptyChapter = {
           chapterName:"Chapter "+this.chapterList.length+1,
-          pages:[],
           id:0,
-          courseId:this.updateData.id
+          courseId:this.updateData.id,
+          bodies:[]
         }
         this.getChapter(this.updateData.id)
       }
@@ -70,14 +71,18 @@ constructor(private matDialog:MatDialog,private courseService:CourseService,priv
   }
 
   addChapter(){
-    console.log(this.emptyChapter)
-  
-    let childComponent = this.componentFactoryResolver.resolveComponentFactory(ChapterComponent);
    
-    this.componentRef = this.parent.createComponent(childComponent);
-    this.componentRef.instance.data =[this.emptyChapter];
-    this.chapterCount++;
-    this.chapterList.push(this.emptyChapter)
+    let childComponent = this.componentFactoryResolver.resolveComponentFactory(ChapterComponent);
+    
+      this.componentRef = this.parent.createComponent(childComponent);
+      this.componentRef.instance.data =[this.emptyChapter];
+      this.chapterCount++;
+      this.chapterList.push(this.emptyChapter);
+      console.log(this.emptyChapter);
+  
+    
+   
+    
   }
 
   uploadFile(){

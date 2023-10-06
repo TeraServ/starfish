@@ -1,7 +1,10 @@
 package com.teranet.teralearning.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "chapter")
@@ -16,18 +19,20 @@ public class Chapter {
     @Column(name = "chapter_name")
     private String chapterName;
 
-    @OneToMany(cascade = CascadeType.ALL,targetEntity = Page.class)
+    @ManyToMany(cascade = CascadeType.ALL,targetEntity = ChapterBody.class)
+    @JoinColumn(name = "id")
+    private List<ChapterBody> bodies;
 
-    private List<Page> pages;
 
-    public Chapter(){
+    public Chapter() {
 
     }
-    public Chapter(long id, long courseId, String chapterName, List<Page> pages) {
+
+    public Chapter(long id, long courseId, String chapterName, List<ChapterBody> bodies) {
         this.id = id;
         this.courseId = courseId;
         this.chapterName = chapterName;
-        this.pages = pages;
+        this.bodies = bodies;
     }
 
     public long getId() {
@@ -54,11 +59,11 @@ public class Chapter {
         this.chapterName = chapterName;
     }
 
-    public List<Page> getPages() {
-        return pages;
+    public List<ChapterBody> getBodies() {
+        return bodies;
     }
 
-    public void setPages(List<Page> pages) {
-        this.pages = pages;
+    public void setBodies(List<ChapterBody> bodies) {
+        this.bodies = bodies;
     }
 }

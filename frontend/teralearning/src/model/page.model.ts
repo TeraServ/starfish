@@ -3,4 +3,5 @@ export class Page{
     title!:string;
     body!:string;
     readTime!:number;
+    
 }

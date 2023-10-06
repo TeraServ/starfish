@@ -22,8 +22,7 @@ public class ChapterService implements ChapterInterface {
         Optional<Chapter> ch  = chapterRepository.findById(chapter.getId());
         if(ch.isPresent()){
             ch.get().setChapterName(chapter.getChapterName());
-            ch.get().setPages(chapter.getPages());
-
+            ch.get().setBodies(chapter.getBodies());
             return new ResponseEntity(chapterRepository.save(ch.get()),HttpStatus.OK);
         }else {
             return new ResponseEntity(chapterRepository.save(chapter), HttpStatus.OK);

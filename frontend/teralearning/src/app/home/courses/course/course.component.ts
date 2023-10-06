@@ -37,6 +37,7 @@ export class CourseComponent implements OnInit {
   allCourses:Course[]=[];
   myCourse:Course[] = [];
 
+  filterCourseByAny:Course[]=[]
   filterCourseByStream:Course[]= [];
   filterCourseBySubject:Course[]=[];
   filterCourseByTopic:Course[]=[];
@@ -74,9 +75,7 @@ export class CourseComponent implements OnInit {
 
    this.getAllCourse();
    //console.log(this.userId)
-   
-   //this.getCoverImage("2140f8a3-da7c-46cd-a132-0d80f1d098fc")
-    
+   //this.getCoverImage("2140f8a3-da7c-46cd-a132-0d80f1d098fc");
   }
   // ngAfterViewInit() {
   //   this.streamSearch.nativeElement.addEventListner('change',()=>{
@@ -113,6 +112,7 @@ export class CourseComponent implements OnInit {
     this.courseService.getAllCourse().subscribe(data=>{
       this.courseList = data;
       this.courses = data;
+      this.allCourses = data;
        this.courseList.forEach(element => {
         this.getCoverImage(element)
       });
@@ -131,21 +131,32 @@ export class CourseComponent implements OnInit {
 
   getAllSubject(){
     let stream = this.searchForm.get("stream")?.value
-    //console.log(event.target.value)
+    this.filterCourseByAny = this.courseList;
     this.courseList = [];
     this.topicList = [];
     this.subjectList = [];
     if(stream == "All"){
       this.courseList = this.courses;
     }
-    this.courses.forEach((data,index)=>{
-
+   if(this.myCourse.length > 0){
+    this.myCourse.forEach((data,index)=>{
+     
       if(data.topic.subject.stream.id == stream){
         this.courseList.push(data);
-        this.filterCourseByStream.push(data)
+        this.filterCourseByStream.push(data);
        
       }
     })
+   }else if(this.allCourses.length > 0){
+    this.allCourses.forEach((data,index)=>{
+     
+      if(data.topic.subject.stream.id == stream){
+        this.courseList.push(data);
+        this.filterCourseByStream.push(data);
+       
+      }
+    })
+   }
     
  
         this.subjectService.getSubjectByStreamId(this.searchForm.get("stream")?.value).subscribe(data=>{
@@ -215,7 +226,7 @@ export class CourseComponent implements OnInit {
     }else if(this.searchForm.get("subject")?.value != "All" && this.searchForm.get("topic")?.value == "All"){
       this.getAllTopicBySubject()
     }else if(this.searchForm.get("topic")?.value != "All"){
-      this.getAllTopicBySubject()
+      this.filterByTopic();
     }else{
       
     }
@@ -235,8 +246,10 @@ getAllCourseByUser(){
 radioButtonChange(v:any){
   console.log(this.searchForm)
   if(v.value == "2"){
+    this.allCourses = [];
     this.getAllCourseByUser();
   }else if(v.value == "1"){
+    this.myCourse = [];
     this.getAllCourse();
   }else{
     console.log("Error occured.")
@@ -244,15 +257,17 @@ radioButtonChange(v:any){
 }
   searchByCourseName(){
    let searchtext = this.searchForm.get("search")?.value
-   
+   this.courseList = [];
    if(this.filterCourseByTopic.length > 0){
     this.courseList = this.filterCourseByTopic;
   }else if(this.filterCourseBySubject.length > 0){
     this.courseList = this.filterCourseBySubject;
   }else if(this.filterCourseByStream.length > 0){
     this.courseList = this.filterCourseByStream
+  }else if(this.myCourse.length > 0){
+    this.courseList = this.myCourse;
   }else{
-    this.courseList = this.courses;
+    this.courseList = this.allCourses;
   }
     if(this.searchForm.get("search")?.value != ""){
       this.searchCourseByName = this.courseList;
