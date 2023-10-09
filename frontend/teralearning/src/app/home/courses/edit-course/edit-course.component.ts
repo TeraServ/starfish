@@ -19,76 +19,81 @@ import { ChapterDataService } from 'src/app/service/chapter-data.service';
 })
 export class EditCourseComponent implements OnInit {
 
-  @ViewChild('chapterlist',{read:ViewContainerRef}) parent!:ViewContainerRef;
-  private componentRef!:ComponentRef<any>
-constructor(private matDialog:MatDialog,private courseService:CourseService,private componentFactoryResolver: ComponentFactoryResolver,private courseDataService:CourseDataService,private route:Router,private chapterService:CourseDataService) { }
+  @ViewChild('chapterlist', { read: ViewContainerRef }) parent!: ViewContainerRef;
+  private componentRef!: ComponentRef<any>
+  constructor(private matDialog: MatDialog, private courseService: CourseService, private componentFactoryResolver: ComponentFactoryResolver, private courseDataService: CourseDataService, private route: Router, private chapterService: CourseDataService) { }
 
   @Output() addPageEvent = new EventEmitter();
-  updateData!:any;
-  chapterList:Chapter[]=[];
-  chapterCount:number = 0;
-  emptyChapter!:Chapter;
+  updateData!: any;
+  chapterList: Chapter[] = [];
+  chapterCount: number = 1;
+  emptyChapter!: Chapter;
   ngOnInit(): void {
-    
-    this.courseDataService.data.subscribe(data=>{
+
+    this.courseDataService.data.subscribe(data => {
       this.updateData = data;
 
-      if(this.updateData?.courseName == null){
+      if (this.updateData?.courseName == null) {
         this.route.navigate(["home/courses"])
-      }else{
-        this.emptyChapter = {
-          chapterName:"Chapter "+this.chapterList.length+1,
-          id:0,
-          courseId:this.updateData.id,
-          bodies:[]
-        }
+      } else {
         this.getChapter(this.updateData.id)
+        this.incrementChapter();
       }
-      
+
     })
   }
-  
-  getChapter(id:number){
-    this.courseService.getChapterByCourseId(id).subscribe(data=>{
+
+  incrementChapter() {
+    this.emptyChapter = {
+      chapterName: "Chapter " + this.chapterCount,
+      id: 0,
+      courseId: this.updateData.id,
+      bodies: []
+    }
+  }
+
+  getChapter(id: number) {
+    this.courseService.getChapterByCourseId(id).subscribe(data => {
       console.log(data)
-      if(data.length > 0){
+      if (data.length > 0) {
         this.chapterList = data;
-        this.chapterList.forEach(item=>{
+        this.chapterList.forEach(item => {
           this.loadChapter(item)
           console.log(item)
         })
       }
     })
   }
-  
-  loadChapter(chapter:Chapter){
-    
+
+  loadChapter(chapter: Chapter) {
+
     let childComponent = this.componentFactoryResolver.resolveComponentFactory(ChapterComponent);
-   
+
     this.componentRef = this.parent.createComponent(childComponent);
     this.componentRef.instance.data = [chapter];
     this.chapterCount++;
   }
 
-  addChapter(){
-   
+  addChapter() {
+
     let childComponent = this.componentFactoryResolver.resolveComponentFactory(ChapterComponent);
-    
-      this.componentRef = this.parent.createComponent(childComponent);
-      this.componentRef.instance.data =[this.emptyChapter];
-      this.chapterCount++;
-      this.chapterList.push(this.emptyChapter);
-      console.log(this.emptyChapter);
-  
-    
-   
-    
+
+    this.componentRef = this.parent.createComponent(childComponent);
+    this.componentRef.instance.data = [this.emptyChapter];
+    this.chapterCount++;
+    this.incrementChapter();
+    this.chapterList.push(this.emptyChapter);
+    console.log(this.emptyChapter);
+
+
+
+
   }
 
-  uploadFile(){
+  uploadFile() {
     return HttpStatusCode.Accepted;
   }
-  addPage(){
+  addPage() {
 
   }
 }

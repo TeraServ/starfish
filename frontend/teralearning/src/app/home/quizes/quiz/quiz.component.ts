@@ -104,7 +104,7 @@ export class QuizComponent implements OnInit {
   }
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: { id: id, message: "Are you sure want to delete ", funId: 1 },
+      data: { id: id, message: "Are you sure want to delete ", funId: 1,warnMessage:"Cannot Delete Quiz as it is mapped to a course" },
     }).afterClosed().subscribe(data => {    
       this.getQuiz();
     });
