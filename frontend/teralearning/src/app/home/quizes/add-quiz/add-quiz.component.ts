@@ -118,7 +118,7 @@ export class AddQuizComponent implements OnInit {
 
       this.dialog.open(SuccessDialogComponent, { data: { message: "Successfully created" }
        }).afterClosed().subscribe(data => {
-        this.router.navigate(['home/quizes/quiz/']);
+        this.dialogRef.close();
       })
 
     });

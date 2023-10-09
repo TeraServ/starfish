@@ -1,29 +1,45 @@
 <div class="chapter-con">
-    <div class="div-row-flex">
-        <input type="text" placeholder="Chapter Name" #chapterName (change)="changed()" [value]="chapterData.chapterName">
-        <button class="btn-course" (click)="addPage()">+ Page</button>
-        <button class="btn-course" (click)="addQuiz()">+ Quiz</button>
-        <button class="btn-course" (click)="saveChapter()" [disabled]="!dataChanged">Save</button>
-        <button class="btn-course"  (click)="removeChapter()" [disabled]="!dataChanged"> <i class="fas fa-trash"></i></button>
-    </div>
+  <div class="div-row-flex">
+    <input type="text" placeholder="Chapter Name" #chapterName (change)="changed()" [value]="chapterData.chapterName">
+    <button class="btn-course" (click)="addPage()">+ Page</button>
+    <button class="btn-course" (click)="addQuiz()">+ Quiz</button>
+    <button class="btn-course" (click)="saveChapter()" [disabled]="!dataChanged">Save</button>
+    <button class="btn-course" (click)="removeChapter()" [disabled]="!dataChanged"> <i
+        class="fas fa-trash"></i></button>
+  </div>
 
 
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-      <div class="example-box" *ngFor="let item of chapterData.bodies,index as i;" cdkDrag>
-       <div *ngIf="item.type == 'page'" class="div-row-flex">
-       <div>
-        <h3>{{ item?.pages?.title }}</h3>
-       </div>
-        <div >
-         <button mat-icon-button  aria-label="Edit buttpon" (click)="editPage(item.pages)">
-           <mat-icon>edit</mat-icon>
-         </button>
-         <button mat-icon-button  aria-label="Remove buttpon" (click)="removePage(i)">
-          <mat-icon>delete</mat-icon>
-        </button>
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of chapterData.bodies,index as i;" cdkDrag>
+      <div *ngIf="item.type == 'page'" class="div-row-flex">
+        <div>
+          <h3>{{ item?.pages?.title }}</h3>
         </div>
-       </div>
-     </div>
+        <div>
+          <button mat-icon-button aria-label="Edit buttpon" (click)="editPage(item?.pages)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button aria-label="Remove buttpon" (click)="removePage(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="item.type == 'quiz'" class="div-row-flex">
+        <div>
+          <h3>{{ item?.quizList?.quizName }}</h3>
+        </div>
+        <div>
+          <button mat-icon-button aria-label="Remove buttpon" (click)="removePage(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+
+
+
     </div>
-   
-    </div>
+  </div>
+
+</div>
