@@ -65,7 +65,7 @@ const routes: Routes = [
     component: QuizComponent
   },
   {
-    path:"quizes/quiz/edit",
+    path:"quizes/quiz/edit/:quizName",
     component: EditQuizComponent
   },
   // {

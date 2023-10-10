@@ -65,7 +65,7 @@ export class QuizComponent implements OnInit {
   getQuiz() {
     this.quizService.getQuizList().subscribe(data => {
       this.dataSource.data = data;
-      console.log("hsgdjhsgd",this.dataSource.data)
+      
       
 
       this.dataSource.data.forEach(element => {
@@ -100,6 +100,7 @@ export class QuizComponent implements OnInit {
   }
 
   passDataToService(quiz:any) {
+    //this.router.navigate(['/edit/quizName',quiz.quizName]);
     this.quizDataTransfer.passData(quiz);
   }
   openDialog(id: number): void {
@@ -166,6 +167,9 @@ export class QuizComponent implements OnInit {
       !f ||
       data.topic.topicName == input.target.value;
     this.dataSource.filter = input.target.value;
+  }
+  trackByFnForStream(index:number,item:any){
+  return item;
   }
 
 

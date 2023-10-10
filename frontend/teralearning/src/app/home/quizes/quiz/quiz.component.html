@@ -10,7 +10,7 @@
         <div>
             <select matNativeControl name="quiz"  >
                 <option value=""> All </option>
-                <option *ngFor="let item of streamFilterList" value="{{item}}">
+                <option *ngFor="let item of streamFilterList; trackBy:trackByFnForStream" value="{{item}}">
                     {{item}}
                 </option>
             </select>
