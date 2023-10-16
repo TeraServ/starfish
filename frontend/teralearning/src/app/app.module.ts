@@ -17,13 +17,11 @@ import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 import { TopicComponent } from './topic/topic.component';
 import { MaterialModule } from './shared/material/material.module';
 import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
-import { ViewAndSearchComponent } from './core/view-and-search/view-and-search.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 import { TitleStrategy } from '@angular/router';
 
 import { GooglePayButtonModule } from '@google-pay/button-angular';
-import { CreateCoursesComponent } from './create-courses/create-courses.component';
 import { NewUserComponent } from './new-user/new-user.component';
 
 import { MatInput, MatInputModule } from '@angular/material/input';
@@ -46,10 +44,8 @@ import { CustomeArraySortPipe } from './custome-array-sort.pipe';
     AppComponent,
     LoginPageComponent,
     ForgetDialogComponent,
-    ViewAndSearchComponent, 
     PasswordResetComponent,
     TopicComponent,
-    CreateCoursesComponent,
     NewUserComponent,
     PasswordResetComponent,
     CacheResultPipe,

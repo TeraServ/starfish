@@ -39,10 +39,10 @@ export const ARIA_LABEL = {
 }
 
 export const PLACEHOLDERS = {
-  questionTextPlaceholder: 'What is an array?',
-  answerTextPlaceholder: 'An array is a collection of objects of same data type',
+  questionTextPlaceholder: 'Eg: What is an array?',
+  answerTextPlaceholder: 'Eg: An array is a collection of objects of same data type',
   mcqOptionPlaceholder: 'Option',
-  answerExplanationPlaceholder: 'An array in C is a fixed-size collection of similar data items stored in contiguous memory locations'
+  answerExplanationPlaceholder: 'Eg: An array in C is a fixed-size collection of similar data items stored in contiguous memory locations'
 };
 
 @Component({

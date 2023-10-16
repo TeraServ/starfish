@@ -4,6 +4,7 @@ import com.teranet.teralearning.dto.QuizDTO;
 import com.teranet.teralearning.model.Quiz;
 import com.teranet.teralearning.model.Stream;
 import com.teranet.teralearning.model.Topic;
+import com.teranet.teralearning.repository.ChapterRepository;
 import com.teranet.teralearning.repository.QuizRepository;
 import com.teranet.teralearning.repository.TopicRepository;
 import com.teranet.teralearning.repository.UserRepository;
@@ -27,13 +28,16 @@ public class QuizService implements QuizInterface{
     private QuizRepository quizRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ChapterRepository chapterRepository;
 
 
-    public QuizService(QuizRepository quizRepository, UserRepository userRepository) {
+    public QuizService(QuizRepository quizRepository, UserRepository userRepository, ChapterRepository chapterRepository) {
         this.quizRepository = quizRepository;
         this.userRepository = userRepository;
-
+        this.chapterRepository = chapterRepository;
     }
+
     @Override
     public ResponseEntity createQuiz(QuizDTO quizDTO){
         try{
@@ -101,10 +105,17 @@ public class QuizService implements QuizInterface{
 
     }
 
-    public ResponseEntity deleteQuizById(long id){
-        if(quizRepository.existsById(id)){
-            quizRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+    public ResponseEntity deleteQuizById(long quizId){
+        if(quizRepository.existsById(quizId)){
+            if(chapterRepository.existsByBodies_QuizList_Id(quizId)){
+                log.info("QuizService:deleteQuizById  Cannot Delete Quiz with id:"+quizId);
+                return new ResponseEntity<>("Warning: Quiz is mapped to a Chapter",HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+            else {
+                log.info("QuizService:deleteQuizById Quiz Deleted with id:"+quizId);
+                quizRepository.deleteById(quizId);
+                return new ResponseEntity<>("Successfully deleted quiz by id",HttpStatus.OK);
+            }
         }
         else {
             return null;
