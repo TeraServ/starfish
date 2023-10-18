@@ -5,7 +5,10 @@
     &#10095;
     <a href="" routerLink="/home/courses/mode_edit" class="anchor-tag">EDIT</a>
    </div> 
-<button class="btn-course" (click)="addChapter()"> + Chapter </button>
+<div>
+    <button class="btn-course" (click)="addChapter()"> + Chapter </button>
+<button class="btn-course" (click)="saveChapter()"> Save </button>
+</div>
 </div>
 <!-- <div class="div-row-flex">
     <div>
@@ -33,7 +36,9 @@
 
     
 
-
+<app-chapter [data]="chapterList" >
+    
+</app-chapter>
 
 </div>
 

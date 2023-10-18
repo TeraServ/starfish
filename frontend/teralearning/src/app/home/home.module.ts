@@ -60,6 +60,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
 import { EditQuestionComponent } from './quizes/edit-question/edit-question.component';
+import {CdkAccordion, CdkAccordionModule} from '@angular/cdk/accordion';
 import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.component';
 @NgModule({
   declarations: [
@@ -95,7 +96,10 @@ import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.compon
     DeleteMessageDialogComponent,
     CustomeArraySortPipe,
     SafeHtmlPipe,
-    ChapterQuizComponent
+    ChapterQuizComponent,
+    
+    
+    
 
   ],
   imports: [
@@ -123,7 +127,8 @@ import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.compon
     MatButtonModule,
     MatProgressBarModule,
     DragDropModule,
-    MatTooltipModule
+    MatTooltipModule,
+    CdkAccordionModule
 
   ],
   providers: [

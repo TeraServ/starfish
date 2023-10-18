@@ -4,6 +4,7 @@ package com.teranet.teralearning.model;
 import javax.persistence.*;
 import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,57 +14,43 @@ import java.util.Set;
 public class Course {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long Id;
 
     @Column(name = "course_name")
     private String courseName;
 
-    @Column(name = "description",length = 512)
+    @Column(name = "description", length = 512)
     private String description;
 
     @Column(name = "created_by")
     private long createdBy;
     @Column(name = "cover_url")
     private String coverUrl;
-    @OneToOne(targetEntity = Topic.class,cascade = CascadeType.MERGE)
+    @OneToOne(targetEntity = Topic.class, cascade = CascadeType.MERGE)
     private Topic topic;
 
-//    @OneToMany(fetch = FetchType.EAGER)
-//    private Set<Chapter> chapters = new HashSet<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Chapter> chapters = new ArrayList<>();
 
     @Column(name = "modified_date")
     private LocalDate modifiedData;
     @Column(name = "created_date")
     private LocalDate createdDate;
 
-    public Course(){}
+    public Course() {
+    }
 
-    public Course(long id, String courseName, String description, long createdBy, String coverUrl, Topic topic, LocalDate modifiedData, LocalDate createdDate) {
+    public Course(long id, String courseName, String description, long createdBy, String coverUrl, Topic topic, List<Chapter> chapters, LocalDate modifiedData, LocalDate createdDate) {
         Id = id;
         this.courseName = courseName;
         this.description = description;
         this.createdBy = createdBy;
         this.coverUrl = coverUrl;
         this.topic = topic;
+        this.chapters = chapters;
         this.modifiedData = modifiedData;
         this.createdDate = createdDate;
-    }
-
-    public long getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(long createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Topic getTopic() {
-        return topic;
-    }
-
-    public void setTopic(Topic topic) {
-        this.topic = topic;
     }
 
     public long getId() {
@@ -90,6 +77,14 @@ public class Course {
         this.description = description;
     }
 
+    public long getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(long createdBy) {
+        this.createdBy = createdBy;
+    }
+
     public String getCoverUrl() {
         return coverUrl;
     }
@@ -98,7 +93,21 @@ public class Course {
         this.coverUrl = coverUrl;
     }
 
+    public Topic getTopic() {
+        return topic;
+    }
 
+    public void setTopic(Topic topic) {
+        this.topic = topic;
+    }
+
+    public List<Chapter> getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
+    }
 
     public LocalDate getModifiedData() {
         return modifiedData;

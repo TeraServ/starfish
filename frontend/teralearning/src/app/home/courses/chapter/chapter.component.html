@@ -1,47 +1,55 @@
-<div class="chapter-con">
-  <div class="div-row-flex">
-    <input type="text" placeholder="Chapter Name" #chapterName (change)="changed()" [value]="chapterData.chapterName">
-    <button class="btn-course" (click)="addPage()">+ Page</button>
-    <button class="btn-course" (click)="addQuiz()">+ Quiz</button>
-    <button class="btn-course" (click)="saveChapter()" [disabled]="!dataChanged">Save</button>
-    <button class="btn-course" (click)="removeChapter()" [disabled]="!dataChanged"> <i
-        class="fas fa-trash"></i></button>
-  </div>
+<cdk-accordion class="example-accordion">
+  <cdk-accordion-item
+    *ngFor="let item of data; let index = index;"
+    #accordionItem="cdkAccordionItem"
+    class="example-accordion-item"
+    role="button"
+    tabindex="0"
+    [attr.id]="'accordion-header-' + index"
+    [attr.aria-expanded]="accordionItem.expanded"
+    [attr.aria-controls]="'accordion-body-' + index">
+    <div class="example-accordion-item-header" (click)="accordionItem.toggle()">
+      <div class="div-row-flex">
+        <input type="text" placeholder="Chapter Name" class="chapter-title" #chapterName (change)="chapterNameChanged(index,$event)" [value]="item.chapterName">
+        <button class="btn-course" (click)="addPage(index)">+ Page</button>
+        <button class="btn-course" (click)="addQuiz(index)">+ Quiz</button>
+        <button class="btn-course" (click)="removeChapter(index)" [disabled]="this.item.bodies.length != 0"> <i class="fas fa-trash"></i></button>
+        <button mat-icon-button ><mat-icon>
+          
+          {{ accordionItem.expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
+        </mat-icon></button>
+       
+        <!-- <button class="btn-course" (click)="saveChapter()" [disabled]="!dataChanged">Save</button> -->
+        <!-- <button class="btn-course"  (click)="removeChapter()" [disabled]="!dataChanged"> <i class="fas fa-trash"></i></button> -->
+    </div>
+    </div>
+    <div
+      class="example-accordion-item-body"
+      role="region"
+      [style.display]="accordionItem.expanded ? '' : 'none'"
+      [attr.id]="'accordion-body-' + index"
+      [attr.aria-labelledby]="'accordion-header-' + index">
 
 
-  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let item of chapterData.bodies,index as i;" cdkDrag>
-      <div *ngIf="item.type == 'page'" class="div-row-flex">
-        <div>
-         
-          <h3>{{ item?.pages?.title }}</h3>
-
+      <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event,index)">
+        <div class="example-box" *ngFor="let body of this.data[index].bodies,index as i;" cdkDrag>
+        <div  class="div-row-flex" >
+        <div class="page-title">
+         <h3>{{ body.type == 'page' ?  body?.pages?.title :  body?.quizList?.quizName }}</h3>
         </div>
-        <div>
-          <button mat-icon-button aria-label="Edit buttpon" (click)="editPage(item?.pages)">
+         <div >
+          <button *ngIf="body.type == 'page'"  mat-icon-button  aria-label="Edit buttpon" (click)="editPage(body.pages)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button aria-label="Remove buttpon" (click)="removePage(i)">
-            <mat-icon>delete</mat-icon>
-          </button>
+          <button mat-icon-button  aria-label="Remove buttpon" (click)="removePage(index,i)">
+           <mat-icon>delete</mat-icon>
+         </button>
+         </div>
         </div>
       </div>
-
-      <div *ngIf="item.type == 'quiz'" class="div-row-flex">
-        <div>
-          <h3>{{ item?.quizList?.quizName }}</h3>
-        </div>
-        <div>
-          <button mat-icon-button aria-label="Remove buttpon" (click)="removePage(i)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-      </div>
-
-
-
+</div>
 
     </div>
-  </div>
+  </cdk-accordion-item>
+</cdk-accordion>
 
-</div>

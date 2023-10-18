@@ -127,7 +127,8 @@ export class NewCourseComponent implements OnInit {
         coverUrl:this.courseForm.get("coverUrl")?.value,
         description:this.courseForm.get("description")?.value,
         topic:this.courseForm.get("topic")?.value,
-        createdBy:this.userId
+        createdBy:this.userId,
+        chapters:[]
       }
       console.log(course);
       this.courseService.addCourse(course).subscribe(data=>{
