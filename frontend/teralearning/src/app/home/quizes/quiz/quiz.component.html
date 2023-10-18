@@ -1,53 +1,93 @@
 <br>
 <h2>Quiz List</h2>
 
-<div>
-    <input type="text" #input (keyup)="filterQuizName($event)" placeholder='Search Quiz Name' /><i
-        class="fas fa-search "></i>&nbsp;&nbsp;
-   <mat-form-field class="Rightspace2">
-
-    <mat-label><i class="fa fa-filter"></i> Filter Stream</mat-label>
+<div class="filtered-search-box">
         <div>
-            <select matNativeControl name="quiz"  >
+        <label for="">Stream</label><br>
+        <select name="quiz" class="filter-dropdown">
+          <option value=""> All </option>
+          <option *ngFor="let item of streamFilterList" value="{{item}}">
+            {{item}}
+          </option>
+        </select>
+        </div>
+
+      <div>
+        <label for="">Subject</label><br>
+        <select name="quiz" class="filter-dropdown" (change)="filterSubjectTable($event)">
+          <option value=""> All </option>
+          <option *ngFor="let item of subjectFilterList" value="{{item}}">
+            {{item}}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label for="">Topic</label><br>
+        <select name="quiz" class="filter-dropdown" (change)="filterTopicTable($event)">
+          <option value=""> All </option>
+          <option *ngFor="let item of topicFilterList" value="{{item}}">
+            {{item}}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <label for="">Quiz Name</label><br>
+        <input id="searchBar"  type="text" #input (keyup)="filterQuizName($event)" placeholder='Search'  
+          style="width: auto;">
+      </div>
+      <div>
+        <input (click)="openAddDialog()" type="submit" value="Add Quiz" class="btn-submit" id="submitButton">
+      </div>
+      
+</div><br>
+    
+    
+   <!-- <mat-form-field>
+
+    
+        <div>
+            <select matNativeControl name="quiz" class="filter-dropdown" >
                 <option value=""> All </option>
-                <option *ngFor="let item of streamFilterList" value="{{item}}">
+                <option *ngFor="let item of streamFilterList; trackBy:trackByFnForStream" value="{{item}}">
                     {{item}}
                 </option>
             </select>
         </div>
-    </mat-form-field>
+    </mat-form-field> -->
    
-    <mat-form-field class="Rightspace2">
+    <!-- <mat-form-field >
         <mat-label><i class="fa fa-filter"></i> Filter Subject</mat-label>
         <div>
-            <select matNativeControl name="quiz" (change)="filterSubjectTable($event)">
+            <select matNativeControl name="quiz" (change)="filterSubjectTable($event)" class="filter-dropdown">
                 <option value=""> All </option>
                 <option *ngFor="let item of subjectFilterList" value="{{item}}">
                     {{item}}
                 </option>
             </select>
         </div>
-    </mat-form-field>
+    </mat-form-field> -->
       
-    <mat-form-field class="Rightspace2">
+    <!-- <mat-form-field >
         <mat-label><i class="fa fa-filter"></i> Filter Topic</mat-label>
         <div>
-            <select matNativeControl name="quiz" (change)="filterTopicTable($event)">
+            <select matNativeControl name="quiz" (change)="filterTopicTable($event)" class="filter-dropdown">
                 <option value=""> All </option>
                 <option *ngFor="let item of topicFilterList" value="{{item}}">
                     {{item}}
                 </option>
             </select>
         </div>
-    </mat-form-field> 
-    <input (click)="openAddDialog()" type="submit" value="Add Quiz" class="btn-submit" id="submitButton">
-</div><br>
+    </mat-form-field>  -->
+    
 
-<div>
+
+
     <input type="checkbox" class="form-check-input" (click)="getResult($event)">
     <label>Show only my quizzes</label>
 
-</div><br><br>
+<br><br>
 
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">

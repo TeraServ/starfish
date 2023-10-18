@@ -1,3 +1,19 @@
+.anchor-tag{
+  font-size: larger bold;
+  color: #2C45A7;
+
+}
+#top-bar{
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.path{
+  padding: 10px 12px;
+  margin-top: 5px;
+}
+
 .loginbtn {
   background-color: #2C45A7;
   /* Green */
@@ -200,7 +216,6 @@ th {
 .containerStyle {
   display: flex;
   justify-content: center;
-
   min-height: 50vh;
   background: #FAFAFA;
   height: 100%;
@@ -215,18 +230,23 @@ th {
   flex-wrap: wrap;
   margin: -10px 0 0 -10px;
   text-align: left;
+  height: 100%;
+  width: 100%;
 }
 
 .accordion .contentBx {
   position: relative;
   margin: 10px 20px;
   text-align: left;
+  height: 100%;
+  width: 100%;
 }
 
 
 .content-active {
   height: auto;
   padding: 10px;
+  height: 100%;
   width: 100%;
   display: flex;
   justify-content: left;
@@ -236,6 +256,7 @@ th {
 
 .content-active p {
   text-align: left;
+
 }
 
 .content-inactive {
@@ -246,6 +267,7 @@ th {
   transition: 0.1s;
   overflow-y: auto;
   text-align: left;
+
 }
 
 .editBtn {

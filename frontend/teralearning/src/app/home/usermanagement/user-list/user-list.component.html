@@ -1,17 +1,16 @@
 <h2>Users List</h2>
-
-<input type="text" #input (keyup)="filterFirstNameTable($event)" placeholder='Search First Name' />
-<i class="fas fa-search "></i>&nbsp;&nbsp;
-<input type="text" #input (keyup)="filterEmailTable($event)" placeholder='Search Email' /> <i
-    class="fas fa-search "></i>&nbsp;&nbsp;
-<input type="number" #input (keyup)="filterPhoneNumberTable($event)" placeholder='Search Phone number' /> <i
-    class="fas fa-search "></i>&nbsp;&nbsp;&nbsp;
-
-
+<div class="filtered-search-box">
+<label for="">First Name</label>
+<input type="text" #input (keyup)="filterFirstNameTable($event)" placeholder='Search' class="searchBar"/>
+<label for="">Email</label>
+<input type="text" #input (keyup)="filterEmailTable($event)" placeholder='Search' class="searchBar"/> 
+<label for="">PhoneNumber</label>
+<input type="number" #input (keyup)="filterPhoneNumberTable($event)" placeholder='Search' class="searchBar"/> 
 
 <button type="submit" class="advanceSearch" (click)="ontoggleclick()"><i class="fa fa-filter"></i> Filter </button><br><br><br>
+
 <div *ngIf="visible">
-    <mat-form-field class="Rightspace2">
+    <mat-form-field >
         <mat-label><i class="fa fa-filter"></i> Filter Status</mat-label>
         <div>
             <select matNativeControl name="userStatus" (change)="filterUserStatusTable($event)">
@@ -22,7 +21,7 @@
             </select>
         </div>
     </mat-form-field>
-    <mat-form-field class="Rightspace2">
+    <mat-form-field >
         <mat-label><i class="fa fa-filter"></i> Filter User Type</mat-label>
         <div>
             <select matNativeControl name="userType" (change)="filterUserTypeTable($event)">
@@ -33,7 +32,7 @@
             </select>
         </div>
     </mat-form-field>
-    <mat-form-field class="Rightspace2">
+    <mat-form-field>
         <mat-label><i class="fa fa-filter"></i> Filter Stream</mat-label>
         <div>
             <select matNativeControl name="stream" (change)="filterStreamTable($event)">
@@ -44,7 +43,7 @@
             </select>
         </div>
     </mat-form-field>
-    <mat-form-field class="Rightspace2">
+    <mat-form-field >
         <mat-label><i class="fa fa-filter"></i> Filter Category</mat-label>
         <div>
             <select matNativeControl name="userType" (change)="filtercategoryTable($event)">
@@ -56,6 +55,10 @@
     </mat-form-field>
 
 </div>
+
+</div><br>
+
+
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 

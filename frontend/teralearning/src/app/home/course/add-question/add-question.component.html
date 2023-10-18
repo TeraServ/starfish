@@ -9,7 +9,7 @@
 
     <!-- <mat-form-field> -->
       <!-- <mat-label *ngIf="isPreviewed">{{labels.questionType}}</mat-label> -->
-        <mat-select  formControlName = "questionType" (selectionChange)="onQuestionTypeChange()" required>
+        <mat-select class="form-control-input"  formControlName = "questionType" (selectionChange)="onQuestionTypeChange()" required>
           <mat-label><b>{{labels.questionType}}</b></mat-label>
           <ng-container  *ngFor = "let type of questionTypes" > 
             <mat-option [value]="type.value" >{{type.viewValue}}</mat-option>
@@ -125,11 +125,17 @@
   <div class="col">
     <div class="text-center">
       <div class="mt-4 pt-2" *ngIf = "!isPreviewed">
-        <button  class="save-button btn" (click)="onSubmit()">Preview</button>
+        <button  class="save-button btn" 
+        matTooltip="Preview the question"
+        aria-label="Button that previews the added question"
+        (click)="onSubmit()">Preview</button>
       </div>
       <div *ngIf = "isPreviewed">
-        <button class="save-button btn" (click)="onBack()">Back</button>&nbsp;
-        <button  class="save-button btn" (click)="onSave()">Save</button>
+        <button class="save-button btn" 
+        matTooltip="Go Back"
+        (click)="onBack()">Back</button>&nbsp;
+        <button  class="save-button btn" (click)="onSave()"
+        matTooltip="Save question to the question">Save</button>
       </div>
     </div>
   </div>

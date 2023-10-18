@@ -33,7 +33,7 @@ export class SubjectListComponent implements OnInit {
   constructor(public dialog: MatDialog, private subjectService: SubjectService, public dialogRef: MatDialog, private streamService: StreamService) {
     this.filterSelectObj = [
       {
-        name: 'Stream Name',
+        name: 'Stream',
         columnProp: 'stream',
         options: []
       },

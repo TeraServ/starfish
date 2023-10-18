@@ -41,14 +41,13 @@ export class QuizComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     this.getQuiz();
   }
 
   openAddDialog() {
     this.dialog.open(AddQuizComponent, {
       width: "800px",
-      height: "500px"
+      height: "450px"
 
     }).afterClosed().subscribe(data => {
       this.getQuiz()
@@ -65,7 +64,7 @@ export class QuizComponent implements OnInit {
   getQuiz() {
     this.quizService.getQuizList().subscribe(data => {
       this.dataSource.data = data;
-      console.log("hsgdjhsgd",this.dataSource.data)
+      
       
 
       this.dataSource.data.forEach(element => {
@@ -100,11 +99,12 @@ export class QuizComponent implements OnInit {
   }
 
   passDataToService(quiz:any) {
+    //this.router.navigate(['/edit/quizName',quiz.quizName]);
     this.quizDataTransfer.passData(quiz);
   }
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: { id: id, message: "Are you sure want to delete ", funId: 1 },
+      data: { id: id, message: "Are you sure want to delete ", funId: 1,warnMessage:"Cannot Delete Quiz as it is mapped to a course" },
     }).afterClosed().subscribe(data => {    
       this.getQuiz();
     });
@@ -166,6 +166,9 @@ export class QuizComponent implements OnInit {
       !f ||
       data.topic.topicName == input.target.value;
     this.dataSource.filter = input.target.value;
+  }
+  trackByFnForStream(index:number,item:any){
+  return item;
   }
 
 

@@ -19,7 +19,7 @@ import { ChapterQuizComponent } from '../chapter-quiz/chapter-quiz.component';
 })
 export class ChapterComponent implements OnInit {
 
-  constructor(private matDialog:MatDialog,private componentFactoryResolver: ComponentFactoryResolver,private courseService:CourseService,private chapterDataService:ChapterDataService) { }
+  constructor(private matDialog: MatDialog, private componentFactoryResolver: ComponentFactoryResolver, private courseService: CourseService, private chapterDataService: ChapterDataService) { }
 
   // pageData:Page[]=[];
   chapterData:Chapter =new Chapter;
@@ -67,8 +67,8 @@ export class ChapterComponent implements OnInit {
         // this.chapterDataService.addChapterPageAndQuiz(body).subscribe(data=>{
         //   this.chapterData.body.push(data)
         // }) 
-       // this.chapterData.body.push(chbody)
-        
+        // this.chapterData.body.push(chbody)
+
         this.dataChanged = true;
        this.saveChapter(index);
       }
@@ -76,13 +76,23 @@ export class ChapterComponent implements OnInit {
 
   }
 
-  changed(){
+  changed() {
     this.dataChanged = true;
   }
-  addQuiz() {
+  addQuiz(index:any) {
     this.matDialog.open(ChapterQuizComponent, { height: "90%", width: "100%" }).afterClosed().subscribe(value => {
       if (value.event == "Add") {
         console.log(value.chosenQuiz)
+        let addedQuiz: CHBody = {
+          id: 0,
+          type: "quiz",
+          pages: null,
+          quizList: value.chosenQuiz,
+        }
+        this.data[index].bodies.push(addedQuiz);
+        console.log("addedQuiz", addedQuiz)
+        this.dataChanged = true;
+        this.saveChapter(index);
       } else if (value.event == "Cancel") {
 
       } else {

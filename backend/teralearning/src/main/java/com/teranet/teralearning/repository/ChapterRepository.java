@@ -9,6 +9,7 @@ import java.util.List;
 
 @Repository
 public interface ChapterRepository extends JpaRepository<Chapter,Long> {
+    boolean existsByBodies_QuizList_Id(long id);
     @Query("select c from Chapter c where c.courseId = ?1")
     List<Chapter> findByCourseId(long courseId);
 }

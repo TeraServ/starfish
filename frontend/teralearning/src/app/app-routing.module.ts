@@ -15,8 +15,6 @@ import { SubjectComponent } from './home/subjects/subject/subject.component';
 
 import { SubjectListComponent } from './home/subjects/subject-list/subject-list.component';
 import { TopicComponent } from './topic/topic.component';
-import { CreateCoursesComponent } from './create-courses/create-courses.component';
-import { ViewAndSearchComponent } from './core/view-and-search/view-and-search.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { QuizComponent } from './home/quizes/quiz/quiz.component';
 import { EditQuizComponent } from './home/quizes/edit-quiz/edit-quiz.component';
@@ -47,15 +45,6 @@ const routes: Routes = [
     component: TopicComponent
   },
   {
-    path: "createCourse",
-    component:CreateCoursesComponent,
-    title: "Create a Course"
-  },{
-    path:'viewandsearch',
-    component:ViewAndSearchComponent,
-    title: "View Users"
-  },
-  {
     path:"resetpassword",
     component:PasswordResetComponent,
     title:"Reset Password"
@@ -65,7 +54,7 @@ const routes: Routes = [
     component: QuizComponent
   },
   {
-    path:"quizes/quiz/edit",
+    path:"quizes/quiz/edit/:quizName",
     component: EditQuizComponent
   },
   // {

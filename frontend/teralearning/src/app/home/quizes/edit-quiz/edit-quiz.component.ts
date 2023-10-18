@@ -1,3 +1,4 @@
+import { Subscription, takeUntil } from 'rxjs';
 import { Component, Inject, Input, OnInit, Optional, Renderer2, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
@@ -36,13 +37,6 @@ export class EditQuizComponent implements OnInit {
   FilteredsubjectList: Subject[] = [];
   FilteredtopicList: Topic[] = [];
   EditQuiz!: quiz
-
-
-  constructor(private dialog: MatDialog, private router: Router, private streamService: StreamService,
-    private subjectService: SubjectService, private snackBar: MatSnackBar, private quizService: QuizService,
-    private route: ActivatedRoute, private quizDataTransfer: QuizDataTransferService, private topicService: TopicService,
-    private dialogService: MatDialog, private questionService: QuestionService) {
-  }
   UpdatedStream!: string;
   UpdatedSubject!: string;
   UpdatedTopic: Topic = {
@@ -59,58 +53,80 @@ export class EditQuizComponent implements OnInit {
   UpdatedSubjectId!: any;
   UpdatedTopicId!: any;
   isActive!: any;
+  private subscriptions!:Subscription;
+
+
+  constructor(private dialog: MatDialog, private router: Router, private streamService: StreamService,
+    private subjectService: SubjectService, private snackBar: MatSnackBar, private quizService: QuizService,
+    private route: ActivatedRoute, private quizDataTransfer: QuizDataTransferService, private topicService: TopicService,
+    private dialogService: MatDialog, private questionService: QuestionService) {
+  }
+
 
 
   ngOnInit(): void {
-    this.isActive = new Array<boolean>(this.questionList.length);
-    this.isActive.fill(false);
-    console.log("firstttt", this.quizBtn)
-    this.quizDataTransfer.data$.subscribe(receivedData => {
-      if (receivedData) {
-        console.log("receivedData", receivedData);
-        this.EditQuiz = receivedData;
-        this.UpdatedStreamId = this.EditQuiz?.topic.subject.stream.id;
-        this.UpdatedSubjectId = this.EditQuiz?.topic?.subject?.id
-        this.UpdatedTopicId = this.EditQuiz.topic?.id;
-      }
-    });
+   this.initializeEditsForQuestions();
+   this.getParamsFromRoute();
+   //this.getQuizDataFromDataService();
+   this.toggleQuizEdit();
+  this.passDataToUpdateBody()
+  this.getStreams();
+  this.getSubjectList();
+  this.getTopicList();
+  this.getQuestion();
+  }
+  passDataToUpdateBody(){
+    this.UpdatedQuizName = this.EditQuiz?.quizName;
+    this.UpdatedPassCriteria = this.EditQuiz?.passCriteria;
+    this.UpdatedTotalNoOfQuestion = this.EditQuiz?.TotalNoOfQuestion;
+    this.UpdatedModifier = this.EditQuiz?.modifier;
+    this.UpdatedAllowRetake = this.EditQuiz?.allowRetake;
+  }
+  toggleQuizEdit(){
     if (!this.quizUpdate) {
       this.quizBtn = true
     }
     else {
       this.UpdateQuizDetails();
     }
+  }
 
-
-
-    this.UpdatedQuizName = this.EditQuiz?.quizName;
-    this.UpdatedPassCriteria = this.EditQuiz?.passCriteria;
-    this.UpdatedTotalNoOfQuestion = this.EditQuiz?.TotalNoOfQuestion;
-    this.UpdatedModifier = this.EditQuiz?.modifier;
-    this.UpdatedAllowRetake = this.EditQuiz?.allowRetake;
-    this.getStreams();
-    this.getSubjectList();
-    this.getTopicList();
-    this.getQuestion();
-    console.log("QuizBody", this.UpdatedTopic)
-
+  getParamsFromRoute(){
+    this.subscriptions = this.route.params.subscribe(params=>{
+      if(params['quizName']){
+        console.log(params);
+      }else{
+        this.getQuizDataFromDataService();
+      }
+    })
+  }
+  initializeEditsForQuestions(){
+    this.isActive = new Array<boolean>(this.questionList.length);
+    this.isActive.fill(false);
+  }
+  getQuizDataFromDataService(){
+    this.subscriptions= this.quizDataTransfer.data$.subscribe(receivedData => {
+      if (receivedData) {
+        this.EditQuiz = receivedData;
+        this.UpdatedStreamId = this.EditQuiz?.topic.subject.stream.id;
+        this.UpdatedSubjectId = this.EditQuiz?.topic?.subject?.id
+        this.UpdatedTopicId = this.EditQuiz.topic?.id;
+      }
+    });
   }
 
 
   getQuestion() {
-    console.log("QuizId",this.EditQuiz.id)
-    this.questionService.getQuestionList(this.EditQuiz.id).subscribe(data => {
+    this.subscriptions = this.questionService.getQuestionList(this.EditQuiz.id).subscribe(data => {
       this.questionList = data.body;
-      console.log("questionList", this.questionList)
-
-    })
+    });
 
   }
 
 
   
   openDeleteDialog(id: any): void {
-    this.dialog.open(DeleteDialogComponent, {
+    this.subscriptions = this.dialog.open(DeleteDialogComponent, {
       data: { id: id, message: "Are you sure want to delete ", funId: 2 },
     }).afterClosed().subscribe(data => {    
       this.getQuestion();
@@ -121,8 +137,7 @@ export class EditQuizComponent implements OnInit {
   }
 
   openEditQuestionDialog(question: Question) {
-    console.log("questionEdit")
-    this.dialog.open(EditQuestionComponent, {
+    this.subscriptions =  this.dialog.open(EditQuestionComponent, {
       width: "800px",
       height: "500px",
       data: question
@@ -140,14 +155,12 @@ export class EditQuizComponent implements OnInit {
         this.classList.toggle('active');
       });
 
-      console.log("questionLoopppp")
     }
   }
 
   getStreams() {
-    this.streamService.getStreamList().subscribe(data => {
+    this.subscriptions=  this.streamService.getStreamList().subscribe(data => {
       this.streamList = data
-      console.log(this.streamList)
     })
   }
 
@@ -162,7 +175,6 @@ export class EditQuizComponent implements OnInit {
 
     this.subjectService.getFilteredSubject(this.UpdatedStreamId).subscribe((data) => {
       this.FilteredsubjectList = data.body;
-      console.log("Filteredsubjectlist", this.FilteredsubjectList)
 
     })
   }
@@ -173,19 +185,16 @@ export class EditQuizComponent implements OnInit {
     }
   }
   getTopicList() {
-
     this.topicService.getFilteredTopic(this.UpdatedSubjectId).subscribe((data) => {
       this.FilteredtopicList = data;
-
     })
 
   }
   AddaQuestion() {
-    this.dialog.open(AddQuestionComponent,{
+    this.subscriptions= this.dialog.open(AddQuestionComponent,{
       width: "800px",
       height: "500px",
       data: this.EditQuiz
-
     }).afterClosed().subscribe(data => {    
       this.getQuestion();
     });
@@ -204,12 +213,10 @@ export class EditQuizComponent implements OnInit {
   }
 
   UpdateQuizDetails() {
-    console.log("jhadgfjhdgf")
 
 
     if (this.quizUpdate && this.UpdatedStream != '' && this.UpdatedSubject != '' && this.UpdatedTopic != undefined && this.UpdatedPassCriteria != 0) {
 
-      console.log("calling UpdateQuizDetails")
       let UpdateQuizDetails: quiz = {
         id: this.EditQuiz.id,
         topic: this.FilteredtopicList.find(x => x.id = this.UpdatedTopicId),
@@ -220,27 +227,21 @@ export class EditQuizComponent implements OnInit {
         modifier: this.UpdatedModifier,
         allowRetake: true
       }
-      console.log("UpdateQuizDetails", UpdateQuizDetails, this.quizUpdate)
+    
       if (this.quizUpdate) {
 
         this.quizService.updateQuiz(UpdateQuizDetails).subscribe(data => {
-          console.log("sgrgregerh", this.quizUpdate);
 
           this.dialog.open(SuccessDialogComponent, { data: { message: "Successfully updated" } }).afterClosed().subscribe(data => {
             this.router.navigate(['home/quizes/quiz/']);
-          })
-
-
+          });
         });
 
       }
       else {
         this.snackBar.open("No changes", '', {
           duration: 3000
-        })
-
-      }
-
+        })}
     }
     else {
       this.quizBtn = true;
@@ -249,6 +250,11 @@ export class EditQuizComponent implements OnInit {
       })
     }
 
+  }
+  async ngOnDestroy(){
+    if(this.subscriptions){
+      this.subscriptions.unsubscribe();
+    }
   }
 
 }

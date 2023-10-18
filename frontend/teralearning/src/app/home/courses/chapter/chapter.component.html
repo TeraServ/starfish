@@ -12,7 +12,7 @@
       <div class="div-row-flex">
         <input type="text" placeholder="Chapter Name" class="chapter-title" #chapterName (change)="chapterNameChanged(index,$event)" [value]="item.chapterName">
         <button class="btn-course" (click)="addPage(index)">+ Page</button>
-        <button class="btn-course" (click)="addQuiz()">+ Quiz</button>
+        <button class="btn-course" (click)="addQuiz(index)">+ Quiz</button>
         <button class="btn-course" (click)="removeChapter(index)" [disabled]="this.item.bodies.length != 0"> <i class="fas fa-trash"></i></button>
         <button mat-icon-button ><mat-icon>
           
