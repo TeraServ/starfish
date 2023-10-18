@@ -40,13 +40,12 @@ export class DeleteDialogComponent implements OnInit {
         error: (e: any) => {
           if (e.status == 500) {
             //window.confirm("Cannot Delete Quiz: As Quiz is mapped to a Course")
-            this.warnMessage = "Cannot delete quiz as it is mapped to a course";
+            this.warnMessage = "Cannot delete quiz as it is mapped to courses";
             this.showWarnMessage = true;
           }
           console.error(e)
         }
       });
-
     }
     else if (qn == 2) {
       this.questionService.deleteQuestion(this.data.id).subscribe({

@@ -8,31 +8,31 @@
   <div class="filtered-search-box">
     <div>
       <label for="">Stream</label><br>
-      <select name="quiz"  class="filter-dropdown">
+      <select name="quiz" class="filter-dropdown">
         <option value=""> All </option>
         <option *ngFor="let item of streamFilterList" value="{{item}}">
-            {{item}}
+          {{item}}
         </option>
-    </select>
+      </select>
     </div>
     <div>
       <label for="">Subject</label><br>
       <select name="quiz" class="filter-dropdown" (change)="filterSubjectTable($event)">
         <option value=""> All </option>
         <option *ngFor="let item of subjectFilterList" value="{{item}}">
-            {{item}}
+          {{item}}
         </option>
-    </select>
+      </select>
     </div>
 
     <div>
       <label for="">Topic</label><br>
-      <select  name="quiz" class="filter-dropdown" (change)="filterTopicTable($event)">
+      <select name="quiz" class="filter-dropdown" (change)="filterTopicTable($event)">
         <option value=""> All </option>
         <option *ngFor="let item of topicFilterList" value="{{item}}">
-            {{item}}
+          {{item}}
         </option>
-    </select>
+      </select>
     </div>
     <div>
       <label for="">Quiz Name</label><br>
@@ -92,9 +92,9 @@
 
     </table>
   </div>
-  <mat-paginator [length]="100"  [ngStyle]="{'display': showPaginator ? 'block' : 'none'}" [pageSizeOptions]="[5,10,15,20]" [pageSize]="5" showFirstLastButtons
-  aria-label="Select page of periodic elements">
-</mat-paginator>
+  <mat-paginator [length]="100" [ngStyle]="{'display': showPaginator ? 'block' : 'none'}"
+    [pageSizeOptions]="[5,10,15,20]" [pageSize]="5" showFirstLastButtons aria-label="Select page of periodic elements">
+  </mat-paginator>
 
 
 </form>

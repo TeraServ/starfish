@@ -13,7 +13,9 @@
     <div class="example-box" *ngFor="let item of chapterData.bodies,index as i;" cdkDrag>
       <div *ngIf="item.type == 'page'" class="div-row-flex">
         <div>
+         
           <h3>{{ item?.pages?.title }}</h3>
+
         </div>
         <div>
           <button mat-icon-button aria-label="Edit buttpon" (click)="editPage(item?.pages)">

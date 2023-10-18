@@ -1,4 +1,4 @@
-<title>Create Subject</title>
+<h2>Create Subject</h2><br>
 <section class="vh-100 gradient-custom">
 
     <div class="container">
@@ -10,60 +10,47 @@
                     <div class="card-body"> -->
                        
                 <form [formGroup]="createSubjectForm" (ngSubmit)="onSubmit()">
-                    <div class="row">
-
-                        <div class="col">
-                            <h1>Create Subject</h1><br>
-                        </div>
-                    </div>
+                    
                     <!-- Stream Name  -->
 
                     <div class="row">
 
-                        <div class="col-md-6 mb-4 pb-2">
-                            <div class="form-floating mb-3">
-                                <select formControlName="stream" class="form-control" placeholder="stream" 
+                        <div class="col">
+                                <label>Stream Name</label>
+                                <select formControlName="stream" class="form-control-input"placeholder="stream" 
                                 [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.stream.errors }">
+                                    <option value="" selected>Select</option>
                                     <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
                                 </select>
-                                <label for="floatingInput">Stream Name</label>
-                                <div *ngIf="submitted && createSubjectForm.controls.stream.errors" class="invalid-feedback">
+                                
+                                <div *ngIf="submitted && createSubjectForm.controls.stream.errors" class="invalid-feedback"><br>
                                     <div *ngIf="createSubjectForm.controls.stream.errors.required">*Required</div>
                                 </div>
-                            </div>
+                            
                         </div>
 
                         <!-- Subject Name  -->
 
-                        <div class="col-md-6 mb-4">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" formControlName="subjectName" placeholder="subjectName"
+                        <div class="col">
+                                <label >Subject Name</label>
+                                <input type="text" class="form-control-input" formControlName="subjectName" placeholder="subjectName"
                                 [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }" pattern="[a-zA-Z][a-zA-Z ]+">
-                                <label for="floatingInput">Subject Name</label>
+                                
                                 <div *ngIf="submitted && createSubjectForm.controls.subjectName.errors"
-                                    class="invalid-feedback">
+                                    class="invalid-feedback"><br>
                                     <div *ngIf="createSubjectForm.controls.subjectName.errors.required">*Required</div>
                                     <div id="invalidSubjectName" *ngIf="createSubjectForm.controls.subjectName.errors.pattern">Invalid</div>
-                                </div>
-                            </div>
+                                </div>                            
                         </div>
-
-
-                    </div>
+                    </div><br><br>
 
 
                     <!-- Button -->
-                    <div class="col">
-                        <div class="text-center">
-                            <div class="mt-4 pt-2">
-                                <input class="loginbtn btn" type="submit" value="Create Subject" >
 
-                                
-                            </div>
-                        </div>
-
-                        <br>
+                    <div class="row">
+                        <input type="submit" value="Submit" class="btn-submit">
                     </div>
+                   
 
                 </form>
                 <!-- </div> -->

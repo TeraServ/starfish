@@ -41,14 +41,13 @@ export class QuizComponent implements OnInit {
 
 
   ngOnInit(): void {
-
     this.getQuiz();
   }
 
   openAddDialog() {
     this.dialog.open(AddQuizComponent, {
       width: "800px",
-      height: "500px"
+      height: "450px"
 
     }).afterClosed().subscribe(data => {
       this.getQuiz()

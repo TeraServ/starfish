@@ -26,9 +26,10 @@
                 upperCaseInput
                 value="{{mcqOption.answer}}">
             </mat-form-field>
+            <mat-icon *ngIf="mcqOption.correct">done</mat-icon>
         </div>
 
-        <div class="question-answer">
+        <!-- <div class="question-answer">
             <p style="color: #068637"><b>{{labels.answerHeading}}</b></p>
             <div *ngFor="let mcqOption of this.questionBody.answers, let i = index">
                 <div *ngIf="mcqOption.correct">
@@ -40,7 +41,7 @@
                         </mat-form-field>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
    </div>

@@ -1,18 +1,22 @@
 <h2>Subject List</h2>
 
-<mat-form-field *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
-    <mat-label ><i class="fa fa-filter" ></i> Filter {{filter.name}}</mat-label>
-    <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
-        (change)="filterChange(filter,$event)">
+<div class="filtered-search-box">
+<div *ngFor="let filter of filterSelectObj" >
+    <mat-label >{{filter.name}}</mat-label>
+    <select name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+        (change)="filterChange(filter,$event)" class="filter-dropdown">
         <option value=""> All </option>
         <option [value]="item.id" *ngFor="let item of filter.options">{{item.name}}</option>
     </select>
-</mat-form-field>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  
+</div>
+
+<div >
+    <label for="">Subject</label><br>
+    <input type="text" (keyup)="filterTable($event)"  class="searchBar"/>
+</div>
 
 
-<input type="text" #input (keyup)="filterTable($event)" placeholder='Search Subject Name' /><i
-    class="fas fa-search"></i>
-
+</div><br>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 

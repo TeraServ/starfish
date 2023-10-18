@@ -9,7 +9,7 @@
 
     <!-- <mat-form-field> -->
       <!-- <mat-label *ngIf="isPreviewed">{{labels.questionType}}</mat-label> -->
-        <mat-select  formControlName = "questionType" (selectionChange)="onQuestionTypeChange()" required>
+        <mat-select class="form-control-input"  formControlName = "questionType" (selectionChange)="onQuestionTypeChange()" required>
           <mat-label><b>{{labels.questionType}}</b></mat-label>
           <ng-container  *ngFor = "let type of questionTypes" > 
             <mat-option [value]="type.value" >{{type.viewValue}}</mat-option>

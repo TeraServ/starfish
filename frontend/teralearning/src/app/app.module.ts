@@ -32,6 +32,7 @@ import { CacheResultPipe } from './pipes/cache-result.pipe';
 import { ResourceNotFoundComponent } from './resource-not-found/resource-not-found.component';
 import { EditQuestionComponent } from './home/quizes/edit-question/edit-question.component';
 import { CustomeArraySortPipe } from './custome-array-sort.pipe';
+import { TopicListComponent } from './topic-list/topic-list.component';
 
 
 
@@ -50,7 +51,8 @@ import { CustomeArraySortPipe } from './custome-array-sort.pipe';
     PasswordResetComponent,
     CacheResultPipe,
     ResourceNotFoundComponent,
-    EditQuestionComponent
+    EditQuestionComponent,
+    TopicListComponent
  
    
   ],
