@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Service
 public class CourseService implements CourseInterface {
@@ -22,9 +23,23 @@ public class CourseService implements CourseInterface {
 
     @Override
     public ResponseEntity addCourse(Course course){
-        course.setCreatedDate(LocalDate.now());
-        course.setModifiedData(LocalDate.now());
-        return new ResponseEntity(courseRepository.save(course), HttpStatus.OK);
+
+        Optional<Course> uCourse = courseRepository.findById(course.getId());
+        if(uCourse.isPresent()){
+            uCourse.get().setCourseName(course.getCourseName());
+            uCourse.get().setTopic(course.getTopic());
+            uCourse.get().setCoverUrl(course.getCoverUrl());
+            uCourse.get().setDescription(course.getDescription());
+            uCourse.get().setChapters(course.getChapters());
+            uCourse.get().setModifiedData(LocalDate.now());
+            return new ResponseEntity(courseRepository.save(uCourse.get()), HttpStatus.OK);
+        }else {
+            course.setCreatedDate(LocalDate.now());
+            course.setModifiedData(LocalDate.now());
+            return new ResponseEntity(courseRepository.save(course), HttpStatus.OK);
+        }
+
+
     }
 
     @Override

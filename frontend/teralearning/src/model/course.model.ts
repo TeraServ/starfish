@@ -1,3 +1,4 @@
+import { Chapter } from "./chapter.model";
 import { Topic } from "./topic.model";
 
 export class Course{
@@ -6,6 +7,7 @@ export class Course{
     topic!:Topic;
     coverUrl!:string;
     description!:string;
-    createdBy!:number
+    createdBy!:number;
+    chapters!:Chapter[]
 
 }

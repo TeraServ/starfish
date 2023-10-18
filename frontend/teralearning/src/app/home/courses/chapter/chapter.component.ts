@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PageComponent } from '../page/page.component';
 import { Chapter } from 'src/model/chapter.model';
@@ -23,15 +23,21 @@ export class ChapterComponent implements OnInit {
 
   // pageData:Page[]=[];
   chapterData:Chapter =new Chapter;
+  @Output() dataChangeEvent = new EventEmitter();
   //chapters:CHBody[]=[];
   @Input() data!: Chapter[];
 
   @ViewChild("chapterName") chapterName!: ElementRef;
   dataChanged: boolean = false;
+  expandedIndex = 0;
+  @Output() saveChapterEvent = new EventEmitter();
   ngOnInit(): void {
     this.chapterData = this.data[0]
-    this.getChapters();
+    console.log(this.data)
+    //this.getChapters();
   }
+
+
   getChapters(){
     this.chapterDataService.getChapterData(this.chapterData.id).subscribe(data=>{
       if(data){
@@ -40,7 +46,12 @@ export class ChapterComponent implements OnInit {
       console.log(data);
     })
   }
-  addPage(){
+  chapterNameChanged(index:any,event:any){
+    this.data[index].chapterName = event.target.value;
+    this.dataChanged = true;
+    this.saveChapter(index);
+  }
+  addPage(index:any){
     //this.chapterData.title = "Chapter 1"
     this.matDialog.open(PageComponent,{height:"90%"}).afterClosed().subscribe(data=>{
       if(data.data != undefined){
@@ -49,9 +60,9 @@ export class ChapterComponent implements OnInit {
           id:0,
           type:"page",
           pages:data.data,
-          quizList:{}
+          quizList:null
         } 
-        this.chapterData.bodies.push(chbody);
+        this.data[index].bodies.push(chbody);
         // this.pageData.push(data.data); 
         // this.chapterDataService.addChapterPageAndQuiz(body).subscribe(data=>{
         //   this.chapterData.body.push(data)
@@ -59,6 +70,7 @@ export class ChapterComponent implements OnInit {
        // this.chapterData.body.push(chbody)
         
         this.dataChanged = true;
+       this.saveChapter(index);
       }
     });
 
@@ -79,15 +91,16 @@ export class ChapterComponent implements OnInit {
 
     })
   }
-  saveChapter() {
+  saveChapter(index:any) {
 
-    this.chapterData.chapterName = this.chapterName.nativeElement.value;
-    if (this.chapterData.chapterName != null) {
-      this.courseService.saveChapterByCourseId(this.chapterData).subscribe(data => {
+    if (this.data[index].chapterName != null) {
+      this.courseService.saveChapterByCourseId(this.data[index]).subscribe(data => {
         if (data) {
-          this.chapterData = data;
+          this.data[index] =data;;
           this.dataChanged = false;
           this.matDialog.open(SuccessDialogComponent, { data: { message: "Successfully Saved!" } })
+        }else{
+          
         }
       })
     } else {
@@ -96,20 +109,22 @@ export class ChapterComponent implements OnInit {
 
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.chapterData.bodies, event.previousIndex, event.currentIndex);
-   
+  drop(event: CdkDragDrop<string[]>,index:any) {
+    moveItemInArray(this.data[index].bodies, event.previousIndex, event.currentIndex);
+    this.saveChapter(index);
     this.dataChanged = true;
   }
-  removeChapter() { }
-  removePage(index: number) {
+  removeChapter(index:any) { 
+    this.data.splice(index,1)
+  }
+  removePage(chapterIndex:any,index: number) {
     console.log("delete");
-    this.chapterData.bodies.splice(index,1);
+    this.data[chapterIndex].bodies.splice(index,1);
     // this.chapterData.pages = this.pageData;
     this.dataChanged = true;
   }
 
-  editPage(data:Page){
+  editPage(data:any){
     
     this.matDialog.open(PageComponent,{data:data,height:"90%"}).afterClosed().subscribe(data=>{
       

@@ -5,6 +5,6 @@ import { Chapter } from "./chapter.model";
 export class CHBody{
     id!:number;
     type!:string;
-    pages!:Page;
-    quizList!:Quiz;
+    pages!:Page | null;
+    quizList!:Quiz | null;
 }

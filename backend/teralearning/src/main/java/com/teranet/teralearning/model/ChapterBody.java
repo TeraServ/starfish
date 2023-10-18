@@ -2,6 +2,7 @@ package com.teranet.teralearning.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,10 +20,12 @@ public class ChapterBody {
     private String type;
 
     @OneToOne(cascade = CascadeType.ALL,targetEntity = Quiz.class,optional = true)
+    @Nullable
     private Quiz quizList;
 
 
     @OneToOne(cascade = CascadeType.ALL,targetEntity = Page.class,optional = true)
+    @Nullable
     private Page pages;
 
 
