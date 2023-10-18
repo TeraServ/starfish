@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { AddQuizComponent } from '../add-quiz/add-quiz.component';
+
 import { DeleteDialogComponent } from 'src/app/dialogBoxs/delete-dialog/delete-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { QuizDataTransferService } from 'src/app/service/quiz-data-transfer.service';
+import { AddQuizComponent } from '../../quizes/add-quiz/add-quiz.component';
 
 
 @Component({

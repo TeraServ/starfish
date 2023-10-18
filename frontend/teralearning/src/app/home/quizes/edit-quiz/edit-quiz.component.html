@@ -1,9 +1,15 @@
-<form #quizEditForm="ngForm" class="formCenter">
-    <br><br>
-    <div class="row">
-        <div class="col">
-            <h1>Edit Quiz</h1>
-        </div>
+<div id="top-bar">
+    <div class="path">
+     <a href="" routerLink="/home/quizes/quiz" class="anchor-tag">QUIZES</a>
+     &#10095;
+     <a href="" routerLink="/home/quizes/quiz/edit" class="anchor-tag">EDIT</a>
+    </div>
+</div>
+
+<form #quizEditForm="ngForm" class="formCenter"> 
+    <h2 style="padding-right: 950px;">Edit Quiz</h2>
+    
+    <div class="row" style="padding-left: 500px;">        
         <div class="col">
             <input type="submit" value="Add Question" (click)="AddaQuestion()" class="btn-submit"
                 id="submitButton">&nbsp;

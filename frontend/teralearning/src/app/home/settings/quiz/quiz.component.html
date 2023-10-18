@@ -1,14 +1,15 @@
 <br>
 <h2>Quiz List</h2>
 
-<div>
+<div class="filtered-search-box">
     <input type="text" #input (keyup)="filterQuizName($event)" placeholder='Search Quiz Name' /><i
         class="fas fa-search "></i>&nbsp;&nbsp;
+
    <mat-form-field class="Rightspace2">
 
     <mat-label><i class="fa fa-filter"></i> Filter Stream</mat-label>
         <div>
-            <select matNativeControl name="quiz" (change)="filterStreamTable($event)">
+            <select matNativeControl name="quiz" (change)="filterStreamTable($event)" class="filter-dropdown">
                 <option value=""> All </option>
                 <option *ngFor="let item of streamFilterList" value="{{item}}">
                     {{item}}
@@ -16,11 +17,13 @@
             </select>
         </div>
     </mat-form-field>
+
+    
    
     <mat-form-field class="Rightspace2">
         <mat-label><i class="fa fa-filter"></i> Filter Subject</mat-label>
         <div>
-            <select matNativeControl name="quiz" (change)="filterSubjectTable($event)">
+            <select matNativeControl name="quiz" (change)="filterSubjectTable($event)" class="filter-dropdown">
                 <option value=""> All </option>
                 <option *ngFor="let item of subjectFilterList" value="{{item}}">
                     {{item}}
@@ -32,7 +35,7 @@
     <mat-form-field class="Rightspace2">
         <mat-label><i class="fa fa-filter"></i> Filter Topic</mat-label>
         <div>
-            <select matNativeControl name="quiz" (change)="filterTopicTable($event)">
+            <select matNativeControl name="quiz" (change)="filterTopicTable($event)" class="filter-dropdown">
                 <option value=""> All </option>
                 <option *ngFor="let item of topicFilterList" value="{{item}}">
                     {{item}}
