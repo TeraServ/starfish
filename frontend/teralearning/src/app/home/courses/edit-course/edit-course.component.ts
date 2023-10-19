@@ -40,14 +40,14 @@ constructor(private matDialog:MatDialog,
       if (this.updateData?.courseName == null) {
         this.route.navigate(["home/courses"])
       } else {
-        this.getChapter(this.updateData.id)
+        this.getChapter()
         
       }
 
     })
   }
   
-  getChapter(id:number){
+  getChapter(){
     // this.courseService.getChapterByCourseId(id).subscribe(data=>{
     //   console.log(data)
     //   if(data.length > 0){
@@ -73,7 +73,12 @@ constructor(private matDialog:MatDialog,
   }
 
   addChapter(){
-   
+   this.emptyChapter ={
+    chapterName:"Chapter "+this.chapterList.length,
+    courseId:this.updateData.id,
+    bodies:[],
+    id:0
+   }
     // let childComponent = this.componentFactoryResolver.resolveComponentFactory(ChapterComponent);
     
     //   this.componentRef = this.parent.createComponent(childComponent);
@@ -83,6 +88,7 @@ constructor(private matDialog:MatDialog,
       if(data){
         this.chapterList.push(data);
       }
+      console.log(this.chapterList)
     })
       // this.chapterList.push(this.emptyChapter);
 
