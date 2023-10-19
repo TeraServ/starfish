@@ -1,0 +1,43 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+<br>
+<h1>Topic Edit</h1><br>
+
+<form (ngSubmit)="UpdateTopic()" #topicEditForm="ngForm">
+  <div class="form-group">
+
+    <label for="title"><b>Stream Name:</b></label>
+    <input type="text" value="{{EditTopic.subject.stream.streamName}}" class="form-control" id="streamname"
+      name="streamname" disabled>
+  </div><br>
+
+
+  <div class="form-group">
+    <label for="title"><b>Subject Name:</b></label>
+    <input type="text" value="{{EditTopic.subject.subjectName}}" class="form-control" id="subjectname"
+      name="subjectname" disabled>
+  </div><br>
+
+
+  <div class="form-group">
+    <label for="title"><b>Topic Name:</b></label>
+    <input type="text" [(ngModel)]="UpdatedTopicName" value="{{EditTopic.topicName}}" (change)="ValueChange()"
+      class="form-control" id="topic" name="topic" #topic="ngModel" required>
+    <div *ngIf="topicEditForm.controls.topic?.errors?.required" class="error">*Topic Name is required</div>
+
+  </div><br>
+
+
+
+
+  <div *ngIf="isAlert" class="alert alert-success">
+    Updated Successfully!
+  </div>
+  <div>
+    <button class="loginbtn btn">Update</button>
+  </div>
+  <!-- <div>
+      <button class="loginbtn btn">Update</button>
+    </div> -->
+</form>

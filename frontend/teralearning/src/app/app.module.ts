@@ -14,7 +14,7 @@ import { BasicAuthInterceptor } from './_helpers/basic-auth.interceptor';
 
 
 
-import { TopicComponent } from './topic/topic.component';
+import { TopicComponent } from './home/topics/topic/topic.component';
 import { MaterialModule } from './shared/material/material.module';
 import { TeralearnTitleStrategyService } from './_helpers/teralearn-title-strategy.service';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
@@ -32,7 +32,8 @@ import { CacheResultPipe } from './pipes/cache-result.pipe';
 import { ResourceNotFoundComponent } from './resource-not-found/resource-not-found.component';
 import { EditQuestionComponent } from './home/quizes/edit-question/edit-question.component';
 import { CustomeArraySortPipe } from './custome-array-sort.pipe';
-import { TopicListComponent } from './topic-list/topic-list.component';
+import { TopicListComponent } from './home/topics/topic-list/topic-list.component';
+import { TopicEditComponent } from './home/topics/topic-edit/topic-edit.component';
 
 
 
@@ -52,9 +53,10 @@ import { TopicListComponent } from './topic-list/topic-list.component';
     CacheResultPipe,
     ResourceNotFoundComponent,
     EditQuestionComponent,
-    TopicListComponent
- 
-   
+    TopicListComponent,
+    TopicEditComponent
+
+
   ],
   imports: [
     BrowserModule,
@@ -69,13 +71,13 @@ import { TopicListComponent } from './topic-list/topic-list.component';
     MatOptionModule,
     MatIconModule,
     MatFormFieldModule,
-    
-    
+
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: TitleStrategy, useClass: TeralearnTitleStrategyService}
-    ],
+    { provide: TitleStrategy, useClass: TeralearnTitleStrategyService }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
