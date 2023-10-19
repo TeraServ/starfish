@@ -121,25 +121,39 @@ export class NewCourseComponent implements OnInit {
       console.log(this.courseForm)
       return;
     }else{
-      let course:Course = {
-        id: 0,
-        courseName:this.courseForm.get("courseName")?.value,
-        coverUrl:this.courseForm.get("coverUrl")?.value,
-        description:this.courseForm.get("description")?.value,
-        topic:this.courseForm.get("topic")?.value,
-        createdBy:this.userId,
-        chapters:[]
+      
+      if(!this.isEditable){
+        let course:Course = {
+          id: 0,
+          courseName:this.courseForm.get("courseName")?.value,
+          coverUrl:this.courseForm.get("coverUrl")?.value,
+          description:this.courseForm.get("description")?.value,
+          topic:this.courseForm.get("topic")?.value,
+          createdBy:this.userId,
+          chapters:[]
+        }
+        this.saveCourse(course)
+      }else{
+        let course:Course = {
+          id: this.updateData.id,
+          courseName:this.courseForm.get("courseName")?.value,
+          coverUrl:this.courseForm.get("coverUrl")?.value,
+          description:this.courseForm.get("description")?.value,
+          topic:this.courseForm.get("topic")?.value,
+          createdBy:this.userId,
+          chapters:this.updateData.chapters
+        }
+        this.saveCourse(course)
       }
-      console.log(course);
+     
+    }
+  }
+    saveCourse(course:Course){
       this.courseService.addCourse(course).subscribe(data=>{
         this.matDialogRef.close()
         this.successDialog.open(SuccessDialogComponent,{data:{message:"Successfully created"}})
       })  
     }
    
-
-      
-    
-  }
 
 }

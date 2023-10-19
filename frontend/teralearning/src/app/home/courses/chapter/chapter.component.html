@@ -34,8 +34,8 @@
       <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event,index)">
         <div class="example-box" *ngFor="let body of this.data[index].bodies,index as i;" cdkDrag>
         <div  class="div-row-flex" >
-        <div class="page-title">
-         <h3>{{ body.type == 'page' ?  body?.pages?.title :  body?.quizList?.quizName }}</h3>
+        <div class="page-title" >
+         <h3>&nbsp;<i class="{{body.type == 'quiz' ? 'fas fa-solid fa-lightbulb':'fas fa-solid fa-file'}}" ></i> &nbsp;{{ body.type == 'page' ?  body?.pages?.title :  body?.quizList?.quizName }}</h3>
         </div>
          <div >
           <button *ngIf="body.type == 'page'"  mat-icon-button  aria-label="Edit buttpon" (click)="editPage(body.pages)">
