@@ -2,7 +2,8 @@ package com.teranet.teralearning.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import reactor.util.annotation.Nullable;
+import org.springframework.lang.Nullable;
+
 
 import javax.persistence.*;
 import java.util.List;
@@ -25,6 +26,7 @@ public class ChapterBody {
 
 
     @OneToOne(cascade = CascadeType.ALL,targetEntity = Page.class,optional = true)
+    @Nullable
     private Page pages;
 
 

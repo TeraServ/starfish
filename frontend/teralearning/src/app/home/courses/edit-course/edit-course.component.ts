@@ -11,6 +11,7 @@ import { CourseService } from 'src/app/service/course.service';
 import { Chapter } from 'src/model/chapter.model';
 import { Page } from 'src/model/page.model';
 import { ChapterDataService } from 'src/app/service/chapter-data.service';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-edit-course',
@@ -19,15 +20,18 @@ import { ChapterDataService } from 'src/app/service/chapter-data.service';
 })
 export class EditCourseComponent implements OnInit {
 
-  @ViewChild('chapterlist', { read: ViewContainerRef }) parent!: ViewContainerRef;
-  private componentRef!: ComponentRef<any>
-  constructor(private matDialog: MatDialog, private courseService: CourseService, private componentFactoryResolver: ComponentFactoryResolver, private courseDataService: CourseDataService, private route: Router, private chapterService: CourseDataService) { }
+  @ViewChild('chapterlist',{read:ViewContainerRef}) parent!:ViewContainerRef;
+  private componentRef!:ComponentRef<any>
+constructor(private matDialog:MatDialog,
+  
+  private courseService:CourseService,private componentFactoryResolver: ComponentFactoryResolver,private courseDataService:CourseDataService,private route:Router,private chapterService:CourseDataService) { }
 
   @Output() addPageEvent = new EventEmitter();
-  updateData!: any;
-  chapterList: Chapter[] = [];
-  chapterCount: number = 1;
-  emptyChapter!: Chapter;
+  
+  updateData!:any;
+  chapterList:Chapter[]=[];
+  chapterCount:number = 0;
+  emptyChapter!:Chapter;
   ngOnInit(): void {
 
     this.courseDataService.data.subscribe(data => {
@@ -36,33 +40,26 @@ export class EditCourseComponent implements OnInit {
       if (this.updateData?.courseName == null) {
         this.route.navigate(["home/courses"])
       } else {
-        this.getChapter(this.updateData.id)
-        this.incrementChapter();
+        this.getChapter()
+        
       }
 
     })
   }
+  
+  getChapter(){
+    // this.courseService.getChapterByCourseId(id).subscribe(data=>{
+    //   console.log(data)
+    //   if(data.length > 0){
+    //     this.chapterList = data;
+    //     this.chapterList.forEach(item=>{
+    //      // this.loadChapter(item)
+    //       console.log(item)
+    //     })
+    //   }
+    // })
 
-  incrementChapter() {
-    this.emptyChapter = {
-      chapterName: "Chapter " + this.chapterCount,
-      id: 0,
-      courseId: this.updateData.id,
-      bodies: []
-    }
-  }
-
-  getChapter(id: number) {
-    this.courseService.getChapterByCourseId(id).subscribe(data => {
-      console.log(data)
-      if (data.length > 0) {
-        this.chapterList = data;
-        this.chapterList.forEach(item => {
-          this.loadChapter(item)
-          console.log(item)
-        })
-      }
-    })
+    this.chapterList = this.updateData.chapters
   }
 
   loadChapter(chapter: Chapter) {
@@ -70,24 +67,46 @@ export class EditCourseComponent implements OnInit {
     let childComponent = this.componentFactoryResolver.resolveComponentFactory(ChapterComponent);
 
     this.componentRef = this.parent.createComponent(childComponent);
+    
     this.componentRef.instance.data = [chapter];
     this.chapterCount++;
   }
 
-  addChapter() {
+  addChapter(){
+   this.emptyChapter ={
+    chapterName:"Chapter "+this.chapterList.length,
+    courseId:this.updateData.id,
+    bodies:[],
+    id:0
+   }
+    // let childComponent = this.componentFactoryResolver.resolveComponentFactory(ChapterComponent);
+    
+    //   this.componentRef = this.parent.createComponent(childComponent);
+    //   this.componentRef.instance.data =[this.emptyChapter];
+    //   this.chapterCount++;
+    this.courseService.saveChapterByCourseId(this.emptyChapter).subscribe(data=>{
+      if(data){
+        this.chapterList.push(data);
+      }
+      console.log(this.chapterList)
+    })
+      // this.chapterList.push(this.emptyChapter);
 
-    let childComponent = this.componentFactoryResolver.resolveComponentFactory(ChapterComponent);
 
-    this.componentRef = this.parent.createComponent(childComponent);
-    this.componentRef.instance.data = [this.emptyChapter];
-    this.chapterCount++;
-    this.incrementChapter();
-    this.chapterList.push(this.emptyChapter);
-    console.log(this.emptyChapter);
-
-
-
-
+      console.log(this.emptyChapter);
+      console.log(this.chapterList)
+  
+    
+   
+    
+  }
+  saveChapter(){
+    console.log("Save CHapter")    
+    console.log(this.updateData);
+    this.courseService.addCourse(this.updateData).subscribe(data=>{
+      console.log(data)
+      this.matDialog.open(SuccessDialogComponent,{data:{message:"Successfully created"}})
+    })  
   }
 
   uploadFile() {
