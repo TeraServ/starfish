@@ -3,7 +3,7 @@ import { Subject } from "./subject.model";
 
 export class Topic{
     id!: number;
-    topicName!:String;
+    topicName!:string;
     subject!:Subject;
     stream?:Stream;
     createdBy?:number;

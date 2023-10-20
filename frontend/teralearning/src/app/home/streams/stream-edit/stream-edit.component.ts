@@ -15,8 +15,7 @@ export class StreamEditComponent implements OnInit {
 
   EditStream!: Stream;
   isAlert = false;
-  streamUpdate: boolean = false;
-  isDialogOpen!: boolean;
+  streamUpdate: boolean = false; 
   streamBtn: boolean = false;
 
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: Stream, private dialog: MatDialog, private streamService: StreamService, private snackBar: MatSnackBar, private dialogRef: MatDialogRef<StreamEditComponent>) {

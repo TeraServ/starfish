@@ -6,6 +6,7 @@ import { DeleteMessageDialogComponent } from '../delete-message-dialog/delete-me
 import { DialogRef } from '@angular/cdk/dialog';
 import { QuestionService } from 'src/app/service/question.service';
 import { Router } from '@angular/router';
+import { TopicService } from 'src/app/service/topic.service';
 
 
 
@@ -22,7 +23,7 @@ export class DeleteDialogComponent implements OnInit {
   warnMessage!: string;
 
   constructor(public dialogRef: MatDialogRef<DeleteDialogComponent>, private dialog: MatDialog,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData, private quizService: QuizService, private questionService: QuestionService, private router: Router) { }
+    @Inject(MAT_DIALOG_DATA) public data: DialogData, private quizService: QuizService, private questionService: QuestionService, private router: Router, private topicService: TopicService) { }
 
   ngOnInit(): void {
 
@@ -59,6 +60,24 @@ export class DeleteDialogComponent implements OnInit {
             this.dialog.open(DeleteMessageDialogComponent, { data: { message: "Successfully deleted" } }).afterClosed().subscribe(data => {
               this.dialogRef.close();
             });
+          }
+        }
+      });
+
+
+    }
+
+    else if (qn == 3) {
+      this.topicService.deleteTopic(this.data.id).subscribe({
+        next: (data: any) => {
+          this.dialog.open(DeleteMessageDialogComponent, { data: { message: "Successfully deleted" } })
+          this.dialogRef.close();
+        },
+        error: (e: any) => {
+          console.error(e)
+          if (e.status == 409) {
+            this.warnMessage = "Cannot delete topic as it is mapped";
+            this.showWarnMessage = true;
           }
         }
       });

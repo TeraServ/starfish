@@ -1,0 +1,33 @@
+.mat-table {
+    overflow-x: hidden !important; 
+  }
+  
+  // td {
+  //   min-width: 130px;
+  //   margin: 5px !important;
+  // }
+  .mat-spinner{
+  ::ng-deep circle {
+    stroke: #2C45A7;
+  }
+  }
+  .mat-header-cell {
+    min-width: 130px;
+    color: #000;
+    max-width: max-content;
+  }
+  .btn-success{
+    background-color: #2C45A7;;
+  }
+  .mat-elevation-z8 {
+    overflow-x: scroll !important;
+    width: 100%;
+  }
+  
+  table {
+    width: 100%;
+    overflow-x: hidden !important;
+  }
+  
+  
+  
