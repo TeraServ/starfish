@@ -30,7 +30,7 @@ export class TopicService {
   updateTopic(updatedTopic:Topic):Observable<any>{
     return this.httpClient.put<Topic>(`${this.baseURL}`+'update/'+updatedTopic.id,updatedTopic);
   }
-  deleteTopic(deletedTopic:Topic):Observable<any>{
-    return this.httpClient.delete(`${this.baseURL}`+'delete/'+deletedTopic.id);
+  deleteTopic(id:number):Observable<any>{
+    return this.httpClient.delete(`${this.baseURL}`+'delete/'+id);
   }
 }

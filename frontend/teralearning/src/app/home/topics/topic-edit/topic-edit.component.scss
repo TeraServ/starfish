@@ -1,0 +1,56 @@
+.loginbtn {
+    background-color: #2C45A7; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    
+  }
+  .error {
+    color: rgba(189, 11, 11, 0.603);
+  }
+  .alert {
+    width:352px;  
+    height: 50px;  
+    display:inline-block;
+ }
+  
+  .close-button{
+    float: right;
+    top:-24px;
+    right:-24px;
+    background-color: transparent;
+    border-color: transparent;
+  }
+  input,mat-option,option,select,mat-select{
+    width: 80%;
+    box-shadow: 0px 2px 3px #ddd;
+    border: none;
+    padding: 10px 10px;
+  }
+  .btn{
+    background-color: #2C45A7;
+    color: white;
+  }
+  .close-icon {
+    transition: 1s ease-in-out;
+  }
+  
+  .close-icon:hover {
+    transform: rotate(180deg);
+  }
+  
+  ::ng-deep .icon-outside .close-button{
+    float: right;
+    top:-52px;
+    right:-52px;
+  }
+  
+  ::ng-deep .icon-outside .mat-dialog-container {
+   overflow: unset
+  }
+ 
+  
