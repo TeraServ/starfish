@@ -29,7 +29,7 @@
                 <!-- <option selected value="{{EditQuiz?.topic?.subject?.stream?.streamName}}">
                     {{EditQuiz?.topic?.subject?.stream?.streamName}}</option> -->
                 <option value="">-- Please Select--</option>
-                <option *ngFor="let item of streamList" [value]="item?.id">
+                <option *ngFor="let item of streamList | customeArraySort:'streamName' " [value]="item?.id">
                     {{item.streamName}}</option>
             </select><br>
             <div *ngIf="quizEditForm?.controls?.streamDrop?.errors?.required" class="error">
@@ -44,7 +44,7 @@
                 id="subjectDrop" name="subjectDrop" #subjectDrop="ngModel" (ngModelChange)="valuechange($event)"
                 required>
                 <option value="">-- Please Select--</option>
-                <option *ngFor="let item of FilteredsubjectList" [value]="item?.id">
+                <option *ngFor="let item of FilteredsubjectList | customeArraySort:'subjectName' " [value]="item?.id">
                     {{item.subjectName}}</option>
             </select><br>
             <div *ngIf="quizEditForm?.controls?.subjectDrop?.errors?.required" class="error">*Subject Name is required
@@ -60,7 +60,7 @@
             <select [(ngModel)]="UpdatedTopicId" class="form-control" id="topicDrop" name="topicDrop"
                 #topicDrop="ngModel" (ngModelChange)="valuechange($event)" required>
                 <option [ngValue]=""> -- Please Select--</option>
-                <option *ngFor="let item of FilteredtopicList" [ngValue]="item.id">
+                <option *ngFor="let item of FilteredtopicList | customeArraySort:'topicName' " [ngValue]="item.id">
                     {{item.topicName}}</option>
             </select><br>
             <!-- <input type="text" [(ngModel)]="UpdatedTopic.topicName" value="{{EditQuiz.topic.topicName}}" class="form-control"
@@ -135,7 +135,7 @@
 
                 <div [ngClass]="this.isActive[i] ? 'content-active' : 'content-inactive'">
                     <div *ngIf="question.questionType=='singleAnswer'">
-                        <div *ngFor="let item of question.answers">
+                        <div *ngFor="let item of question.answers | customeArraySort:'id' ">
                             <p><b>Answer:</b></p>
                             <div class="p" [innerHTML]="item.answer"></div>
                             <p><b>Explanation:</b> </p>

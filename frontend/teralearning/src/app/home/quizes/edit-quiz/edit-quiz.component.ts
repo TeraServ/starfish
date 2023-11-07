@@ -95,7 +95,7 @@ export class EditQuizComponent implements OnInit {
     const quizName = this.route.snapshot.paramMap.get('quizName');
     console.log(quizName);
     //this.getQuizDataFromDataService();
-  }
+  }       
   initializeEditsForQuestions(){
     this.isActive = new Array<boolean>(this.questionList.length);
     this.isActive.fill(false);

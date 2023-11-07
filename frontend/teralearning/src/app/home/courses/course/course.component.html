@@ -17,14 +17,14 @@
             <label for="">Stream</label><br>
            <select name="" id="" class="filter-dropdown" (change)="getAllSubject()" #streamFilter formControlName="stream">
             <option value="All">All</option>
-            <option  *ngFor="let item of streamList;"  [value]="item.id" >{{ item.streamName }}</option>
+            <option  *ngFor="let item of streamList | customeArraySort:'streamName' "  [value]="item.id" >{{ item.streamName }}</option>
            </select>
           </div>
           <div>
             <label for="">Subject</label><br>
             <select name="" id="" class="filter-dropdown" (change)="getAllTopicBySubject()" formControlName="subject">
               <option value="All">All</option>
-              <option *ngFor="let item of subjectList"  [value]="item.id" >{{ item.subjectName }}</option>
+              <option *ngFor="let item of subjectList | customeArraySort:'subjectName' "  [value]="item.id" >{{ item.subjectName }}</option>
              </select>
           </div>
   
@@ -32,7 +32,7 @@
             <label for="">Topic</label><br>
             <select name="" id="" class="filter-dropdown" (change)="filterByTopic()" formControlName="topic">
               <option value="All">All</option>
-              <option  *ngFor="let item of topicList" [value]="item.id" >{{ item.topicName}}</option>
+              <option  *ngFor="let item of topicList | customeArraySort:'topicName' " [value]="item.id" >{{ item.topicName}}</option>
              </select>
           </div>
           <div>

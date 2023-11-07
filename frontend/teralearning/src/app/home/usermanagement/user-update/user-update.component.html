@@ -27,10 +27,11 @@
         <div class="col">
             <label for="userType">User type</label>
          <select class="form-control-input"  name="userType" formControlName="userType" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" >
-            <option value="" selected>Select</option>
-            <option value="101">Admin</option>
+             <option *ngFor="let enum of userTypes | keyvalue" value=`{{enum.value}}`>{{enum.key}}</option>
+             <option value="" selected>Select</option>
+            <!-- <option value="101">Admin</option>
             <option value="102">Student</option>
-            <option value="103">Faculty</option>
+            <option value="103">Faculty</option> -->
          </select>
          <div *ngIf="submitted && f.userType.errors?.required" class="invalid-feedback"> 
             *Required
@@ -56,8 +57,10 @@
             <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
             <select name="status" class="form-control-input" formControlName="userStatus" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
                 <option value="" selected> Select </option>
+                <!-- <option *ngFor="let enum of userStatus | keyvalue" value=`{{enum.value}}`>{{enum.key}}</option> -->
                 <option value="101">Active</option>
                 <option value="102">Suspended</option>
+                <option value="103">Inactive</option>
                
             </select>
             <div *ngIf="submitted && f.userStatus.errors?.required" class="invalid-feedback"> 

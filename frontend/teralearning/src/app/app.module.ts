@@ -52,7 +52,8 @@ import { TopicListComponent } from './topic-list/topic-list.component';
     CacheResultPipe,
     ResourceNotFoundComponent,
     EditQuestionComponent,
-    TopicListComponent
+    TopicListComponent,
+    CustomeArraySortPipe
  
    
   ],

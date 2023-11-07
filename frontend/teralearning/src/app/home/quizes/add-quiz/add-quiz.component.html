@@ -28,7 +28,7 @@
                                     (change)="getSubjectList()"
                                     [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.stream.errors }">
                                     <option value="" selected>Select</option>
-                                    <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
+                                    <option *ngFor="let item of streamList | customeArraySort:'streamName`' " [ngValue]=item>{{item.streamName}}</option>
                                 </select>
                                
                                 <div *ngIf="submitted && createQuizForm.controls.stream.errors"
@@ -43,7 +43,7 @@
                                     (change)="getTopicList()"
                                     [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.subject.errors }">
                                     <option value="" selected>Select</option>
-                                    <option *ngFor="let item of FilteredsubjectList" [ngValue]=item>{{item.subjectName}}
+                                    <option *ngFor="let item of FilteredsubjectList | customeArraySort:'subjectName' " [ngValue]=item>{{item.subjectName}}
                                     </option>
                                 </select>
                                 
@@ -59,7 +59,7 @@
                                 <select formControlName="topic" id="selectTopic" class="form-control-input" placeholder="topic"
                                     [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.topic.errors }">
                                     <option value="" selected>Select</option>
-                                    <option *ngFor="let item of FilteredtopicList" [ngValue]=item>{{item.topicName}}
+                                    <option *ngFor="let item of FilteredtopicList | customeArraySort:'topicName' " [ngValue]=item>{{item.topicName}}
                                     </option>
                                 </select>
                                 
