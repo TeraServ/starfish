@@ -1,5 +1,5 @@
-import { Component,OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
+import { Component,ElementRef,OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, } from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StreamService } from 'src/app/service/stream.service';
@@ -20,7 +20,7 @@ export class StreamComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private streamService: StreamService,private snackBar: MatSnackBar) { }
+  constructor(private formBuilder: FormBuilder, private streamService: StreamService,private snackBar: MatSnackBar,private el: ElementRef) { }
 
   ngOnInit(): void {
 
@@ -63,6 +63,7 @@ export class StreamComponent implements OnInit {
  
   //Form submission
   onSubmit() {
+   
     this.submitted = true;
     this.stream = this.createStreamForm.value
 
@@ -78,7 +79,7 @@ export class StreamComponent implements OnInit {
   }
 
 
-
+ 
 
 
 

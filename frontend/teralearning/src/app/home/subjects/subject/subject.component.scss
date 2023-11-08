@@ -25,3 +25,19 @@
     margin: auto;
     border-radius: 5px;
 }
+.Intialrequired{
+  color: red;
+}
+
+.required:after {
+  content:" *";
+  color: red;
+}
+.required1::before {
+  content:" *";
+  color: red;
+}
+.invalid-feedback{
+  color: red;
+  font-size: 12px;
+}

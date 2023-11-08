@@ -54,7 +54,7 @@ export class TopicEditComponent implements OnInit {
         this.topicService.updateTopic(UpdatedTopic).subscribe(data => {
 
           if (data.topicName == this.UpdatedTopicName) {
-            this.dialog.open(SuccessDialogComponent, { data: { message: "Successfully Saved!" } })
+            this.dialog.open(SuccessDialogComponent, { data: { message: "Successfully Updated!" } })
             this.dialogRef.close();
           }
         });
