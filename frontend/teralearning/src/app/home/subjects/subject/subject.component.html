@@ -6,17 +6,16 @@
         <div class="row justify-content-center align-items-center ">
 
             <div class="col">
-                <!-- <div class="card shadow-2-strong card-registration" style="border-radius: 10px;">
-                    <div class="card-body"> -->
+                
                        
                 <form [formGroup]="createSubjectForm" (ngSubmit)="onSubmit()">
-                    
+                    <p class="required1"><small> Indicates a required field</small></p>
                     <!-- Stream Name  -->
 
                     <div class="row">
 
                         <div class="col">
-                                <label>Stream Name</label>
+                                <label class="required">Stream Name</label>
                                 <select formControlName="stream" class="form-control-input"placeholder="stream" 
                                 [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.stream.errors }">
                                     <option value="" selected>Select</option>
@@ -24,7 +23,7 @@
                                 </select>
                                 
                                 <div *ngIf="submitted && createSubjectForm.controls.stream.errors" class="invalid-feedback"><br>
-                                    <div *ngIf="createSubjectForm.controls.stream.errors.required">*Required</div>
+                                    <div *ngIf="createSubjectForm.controls.stream.errors.required">Stream Name is required.</div>
                                 </div>
                             
                         </div>
@@ -32,14 +31,14 @@
                         <!-- Subject Name  -->
 
                         <div class="col">
-                                <label >Subject Name</label>
-                                <input type="text" class="form-control-input" formControlName="subjectName" placeholder="subjectName"
+                                <label class="required">Subject Name</label>
+                                <input type="text" class="form-control-input" formControlName="subjectName" placeholder="Subject Name"
                                 [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }" pattern="[a-zA-Z][a-zA-Z ]+">
                                 
                                 <div *ngIf="submitted && createSubjectForm.controls.subjectName.errors"
                                     class="invalid-feedback"><br>
-                                    <div *ngIf="createSubjectForm.controls.subjectName.errors.required">*Required</div>
-                                    <div id="invalidSubjectName" *ngIf="createSubjectForm.controls.subjectName.errors.pattern">Invalid</div>
+                                    <div *ngIf="createSubjectForm.controls.subjectName.errors.required">Subject Name is required.</div>
+                                    <div id="invalidSubjectName" *ngIf="createSubjectForm.controls.subjectName.errors.pattern">Invalid.</div>
                                 </div>                            
                         </div>
                     </div><br><br>

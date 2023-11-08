@@ -25,9 +25,9 @@ export class UserRegistrationComponent implements OnInit {
     this.userForm = this.formBuilder.group({
       firstName:['',Validators.required],
       lastName:['',Validators.required],
-      email:['',Validators.required],
+      email:['',[Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       userType:['',Validators.required],
-      phoneNumber:['',Validators.required],
+      phoneNumber:['',[Validators.required,Validators.pattern(/^[6-9]\d{9}$/)]],
       stream:['',Validators.required],
 
     })  
@@ -42,6 +42,7 @@ export class UserRegistrationComponent implements OnInit {
 
   get f(){return this.userForm.controls}
   createUser(){
+    console.log(this.userForm.get('userType')?.errors?.['required'] == true);
     this.submitted = true;
 
     if(this.userForm.invalid){
@@ -64,6 +65,7 @@ export class UserRegistrationComponent implements OnInit {
 
     }
     console.log(this.userForm.value)
+
     this.userService.addNewUser(userData).subscribe(data=>{
      
       this.dialog.open(SuccessDialogComponent,{data:{message:"Successfully created"}})

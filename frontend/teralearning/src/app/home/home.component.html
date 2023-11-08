@@ -3,6 +3,7 @@
 
   <header>
     <!-- Sidebar -->
+    
 
 
     <mat-drawer #drawer class="example-sidenav" mode="side">
@@ -69,7 +70,7 @@
 
           <a *ngIf="userType[3]" href="#" #topicTab routerLink="/home/topics" routerLinkActive="active"
             class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-            <i class='fas fa-book-open'></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Topic</span>
+            <i class='fas fa-file-alt'></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Topic</span>
           </a>
 
           <ul *ngIf="userType[3]" id="collapseExample5" [ngStyle]="{display:displayStyle4}"
@@ -131,7 +132,7 @@
 
 
         </button>
-        <button type="button" class="menu-bar" (click)="drawer.toggle()" matTooltip="Click to see navigation">
+        <button type="button" class="menu-bar" (click)="drawer.toggle()" matTooltip="Click to see navigation" aria-label="Toggle navigation">
           <i class="fas fa-bars"></i>
         </button>
         <!-- Brand -->
@@ -191,7 +192,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" id="navbarDropdownMenuLink"
               role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-              <img src="../../assets/images/person.jpg" class="rounded-circle" height="22" alt="" loading="lazy" />
+              <img src="../../assets/images/person.jpg" class="rounded-circle" height="22" alt="profilePic" loading="lazy" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" routerLink="settings/userProfile" routerLinkActive="active">My profile</a>

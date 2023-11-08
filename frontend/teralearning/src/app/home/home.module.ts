@@ -62,6 +62,7 @@ import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
 import { EditQuestionComponent } from './quizes/edit-question/edit-question.component';
 import {CdkAccordion, CdkAccordionModule} from '@angular/cdk/accordion';
 import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.component';
+import { ShowFocusDirective } from '../custom-directives/show-focus.directive';
 @NgModule({
   declarations: [
 
@@ -97,6 +98,7 @@ import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.compon
     CustomeArraySortPipe,
     SafeHtmlPipe,
     ChapterQuizComponent,
+    ShowFocusDirective
     
     
     

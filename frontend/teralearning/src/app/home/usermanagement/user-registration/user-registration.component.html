@@ -1,68 +1,100 @@
 <h2>Create User</h2>
-<form [formGroup]="userForm" (ngSubmit)="createUser()">
-    <br>
-    <div class="row">
-        <div class="col">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control-input" name="firstName" placeholder="First Name" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" >
-            <div *ngIf="submitted && f.firstName.errors?.required" class="invalid-feedback"> 
-                *Required
-              </div>
+<section class="vh-100 gradient-custom">
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center ">
+
+            <div class="col">
+                <form [formGroup]="userForm" (ngSubmit)="createUser()">
+                    <br>
+                    <p class="required1"><small> Indicates a required field</small></p>
+                    <!-- <p>* Indicates a required field</p>     -->
+                    <div class="row" >
+                        <div class="col">
+                            
+                            <label for="firstName" class="required">First Name</label>
+                            <input type="text" id="firstName" class="form-control-input" name="firstName" aria-required="true" autocomplete="off"
+                                placeholder="First Name" formControlName="firstName"
+                                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" /><br><br>
+                                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.firstName.errors.required">First Name is required.</div>
+                                </div>
+                        </div>
+                        <div class="col">
+                            <label for="lastName" class="required">Last Name</label>
+                            <input type="text" id="lastName" class="form-control-input" name="lastName" aria-required="true" autocomplete="off"
+                                placeholder="Last Name" formControlName="lastName"
+                                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" aria-label="Last Name" ><br><br>
+                                <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                                    <div *ngIf="f.lastName.errors.required">Last Name is required.</div>
+                                </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <label for="userType" class="required">User Type</label>
+                            <select class="form-control-input" id="userType" name="userType" formControlName="userType"
+                                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" aria-label="User Type" aria-required="true" autocomplete="off">
+                                <option value="" selected>Select</option>
+                                <option value="101">Admin</option>
+                                <option value="102">Student</option>
+                                <option value="103">Faculty</option>
+                            </select><br><br>
+                            <div *ngIf="submitted && f.userType.errors" class="invalid-feedback">
+                                <div *ngIf="f.userType.errors.required">User Type is required.</div>
+                            </div>
+                            
+                        </div>
+                        <div class="col">
+                            <label for="stream" class="required">Stream</label>
+                            <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
+                            <select name="stream" id="stream" class="form-control-input" formControlName="stream"
+                                [ngClass]="{ 'is-invalid': submitted && f.stream.errors }" aria-label="Stream" aria-required="true" autocomplete="off">
+                                <option value="" selected> Select </option>
+                                <option *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
+
+                            </select><br><br>
+                            <div *ngIf="submitted && f.stream.errors" class="invalid-feedback">
+                                <div *ngIf="f.stream.errors.required"> Stream is required.</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <label for="email" class="required">Email</label>
+                            <input type="email" id="email" class="form-control-input" name="email" placeholder="Email" aria-required="true" autocomplete="off"
+                                formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                                aria-label="Email Id"><br><br>
+                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                    <div *ngIf="f.email.errors.required">Email is required</div>
+                                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                                </div>
+                        </div>
+                        <div class="col">
+                            <label for="phoneNumber" class="required">Phone Number</label>
+                            <input type="number" class="form-control-input" id="phoneNumber" name="phoneNumber" aria-required="true" autocomplete="off"
+                                placeholder="Phone Number" formControlName="phoneNumber"
+                                [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }"
+                                aria-label="Phone Number"><br><br>
+                                <div *ngIf="submitted && f.phoneNumber.errors" class="invalid-feedback">
+                                    <div *ngIf="f.phoneNumber.errors.required"> Phone Number is required.</div>
+                                    <div *ngIf="f.phoneNumber.errors.pattern">It is not a valid mobile number.</div>
+                                </div>
+                            
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <input type="submit" value="Submit" class="btn-submit">
+                    </div>                    
+                   
+                </form>
+            </div>
+
         </div>
-        <div class="col">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control-input" name="lastName" placeholder="Last Name" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
-            <div *ngIf="submitted && f.lastName.errors?.required" class="invalid-feedback"> 
-                *Required
-              </div>
-        </div>
+
     </div>
-    <br>
-    <div class="row">
-        <div class="col">
-            <label for="userType">User Type</label>
-         <select class="form-control-input"  name="userType" formControlName="userType" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" >
-            <option value="" selected>Select</option>
-            <option value="101">Admin</option>
-            <option value="102">Student</option>
-            <option value="103">Faculty</option>
-         </select>
-         <div *ngIf="submitted && f.userType.errors?.required" class="invalid-feedback"> 
-            *Required
-          </div>
-        </div>
-        <div class="col">
-            <label for="stream">Stream</label>
-            <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
-            <select name="stream" class="form-control-input" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
-                <option value="" selected> Select </option>
-                <option *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
-                
-            </select>
-            <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
-                *Required
-              </div>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <div class="col">
-            <label for="email">Email Id</label>
-            <input type="email" class="form-control-input" name="email" placeholder="Email Id" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-            <div *ngIf="submitted && f.email.errors?.required" class="invalid-feedback"> 
-                *Required
-              </div>
-        </div>
-        <div class="col">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="text" class="form-control-input" name="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
-            <div *ngIf="submitted && f.phoneNumber.errors?.required" class="invalid-feedback"> 
-                *Required
-              </div>
-        </div>
-    </div>
-    <br>
-    <div class="row">
-        <input type="submit" value="Submit" class="btn-submit">
-    </div>
-</form>
+</section>
