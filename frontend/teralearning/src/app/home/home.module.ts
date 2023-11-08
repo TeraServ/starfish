@@ -62,7 +62,6 @@ import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
 import { EditQuestionComponent } from './quizes/edit-question/edit-question.component';
 import {CdkAccordion, CdkAccordionModule} from '@angular/cdk/accordion';
 import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.component';
-import { ShowFocusDirective } from '../custom-directives/show-focus.directive';
 import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
 @NgModule({
   declarations: [
@@ -100,7 +99,7 @@ import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
     SafeHtmlPipe,
     ChapterQuizComponent,
     AlphabeticSortPipe,
-    ShowFocusDirective
+  
     
     
     
@@ -120,7 +119,6 @@ import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
     MatIconModule,
     FormsModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
     MatInputModule,
     MatProgressBarModule,
     MatSidenavModule,
