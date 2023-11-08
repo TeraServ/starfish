@@ -1,6 +1,6 @@
-<h3 mat-dialog-title><i class="fas fa-exclamation-triangle"></i>
-  Delete</h3>
-<div mat-dialog-content>
+<h3 mat-dialog-title><i class="fas fa-exclamation-triangle" style="color:red;"></i>
+   Delete</h3>
+<div mat-dialog-content  class="w3-red">
   <p *ngIf="!showWarnMessage">{{data.message }}</p>
   <div *ngIf="showWarnMessage" class="w3-red">
     <br>
