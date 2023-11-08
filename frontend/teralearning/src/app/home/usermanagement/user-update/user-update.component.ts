@@ -5,7 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { UserService } from 'src/app/service/user.service';
 import { Stream } from 'src/model/stream.model';
-import { user } from 'src/model/user.model';
+import { AccountStatus, UserTypeEnum, user } from 'src/model/user.model';
 
 @Component({
   selector: 'app-user-update',
@@ -16,6 +16,8 @@ export class UserUpdateComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: user,private dialog:MatDialog,private dialogRef: MatDialogRef<UserUpdateComponent>,private snackBar:MatSnackBar,private formBuilder:FormBuilder,private userService:UserService) { }
   userForm!:FormGroup;
+  public readonly userTypes = UserTypeEnum;
+  public readonly userStatus = AccountStatus;
   submitted:boolean = false;
   @Input() updateData!:any;
   streamList:Stream[]=[];

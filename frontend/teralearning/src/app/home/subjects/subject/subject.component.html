@@ -18,8 +18,8 @@
                                 <label class="required">Stream Name</label>
                                 <select formControlName="stream" class="form-control-input"placeholder="stream" 
                                 [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.stream.errors }">
-                                    <option value="" selected>Select</option>
-                                    <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
+                                <option *ngFor="let item of streamList | customeArraySort:'streamName' " [ngValue]=item>{{item.streamName}}</option>
+                                <option value="" selected>Select</option>
                                 </select>
                                 
                                 <div *ngIf="submitted && createSubjectForm.controls.stream.errors" class="invalid-feedback"><br>

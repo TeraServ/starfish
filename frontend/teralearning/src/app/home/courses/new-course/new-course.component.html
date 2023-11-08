@@ -14,7 +14,7 @@
                 <label for="">Stream</label>
                 <select name="stream" (change)="getSubjectByStream()" formControlName="stream">
                     <option [ngValue]="f.stream.value" selected>{{f.stream.value != "" ? f.stream.value?.streamName: "--Please Select--"}}</option>
-                    <option  *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
+                    <option  *ngFor="let e of streamList | customeArraySort:'streamName' " [ngValue]="e">{{e.streamName}}</option>
                 </select>
                 
                 <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
@@ -26,7 +26,7 @@
                 <label for=""> Subject</label>
                 <select name="subject" id="" formControlName="subject" (change)="getTopicBySubject()">
                     <option [ngValue]="f.subject.value" selected>{{f.subject.value != "" ? f.subject.value?.subjectName: "--Please Select--"}}</option>
-                    <option  *ngFor="let e of subjectList" [ngValue]="e">{{subjectList.length != 0 ? e.subjectName :'No data'}}</option>
+                    <option  *ngFor="let e of subjectList| customeArraySort:'subjectName' " [ngValue]="e">{{subjectList.length != 0 ? e.subjectName :'No data'}}</option>
                 </select> 
                 <div *ngIf="submitted && f.subject.errors?.required" class="invalid-feedback"> 
                     *Required
@@ -37,7 +37,7 @@
                 <label for="">Topic</label>
                 <select name="topic" id="" formControlName="topic">
                     <option [ngValue]="f.topic.value" selected>{{f.topic.value != "" ? f.topic.value?.topicName: "--Please Select--"}}</option>
-                    <option  *ngFor="let e of topic" [ngValue]="e">{{e?.topicName}}</option>
+                    <option  *ngFor="let e of topic | customeArraySort:'topicName' " [ngValue]="e">{{e?.topicName}}</option>
                 </select>
                 <div *ngIf="submitted && f.topic.errors?.required" class="invalid-feedback"> 
                     *Required

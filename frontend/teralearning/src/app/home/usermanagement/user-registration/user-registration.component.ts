@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PasswordService } from 'src/app/core/services/password.service';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
 import { UserService } from 'src/app/service/user.service';
 import { Stream } from 'src/model/stream.model';
-import { user } from 'src/model/user.model';
+import {  UserTypeEnum, user } from 'src/model/user.model';
 
 @Component({
   selector: 'app-user-registration',
@@ -15,11 +16,10 @@ import { user } from 'src/model/user.model';
 })
 export class UserRegistrationComponent implements OnInit {
 
-  constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar,private dialog:MatDialog,private streamService:StreamService) { }    userForm!:FormGroup;
-  submitted:boolean = false;
-  streamList:Stream[]=[]
-
-
+  constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar,private dialog:MatDialog,private streamService:StreamService, private _passwordService: PasswordService) { }    userForm!:FormGroup;
+  public submitted:boolean = false;
+  public streamList:Stream[]=[]
+  public readonly userTypes = UserTypeEnum;
 
   ngOnInit(): void {
     this.userForm = this.formBuilder.group({
@@ -54,13 +54,13 @@ export class UserRegistrationComponent implements OnInit {
       firstName:this.userForm.get('firstName')?.value,
       lastName:this.userForm.get('lastName')?.value,
       userStatus:103,
-      userType:this.userForm.get('userType')?.value,
+      userType:parseInt(this.userForm.get('userType')?.value),
       modifiedDate:"",
       email:this.userForm.get('email')?.value,
       phoneNumber: this.userForm.get('phoneNumber')?.value,
       category: "classroom",
       stream: this.userForm.get('stream')?.value,
-      password:"dsgvdfvb",
+      password:this._passwordService.generatePassword(10),
       createdDate:""
 
     }

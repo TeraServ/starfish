@@ -12,9 +12,9 @@
     <div class="row" style="padding-left: 500px;">        
         <div class="col">
             <input type="submit" value="Add Question" (click)="AddaQuestion()" class="btn-submit"
-                id="submitButton">&nbsp;
+                id="addQuestion">&nbsp;
                 <input type="submit" value="Save" (click)="UpdateQuizDetails()" class="btn-submit"
-            id="submitButton" [disabled]="quizBtn">
+            id="saveQuiz" [disabled]="quizBtn">
         </div>
        
 
@@ -23,13 +23,13 @@
     <div class="row">
         <div class="col">
 
-            <label for="stage"><b>Stream:</b></label>
+            <label for="streamDrop"><b>Stream:</b></label>
             <select [(ngModel)]="UpdatedStreamId" class="form-control" (change)="onStreamChange($event)" id="streamDrop"
                 name="streamDrop" #streamDrop="ngModel" (ngModelChange)="valuechange($event)" required>
                 <!-- <option selected value="{{EditQuiz?.topic?.subject?.stream?.streamName}}">
                     {{EditQuiz?.topic?.subject?.stream?.streamName}}</option> -->
                 <option value="">-- Please Select--</option>
-                <option *ngFor="let item of streamList" [value]="item?.id">
+                <option *ngFor="let item of streamList | customeArraySort:'streamName' " [value]="item?.id">
                     {{item.streamName}}</option>
             </select><br>
             <div *ngIf="quizEditForm?.controls?.streamDrop?.errors?.required" class="error">
@@ -39,12 +39,12 @@
         </div>
 
         <div class="col">
-            <label for="title"><b>Subject Name:</b></label>
-            <select [(ngModel)]="UpdatedSubjectId" class="form-control" (change)="onSubjectChange($event)"
+            <label for="subjectDrop"><b>Subject Name:</b></label>
+            <select [(ngModel)]="UpdatedSubjectId" id="Subject" class="form-control" (change)="onSubjectChange($event)"
                 id="subjectDrop" name="subjectDrop" #subjectDrop="ngModel" (ngModelChange)="valuechange($event)"
                 required>
                 <option value="">-- Please Select--</option>
-                <option *ngFor="let item of FilteredsubjectList" [value]="item?.id">
+                <option *ngFor="let item of FilteredsubjectList | customeArraySort:'subjectName' " [value]="item?.id">
                     {{item.subjectName}}</option>
             </select><br>
             <div *ngIf="quizEditForm?.controls?.subjectDrop?.errors?.required" class="error">*Subject Name is required
@@ -56,11 +56,11 @@
     <div class="row">
         <div class="col">
 
-            <label for="title"><b>Topic Name:</b></label>
+            <label for="topicDrop"><b>Topic Name:</b></label>
             <select [(ngModel)]="UpdatedTopicId" class="form-control" id="topicDrop" name="topicDrop"
                 #topicDrop="ngModel" (ngModelChange)="valuechange($event)" required>
                 <option [ngValue]=""> -- Please Select--</option>
-                <option *ngFor="let item of FilteredtopicList" [ngValue]="item.id">
+                <option *ngFor="let item of FilteredtopicList | customeArraySort:'topicName' " [ngValue]="item.id">
                     {{item.topicName}}</option>
             </select><br>
             <!-- <input type="text" [(ngModel)]="UpdatedTopic.topicName" value="{{EditQuiz.topic.topicName}}" class="form-control"
@@ -69,7 +69,7 @@
         </div><br><br>
 
         <div class="col">
-            <label for="title"><b>Quiz Name:</b></label>
+            <label for="quizName"><b>Quiz Name:</b></label>
             <input type="text" [(ngModel)]="UpdatedQuizName" value="{{EditQuiz.quizName}}" class="form-control"
                 (ngModelChange)="valuechange($event)" id="quizName" name="quizName" #quizName="ngModel" required><br>
             <div *ngIf="quizEditForm?.controls?.quizName?.errors?.required" class="error">*Quiz Name is required</div>
@@ -79,7 +79,7 @@
 
     <div class="row">
         <div class="col">
-            <label for="title"><b>Min No.Of Question:</b></label>
+            <label for="passCriteria"><b>Min No.Of Question:</b></label>
             <input type="text" [(ngModel)]="UpdatedPassCriteria" value="{{EditQuiz?.passCriteria}}" class="form-control"
                 (ngModelChange)="valuechange($event)" id="passCriteria" name="passCriteria" #passCriteria="ngModel"
                 required><br>
@@ -124,18 +124,18 @@
                         <div [innerHTML]="question.questionText"></div>
                     </div>
                     <div>
-                        <button (click)="getQuestionList(i)" class="dropDown-button"><i class="bi bi-arrow-down-short"
+                        <button (click)="getQuestionList(i)"  aria-label="View Answer" class="dropDown-button"><i class="bi bi-arrow-down-short"
                                 aria-hidden="true" title="arrowdown"></i></button>
-                        <button (click)="openEditQuestionDialog(question)" class="edit-button"><i class="bi bi-pencil-square"
+                        <button (click)="openEditQuestionDialog(question)" aria-label="Edit Question" class="edit-button"><i class="bi bi-pencil-square"
                                 aria-hidden="true" title="edit"></i></button>
-                        <button (click)="openDeleteDialog(question.id)" class="delete-button"><i class="bi bi-trash-fill"
+                        <button (click)="openDeleteDialog(question.id)" aria-label="Delete Question"  class="delete-button"><i class="bi bi-trash-fill"
                                 aria-hidden="true" title="delete"></i></button>
                     </div>
                 </div>
 
                 <div [ngClass]="this.isActive[i] ? 'content-active' : 'content-inactive'">
                     <div *ngIf="question.questionType=='singleAnswer'">
-                        <div *ngFor="let item of question.answers">
+                        <div *ngFor="let item of question.answers | customeArraySort:'id' ">
                             <p><b>Answer:</b></p>
                             <div class="p" [innerHTML]="item.answer"></div>
                             <p><b>Explanation:</b> </p>

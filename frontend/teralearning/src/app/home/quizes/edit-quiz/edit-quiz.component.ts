@@ -67,7 +67,7 @@ export class EditQuizComponent implements OnInit {
   ngOnInit(): void {
    this.initializeEditsForQuestions();
    this.getParamsFromRoute();
-   //this.getQuizDataFromDataService();
+   this.getQuizDataFromDataService();
    this.toggleQuizEdit();
   this.passDataToUpdateBody()
   this.getStreams();
@@ -92,14 +92,10 @@ export class EditQuizComponent implements OnInit {
   }
 
   getParamsFromRoute(){
-    this.subscriptions = this.route.params.subscribe(params=>{
-      if(params['quizName']){
-        console.log(params);
-      }else{
-        this.getQuizDataFromDataService();
-      }
-    })
-  }
+    const quizName = this.route.snapshot.paramMap.get('quizName');
+    console.log(quizName);
+    //this.getQuizDataFromDataService();
+  }       
   initializeEditsForQuestions(){
     this.isActive = new Array<boolean>(this.questionList.length);
     this.isActive.fill(false);

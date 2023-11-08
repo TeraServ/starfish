@@ -54,6 +54,7 @@ import { TopicEditComponent } from './home/topics/topic-edit/topic-edit.componen
     ResourceNotFoundComponent,
     EditQuestionComponent,
     TopicListComponent,
+    CustomeArraySortPipe,
     TopicEditComponent
 
 
