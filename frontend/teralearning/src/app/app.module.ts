@@ -24,16 +24,11 @@ import { TitleStrategy } from '@angular/router';
 import { GooglePayButtonModule } from '@google-pay/button-angular';
 import { NewUserComponent } from './new-user/new-user.component';
 
-import { MatInput, MatInputModule } from '@angular/material/input';
-import { MatOptionModule } from '@angular/material/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { CacheResultPipe } from './pipes/cache-result.pipe';
 import { ResourceNotFoundComponent } from './resource-not-found/resource-not-found.component';
 import { EditQuestionComponent } from './home/quizes/edit-question/edit-question.component';
-import { CustomeArraySortPipe } from './custome-array-sort.pipe';
 import { TopicListComponent } from './home/topics/topic-list/topic-list.component';
 import { TopicEditComponent } from './home/topics/topic-edit/topic-edit.component';
+import { SharedModule } from './shared/shared.module';
 
 
 
@@ -50,11 +45,9 @@ import { TopicEditComponent } from './home/topics/topic-edit/topic-edit.componen
     TopicComponent,
     NewUserComponent,
     PasswordResetComponent,
-    CacheResultPipe,
     ResourceNotFoundComponent,
     EditQuestionComponent,
     TopicListComponent,
-    CustomeArraySortPipe,
     TopicEditComponent
 
 
@@ -68,10 +61,7 @@ import { TopicEditComponent } from './home/topics/topic-edit/topic-edit.componen
     FormsModule,
     MaterialModule,
     GooglePayButtonModule,
-    MatInputModule,
-    MatOptionModule,
-    MatIconModule,
-    MatFormFieldModule,
+    SharedModule
 
 
   ],

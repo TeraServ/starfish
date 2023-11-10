@@ -15,6 +15,11 @@ import { MatInputModule } from '@angular/material/input';
 import {MatDividerModule} from '@angular/material/divider'; 
 import {MatCheckboxModule} from '@angular/material/checkbox'; 
 import { AngularEditorModule } from '@kolkov/angular-editor';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -31,7 +36,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatFormFieldModule,
     MatOptionModule,
     MatDialogModule,
-    MatInputModule,
     MatGridListModule,
     MatFormFieldModule,
     MatInputModule,
@@ -40,7 +44,13 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatToolbarModule,
     AngularEditorModule,
     MatDividerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    MatTooltipModule
 
   ]
 })
