@@ -14,8 +14,8 @@
                     <div class="row">
 
                         <div class="col">   
-                            <label class="required">Select Stream</label>                         
-                            <select formControlName="streamName" class="form-control-input" placeholder="stream"
+                            <label for="streamName" class="required">Select Stream</label>                         
+                            <select id="streamName" formControlName="streamName" class="form-control-input" placeholder="stream"
                             (change)="getSubjectList()"
                                 [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.streamName.errors }">
                                 <option value="" selected>Select</option>
@@ -31,8 +31,8 @@
                         <!-- Subject Name  -->
 
                         <div class="col">
-                            <label class="required">Select Subject</label>                            
-                            <select formControlName="subjectName" class="form-control-input" placeholder="subject"
+                            <label for="subjectName" class="required">Select Subject</label>                            
+                            <select id="subjectName" formControlName="subjectName" class="form-control-input" placeholder="subject"
                                 
                                 [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.subjectName.errors }">
                                 <option value="" selected>Select</option>
@@ -48,13 +48,14 @@
 
 
                         <div class="col">
-                                <label class="required">Topic Name</label>
-                                <input type="text" class="form-control-input" formControlName="topicName" placeholder="Topic Name"
-                                [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.topicName.errors }">
+                                <label for="topicName" class="required">Topic Name</label>
+                                <input type="text" id="topicName" class="form-control-input" formControlName="topicName" placeholder="Topic Name"
+                                [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.topicName.errors }" pattern="^[a-zA-Z]+$">
 
                                 <div *ngIf="submitted && createTopicForm.controls.topicName.errors"
                                     class="invalid-feedback"><br>
                                     <div *ngIf="createTopicForm.controls.topicName.errors.required">Topic name is required.</div>
+                                    <div *ngIf="createTopicForm.controls.topicName.errors.pattern">Invalid.</div>
                                 </div>
                             
                         </div>
@@ -64,8 +65,9 @@
 
 
                     <!-- Button -->
-                    <div class="row">
-                        <input type="submit" value="Submit" class="btn-submit" (click)="onSubmit()">
+                    <div class="row1">
+                        <input type="submit" value="Submit" class="light-btn" (click)="onSubmit()">&nbsp;
+                        <input type="submit" value="Cancel" class="light-btn" (click)="cancelDetails()">
                     </div>
 
                 </form>

@@ -7,18 +7,18 @@
 
             <div class="col">                
 
-                <form [formGroup]="createStreamForm"  (ngSubmit)="onSubmit()">
+                <form [formGroup]="createStreamForm" >
                     <p class="required1"><small> Indicates a required field</small></p>
 
                     <!-- Stream Name  -->
 
                     <div class="row">
                         <div class="col">
-                            <label for="stream name" class="required">Stream Name</label>
-                            <input type="text" class="form-control-input" formControlName="streamName"
+                            <label for="streamName" class="required">Stream Name</label>
+                            <input type="text" id="streamName" class="form-control-input" formControlName="streamName"
                                 placeholder="Stream Name"
                                 [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.streamName.errors }"
-                                pattern="[a-zA-Z][a-zA-Z ]+"  >
+                                pattern="^[a-zA-Z]+$">
 
                             <div *ngIf="submitted && createStreamForm.controls.streamName.errors"
                                 class="invalid-feedback"><br>
@@ -32,10 +32,10 @@
 
                         <div class="col">
                             <label for="Acronymn" class="required">Acronym</label>
-                            <input type="text" class="form-control-input" formControlName="acronym"
+                            <input type="text" id="Acronymn" class="form-control-input" formControlName="acronym"
                                 placeholder="Acronym"
                                 [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.acronym.errors }"
-                                pattern="[a-zA-Z][a-zA-Z ]+">
+                                pattern="^[a-zA-Z]+$">
                             <div *ngIf="submitted && createStreamForm.controls.acronym.errors" class="invalid-feedback">
                                 <br>
                                 <div *ngIf="createStreamForm.controls.acronym.errors.required">Acronym is required.</div>
@@ -50,8 +50,8 @@
                     <!-- price -->
                     <div class="row">
                         <div class="col">
-                            <label for="floatingInput" class="required">Price ₹</label>
-                            <input id="priceInput" type="number" class="form-control-input" formControlName="price"
+                            <label for="Price" class="required">Price ₹</label>
+                            <input id="Price" type="number" class="form-control-input" formControlName="price"
                                 min="0" placeholder="Price"
                                 [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.price.errors }"><br>
 
@@ -67,8 +67,8 @@
                         <!-- Discount -->
 
                         <div class="col">
-                            <label for="floatingInput" class="required">Discount %</label>
-                            <input id="discountInput" type="number" min="0" max="100" class="form-control-input"
+                            <label for="Discount" class="required">Discount %</label>
+                            <input id="Discount" type="number" min="0" max="100" class="form-control-input"
                                 formControlName="discount" placeholder="Discount" min=0 max=100
                                 [ngClass]="{ 'is-invalid': submitted && createStreamForm.controls.discount.errors }"><br>
                             <div *ngIf="submitted && createStreamForm.controls.discount.errors"
@@ -87,8 +87,9 @@
                     <!-- Button -->
 
                     <br><br>
-                    <div class="row">
-                        <input type="submit" value="Submit" class="btn-submit" (click)="onSubmit()">
+                    <div class="row1">
+                        <input type="submit" value="Submit" class="light-btn" (click)="onSubmit()">&nbsp;
+                        <input type="submit" value="Cancel" class="light-btn" (click)="cancelDetails()">
                     </div>
 
 

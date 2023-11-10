@@ -23,6 +23,12 @@ export class UserListComponent implements OnInit {
   visible: boolean = false;
   showPaginator: boolean = false;
 
+  courses=[
+    {id:1,name:"course1"},
+    {id:2,name:"course2"},
+    {id:3,name:"course3"}
+  ]
+
   constructor(private userService:UserService
     ,private dialog:MatDialog) { }
   displayedColumns: string[] = ['firstName','lastName','email','userStatus','userType','stream','phoneNumber','category','actions']
@@ -256,4 +262,6 @@ export class UserListComponent implements OnInit {
     return filterFunction;
   }
 
+
+ 
 }

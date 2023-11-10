@@ -8,15 +8,15 @@
             <div class="col">
                 
                        
-                <form [formGroup]="createSubjectForm" (ngSubmit)="onSubmit()">
+                <form [formGroup]="createSubjectForm" >
                     <p class="required1"><small> Indicates a required field</small></p>
                     <!-- Stream Name  -->
 
                     <div class="row">
 
                         <div class="col">
-                                <label class="required">Stream Name</label>
-                                <select formControlName="stream" class="form-control-input"placeholder="stream" 
+                                <label for="stream" class="required">Stream Name</label>
+                                <select id="stream" formControlName="stream" class="form-control-input"placeholder="stream" 
                                 [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.stream.errors }">
                                     <option value="" selected>Select</option>
                                     <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
@@ -31,9 +31,9 @@
                         <!-- Subject Name  -->
 
                         <div class="col">
-                                <label class="required">Subject Name</label>
-                                <input type="text" class="form-control-input" formControlName="subjectName" placeholder="Subject Name"
-                                [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }" pattern="[a-zA-Z][a-zA-Z ]+">
+                                <label for="subjectName" class="required">Subject Name</label>
+                                <input type="text" id="subjectName" class="form-control-input" formControlName="subjectName" placeholder="Subject Name"
+                                [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }" pattern="^[a-zA-Z]+$">
                                 
                                 <div *ngIf="submitted && createSubjectForm.controls.subjectName.errors"
                                     class="invalid-feedback"><br>
@@ -46,8 +46,9 @@
 
                     <!-- Button -->
 
-                    <div class="row">
-                        <input type="submit" value="Submit" class="btn-submit">
+                    <div class="row1">
+                        <input type="submit" value="Submit" class="light-btn" (click)="onSubmit()">&nbsp;
+                        <input type="submit" value="Cancel" class="light-btn" (click)="cancelDetails()">
                     </div>
                    
 
