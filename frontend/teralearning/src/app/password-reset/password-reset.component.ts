@@ -49,7 +49,7 @@ export class PasswordResetComponent implements OnInit {
       this.email = params['email'];
       if(!(this.token || this.email)){
         this.hasToken = false;
-        this.router.navigate(['**'])
+        this.router.navigate([''])
       }
       else{
             this.hasToken = true;
