@@ -10,6 +10,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from '../../../service/auth.service';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
+import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 
 
 @Component({
@@ -29,18 +30,20 @@ export class TopicComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog,private authService: AuthService, private subjectService: SubjectService, private streamService: StreamService, private topicService: TopicService, private snackBar: MatSnackBar) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   
+    this.buildForm(); 
+    this.getStreamList();
+    this.userId = JSON.parse(this.authService.currentUserValue()).body.id;
+  }
 
+  buildForm(){
     this.createTopicForm = this.formBuilder.group({
       streamName: ['', [Validators.required]],
       subjectName: ['', [Validators.required]],
       topicName: ['', [Validators.required]],
 
     });
-    this.getStreamList();
-    this.userId = JSON.parse(this.authService.currentUserValue()).body.id;
   }
-
   getStreamList() {
     this.streamService.getStreamList().subscribe((data: Stream[]) => {
       this.streamList = data;
@@ -72,13 +75,12 @@ export class TopicComponent implements OnInit {
 
     this.topicService.createTopic(newTopic).subscribe({
       next: (data: any) => {
-        this.dialog.open(SuccessDialogComponent, { data: { message: "Successfully Saved!" } })
-       
+        this.dialog.open(SuccessDialogComponent, { data: { message: "Topic created Successfully !" } })
+        
       },
       error: (e: any) => console.error(e)
     })
-
-
+    this.clearValidations();
   }
 
  
@@ -96,4 +98,24 @@ export class TopicComponent implements OnInit {
     this.submitted = false;
 
   }
+
+  clearValidations(): void {
+    this.createTopicForm.reset();
+    Object.keys(this.createTopicForm.controls).forEach(key => {
+      this.createTopicForm.get(key)?.markAsUntouched();
+      this.createTopicForm.get(key)?.markAsPristine();
+    }) 
+    this.submitted=false;
+    this.buildForm(); 
+  }
+  
+  cancelDetails() {
+    const dialogRef = this.dialog.open(ClearFormDialogComponent)
+    .afterClosed().subscribe(data => {
+      if (data.shouldClearForm) {
+        this.clearValidations();
+      }
+    });
+  }
+
 }

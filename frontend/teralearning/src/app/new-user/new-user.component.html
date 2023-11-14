@@ -80,7 +80,7 @@
                         <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
                         <select name="stream" class="form-control-input" formControlName="stream" (change)="streamChange()"  [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
                             <option value="" selected> Select </option>
-                            <option  *ngFor="let e of streamList | customeArraySort:'streamName' " [ngValue]="e">{{e.streamName}}</option>
+                            <option  *ngFor="let e of streamList " [ngValue]="e">{{e.streamName}}</option>
                         </select>
                         <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
                             *Required

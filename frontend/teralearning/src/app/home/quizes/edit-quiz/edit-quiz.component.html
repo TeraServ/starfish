@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <div id="top-bar">
     <div class="path">
      <a href="" routerLink="/home/quizes/quiz" class="anchor-tag">QUIZES</a>
@@ -123,9 +125,12 @@
                         <!-- {{question.questionText}} -->
                         <div [innerHTML]="question.questionText"></div>
                     </div>
-                    <div>
-                        <button (click)="getQuestionList(i)"  aria-label="View Answer" class="dropDown-button"><i class="bi bi-arrow-down-short"
-                                aria-hidden="true" title="arrowdown"></i></button>
+                    <div >
+                        <button (click)="getQuestionList(i)"  aria-label="View Answer" class="dropDown-button">
+                            <i *ngIf="this.isActive[i]" class="material-icons">keyboard_arrow_up</i>
+                            <i *ngIf="!this.isActive[i]" class="material-icons">keyboard_arrow_down</i>
+                            
+                        </button>
                         <button (click)="openEditQuestionDialog(question)" aria-label="Edit Question" class="edit-button"><i class="bi bi-pencil-square"
                                 aria-hidden="true" title="edit"></i></button>
                         <button (click)="openDeleteDialog(question.id)" aria-label="Delete Question"  class="delete-button"><i class="bi bi-trash-fill"

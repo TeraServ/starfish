@@ -34,6 +34,8 @@ import { EditQuestionComponent } from './home/quizes/edit-question/edit-question
 import { CustomeArraySortPipe } from './custome-array-sort.pipe';
 import { TopicListComponent } from './home/topics/topic-list/topic-list.component';
 import { TopicEditComponent } from './home/topics/topic-edit/topic-edit.component';
+import { ShowFocusDirective } from './custom-directives/show-focus.directive';
+import { ClearFormDialogComponent } from './dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 
 
 
@@ -54,8 +56,9 @@ import { TopicEditComponent } from './home/topics/topic-edit/topic-edit.componen
     ResourceNotFoundComponent,
     EditQuestionComponent,
     TopicListComponent,
-    CustomeArraySortPipe,
-    TopicEditComponent
+    TopicEditComponent,
+    ClearFormDialogComponent,
+    
 
 
   ],

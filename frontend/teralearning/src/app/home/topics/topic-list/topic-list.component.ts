@@ -19,7 +19,7 @@ export class TopicListComponent implements OnInit {
   topicList: Topic[] = [];
 
   constructor(public dialog: MatDialog, private topicService: TopicService, public dialogRef: MatDialog) { }
-  displayedColumns: string[] = ['streamName', 'subjectName', 'topicName', 'actions'];
+  displayedColumns: string[] = ['streamName', 'subjectName', 'topicName', 'edit','delete'];
   @Input() dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

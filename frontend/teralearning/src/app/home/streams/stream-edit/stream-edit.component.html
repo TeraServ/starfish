@@ -4,7 +4,7 @@
 <br>
 &nbsp;
 
-<form (ngSubmit)="UpdateStreamDetails()" #streamEditForm="ngForm">
+<form (ngSubmit)="UpdateStreamDetails()" #streamEditForm="ngForm" >
   <div class="form-group">
 
     <label for="title"><b>Stream Name:</b></label>
@@ -51,8 +51,8 @@
   <div *ngIf="isAlert" class="alert alert-success">
     Updated Successfully!
   </div>
-  <div >
-    <button class="loginbtn btn" [disabled]="streamEditForm.controls.streamname.errors?.pattern ||streamEditForm.controls.Acronymn.errors?.pattern || streamBtn">Update</button>
+  <div class="center">
+    <button class="loginbtn" [disabled]="streamEditForm.controls.streamname.errors?.pattern ||streamEditForm.controls.Acronymn.errors?.pattern || streamBtn">Update</button>
   </div>
   <!-- <div>
     <button class="loginbtn btn">Update</button>

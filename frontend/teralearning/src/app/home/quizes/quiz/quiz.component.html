@@ -10,7 +10,7 @@
             {{item}}
           </option>
         </select>
-        </div>
+    </div>
 
       <div>
         <label for="subject">Subject</label><br>
@@ -20,7 +20,7 @@
             {{item}}
           </option>
         </select>
-      </div>
+    </div>
 
       <div>
         <label for="quiz">Topic</label><br>
@@ -30,7 +30,7 @@
             {{item}}
           </option>
         </select>
-      </div>
+    </div>
 
       <div>
         <label for="searchBar">Quiz Name</label><br>
@@ -42,9 +42,9 @@
       </div>
       
 </div><br>
-    
-    
-   <!-- <mat-form-field>
+
+
+<!-- <mat-form-field>
 
     
         <div>
@@ -56,8 +56,8 @@
             </select>
         </div>
     </mat-form-field> -->
-   
-    <!-- <mat-form-field >
+
+<!-- <mat-form-field >
         <mat-label><i class="fa fa-filter"></i> Filter Subject</mat-label>
         <div>
             <select matNativeControl name="quiz" (change)="filterSubjectTable($event)" class="filter-dropdown">
@@ -68,8 +68,8 @@
             </select>
         </div>
     </mat-form-field> -->
-      
-    <!-- <mat-form-field >
+
+<!-- <mat-form-field >
         <mat-label><i class="fa fa-filter"></i> Filter Topic</mat-label>
         <div>
             <select matNativeControl name="quiz" (change)="filterTopicTable($event)" class="filter-dropdown">
@@ -80,7 +80,7 @@
             </select>
         </div>
     </mat-form-field>  -->
-    
+
 
 
 
@@ -118,7 +118,7 @@
         </ng-container>
 
         <ng-container matColumnDef="TotalNoOfQuestions">
-            <th mat-header-cell *matHeaderCellDef>  </th>
+            <th mat-header-cell *matHeaderCellDef> </th>
             <td mat-cell *matCellDef="let element,index as i"> {{element.TotalNoOfQuestions}}</td>
         </ng-container>
 
@@ -135,9 +135,9 @@
                 <button aria-label="delete" (click)="openDialog(element.id)" class="btn btn-danger px-3"><i class="bi bi-trash-fill" aria-hidden="true" ></i>
                 </button> &nbsp;
                 <!-- <button class="edit-btn" mat-raised-button matTooltip="Add Question" [matTooltipPosition]="'right'" aria-label="Button that displays a tooltip when focused or hovered over" > <i class="fas fa-solid fa-plus" style="color: white;"></i></button> -->
-                
-                
-                   
+
+
+
 
                 <!-- <button [disabled]="userType == 'ROLE_HR' || userType == 'ROLE_IN'" (click)="openDialog(element.id,element.title)" class="btn btn-danger px-3"><i
                         class="bi bi-trash-fill" aria-hidden="true" title="delete"></i></button> -->
@@ -158,6 +158,6 @@
 <!-- 
 <mat-spinner [diameter]="40" class="text-center" *ngIf="!isloaded"></mat-spinner> -->
 
-<mat-paginator [length]="100"  [ngStyle]="{'display': showPaginator ? 'block' : 'none'}" [pageSizeOptions]="[5,10,15,20]" [pageSize]="5" showFirstLastButtons
-        aria-label="Select page of periodic elements">
-    </mat-paginator>
+<mat-paginator [length]="100" [ngStyle]="{'display': showPaginator ? 'block' : 'none'}" [pageSizeOptions]="[5,10,15,20]"
+    [pageSize]="5" showFirstLastButtons aria-label="Select page of periodic elements">
+</mat-paginator>

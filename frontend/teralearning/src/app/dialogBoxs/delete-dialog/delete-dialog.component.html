@@ -1,8 +1,8 @@
 <h3 mat-dialog-title><i class="fas fa-exclamation-triangle" style="color:red;"></i>
    Delete</h3>
-<div mat-dialog-content  class="w3-red">
+<div mat-dialog-content >
   <p *ngIf="!showWarnMessage">{{data.message }}</p>
-  <div *ngIf="showWarnMessage" class="w3-red">
+  <div *ngIf="showWarnMessage" >
     <br>
     <!-- <h3>Danger!</h3> -->
     <p>{{warnMessage}}</p>
@@ -10,9 +10,9 @@
 
 </div>
 <div mat-dialog-actions>
-  <button mat-button class="btn" *ngIf="!showWarnMessage" [disabled]="showWarnMessage" (click)="onYesClick(data.funId)" cdkFocusInitial>Yes</button>
+  <button class="light-btn" *ngIf="!showWarnMessage" [disabled]="showWarnMessage" (click)="onYesClick(data.funId)" cdkFocusInitial>Yes</button>
   &nbsp;
-  <button class="btn" mat-button *ngIf="!showWarnMessage" (click)="onNoClick()">No</button>
-  <button class="btn" mat-button *ngIf="showWarnMessage" (click)="onNoClick()">Cancel</button>
+  <button class="light-btn" *ngIf="!showWarnMessage" (click)="onNoClick()">No</button>
+  <button class="light-btn"  *ngIf="showWarnMessage" (click)="onNoClick()">Cancel</button>
 
 </div>

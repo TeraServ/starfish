@@ -5,7 +5,7 @@
         <div class="row justify-content-center align-items-center ">
 
             <div class="col">
-                <form [formGroup]="userForm" (ngSubmit)="createUser()">
+                <form [formGroup]="userForm" >
                     <br>
                     <p class="required1"><small> Indicates a required field</small></p>
                     <!-- <p>* Indicates a required field</p>     -->
@@ -15,18 +15,21 @@
                             <label for="firstName" class="required">First Name</label>
                             <input type="text" id="firstName" class="form-control-input" name="firstName" aria-required="true" autocomplete="off"
                                 placeholder="First Name" formControlName="firstName"
-                                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" /><br><br>
-                                <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }"  pattern="^[a-zA-Z]+$"/><br><br>
+                                <div *ngIf="submitted && f.firstName.errors && f.firstName.touched" class="invalid-feedback">
                                     <div *ngIf="f.firstName.errors.required">First Name is required.</div>
+                                    <div *ngIf="f.firstName.errors.pattern">Invalid.</div>
+                                        
                                 </div>
                         </div>
                         <div class="col">
                             <label for="lastName" class="required">Last Name</label>
                             <input type="text" id="lastName" class="form-control-input" name="lastName" aria-required="true" autocomplete="off"
                                 placeholder="Last Name" formControlName="lastName"
-                                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" aria-label="Last Name" ><br><br>
+                                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" aria-label="Last Name"  pattern="^[a-zA-Z]+$"><br><br>
                                 <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
                                     <div *ngIf="f.lastName.errors.required">Last Name is required.</div>
+                                    <div *ngIf="f.lastName.errors.pattern">Invalid.</div>
                                 </div>
                         </div>
                     </div>
@@ -89,11 +92,12 @@
                         </div>
                     </div>
                     <br>
-                    <div class="row">
-                        <input type="submit" value="Submit" class="btn-submit">
-                    </div>                                                       
-</form>
-
+                    <div class="row1">
+                        <input type="submit" value="Submit" class="light-btn" (click)="createUser()">&nbsp;
+                        <input type="submit" value="Cancel" class="light-btn" (click)="cancelDetails()">
+                    </div>                    
+                   
+                </form>
             </div>
 
         </div>

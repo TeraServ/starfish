@@ -1,62 +1,73 @@
 <h2>Users List</h2>
+
 <div class="filtered-search-box">
-<label for="">First Name</label>
-<input type="text" #input (keyup)="filterFirstNameTable($event)" placeholder='Search' class="searchBar"/>
-<label for="">Email</label>
-<input type="text" #input (keyup)="filterEmailTable($event)" placeholder='Search' class="searchBar"/> 
-<label for="">PhoneNumber</label>
-<input type="number" #input (keyup)="filterPhoneNumberTable($event)" placeholder='Search' class="searchBar"/> 
+    <div>
+        <label for="">First Name</label><br>
+        <input type="text" #input (keyup)="filterFirstNameTable($event)" placeholder='Search' class="searchBar"/>
+    </div>
+    <div>
+        <label for="">Email</label><br>
+        <input type="text" #input (keyup)="filterEmailTable($event)" placeholder='Search' class="searchBar"/> 
+    </div>
+    <div>
+        <label for="">PhoneNumber</label><br>
+        <input type="number" #input (keyup)="filterPhoneNumberTable($event)" placeholder='Search' class="searchBar"/>
+    </div>
+    
+    <button type="submit" class="advanceSearch" (click)="ontoggleclick()"><i class="fa fa-filter"></i> Filter </button>
+</div>
 
-<button type="submit" class="advanceSearch" (click)="ontoggleclick()"><i class="fa fa-filter"></i> Filter </button><br><br><br>
 
-<div *ngIf="visible">
-    <mat-form-field >
-        <mat-label><i class="fa fa-filter"></i> Filter Status</mat-label>
+
+<div *ngIf="visible" class="filtered-search-box1">   
+         
+        
         <div>
-            <select matNativeControl name="userStatus" (change)="filterUserStatusTable($event)">
+            <div>
+                <label for="">Status</label><br>
+               <select name="userStatus" id="" class="filter-dropdown" (change)="filterUserStatusTable($event)" >
                 <option value=""> All </option>
                 <option value="101">Active</option>
                 <option value="102">Suspended</option>
                 <option value="103">Inactive</option>
-            </select>
+               </select>
+              </div>            
         </div>
-    </mat-form-field>
-    <mat-form-field >
-        <mat-label><i class="fa fa-filter"></i> Filter User Type</mat-label>
+   
+    
         <div>
-            <select matNativeControl name="userType" (change)="filterUserTypeTable($event)">
+            <label for="">User Type</label><br>
+            <select name="userType" id="" class="filter-dropdown" (change)="filterUserTypeTable($event)">
                 <option value=""> All </option>
                 <option value="101">Admin</option>
                 <option value="102">Student</option>
                 <option value="103">Faculty</option>
             </select>
-        </div>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label><i class="fa fa-filter"></i> Filter Stream</mat-label>
+        </div> 
+    
         <div>
-            <select matNativeControl name="stream" (change)="filterStreamTable($event)">
+            <label for="">Stream</label><br>
+            <select name="stream" id="" class="filter-dropdown" (change)="filterStreamTable($event)">
                 <option value=""> All </option>
                 <option *ngFor="let item of dataSource.data" value="{{item.stream.streamName}}">
                     {{item.stream.streamName}}
                 </option>
             </select>
         </div>
-    </mat-form-field>
-    <mat-form-field >
-        <mat-label><i class="fa fa-filter"></i> Filter Category</mat-label>
+   
         <div>
-            <select matNativeControl name="userType" (change)="filtercategoryTable($event)">
+            <label for="">Category</label><br>
+            <select name="userType"  id="" class="filter-dropdown" (change)="filtercategoryTable($event)">
                 <option value=""> All </option>
                 <option value="classroom">classroom</option>
                 <option value="online">online</option>
             </select>
         </div>
-    </mat-form-field>
+   
 
 </div>
 
-</div><br>
+<br>
 
 
 <div class="mat-elevation-z8">
@@ -86,9 +97,9 @@
         <ng-container matColumnDef="userStatus">
             <th mat-header-cell *matHeaderCellDef> Status </th>
             <td mat-cell *matCellDef="let element,index as i">
-                <span *ngIf="element?.userStatus == '101'" class="badge rounded-pill badge-success">Active</span>
-                <span *ngIf="element?.userStatus == '102'" class="badge rounded-pill badge-danger">Suspended</span>
-                <span *ngIf="element?.userStatus == '103'" class="badge rounded-pill badge-danger">Inactive</span>
+                <span *ngIf="element?.userStatus == '101'" class="badge rounded-pill badge-success" style="font-size: 12px;">Active</span>
+                <span *ngIf="element?.userStatus == '102'" class="badge rounded-pill badge-danger" style="font-size: 12px;">Suspended</span>
+                <span *ngIf="element?.userStatus == '103'" class="badge rounded-pill badge-danger" style="font-size: 12px;">Inactive</span>
             </td>
         </ng-container>
 
@@ -130,9 +141,11 @@
             <td mat-cell *matCellDef="let element,index as i">
 
 
-                <button  (click)="onUpdateClicked(element)" class="btn btn-success px-3" id="editButton"><i class="bi bi-pencil-square"
+                <button (click)="onUpdateClicked(element)" class="light-btn" alt="edit" aria-label="edit" id="editButton"><i class="bi bi-pencil-square"
 
                         aria-hidden="true" title="edit"></i></button>&nbsp;
+
+               
 
                 <!-- <button [disabled]="userType == 'ROLE_HR' || userType == 'ROLE_IN'" (click)="openDialog(element.id,element.title)" class="btn btn-danger px-3"><i
                         class="bi bi-trash-fill" aria-hidden="true" title="delete"></i></button> -->
@@ -157,3 +170,9 @@
         aria-label="Select page of periodic elements">
     </mat-paginator>
 
+
+
+
+
+ 
+   

@@ -8,10 +8,10 @@
     <form [formGroup]="editQuestionForm" class="normal-form" autocomplete="off">
 
       <mat-form-field>
-        <mat-label>{{labels.questionType}}</mat-label>
+        <mat-label><strong>{{labels.questionType}}</strong></mat-label>
         <mat-select formControlName="questionType"  required [disabled]="true">
           <ng-container *ngFor="let type of questionTypes">
-            <mat-option [value]="type.value">{{type.viewValue}}</mat-option>
+            <mat-option  [value]="type.value">{{type.viewValue}}</mat-option>
           </ng-container>
         </mat-select>
         <div *ngIf="editQuestionForm.get('editQuestionForm')?.errors?.['required']">Question Type is required.</div>
@@ -55,7 +55,7 @@
                  [aria-label]="optionCtrl.get('optionText')?.value" value="Option - {{i+1}}">
                   <mat-form-field>
                     <input type="text" (click)="checkMinimumMCQOptionCount()" matInput
-                      placeholder="{{placeholders.mcqOptionPlaceholder}}" formControlName="optionText">
+                      placeholder=""  formControlName="optionText">
                   </mat-form-field>
                   <mat-icon (click)=removeMCQOption(i) aria-hidden="true">highlight_off</mat-icon>
                 </mat-radio-button>
@@ -80,7 +80,7 @@
               <mat-checkbox (change)="handleMSQCheckboxChange(i)" formControlName="isAnswer">
               </mat-checkbox>&nbsp;
               <mat-form-field (click)="handleMSQCheckboxChange(i)">
-                <input matInput placeholder="{{placeholders.mcqOptionPlaceholder}}" formControlName="optionText">
+                <input matInput placeholder="" formControlName="optionText">
               </mat-form-field>
               <mat-icon (click)=removeMSQOption(i)>highlight_off</mat-icon>
             </div>
