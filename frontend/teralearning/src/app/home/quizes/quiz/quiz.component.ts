@@ -18,7 +18,7 @@ import { QuizDataTransferService } from 'src/app/service/quiz-data-transfer.serv
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
-  styleUrls: ['./quiz.component.scss']
+  styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit {
 

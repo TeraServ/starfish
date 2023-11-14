@@ -28,7 +28,10 @@ import { ResourceNotFoundComponent } from './resource-not-found/resource-not-fou
 import { EditQuestionComponent } from './home/quizes/edit-question/edit-question.component';
 import { TopicListComponent } from './home/topics/topic-list/topic-list.component';
 import { TopicEditComponent } from './home/topics/topic-edit/topic-edit.component';
-import { SharedModule } from './shared/shared.module';
+import { CommonModule } from '@angular/common';
+import { AlphabeticSortPipe } from './pipes/alphabetic-sort.pipe';
+import { CustomeArraySortPipe } from './custome-array-sort.pipe';
+import { SharedElementModule } from './shared/material/shared-element.module';
 
 
 
@@ -44,11 +47,12 @@ import { SharedModule } from './shared/shared.module';
     PasswordResetComponent,
     TopicComponent,
     NewUserComponent,
-    PasswordResetComponent,
     ResourceNotFoundComponent,
     EditQuestionComponent,
     TopicListComponent,
-    TopicEditComponent
+    TopicEditComponent,
+    
+    
 
 
   ],
@@ -59,10 +63,11 @@ import { SharedModule } from './shared/shared.module';
     HttpClientModule,
     ReactiveFormsModule,
     FormsModule,
+    CommonModule,
     MaterialModule,
     GooglePayButtonModule,
-    SharedModule
-
+    SharedElementModule
+  
 
   ],
   providers: [

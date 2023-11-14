@@ -41,8 +41,9 @@ import { EditQuizComponent } from './quizes/edit-quiz/edit-quiz.component';
 import { QuizComponent } from './quizes/quiz/quiz.component';
 import {CdkAccordion, CdkAccordionModule} from '@angular/cdk/accordion';
 import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.component';
-import { SharedModule } from '../shared/shared.module';
 import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
+import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
+import { SharedElementModule } from '../shared/material/shared-element.module';
 @NgModule({
   declarations: [
 
@@ -76,8 +77,7 @@ import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
     DeleteDialogComponent,
     DeleteMessageDialogComponent,
     ChapterQuizComponent,
-    CustomeArraySortPipe
-  
+    
     
     
     
@@ -93,7 +93,8 @@ import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
     AngularEditorModule,
     DragDropModule,
     CdkAccordionModule,
-    SharedModule
+    SharedElementModule
+    
 
   ],
   providers: [
