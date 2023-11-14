@@ -1,5 +1,6 @@
 .mat-table {
     overflow-x: hidden !important; 
+   
   }
   
   // td {
@@ -28,6 +29,10 @@
     width: 100%;
     overflow-x: hidden !important;
   }
-  
-  
+  .mat-column-edit{
+    width: 20px;
+  }
+  .mat-column-delete{
+    width: 20px;
+  }
   

@@ -10,7 +10,7 @@
       <label for="">Stream</label><br>
       <select name="quiz" class="filter-dropdown">
         <option value=""> All </option>
-        <option *ngFor="let item of streamFilterList" value="{{item}}">
+        <option *ngFor="let item of streamFilterList | alphabeticSort:true " value="{{item}}">
           {{item}}
         </option>
       </select>
@@ -19,7 +19,7 @@
       <label for="">Subject</label><br>
       <select name="quiz" class="filter-dropdown" (change)="filterSubjectTable($event)">
         <option value=""> All </option>
-        <option *ngFor="let item of subjectFilterList" value="{{item}}">
+        <option *ngFor="let item of subjectFilterList | alphabeticSort:true" value="{{item}}">
           {{item}}
         </option>
       </select>
@@ -29,7 +29,7 @@
       <label for="">Topic</label><br>
       <select name="quiz" class="filter-dropdown" (change)="filterTopicTable($event)">
         <option value=""> All </option>
-        <option *ngFor="let item of topicFilterList" value="{{item}}">
+        <option *ngFor="let item of topicFilterList | alphabeticSort:true " value="{{item}}">
           {{item}}
         </option>
       </select>

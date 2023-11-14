@@ -44,7 +44,7 @@
             <th mat-header-cell *matHeaderCellDef> Actions </th>
             <td mat-cell *matCellDef="let element">
 
-                <button (click)="subjectEditClick(element)" class="light-btn"><i class="bi bi-pencil-square"
+                <button (click)="subjectEditClick(element)" aria-label="edit" class="light-btn"><i class="bi bi-pencil-square"
                         aria-hidden="true" title="edit"></i></button>&nbsp;
 
                 <!-- <button [disabled]="userType == 'ROLE_HR' || userType == 'ROLE_IN'" (click)="openDialog(element.id,element.title)" class="btn btn-danger px-3"><i

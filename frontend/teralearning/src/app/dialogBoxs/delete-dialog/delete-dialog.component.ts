@@ -51,7 +51,7 @@ export class DeleteDialogComponent implements OnInit {
     else if (qn == 2) {
       this.questionService.deleteQuestion(this.data.id).subscribe({
         next: (data: any) => {
-          this.dialog.open(DeleteMessageDialogComponent, { data: { message: "Successfully deleted" } })
+          this.dialog.open(DeleteMessageDialogComponent, { data: { message: "Successfully deleted Question" } })
           this.dialogRef.close();
         },
         error: (e: any) => {
@@ -70,7 +70,7 @@ export class DeleteDialogComponent implements OnInit {
     else if (qn == 3) {
       this.topicService.deleteTopic(this.data.id).subscribe({
         next: (data: any) => {
-          this.dialog.open(DeleteMessageDialogComponent, { data: { message: "Successfully deleted" } })
+          this.dialog.open(DeleteMessageDialogComponent, { data: { message: "Successfully deleted Topic" } })
           this.dialogRef.close();
         },
         error: (e: any) => {

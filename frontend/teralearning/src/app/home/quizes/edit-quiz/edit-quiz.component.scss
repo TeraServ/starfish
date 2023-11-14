@@ -286,8 +286,20 @@ th {
 
 }
 
-.edit-button,
-.delete-button,
+.edit-button{
+  border: none;
+  background-color: transparent;
+  color: white;
+  padding: 0px 10px 0px 30px;
+  cursor: pointer;
+}
+.delete-button{
+  border: none;
+  background-color: transparent;
+  color: white;
+  padding: 0px 10px 0px 30px;
+  cursor: pointer;
+}
 .dropDown-button {
   border: none;
   background-color: transparent;

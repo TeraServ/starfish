@@ -23,12 +23,12 @@
 
                     <div class="row">
                         <div class="col">   
-                                <label for="floatingInput">Select Stream</label>                         
-                                <select formControlName="stream" class="form-control-input" placeholder="stream"
+                                <label for="selectStream">Select Stream</label>                         
+                                <select formControlName="stream" id="selectStream" class="form-control-input" placeholder="stream"
                                     (change)="getSubjectList()"
                                     [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.stream.errors }">
                                     <option value="" selected>Select</option>
-                                    <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
+                                    <option *ngFor="let item of streamList | customeArraySort:'streamName`' " [ngValue]=item>{{item.streamName}}</option>
                                 </select>
                                
                                 <div *ngIf="submitted && createQuizForm.controls.stream.errors"
@@ -38,12 +38,12 @@
                         </div>
 
                         <div class="col">
-                                <label for="floatingInput">Select Subject</label>                            
-                                <select formControlName="subject" class="form-control-input" placeholder="subject"
+                                <label for="selectSubject">Select Subject</label>                            
+                                <select formControlName="subject" id="selectSubject" class="form-control-input" placeholder="subject"
                                     (change)="getTopicList()"
                                     [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.subject.errors }">
                                     <option value="" selected>Select</option>
-                                    <option *ngFor="let item of FilteredsubjectList" [ngValue]=item>{{item.subjectName}}
+                                    <option *ngFor="let item of FilteredsubjectList | customeArraySort:'subjectName' " [ngValue]=item>{{item.subjectName}}
                                     </option>
                                 </select>
                                 
@@ -55,11 +55,11 @@
                         </div>
 
                         <div class="col">
-                                <label for="floatingInput">Select Topic</label>
-                                <select formControlName="topic" class="form-control-input" placeholder="topic"
+                                <label for="selectTopic">Select Topic</label>
+                                <select formControlName="topic" id="selectTopic" class="form-control-input" placeholder="topic"
                                     [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.topic.errors }">
                                     <option value="" selected>Select</option>
-                                    <option *ngFor="let item of FilteredtopicList" [ngValue]=item>{{item.topicName}}
+                                    <option *ngFor="let item of FilteredtopicList | customeArraySort:'topicName' " [ngValue]=item>{{item.topicName}}
                                     </option>
                                 </select>
                                 
@@ -73,8 +73,8 @@
 
                     <div class="row">
                         <div class="col">
-                                <label for="floatingInput">Quiz Name</label>
-                                <input type="text" class="form-control-input" formControlName="quizName"
+                                <label for="quizName">Quiz Name</label>
+                                <input type="text" id="quizName" class="form-control-input" formControlName="quizName"
                                     placeholder="quizName"
                                     [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.quizName.errors }"
                                     >
@@ -89,8 +89,8 @@
                         </div>
 
                         <div class="col">
-                                <label for="floatingInput">Min No.of Question</label>
-                                <input type="number" class="form-control-input"
+                                <label for="minimumQuestionNumber">Min No.of Question</label>
+                                <input id="minimumQuestionNumber" type="number" class="form-control-input"
                                     onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"
                                     formControlName="passCriteria" placeholder="passCriteria" min="1"
                                     [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.passCriteria.errors }">
@@ -104,9 +104,9 @@
                         </div>
 
                         <div class="col">
-                            <input type="checkbox" formControlName="allowRetake" class="form-check-input"
+                            <input id="allowRetake" type="checkbox" aria-label="Allow Retake" ControlName="allowRetake" class="form-check-input"
                                 (click)="checkerChange($event)">
-                            <label>Allow Retake</label>
+                            <label for="allowRetake">Allow Retake</label>
 
                         </div>
                     </div><br><br>

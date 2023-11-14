@@ -33,7 +33,7 @@ export class QuizComponent implements OnInit {
 
   }
 
-  displayedColumns: string[] = ['QuizName', 'Stream', 'Subject', 'Topic', 'TotalNoOfQuestions', 'Actions']
+  displayedColumns: string[] = ['QuizName', 'Stream', 'Subject', 'Topic', 'Actions']
 
   dataSource = new MatTableDataSource<quiz>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;

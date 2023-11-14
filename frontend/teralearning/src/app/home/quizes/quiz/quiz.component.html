@@ -2,45 +2,45 @@
 <h2>Quiz List</h2>
 
 <div class="filtered-search-box">
-    <div>
-        <label for="">Stream</label><br>
-        <select name="quiz" class="filter-dropdown">
-            <option value=""> All </option>
-            <option *ngFor="let item of streamFilterList" value="{{item}}">
-                {{item}}
-            </option>
+        <div>
+        <label for="stream">Stream</label><br>
+        <select id="stream" name="quiz" class="filter-dropdown">
+          <option value=""> All </option>
+          <option *ngFor="let item of streamFilterList | alphabeticSort:true" value="{{item}}">
+            {{item}}
+          </option>
         </select>
     </div>
 
-    <div>
-        <label for="">Subject</label><br>
-        <select name="quiz" class="filter-dropdown" (change)="filterSubjectTable($event)">
-            <option value=""> All </option>
-            <option *ngFor="let item of subjectFilterList" value="{{item}}">
-                {{item}}
-            </option>
+      <div>
+        <label for="subject">Subject</label><br>
+        <select  id="subject" name="quiz" class="filter-dropdown" (change)="filterSubjectTable($event)">
+          <option  value=""> All </option>
+          <option  *ngFor="let item of subjectFilterList | alphabeticSort:true " value="{{item}}">
+            {{item}}
+          </option>
         </select>
     </div>
 
-    <div>
-        <label for="">Topic</label><br>
-        <select name="quiz" class="filter-dropdown" (change)="filterTopicTable($event)">
-            <option value=""> All </option>
-            <option *ngFor="let item of topicFilterList" value="{{item}}">
-                {{item}}
-            </option>
+      <div>
+        <label for="quiz">Topic</label><br>
+        <select id="quiz" name="quiz" class="filter-dropdown" (change)="filterTopicTable($event)">
+          <option value=""> All </option>
+          <option *ngFor="let item of topicFilterList | alphabeticSort:true" value="{{item}}">
+            {{item}}
+          </option>
         </select>
     </div>
 
-    <div>
-        <label for="">Quiz Name</label><br>
-        <input id="searchBar" type="text" #input (keyup)="filterQuizName($event)" placeholder='Search'
-            style="width: auto;">
-    </div>
-    <div>
-        <input (click)="openAddDialog()" type="submit" value="Add Quiz" class="btn-submit" id="submitButton">
-    </div>
-
+      <div>
+        <label for="searchBar">Quiz Name</label><br>
+        <input id="searchBar"  type="text" #input (keyup)="filterQuizName($event)" placeholder='Search'  
+          style="width: auto;">
+      </div>
+      <div>
+        <input id="addANewQuiz" (click)="openAddDialog()" type="submit" value="Add Quiz" class="btn-submit" id="submitButton">
+      </div>
+      
 </div><br>
 
 
@@ -84,8 +84,8 @@
 
 
 
-<input type="checkbox" class="form-check-input" (click)="getResult($event)">
-<label>Show only my quizzes</label>
+    <input id="showMyQuiz" type="checkbox" class="form-check-input" (click)="getResult($event)">
+    <label for="showMyQuiz">Show only my quizzes</label>
 
 <br><br>
 
@@ -130,10 +130,9 @@
 
                 <!-- <button (click)="navigateEditQuiz()" class="btn btn-success px-3" id="editButton" ><i class="bi bi-pencil-square" aria-hidden="true"
                         title="edit"></i></button>&nbsp; -->
-                <button (click)="passDataToService(element)" class="btn btn-success px-3" id="editButton"
-                    routerLink="edit"><i class="bi bi-pencil-square" aria-hidden="true" title="edit"></i></button>&nbsp;
-                <button (click)="openDialog(element.id)" class="btn btn-danger px-3"><i class="bi bi-trash-fill"
-                        aria-hidden="true" title="delete"></i>
+                <button aria-label="edit" type="button" name="edit" (click)="passDataToService(element)" class="btn btn-success px-3" routerLink="edit" ><i class="bi bi-pencil-square" aria-hidden="true" 
+                        title="edit" alt=""></i></button>&nbsp;
+                <button aria-label="delete" (click)="openDialog(element.id)" class="btn btn-danger px-3"><i class="bi bi-trash-fill" aria-hidden="true" ></i>
                 </button> &nbsp;
                 <!-- <button class="edit-btn" mat-raised-button matTooltip="Add Question" [matTooltipPosition]="'right'" aria-label="Button that displays a tooltip when focused or hovered over" > <i class="fas fa-solid fa-plus" style="color: white;"></i></button> -->
 
