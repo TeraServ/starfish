@@ -1,0 +1,395 @@
+<div class="main-wrapper">
+    <section class="section">
+      <div class="section-header">
+        <h3><b>Create a Course</b></h3>
+      </div>
+      <div class="section-body">
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-12">
+            <div class="card">
+              <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+                <div class="card-body col-12 row">
+                  <div class="form-group col-md-4 col-lg-4">
+                    <label>Course Name</label>
+                    <input
+                      type="text"
+                      class="form-control currency"
+                      formControlName="courseName"
+                      [ngClass]="{
+                        'is-invalid':
+                          formControls.courseName.errors &&
+                          (formControls.courseName.dirty ||
+                            formControls.courseName.touched)
+                      }"
+                    />
+                    <div
+                      *ngFor="let validation of validation_message.courseName"
+                      class="invalid-feedback"
+                    >
+                        <div
+                        *ngIf="
+                          courseForm.get('courseName')?.hasError(validation.type) &&
+                          (courseForm.get('courseName')?.dirty ||
+                            courseForm.get('courseName')?.touched)
+                        "
+                      > {{ validation.message }}</div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-4 col-lg-4">
+                    <label>Stream</label>
+                    <select
+                      type="text"
+                      class="form-control currency"
+                      formControlName="streamName">
+                      <option *ngFor = "let stream of streamList | customeArraySort:'' " [ngValue] = "stream" >{{stream.streamName}}</option>
+                    </select>
+                    <div
+                    *ngFor="let validation of validation_message.streamName"
+                    class="invalid-feedback"
+                  >
+                    <div
+                      *ngIf="
+                        courseForm.get('streamName')?.hasError(validation.type) &&
+                        (courseForm.get('streamName')?.dirty ||
+                          courseForm.get('streamName')?.touched)
+                      "
+                    >
+                      {{ validation.message }}
+                    </div>
+</div>
+        
+                  </div>
+                  <div class="form-group col-md-12 col-lg-12">
+                    <label>Introduction</label>
+                    <angular-editor [(ngModel)]="richEditorContent"
+                    formControlName = "introduction"
+                    required></angular-editor>
+                  </div>
+                  <div class="html">
+                    {{richEditorContent}}                 
+                   </div>
+                  <!-- <div class="form-group col-md-4 col-lg-4">
+                    <label>Email</label>
+                    <input
+                      type="text"
+                      class="form-control currency"
+                      formControlName="email"
+                      [ngClass]="{
+                        'is-invalid':
+                          formControls.email.errors &&
+                          (formControls.email.dirty || formControls.email.touched)
+                      }"
+                    />
+                    <div
+                      *ngFor="let validation of validation_message.email"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="
+                          courseForm.get('email')?.hasError(validation.type) &&
+                          (courseForm.get('email')?.dirty ||
+                            courseForm.get('email')?.touched)
+                        "
+                      >
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </div> -->
+                  <!-- <div class="form-group col-md-4 col-lg-4">
+                    <label>Phone No</label>
+                    <input
+                      type="text"
+                      class="form-control currency"
+                      formControlName="phone_no"
+                      [ngClass]="{
+                        'is-invalid':
+                          formControls.phone_no.errors &&
+                          (formControls.phone_no.dirty ||
+                            formControls.phone_no.touched)
+                      }"
+                      maxlength="10"
+                    />
+                    <div
+                      *ngFor="let validation of validation_message.phone_no"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="
+                          courseForm.get('phone_no')?.hasError(validation.type) &&
+                          (courseForm.get('phone_no')?.dirty ||
+                            courseForm.get('phone_no')?.touched)
+                        "
+                      >
+                        {{ validation.message }}
+                      </div>
+                    </div>
+                  </div> -->
+<!--   
+                  <div class="form-group col-md-4 col-lg-4">
+                    <label>WhatsApp No</label>
+                    <input
+                      type="number"
+                      class="form-control currency"
+                      formControlName="whatsapp_no"
+                      maxlength="10"
+                    />
+                  </div> -->
+  
+                  <!-- <div class="form-group col-md-4 col-lg-4">
+                    <label>Gender</label>
+                    <select class="form-control" formControlName="gender">
+                      <option value="MALE" selected>Male</option>
+                      <option value="FEMALE">Female</option>
+                      <option value="OTHER">Other</option>
+                    </select>
+                  </div> -->
+  
+                  <!-- <div class="form-group col-md-4 col-lg-4">
+                    <label>Nationality</label>
+                    <input
+                      type="text"
+                      class="form-control currency"
+                      formControlName="nationality"
+                    />
+                  </div>
+  
+                  <div class="form-group col-md-4 col-lg-4">
+                    <label>DOB</label>
+                    <input
+                      type="date"
+                      class="form-control currency"
+                      formControlName="dob"
+                    />
+                  </div> -->
+  
+                  <!-- <div class="form-group col-md-4 col-lg-4">
+                    <label>Marital Status</label>
+                    <select class="form-control" formControlName="martial_status">
+                      <option value="UNMARRIED" selected>Unmarried</option>
+                      <option value="MARRIED">Married</option>
+                      <option value="DIVORCED">Divorced</option>
+                      <option value="WIDOWED">Widowed</option>
+                    </select>
+                  </div>
+  
+                  <div class="form-group col-md-4 col-lg-4">
+                    <label>Bank Name</label>
+                    <input
+                      type="text"
+                      class="form-control currency"
+                      formControlName="bank_name"
+                    />
+                  </div>
+  
+                  <div class="form-group col-md-4 col-lg-4">
+                    <label>Bank Account No</label>
+                    <input
+                      type="text"
+                      class="form-control currency"
+                      formControlName="bank_accountno"
+                    />
+                  </div>
+  
+                  <div class="form-group col-md-4 col-lg-4">
+                    <label>Bank IBAN</label>
+                    <input
+                      type="text"
+                      class="form-control currency"
+                      formControlName="bank_iban"
+                    />
+                  </div>
+  
+                  <div class="form-group col-md-4 col-lg-4">
+                    <label>Swift Account No</label>
+                    <input
+                      type="text"
+                      class="form-control currency"
+                      formControlName="swift_number"
+                    />
+                  </div> -->
+                </div>
+                <hr />
+                <div class="card-body col-12 col-sm-12 col-lg-12 col-md-12">
+                  <ul class="nav nav-tabs" id="myTab5" role="tablist">
+                    <li class="nav-item">
+                      <a
+                        class="nav-link active"
+                        id="home-tab5"
+                        data-toggle="tab"
+                        href="#education"
+                        role="tab"
+                        aria-controls="home"
+                        aria-selected="true"
+                      >
+                        <i class="fas fa-user-graduate"></i> Add Chapters</a
+                      >
+                    </li>
+                  </ul>
+                  <div
+                    class="tab-pane fade show active"
+                    id="education"
+                    role="tabpanel"
+                    aria-labelledby="contact-tab5"
+                  >
+                    <table
+                      class="table table-bordered"
+                      formArrayName="educationdata"
+                    >
+                      <tr>
+                        <th colspan="7">Add Page Data:</th>
+                        <th width="150px">
+                          <button
+                            type="button"
+                            (click)="addeducationdata()"
+                            class="btn btn-primary"
+                          >
+                            Add More
+                          </button>
+                        </th>
+                      </tr>
+                      <tr
+                        *ngFor="let f of educationdata().controls; let i = index"
+                        [formGroupName]="i"
+                      >
+                        <td>
+                          School/College Name :
+                          <input
+                            type="text"
+                            formControlName="schoolName"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':
+                                educationcon(i).controls['schoolName'].errors &&
+                                (educationcon(i).controls['schoolName'].dirty ||
+                                  educationcon(i).controls['schoolName'].touched)
+                            }"
+                          />
+                          <div
+                            *ngFor="
+                              let validation of validation_edumessage.schoolName
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                educationcon(i).controls['schoolName'].hasError(
+                                  validation.type
+                                ) &&
+                                (educationcon(i).controls['schoolName'].dirty ||
+                                  educationcon(i).controls['schoolName'].touched)
+                              "
+                            >
+                              {{ validation.message }}
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          Degree:
+                          <select
+                            formControlName="degree"
+                            class="form-control"
+                            [ngClass]="{
+                              'is-invalid':
+                                educationcon(i).controls['degree'].errors &&
+                                (educationcon(i).controls['degree'].dirty ||
+                                  educationcon(i).controls['degree'].touched)
+                            }"
+                          >
+                            <option value="">Select Degree</option>
+                            <option value="SCHOOL">School Degree</option>
+                            <option value="COLLEGE">Some College</option>
+                            <option value="BACHELOR">Bachelor Degree</option>
+                            <option value="MASTER">Master Degree</option>
+                            <option value="PHD">PhD Degree</option>
+                          </select>
+  
+                          <div
+                            *ngFor="
+                              let validation of validation_edumessage.degree
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                educationcon(i).controls['degree'].hasError(
+                                  validation.type
+                                ) &&
+                                (educationcon(i).controls['degree'].dirty ||
+                                  educationcon(i).controls['degree'].touched)
+                              "
+                            >
+                              {{ validation.message }}
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          Field Of Study:
+                          <input
+                            class="form-control"
+                            type="text"
+                            formControlName="fieldofstudy"
+                          />
+                        </td>
+                        <td>
+                          Start Date:
+                          <input
+                            class="form-control"
+                            type="date"
+                            formControlName="startDt"
+                          />
+                        </td>
+                        <td>
+                          End Date:
+                          <input
+                            class="form-control"
+                            type="date"
+                            formControlName="endDt"
+                          />
+                        </td>
+                        <td>
+                          Grade:
+                          <input
+                            class="form-control"
+                            type="text"
+                            formControlName="grade"
+                          />
+                        </td>
+                        <td>
+                          Notes:
+                          <textarea
+                            class="form-control"
+                            formControlName="notes"
+                          ></textarea>
+                        </td>
+  
+                        <td>
+                          <button
+                            (click)="removeeducationdata(i)"
+                            class="btn btn-danger"
+                          >
+                            Remove
+                          </button>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+  
+                <hr />
+                <div class="form-group text-right col-2">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg btn-block"
+                    tabindex="4"
+                  >
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  

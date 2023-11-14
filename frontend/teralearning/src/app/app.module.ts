@@ -32,6 +32,8 @@ import { CommonModule } from '@angular/common';
 import { AlphabeticSortPipe } from './pipes/alphabetic-sort.pipe';
 import { CustomeArraySortPipe } from './custome-array-sort.pipe';
 import { SharedElementModule } from './shared/material/shared-element.module';
+import { ShowFocusDirective } from './custom-directives/show-focus.directive';
+import { ClearFormDialogComponent } from './dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 
 
 

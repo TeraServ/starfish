@@ -6,6 +6,9 @@ import { StreamService } from '../../../service/stream.service';
 import { SubjectService } from '../../../service/subject.service';
 import { Stream } from 'src/model/stream.model';
 import { Subject } from 'src/model/subject.model';
+import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 
 
 @Component({
@@ -29,23 +32,20 @@ export class SubjectComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private streamService: StreamService, private subjectService: SubjectService) { }
+  constructor(private formBuilder: FormBuilder, private snackBar: MatSnackBar, private dialog: MatDialog,private streamService: StreamService, private subjectService: SubjectService) { }
 
   ngOnInit(): void {
-    this.createSubjectForm = this.formBuilder.group({
-      subjectName: ['', [Validators.required]],
-      stream:['',[Validators.required]],  
-      //dropStream:new FormControl('',[Validators.required])
-        
-
-    });
-
+    this.buildForm();
     this.getStreamList();
-
-
-
   }
 
+  buildForm(){
+    this.createSubjectForm = this.formBuilder.group({
+      subjectName: ['', [Validators.required]],
+      stream:['',[Validators.required]],        
+
+    });
+  }
 
   createSubject() {
 
@@ -58,14 +58,13 @@ export class SubjectComponent implements OnInit {
     }
     console.log(newSubject)
     console.log(this.dropStream)
-    this.subjectService.createSubject(newSubject).subscribe({
-      next: (data: any) => {
-        this.snackBar.open("Successfully created.", '', {
-          duration: 3000
-        })
-      },
-      error: (e: any) => console.error(e)
-    })
+    this.subjectService.createSubject(newSubject).subscribe(data => {
+      this.dialog.open(SuccessDialogComponent, { data: { message: "Subject created Successfully" } })
+      this.clearValidations();
+    }, err => {
+      this.snackBar.open(err.error, '', { duration: 3000 })
+      console.log(err)
+    })           
 
   }
 
@@ -86,8 +85,7 @@ export class SubjectComponent implements OnInit {
       return;          
     }
     else{
-      this.createSubject();  
-      
+      this.createSubject();        
     }
     this.createSubjectForm.reset();
       this.createSubjectForm.clearValidators();
@@ -97,6 +95,24 @@ export class SubjectComponent implements OnInit {
     //   this.submitted = false;
     
 
+  }
+  clearValidations(): void {
+    this.createSubjectForm.reset();
+    Object.keys(this.createSubjectForm.controls).forEach(key => {
+      this.createSubjectForm.get(key)?.markAsUntouched();
+      this.createSubjectForm.get(key)?.markAsPristine();
+    }) 
+    this.submitted=false;
+    this.buildForm();
+  }
+  
+  cancelDetails() {
+    const dialogRef = this.dialog.open(ClearFormDialogComponent)
+    .afterClosed().subscribe(data => {
+      if (data.shouldClearForm) {
+        this.clearValidations();
+      }
+    });
   }
 
 

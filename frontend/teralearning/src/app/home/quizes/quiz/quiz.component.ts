@@ -27,11 +27,10 @@ export class QuizComponent implements OnInit {
   subjectFilterList: any[] = [];
   topicFilterList: any[] = [];
 
- 
 
   showPaginator: boolean = false;
-  constructor(private dialog: MatDialog, private quizService: QuizService, private authService: AuthService, private router: Router, private quizDataTransfer: QuizDataTransferService) { 
-    
+  constructor(private dialog: MatDialog, private quizService: QuizService, private authService: AuthService, private router: Router, private quizDataTransfer: QuizDataTransferService) {
+
   }
 
   displayedColumns: string[] = ['QuizName', 'Stream', 'Subject', 'Topic', 'Actions']
@@ -59,13 +58,13 @@ export class QuizComponent implements OnInit {
   //   this.router.navigate(['home/quizes/quiz/edit'], { queryParams: { 'datasource.data': data } });
   // }
 
-  
+
 
   getQuiz() {
     this.quizService.getQuizList().subscribe(data => {
       this.dataSource.data = data;
-      
-      
+
+
 
       this.dataSource.data.forEach(element => {
         if (!this.streamFilterList.includes(element.topic?.subject?.stream?.streamName)) {
@@ -98,14 +97,14 @@ export class QuizComponent implements OnInit {
     })
   }
 
-  passDataToService(quiz:any) {
+  passDataToService(quiz: any) {
     //this.router.navigate(['/edit/quizName',quiz.quizName]);
     this.quizDataTransfer.passData(quiz);
   }
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: { id: id, message: "Are you sure want to delete ", funId: 1,warnMessage:"Cannot Delete Quiz as it is mapped to a course" },
-    }).afterClosed().subscribe(data => {    
+      data: { id: id, message: "Are you sure want to delete ", funId: 1, warnMessage: "Cannot Delete Quiz as it is mapped to a course" },
+    }).afterClosed().subscribe(data => {
       this.getQuiz();
     });
 
@@ -118,14 +117,14 @@ export class QuizComponent implements OnInit {
 
   getResult(v: any) {
     console.log(v.target.checked)
-    console.log("userId",this.authService.getUserId())
-    if (v.target.checked && this.authService.getUserId() == 121) {      
-        this.dataSource.data = this.dataSource.data.filter(item => item.creator == 121);
-      } else {
-        this.dataSource.data = this.quizList;  
-      }     
-    console.log("getResult",this.dataSource.data)
-    
+    console.log("userId", this.authService.getUserId())
+    if (v.target.checked && this.authService.getUserId() == 121) {
+      this.dataSource.data = this.dataSource.data.filter(item => item.creator == 121);
+    } else {
+      this.dataSource.data = this.quizList;
+    }
+    console.log("getResult", this.dataSource.data)
+
   }
   //search for phonenumber
 
@@ -167,8 +166,8 @@ export class QuizComponent implements OnInit {
       data.topic.topicName == input.target.value;
     this.dataSource.filter = input.target.value;
   }
-  trackByFnForStream(index:number,item:any){
-  return item;
+  trackByFnForStream(index: number, item: any) {
+    return item;
   }
 
 

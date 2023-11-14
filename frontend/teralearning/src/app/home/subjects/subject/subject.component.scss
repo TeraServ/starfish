@@ -6,6 +6,13 @@
   .row{
     width: 700px;
   }
+  .row1{
+    width: 700px;
+    border-color: #2C45A7;
+    margin: auto;
+    text-align: center;  
+    
+  }
   .form-control-input{
     padding: 10px 12px;
     width: 100%;
@@ -24,6 +31,16 @@
     color: #fff;
     margin: auto;
     border-radius: 5px;
+}
+.btn-submit1{
+  padding: 10px 15px;
+  background-color: #2C45A7;
+  border: none;
+  box-shadow: 0px 2px 3px #ddd;
+  width: fit-content;
+  color: #fff;
+  margin: auto;
+  border-radius: 5px;
 }
 .Intialrequired{
   color: red;

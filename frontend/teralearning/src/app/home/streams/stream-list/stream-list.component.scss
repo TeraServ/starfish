@@ -1,6 +1,22 @@
 .mat-table {
   overflow-x: hidden !important; 
 }
+.mat-icon{
+  color: #2C45A7;
+}
+.btn-edit {
+  background-color: #dae0f8;
+  color: #14309e;
+  border: none;
+  box-shadow: 0px 2px 3px #dae0f8;
+  border-radius: 5px;
+  padding: 10px 10px;
+}
+
+.btn-edit:hover {
+  border: #14309e;
+
+}
 
 // td {
 //   min-width: 130px;

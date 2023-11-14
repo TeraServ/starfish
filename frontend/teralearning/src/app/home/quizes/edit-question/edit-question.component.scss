@@ -95,7 +95,11 @@ h1 {
   .msq-option-text-box{
     resize: horizontal;
   }
-
+.mat-select-disabled {
+  ::ng-deep .mat-select-value{
+    color:black
+  }
+}
 
 
 

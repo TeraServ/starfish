@@ -1,0 +1,94 @@
+<title>Create Subject</title>
+<section class="vh-100 gradient-custom">
+
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center ">
+
+            <div class="col">
+                <!-- <div class="card shadow-2-strong card-registration" style="border-radius: 10px;">
+                    <div class="card-body"> -->
+
+                <form [formGroup]="createTopicForm">
+                    <div class="row">
+
+                        <div class="col">
+                            <h1>Create Topic</h1><br>
+                        </div>
+                    </div>
+                    <!-- Stream Name  -->
+
+                    <div class="row">
+
+                        <div class="col">   
+                            <label for="floatingInput">Select Stream</label>                         
+                            <select formControlName="streamName" class="form-control-input" placeholder="stream"
+                            (change)="getSubjectList()"
+                                [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.streamName.errors }">
+                                <option value="" selected>Select</option>
+                                <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
+                            </select>
+                           
+                            <div *ngIf="submitted && createTopicForm.controls.streamName.errors"
+                                class="invalid-feedback"><br>
+                                <div *ngIf="createTopicForm.controls.streamName.errors.required">*Required</div>
+                            </div>                           
+                        </div>
+
+                        <!-- Subject Name  -->
+
+                        <div class="col">
+                            <label for="floatingInput">Select Subject</label>                            
+                            <select formControlName="subjectName" class="form-control-input" placeholder="subject"
+                                
+                                [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.subjectName.errors }">
+                                <option value="" selected>Select</option>
+                                <option *ngFor="let item of FilteredsubjectList" [ngValue]=item>{{item.subjectName}}
+                                </option>
+                            </select>
+                            
+                            <div *ngIf="submitted && createTopicForm.controls.subjectName.errors"
+                                class="invalid-feedback"><br>
+                                <!-- <div *ngIf="createQuizForm.controls.subject.errors.required">*Required</div> -->
+                                <div *ngIf="FilteredsubjectList.length == 0">*Select Stream</div>
+                            </div>                            
+                    </div>
+
+
+                        <div class="col">
+                                <label for="floatingInput">Topic Name</label>
+                                <input type="text" class="form-control-input" formControlName="topicName"
+                                    
+                                    [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.topicName.errors }">
+                                
+                                <div *ngIf="submitted && createTopicForm.controls.topicName.errors"
+                                    class="invalid-feedback"><br>
+                                    <div *ngIf="createTopicForm.controls.topicName.errors.required">*Required</div>
+                                </div>
+                            
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- Button -->
+                    <div class="col">
+                        <div class="text-center">
+                            <div class="mt-4 pt-2">
+                                <input class="loginbtn btn" type="submit" value="Create Topic" (click)="onSubmit()">
+                            </div>
+                        </div>
+
+                        <br>
+                    </div>
+
+                </form>
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+    </div>
+</section>
