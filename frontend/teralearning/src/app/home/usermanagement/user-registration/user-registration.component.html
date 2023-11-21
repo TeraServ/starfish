@@ -1,3 +1,73 @@
+<<<<<<< HEAD
+<h2>Create User</h2>
+<form [formGroup]="userForm" (ngSubmit)="createUser()">
+    <br>
+    <div class="row">
+        <div class="col">
+            <label for="firstName">First Name </label>
+            <input type="text" class="form-control-input" name="firstName" placeholder="First Name" formControlName="firstName" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" >
+            <div *ngIf="submitted && f.firstName.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+        <div class="col">
+            <label for="lastName">Last Name</label>
+            <input type="text" class="form-control-input" name="lastName" placeholder="Last Name" formControlName="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+            <div *ngIf="submitted && f.lastName.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <label for="userType">User Type</label>
+         <select class="form-control-input"  name="userType" formControlName="userType" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" >
+            <option value="" selected>Select</option>
+            <option value="101">Admin</option>
+            <option value="102">Student</option>
+            <option value="103">Faculty</option>
+         </select>
+         <div *ngIf="submitted && f.userType.errors?.required" class="invalid-feedback"> 
+            *Required
+          </div>
+        </div>
+        <div class="col">
+            <label for="stream">Stream</label>
+            <!-- <input type="text" class="form-control-input" name="stream" placeholder="Stream" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }"> -->
+            <select name="stream" class="form-control-input" formControlName="stream" [ngClass]="{ 'is-invalid': submitted && f.stream.errors }">
+                <option value="" selected> Select </option>
+                <option *ngFor="let e of streamList" [ngValue]="e">{{e.streamName}}</option>
+                
+            </select>
+            <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col">
+            <label for="email">Email Id</label>
+            <input type="email" class="form-control-input" name="email" placeholder="Email Id" formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+            <div *ngIf="submitted && f.email.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+        <div class="col">
+            <label for="phoneNumber">Phone Number</label>
+            <input type="text" class="form-control-input" name="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber" [ngClass]="{ 'is-invalid': submitted && f.phoneNumber.errors }">
+            <div *ngIf="submitted && f.phoneNumber.errors?.required" class="invalid-feedback"> 
+                *Required
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <input type="submit" value="Submit" class="btn-submit">
+    </div>
+</form>
+=======
 <h2>Create User</h2>
 <section class="vh-100 gradient-custom">
     <div class="container">
@@ -115,3 +185,4 @@
 
     </div>
 </section>
+>>>>>>> c2e6ba961af27b32e92d93cdef57c5fecca9bf26

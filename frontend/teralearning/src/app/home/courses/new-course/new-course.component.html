@@ -2,80 +2,89 @@
 <!-- <div>
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div> -->
-<form   [formGroup]="courseForm" (onSubmit)="onSubmit()">
-    <div >
-        <button mat-icon-button class="close-button" [mat-dialog-close]="true">
-            <mat-icon class="close-icon" color="warn">close</mat-icon>
-          </button>
-        <h2>{{title}}</h2>
+
+<ng-container focusInvalidField>
+    <form   [formGroup]="courseForm" (submit)="onSubmit()">
+        <div >
+            <button mat-icon-button class="close-button" aria-label="close button" [mat-dialog-close]="true">
+                <mat-icon class="close-icon" color="warn">close</mat-icon>
+              </button>
+            <h2>{{title}}</h2>
+            <i class="text-red">* </i> Indicates a required field.
+            <div class="row">
+                <div class="col">
+                    <label for="stream">Stream <i class="text-red">*</i></label>
+                    <select aria-required="true" name="stream" (change)="getSubjectByStream()" formControlName="stream" aria-label="stream">
+                        <option [ngValue]="f.stream.value" selected aria-selected="true">{{f.stream.value != "" ? f.stream.value?.streamName: "--Please Select--"}}</option>
+                        <option  *ngFor="let e of streamList" [ngValue]="e" aria-selected="false">{{e.streamName}}</option>
+                    </select>
+                    
+                    <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
+                        Stream field is required
+                      </div>
+                </div>
+        
+                <div class="col">
+                    <label for="subject"> Subject <i class="text-red">*</i></label>
+                    <select aria-required="true" name="subject" id="" formControlName="subject" (change)="getTopicBySubject()" aria-label="subject">
+                        <option [ngValue]="f.subject.value" selected aria-selected="true">{{f.subject.value != "" ? f.subject.value?.subjectName: "--Please Select--"}}</option>
+                        <option  *ngFor="let e of subjectList" [ngValue]="e" aria-selected="false">{{subjectList.length != 0 ? e.subjectName :'No data'}}</option>
+                    </select> 
+                    <div *ngIf="submitted && f.subject.errors?.required" class="invalid-feedback"> 
+                        Subject field is required
+                      </div>
+                </div>
+        
+                <div class="col">
+                    <label for="topic">Topic <i class="text-red">*</i></label>
+                    <select aria-errormessage="errt1" aria-required="true" name="topic" id="" formControlName="topic" aria-label="topic">
+                        <option [ngValue]="f.topic.value" selected aria-selected="true">{{f.topic.value != "" ? f.topic.value?.topicName: "--Please Select--"}}</option>
+                        <option  *ngFor="let e of topic" [ngValue]="e" aria-selected="false">{{e?.topicName}}</option>
+                    </select>
+                    <div id="errt1" *ngIf="submitted && f.topic.errors?.required" class="invalid-feedback"> 
+                        Topic field is required
+                      </div>
+                </div>
+            </div>
+          
+           
+           
+           <br>
+            
+           <label for="coursename">Course Name <i class="text-red">*</i></label>
+            <input name="coursename" aria-errormessage="errc1" aria-required="true" type="text"  placeholder="Enter course name." formControlName="courseName" aria-label="course-name">
+            <div id="errc1" *ngIf="submitted && f.courseName.errors?.required" class="invalid-feedback"> 
+                Course name field is required
+              </div>
     
-        <div class="row">
-            <div class="col">
-                <label for="">Stream</label>
-                <select name="stream" (change)="getSubjectByStream()" formControlName="stream">
-                    <option [ngValue]="f.stream.value" selected>{{f.stream.value != "" ? f.stream.value?.streamName: "--Please Select--"}}</option>
-                    <option  *ngFor="let e of streamList | customeArraySort:'streamName' " [ngValue]="e">{{e.streamName}}</option>
-                </select>
+            <br>
+                <label for="">Cover Image <i class="text-red">*</i></label>
+           <input aria-errormessage="errc2" aria-required="true" type="file" accept="image/*" (change)="uploadCover($event)" formControlName="imageFile" aria-label="cover-img">
+           <div id="errc2"  *ngIf="submitted && f.imageFile.errors?.required" class="invalid-feedback"> 
+            Cover image field is required
+          </div>
+       
+            
+    <br>
+    
+    
+            <label for="">Course Description <i class="text-red">*</i></label>
+            <textarea aria-errormessage="errd1"  aria-required="true" name="" id="" cols="25" rows="5" placeholder="Enter course description" formControlName="description" aria-label="description"></textarea>
+    
+            <div id="errd1" *ngIf="submitted && f.description.errors?.required" class="invalid-feedback"> 
+                Course description field is required
+              </div>
+              <br>
+              
                 
-                <div *ngIf="submitted && f.stream.errors?.required" class="invalid-feedback"> 
-                    *Required
-                  </div>
+           
+            <div style="width: 100%;display: flex;justify-content: center;">
+              
+                <button title="Submit button" aria-pressed="false"  type="submit" aria-label="Submit button" class="new-btn" (click)="onSubmit()">Submit</button>&nbsp;
+                <button title="Cancel button" aria-pressed="false" type="button" class="new-btn" aria-label="Cancel button" (click)="clearForm()">Cancel</button>
             </div>
-    
-            <div class="col">
-                <label for=""> Subject</label>
-                <select name="subject" id="" formControlName="subject" (change)="getTopicBySubject()">
-                    <option [ngValue]="f.subject.value" selected>{{f.subject.value != "" ? f.subject.value?.subjectName: "--Please Select--"}}</option>
-                    <option  *ngFor="let e of subjectList| customeArraySort:'subjectName' " [ngValue]="e">{{subjectList.length != 0 ? e.subjectName :'No data'}}</option>
-                </select> 
-                <div *ngIf="submitted && f.subject.errors?.required" class="invalid-feedback"> 
-                    *Required
-                  </div>
-            </div>
-    
-            <div class="col">
-                <label for="">Topic</label>
-                <select name="topic" id="" formControlName="topic">
-                    <option [ngValue]="f.topic.value" selected>{{f.topic.value != "" ? f.topic.value?.topicName: "--Please Select--"}}</option>
-                    <option  *ngFor="let e of topic | customeArraySort:'topicName' " [ngValue]="e">{{e?.topicName}}</option>
-                </select>
-                <div *ngIf="submitted && f.topic.errors?.required" class="invalid-feedback"> 
-                    *Required
-                  </div>
-            </div>
+            
         </div>
-      
-       
-       
-       
-        
-       <label for="">Course Name</label>
-        <input type="text" placeholder="Enter course name." formControlName="courseName">
-        <div *ngIf="submitted && f.courseName.errors?.required" class="invalid-feedback"> 
-            *Required
-          </div>
-
-        
-            <label for="">Cover Image</label>
-       <input type="file" accept="image/*" (change)="uploadCover($event)" formControlName="imageFile">
-       <div *ngIf="submitted && f.imageFile.errors?.required" class="invalid-feedback"> 
-        *Required
-      </div>
-   
-        
-
-
-
-        <label for="">Course Description</label>
-        <textarea name="" id="" cols="25" rows="5" placeholder="Enter course description" formControlName="description"></textarea>
-
-        <div *ngIf="submitted && f.description.errors?.required" class="invalid-feedback"> 
-            *Required
-          </div>
-          <br>
-        <div style="width: 100%;display: flex;justify-content: center;">
-            <button type="submit" class="btn-submit" (click)="onSubmit()">Submit</button>
-        </div>
-        
-    </div>
-</form>
+    </form>
+    
+</ng-container>

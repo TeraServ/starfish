@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Course } from 'src/model/course.model';
@@ -28,5 +28,8 @@ export class CourseService {
   }
   getChapterByCourseId(id:number):Observable<any>{
     return this.httpClient.get(this.url+"chapter/"+id);
+  }
+  deleteChapterById(id:number):Observable<any>{
+    return this.httpClient.delete(this.url+"chapter/"+id);
   }
 }

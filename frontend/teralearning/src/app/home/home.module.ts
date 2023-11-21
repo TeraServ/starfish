@@ -62,6 +62,8 @@ import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
 import { EditQuestionComponent } from './quizes/edit-question/edit-question.component';
 import {CdkAccordion, CdkAccordionModule} from '@angular/cdk/accordion';
 import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { InvalidFieldFocusDirective } from './courses/new-course/invalidfieldfocus.directive';
 import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
 @NgModule({
   declarations: [
@@ -98,7 +100,8 @@ import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
     CustomeArraySortPipe,
     SafeHtmlPipe,
     ChapterQuizComponent,
-    AlphabeticSortPipe,
+    InvalidFieldFocusDirective,
+    AlphabeticSortPipe
   
     
     
@@ -122,7 +125,6 @@ import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
     MatInputModule,
     MatProgressBarModule,
     MatSidenavModule,
-    MatSidenavModule,
     MaterialModule,
     AngularEditorModule,
     MatMenuModule,
@@ -130,7 +132,11 @@ import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
     MatProgressBarModule,
     DragDropModule,
     MatTooltipModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    MatProgressSpinnerModule,
+    
+    
+    
 
   ],
   providers: [

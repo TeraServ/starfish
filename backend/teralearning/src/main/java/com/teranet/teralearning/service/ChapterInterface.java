@@ -10,4 +10,6 @@ public interface ChapterInterface {
 
 
      ResponseEntity getChaptersById(long id);
+
+    ResponseEntity deleteChapterById(long id);
 }

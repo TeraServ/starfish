@@ -30,23 +30,33 @@ constructor(private matDialog:MatDialog,
   
   updateData!:any;
   chapterList:Chapter[]=[];
-  chapterCount:number = 0;
+  chapterCount:number = 1;
   emptyChapter!:Chapter;
+  isSaving:boolean = false;
   ngOnInit(): void {
 
     this.courseDataService.data.subscribe(data => {
       this.updateData = data;
 
       if (this.updateData?.courseName == null) {
-        this.route.navigate(["home/courses"])
+        this.route.navigate(["home/courses"]);
       } else {
-        this.getChapter()
-        
+        this.getChapter();
       }
 
     })
   }
   
+  dataChanged(v:any){
+    if(v.isSaving){
+      console.log(v)
+      this.isSaving = true;
+      this.updateData.chapters = v.data;
+      this.saveChapter();
+    }else{
+      this.isSaving = false;
+    }
+  }
   getChapter(){
     // this.courseService.getChapterByCourseId(id).subscribe(data=>{
     //   console.log(data)
@@ -73,12 +83,14 @@ constructor(private matDialog:MatDialog,
   }
 
   addChapter(){
+    this.isSaving = true;
    this.emptyChapter ={
-    chapterName:"Chapter "+this.chapterList.length,
+    chapterName:"Chapter "+(this.chapterList.length)+1,
     courseId:this.updateData.id,
     bodies:[],
     id:0
    }
+   
     // let childComponent = this.componentFactoryResolver.resolveComponentFactory(ChapterComponent);
     
     //   this.componentRef = this.parent.createComponent(childComponent);
@@ -87,6 +99,7 @@ constructor(private matDialog:MatDialog,
     this.courseService.saveChapterByCourseId(this.emptyChapter).subscribe(data=>{
       if(data){
         this.chapterList.push(data);
+        this.saveChapter()
       }
       console.log(this.chapterList)
     })
@@ -101,12 +114,15 @@ constructor(private matDialog:MatDialog,
     
   }
   saveChapter(){
+   
     console.log("Save CHapter")    
     console.log(this.updateData);
     this.courseService.addCourse(this.updateData).subscribe(data=>{
       console.log(data)
-      this.matDialog.open(SuccessDialogComponent,{data:{message:"Successfully created"}})
-    })  
+      this.isSaving = false; 
+      this.matDialog.open(SuccessDialogComponent,{data:{message:"Chapter Created!!"}})
+    }) 
+    
   }
 
   uploadFile() {

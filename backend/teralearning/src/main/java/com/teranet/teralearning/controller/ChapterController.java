@@ -21,8 +21,10 @@ public class ChapterController {
         return chapterService.addChapter(chapter);
     }
 
-    @GetMapping("{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity getChapter(@PathVariable("id") long id){
-        return chapterService.getChaptersById(id);
+        return chapterService.deleteChapterById(id);
     }
+
+
 }
