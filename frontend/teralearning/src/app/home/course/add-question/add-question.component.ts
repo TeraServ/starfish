@@ -405,7 +405,7 @@ export class AddQuestionComponent implements OnInit {
       this._questionService.addNewQuestion(this.newQuestion).subscribe(
         resp=>{
           console.log("Response:",resp);
-          this._dialog.open(SuccessDialogComponent,{data:{message:QuestionMessageBox.questionAdded}})
+          this._dialog.open(SuccessDialogComponent,{data:{header:QuestionMessageBox.questionAdded, innerHTMLContent:`${this.newQuestion.questionText} was added`}})
           .afterClosed().subscribe(val=>{
             this.onClose();
           });

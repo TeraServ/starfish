@@ -6,7 +6,7 @@
         <label for="stream">Stream</label><br>
         <select id="stream" name="quiz" class="filter-dropdown">
           <option value=""> All </option>
-          <option *ngFor="let item of streamFilterList | alphabeticSort:true" value="{{item}}">
+          <option *ngFor="let item of streamFilterList " value="{{item}}">
             {{item}}
           </option>
         </select>
@@ -16,7 +16,7 @@
         <label for="subject">Subject</label><br>
         <select  id="subject" name="quiz" class="filter-dropdown" (change)="filterSubjectTable($event)">
           <option  value=""> All </option>
-          <option  *ngFor="let item of subjectFilterList | alphabeticSort:true " value="{{item}}">
+          <option  *ngFor="let item of subjectFilterList" value="{{item}}">
             {{item}}
           </option>
         </select>
@@ -26,7 +26,7 @@
         <label for="quiz">Topic</label><br>
         <select id="quiz" name="quiz" class="filter-dropdown" (change)="filterTopicTable($event)">
           <option value=""> All </option>
-          <option *ngFor="let item of topicFilterList | alphabeticSort:true" value="{{item}}">
+          <option *ngFor="let item of topicFilterList" value="{{item}}">
             {{item}}
           </option>
         </select>
@@ -38,7 +38,7 @@
           style="width: auto;">
       </div>
       <div>
-        <input id="addANewQuiz" (click)="openAddDialog()" type="submit" value="Add Quiz" class="btn-submit" id="submitButton">
+        <input id="addANewQuiz" (click)="openAddDialog()" type="submit" value="Add Quiz" class="light-btn" id="submitButton">
       </div>
       
 </div><br>
@@ -81,11 +81,18 @@
         </div>
     </mat-form-field>  -->
 
+    <div class="radio-btn-con">
+        <mat-radio-group aria-label="Select an option" >      
+                  
+        <mat-radio-button value="1" checked (change)="getResult($event)">All Quiz</mat-radio-button>
+          &nbsp;
+          <mat-radio-button value="2" (change)="getResult($event)">My Quiz</mat-radio-button>
+        </mat-radio-group>
+       </div>
 
 
-
-    <input id="showMyQuiz" type="checkbox" class="form-check-input" (click)="getResult($event)">
-    <label for="showMyQuiz">Show only my quizzes</label>
+    <!-- <input id="showMyQuiz" type="checkbox" class="form-check-input" (click)="getResult($event)"> -->
+    <!-- <label for="showMyQuiz">Show only my quizzes</label> -->
 
 <br><br>
 
@@ -123,17 +130,16 @@
         </ng-container>
 
 
-        <ng-container matColumnDef="Actions">
-            <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <ng-container matColumnDef="Edit">
+            <th mat-header-cell *matHeaderCellDef> Edit </th>
             <td mat-cell *matCellDef="let element,index as i">
 
 
                 <!-- <button (click)="navigateEditQuiz()" class="btn btn-success px-3" id="editButton" ><i class="bi bi-pencil-square" aria-hidden="true"
                         title="edit"></i></button>&nbsp; -->
-                <button aria-label="edit" type="button" name="edit" (click)="passDataToService(element)" class="btn btn-success px-3" routerLink="edit" ><i class="bi bi-pencil-square" aria-hidden="true" 
+                <button aria-label="edit" type="button" name="edit" (click)="passDataToService(element)" class="light-btn" routerLink="edit" ><i class="bi bi-pencil-square" aria-hidden="true" 
                         title="edit" alt=""></i></button>&nbsp;
-                <button aria-label="delete" (click)="openDialog(element.id)" class="btn btn-danger px-3"><i class="bi bi-trash-fill" aria-hidden="true" ></i>
-                </button> &nbsp;
+                
                 <!-- <button class="edit-btn" mat-raised-button matTooltip="Add Question" [matTooltipPosition]="'right'" aria-label="Button that displays a tooltip when focused or hovered over" > <i class="fas fa-solid fa-plus" style="color: white;"></i></button> -->
 
 
@@ -144,9 +150,21 @@
 
 
             </td>
+            
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <ng-container matColumnDef="Delete">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let element">
+
+                <button aria-label="delete" (click)="openDialog(element)" class="light-btn"><i class="bi bi-trash-fill" aria-hidden="true" ></i>
+                </button> &nbsp;
+
+
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 
@@ -158,6 +176,6 @@
 <!-- 
 <mat-spinner [diameter]="40" class="text-center" *ngIf="!isloaded"></mat-spinner> -->
 
-<mat-paginator [length]="100" [ngStyle]="{'display': showPaginator ? 'block' : 'none'}" [pageSizeOptions]="[5,10,15,20]"
+<mat-paginator  [length]="100" [ngStyle]="{'display': showPaginator ? 'block' : 'none'}" [pageSizeOptions]="[5,10,15,20]"
     [pageSize]="5" showFirstLastButtons aria-label="Select page of periodic elements">
 </mat-paginator>

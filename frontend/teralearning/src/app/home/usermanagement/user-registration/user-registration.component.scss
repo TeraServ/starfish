@@ -34,7 +34,7 @@
     width: 100%;
     border-radius: 5px;
     border-width: 1px;
-    outline-color: #2C45A7;
+    // outline-color: #2C45A7;
     border: none;
     box-shadow: 0px 2px 6px #ddd;
 }
@@ -66,11 +66,13 @@
   content:" *";
   color: red;
 }
-.invalid-feedback{
-  color: red;
-  font-size: 12px;
-}
+
 .required1::before {
   content:" *";
   color: red;
+}
+.red{ 
+    color: red;
+    font-size: 12px;
+ 
 }

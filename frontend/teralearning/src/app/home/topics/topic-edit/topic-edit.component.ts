@@ -7,6 +7,7 @@ import { StreamService } from '../../../service/stream.service';
 import { TopicService } from '../../../service/topic.service';
 import { AuthService } from '../../../service/auth.service';
 import { SuccessDialogComponent } from '../../../dialogBoxs/success-dialog/success-dialog.component';
+import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 
 @Component({
   selector: 'app-topic-edit',
@@ -29,6 +30,11 @@ export class TopicEditComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.getTopicName();
+   
+  }
+
+  getTopicName(){
     this.UpdatedTopicName = this.EditTopic.topicName
   }
 
@@ -54,7 +60,7 @@ export class TopicEditComponent implements OnInit {
         this.topicService.updateTopic(UpdatedTopic).subscribe(data => {
 
           if (data.topicName == this.UpdatedTopicName) {
-            this.dialog.open(SuccessDialogComponent, { data: { message: "Successfully Updated!" } })
+            this.dialog.open(SuccessDialogComponent, { data: { header: "Successfully Updated",message:`${data.topicName} was updated under subject ${data.subject.subjectName}` } })
             this.dialogRef.close();
           }
         });
@@ -76,6 +82,21 @@ export class TopicEditComponent implements OnInit {
     }
 
   }
+  getPreviousValue() {
+    this.getTopicName();
+
+  }
+
+  cancelDetails() {
+    const dialogRef = this.dialog.open(ClearFormDialogComponent)
+      .afterClosed().subscribe(data => {
+        if (data.shouldClearForm) {
+          this.getPreviousValue();
+        }
+      });
+  }
+
+
 
 
 }

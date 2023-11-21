@@ -13,6 +13,8 @@ import { AuthService } from 'src/app/service/auth.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { QuizDataTransferService } from 'src/app/service/quiz-data-transfer.service';
+import { Quiz } from 'src/app/models/quiz.model';
+import { MatRadioChange } from '@angular/material/radio';
 
 
 @Component({
@@ -26,6 +28,7 @@ export class QuizComponent implements OnInit {
   streamFilterList: any[] = [];
   subjectFilterList: any[] = [];
   topicFilterList: any[] = [];
+  value!:number;
 
 
   showPaginator: boolean = false;
@@ -33,7 +36,7 @@ export class QuizComponent implements OnInit {
 
   }
 
-  displayedColumns: string[] = ['QuizName', 'Stream', 'Subject', 'Topic', 'Actions']
+  displayedColumns: string[] = ['QuizName', 'Stream', 'Subject', 'Topic', 'Edit','Delete']
 
   dataSource = new MatTableDataSource<quiz>();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -41,12 +44,13 @@ export class QuizComponent implements OnInit {
 
   ngOnInit(): void {
     this.getQuiz();
+   
   }
 
   openAddDialog() {
     this.dialog.open(AddQuizComponent, {
-      width: "800px",
-      height: "450px"
+      width: "60%",
+      height: "70%"
 
     }).afterClosed().subscribe(data => {
       this.getQuiz()
@@ -63,7 +67,13 @@ export class QuizComponent implements OnInit {
   getQuiz() {
     this.quizService.getQuizList().subscribe(data => {
       this.dataSource.data = data;
+      console.log("Dataa",this.dataSource.data)
 
+      
+      // else{
+      //   this.dataSource.paginator = this.paginator;
+      //   this.showPaginator=true
+      // }
 
 
       this.dataSource.data.forEach(element => {
@@ -101,9 +111,10 @@ export class QuizComponent implements OnInit {
     //this.router.navigate(['/edit/quizName',quiz.quizName]);
     this.quizDataTransfer.passData(quiz);
   }
-  openDialog(id: number): void {
+  openDialog(deletedQuiz: quiz): void {
+    console.log("quiz body",deletedQuiz)
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
-      data: { id: id, message: "Are you sure want to delete ", funId: 1, warnMessage: "Cannot Delete Quiz as it is mapped to a course" },
+      data: { id: deletedQuiz.id, message: `Are you sure want to delete the quiz ${deletedQuiz.quizName} ?` , funId: 1, deleteItem:deletedQuiz ,warnMessage: "Cannot Delete Quiz as it is mapped to a course" },
     }).afterClosed().subscribe(data => {
       this.getQuiz();
     });
@@ -115,13 +126,15 @@ export class QuizComponent implements OnInit {
   }
 
 
-  getResult(v: any) {
-    console.log(v.target.checked)
-    console.log("userId", this.authService.getUserId())
-    if (v.target.checked && this.authService.getUserId() == 121) {
-      this.dataSource.data = this.dataSource.data.filter(item => item.creator == 121);
+  getResult(v: MatRadioChange) {   
+
+    if (v.value==2 && this.authService.getCurrentUserDetails().id == this.authService.LoggedInUserId()) {
+      this.dataSource.data = this.dataSource.data.filter(item => item.creator == this.authService.getCurrentUserDetails().id);
+      this.showPaginator=false
+      
     } else {
       this.dataSource.data = this.quizList;
+      this.showPaginator=true
     }
     console.log("getResult", this.dataSource.data)
 

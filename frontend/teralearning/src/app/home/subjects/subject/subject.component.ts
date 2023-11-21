@@ -41,7 +41,7 @@ export class SubjectComponent implements OnInit {
 
   buildForm(){
     this.createSubjectForm = this.formBuilder.group({
-      subjectName: ['', [Validators.required]],
+      subjectName: ['', [Validators.required,Validators.pattern('^([^0-9]*)$')]],
       stream:['',[Validators.required]],        
 
     });
@@ -59,7 +59,7 @@ export class SubjectComponent implements OnInit {
     console.log(newSubject)
     console.log(this.dropStream)
     this.subjectService.createSubject(newSubject).subscribe(data => {
-      this.dialog.open(SuccessDialogComponent, { data: { message: "Subject created Successfully" } })
+      this.dialog.open(SuccessDialogComponent, { data: { header:'Successfully Created',message: `${newSubject.subjectName} was created under stream ${newSubject.stream.streamName}.`} })
       this.clearValidations();
     }, err => {
       this.snackBar.open(err.error, '', { duration: 3000 })

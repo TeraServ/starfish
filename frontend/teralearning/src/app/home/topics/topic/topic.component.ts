@@ -75,7 +75,7 @@ export class TopicComponent implements OnInit {
 
     this.topicService.createTopic(newTopic).subscribe({
       next: (data: any) => {
-        this.dialog.open(SuccessDialogComponent, { data: { message: "Topic created Successfully !" } })
+        this.dialog.open(SuccessDialogComponent, { data: { header:`Successfully Created`,message: `Topic ${data.topicName} was created under the subject ${data.subject.subjectName}` } })
         
       },
       error: (e: any) => console.error(e)

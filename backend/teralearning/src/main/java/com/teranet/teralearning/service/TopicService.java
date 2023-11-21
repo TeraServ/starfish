@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TopicService implements TopicInterface{
@@ -62,9 +63,10 @@ public class TopicService implements TopicInterface{
     }
     @Override
     public ResponseEntity deleteTopicById(long id){
-        if(topicRepository.existsById(id) && !isMappedToCourse(id) && !isMappedToQuiz(id)){
+        Optional<Topic> deletedTopic = topicRepository.findById(id);
+        if(deletedTopic.isPresent() && !isMappedToCourse(id) && !isMappedToQuiz(id)){
             topicRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>(deletedTopic.get().getTopicName()+" was successfully deleted.",HttpStatus.OK);
         }
         else {
             return new ResponseEntity("Topic Mapped to Quiz/Course",HttpStatus.CONFLICT);

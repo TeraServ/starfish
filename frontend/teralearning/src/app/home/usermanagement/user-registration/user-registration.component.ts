@@ -29,8 +29,8 @@ export class UserRegistrationComponent implements OnInit {
 
   buildForm() {
     this.userForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.required,Validators.pattern('^([^0-9]*)$')]],
+      lastName: ['', [Validators.required,Validators.pattern('^([^0-9]*)$')]],
       email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       userType: ['', Validators.required],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
@@ -52,7 +52,6 @@ export class UserRegistrationComponent implements OnInit {
     if (this.userForm.invalid) {
       return;
     }
-
     let userData:user ={
       id:0,
       firstName:this.userForm.get('firstName')?.value,

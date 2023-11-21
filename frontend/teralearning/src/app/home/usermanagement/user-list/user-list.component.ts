@@ -60,8 +60,10 @@ export class UserListComponent implements OnInit {
     this.dialog.open(UserUpdateComponent, {
       width: "500px",
       data: data,
+      restoreFocus:true
+      
     }).afterClosed().subscribe(data => {
-      this.getAllUsers()
+       this.getAllUsers()
     })
   }
 

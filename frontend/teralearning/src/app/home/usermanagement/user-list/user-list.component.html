@@ -14,7 +14,9 @@
         <input type="number" #input (keyup)="filterPhoneNumberTable($event)" placeholder='Search' class="searchBar"/>
     </div>
     
-    <button type="submit" class="advanceSearch" (click)="ontoggleclick()"><i class="fa fa-filter"></i> Filter </button>
+    <button type="submit" class="advanceSearch" (click)="ontoggleclick()">Advanced Search 
+        <i  *ngIf="!visible" class="fa fa-chevron-down" aria-live="expanded" aria-hidden="true"></i>
+        <i  *ngIf="visible" class="fa fa-chevron-up" aria-live="collapsed" aria-hidden="true"></i></button>
 </div>
 
 
@@ -154,7 +156,7 @@
             </td>
         </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 

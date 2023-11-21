@@ -35,4 +35,44 @@
   .mat-column-delete{
     width: 20px;
   }
-  
+  //search list ---->
+
+.filtered-search-box{
+  height: 80px;
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  box-shadow: 0px 1px 8px #b1bce4;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: hidden;
+  align-items: center;
+}
+.filtered-search-box div{
+  width: 1000px;
+}
+.filter-dropdown{
+  min-width: 200px;
+  max-width: 100%;
+  padding: 10px 12px;
+  border-radius: 5px;
+  margin: 5px;
+  box-shadow: 0px 2px 5px #ddd;
+  border: none;
+}
+.searchBar{
+  padding: 10px 12px;
+  margin: 5px;
+  width: 250px;
+  border-radius: 5px;
+  outline-color: #2C45A7;
+  border: none;
+  box-shadow: 0px 2px 5px #ddd;
+  }
+
+//--------->
+
+
+

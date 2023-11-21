@@ -16,47 +16,39 @@
                         <div class="col">   
                             <label for="streamName" class="required">Select Stream</label>                         
                             <select id="streamName" formControlName="streamName" class="form-control-input" placeholder="stream"
-                            (change)="getSubjectList()"
-                                [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.streamName.errors }">
+                            (change)="getSubjectList()">
                                 <option value="" selected>Select</option>
                                 <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
                             </select>
                            
-                            <div *ngIf="submitted && createTopicForm.controls.streamName.errors"
-                                class="invalid-feedback"><br>
-                                <div *ngIf="createTopicForm.controls.streamName.errors.required">Stream Name is required.</div>
-                            </div>                           
+                            <span class="red"
+                                *ngIf="(submitted || createTopicForm.controls.streamName.touched) && createTopicForm.controls.streamName.errors?.required">Stream
+                            Name is required.</span>                          
                         </div>
 
                         <!-- Subject Name  -->
 
                         <div class="col">
                             <label for="subjectName" class="required">Select Subject</label>                            
-                            <select id="subjectName" formControlName="subjectName" class="form-control-input" placeholder="subject"
-                                
-                                [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.subjectName.errors }">
+                            <select id="subjectName" formControlName="subjectName" class="form-control-input" placeholder="subject">
                                 <option value="" selected>Select</option>
                                 <option *ngFor="let item of FilteredsubjectList" [ngValue]=item>{{item.subjectName}}
                                 </option>
                             </select>
                             
-                            <div *ngIf="submitted && createTopicForm.controls.subjectName.errors"
-                                class="invalid-feedback"><br>                                
-                                <div *ngIf="FilteredsubjectList.length == 0">Please select a stream.</div>
-                            </div>                            
+                            <span class="red"
+                                *ngIf="(submitted || createTopicForm.controls.subjectName.touched) && createTopicForm.controls.subjectName.errors?.required">Subject
+                            Name is required.</span>                               
                     </div>
 
 
                         <div class="col">
                                 <label for="topicName" class="required">Topic Name</label>
-                                <input type="text" id="topicName" class="form-control-input" formControlName="topicName" placeholder="Topic Name"
-                                [ngClass]="{ 'is-invalid': submitted && createTopicForm.controls.topicName.errors }" pattern="^[a-zA-Z]+$">
+                                <input type="text" id="topicName" class="form-control-input" formControlName="topicName" placeholder="Topic Name">
 
-                                <div *ngIf="submitted && createTopicForm.controls.topicName.errors"
-                                    class="invalid-feedback"><br>
-                                    <div *ngIf="createTopicForm.controls.topicName.errors.required">Topic name is required.</div>
-                                    <div *ngIf="createTopicForm.controls.topicName.errors.pattern">Invalid.</div>
-                                </div>
+                                <span class="red"
+                                *ngIf="(submitted || createTopicForm.controls.topicName.touched) && createTopicForm.controls.topicName.errors?.required">Topic
+                            Name is required.</span>      
                             
                         </div>
 

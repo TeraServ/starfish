@@ -45,7 +45,7 @@ export enum QuestionMessageBox{
     oneCorrectMCQOption = 'MCQ should have one correct answer',
     oneCorrectMSQOption = 'Minimum one correct should be checked.',
     noQuestionPreview = 'No Question to Preview',
-    questionAdded = 'Successfully Added Question',
+    questionAdded = 'Successfully Created',
 }
 
 
