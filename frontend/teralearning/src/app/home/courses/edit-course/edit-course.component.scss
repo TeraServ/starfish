@@ -32,15 +32,25 @@ select,input{
     border-radius: 5px;
     margin: 5px;
     justify-content: space-between;
+    color: #333;
+    
+}
+.btn-course:hover{
+    box-shadow: 0px 3px 5px #ddd;
     background-color: #2C45A7;
     color: #fff;
-    box-shadow: 0px 3px 5px #ddd;
 }
 .path{
     padding: 10px 12px;
     margin-top: 5px;
 }
 .div-row-flex{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+.save-button{
     display: flex;
     flex-direction: row;
     align-items: center;

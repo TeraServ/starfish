@@ -5,9 +5,20 @@
     &#10095;
     <a href="" routerLink="/home/courses/mode_edit" class="anchor-tag">EDIT</a>
    </div> 
-<div>
+<div class="div-row-flex">
+   <div>
     <button class="btn-course" (click)="addChapter()"> + Chapter </button>
-<button class="btn-course" (click)="saveChapter()"> Save </button>
+   </div>
+   <div class="save-button" *ngIf="isSaving">
+    <mat-progress-spinner [diameter]="20" [color]=""  [mode]="'indeterminate'"></mat-progress-spinner> &nbsp;
+    <i>Saving Changes..</i>
+   </div>
+   <div *ngIf="!isSaving">
+
+    <i>Saved Changes.</i>
+   </div>
+   &nbsp;
+<!-- <button class="btn-course" (click)="saveChapter()"> Save </button> -->
 </div>
 </div>
 <!-- <div class="div-row-flex">
@@ -36,7 +47,7 @@
 
     
 
-<app-chapter [data]="chapterList" >
+<app-chapter [data]="chapterList" (dataChangeEvent)="dataChanged($event)">
     
 </app-chapter>
 

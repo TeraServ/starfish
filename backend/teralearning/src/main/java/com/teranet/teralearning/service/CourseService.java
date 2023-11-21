@@ -42,6 +42,15 @@ public class CourseService implements CourseInterface {
 
     }
 
+//    @Override
+//    public ResponseEntity deleteChapter(Course course,long chapterId){
+//        Optional<Course> course1 = courseRepository.findById(course.getId());
+//        if(course1.isPresent()){
+//
+//        }
+//        return new ResponseEntity(new ResponseEntity<>())
+//    }
+
     @Override
     public ResponseEntity getAllCourse() {
         return new ResponseEntity<>(courseRepository.findAll(),HttpStatus.OK);

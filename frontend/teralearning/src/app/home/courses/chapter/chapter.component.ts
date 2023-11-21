@@ -48,10 +48,14 @@ export class ChapterComponent implements OnInit {
   }
   chapterNameChanged(index:any,event:any){
     this.data[index].chapterName = event.target.value;
-    this.dataChanged = true;
+    this.changed();
     this.saveChapter(index);
   }
+  changeSaved(){
+    this.dataChangeEvent.emit(false);
+  }
   addPage(index:any){
+    this.changed()
     //this.chapterData.title = "Chapter 1"
     this.matDialog.open(PageComponent,{height:"90%"}).afterClosed().subscribe(data=>{
       if(data.data != undefined){
@@ -71,15 +75,18 @@ export class ChapterComponent implements OnInit {
 
         this.dataChanged = true;
        this.saveChapter(index);
+      }else{
+        this.changeSaved()
       }
     });
 
   }
 
   changed() {
-    this.dataChanged = true;
+    this.dataChangeEvent.emit({isSaving:true,data:this.data});
   }
   addQuiz(index:any) {
+    this.changed()
     this.matDialog.open(ChapterQuizComponent, { height: "90%", width: "100%" }).afterClosed().subscribe(value => {
       if (value.event == "Add") {
         console.log(value.chosenQuiz)
@@ -94,50 +101,67 @@ export class ChapterComponent implements OnInit {
         this.dataChanged = true;
         this.saveChapter(index);
       } else if (value.event == "Cancel") {
-
+        this.changeSaved()
       } else {
         console.log(value)
+        this.changeSaved()
       }
 
     })
+   
   }
   saveChapter(index:any) {
-
+    
     if (this.data[index].chapterName != null) {
       this.courseService.saveChapterByCourseId(this.data[index]).subscribe(data => {
         if (data) {
-          this.data[index] =data;;
+          this.data[index] = data;;
           this.dataChanged = false;
+          this.changeSaved()
           this.matDialog.open(SuccessDialogComponent, { data: { message: "Successfully Saved!" } })
-        }else{
-          
         }
       })
     } else {
 
     }
+    this.changeSaved();
 
   }
 
   drop(event: CdkDragDrop<string[]>,index:any) {
+    this.changed()
     moveItemInArray(this.data[index].bodies, event.previousIndex, event.currentIndex);
     this.saveChapter(index);
     this.dataChanged = true;
   }
   removeChapter(index:any) { 
-    this.data.splice(index,1)
+    this.courseService.deleteChapterById(this.data[index].id).subscribe(data=>{
+      console.log(data);
+      this.data.splice(index,1);
+    },(err)=>{
+      if(err.status ==200){
+        this.data.splice(index,1);
+      }
+      console.log(err)
+    })
+   
+    
+    
   }
   removePage(chapterIndex:any,index: number) {
-    console.log("delete");
+    this.changed()
     this.data[chapterIndex].bodies.splice(index,1);
     // this.chapterData.pages = this.pageData;
     this.dataChanged = true;
+    this.saveChapter(chapterIndex)
   }
 
-  editPage(data:any){
-    
+  editPage(chapterIndex:any,pageIndex:any,data:any){
+    this.changed()
     this.matDialog.open(PageComponent,{data:data,height:"90%"}).afterClosed().subscribe(data=>{
-      
+         console.log(data);
+         this.data[chapterIndex].bodies[pageIndex] = data;
+         this.saveChapter(chapterIndex)
     })
   }
 

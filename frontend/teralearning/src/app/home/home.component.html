@@ -11,7 +11,7 @@
           <div class="position-sticky">
             <div class="list-group list-group-flush mx-3 mt-4">
               <button id="sideMenuCloseButton" (click)="drawer.toggle()">&#8249; </button>
-                           <a  *ngIf="userType[0]"
+                           <a  *ngIf="userType[0]" (click)="drawer.toggle()"
                class="list-group-item list-group-item-action py-2 ripple" aria-current="true" routerLink="/home/dashboard"
                 routerLinkActive="active">
                 <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
@@ -25,13 +25,13 @@
               <!-- Collapsed content -->
               <ul  *ngIf="userType[1]" id="collapseExample1" [ngStyle]="{display:displayStyle}" class="collapse show list-group list-group-flush">
                 <li class="list-group-item py-1">
-                  <a  routerLink="/home/usermanagement/create" routerLinkActive="active" class="text-reset">Create User</a>
+                  <a  routerLink="/home/usermanagement/create" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create User</a>
                 </li>
                 <li class="list-group-item py-1">
-                  <a routerLink="/home/usermanagement/CreateBulkUsers" routerLinkActive="active" class="text-reset">Create Bulk Users</a>
+                  <a routerLink="/home/usermanagement/CreateBulkUsers" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create Bulk Users</a>
                 </li>
                 <li class="list-group-item py-1">
-                  <a routerLink="/home/usermanagement/users" routerLinkActive="active" class="text-reset">Users</a>
+                  <a routerLink="/home/usermanagement/users" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Users</a>
                 </li>
               </ul>
       
@@ -44,10 +44,10 @@
             
               <ul  *ngIf="userType[2]" id="collapseExample2"  [ngStyle]="{display:displayStyle1}" class="collapse show list-group list-group-flush">
                 <li  *ngIf="userType[2]" class="list-group-item py-2">
-                  <a routerLink="/home/streams/create" routerLinkActive="active" class="text-reset">Create Stream</a>
+                  <a routerLink="/home/streams/create" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create Stream</a>
                 </li>
                 <li  *ngIf="userType[2]" class="list-group-item py-2">
-                  <a routerLink="/home/streams/list" routerLinkActive="active" class="text-reset">Stream List</a>
+                  <a routerLink="/home/streams/list" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Stream List</a>
                 </li>
               </ul>
       
@@ -58,10 +58,10 @@
             
               <ul *ngIf="userType[3]" id="collapseExample3"  [ngStyle]="{display:displayStyle2}" class="collapse show list-group list-group-flush">
                 <li class="list-group-item py-2">
-                  <a routerLink="/home/subjects/create" routerLinkActive="active" class="text-reset">Create Subject</a>
+                  <a routerLink="/home/subjects/create" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create Subject</a>
                 </li>
                 <li class="list-group-item py-2">
-                  <a routerLink="/home/subjects/list" routerLinkActive="active" class="text-reset">Subject List</a>
+                  <a routerLink="/home/subjects/list" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Subject List</a>
                 </li>
               </ul>
 
@@ -75,7 +75,7 @@
  
                <ul *ngIf="userType[3]" id="collapseExample4"  [ngStyle]="{display:displayStyle3}" class="collapse show list-group list-group-flush">
                  <li class="list-group-item py-2">
-                   <a routerLink="/home/quizes/quiz" routerLinkActive="active" class="text-reset">Quiz List</a>
+                   <a routerLink="/home/quizes/quiz" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Quiz List</a>
                  </li>
                </ul>
       
@@ -85,12 +85,12 @@
                  class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active"
                  ><i class="fas fa-lock fa-fw me-3"></i><span>Onboarding</span></a
                 > -->
-                <a  *ngIf="userType[2]" href="#" #streamTab routerLink="/home/courses" routerLinkActive="active"
+                <a  *ngIf="userType[2]" href="#" #streamTab routerLink="/home/courses" routerLinkActive="active" (click)="drawer.toggle()"
                 class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
                 <i class='fas fa-chalkboard-teacher'></i> &nbsp;&nbsp;&nbsp;&nbsp;<span>Courses</span>
                 </a>
       
-              <a *ngIf="userType[4]" routerLink="/home/settings" routerLinkActive="active" onclick="changeTab(this.location.href)"
+              <a *ngIf="userType[4]" routerLink="/home/settings" routerLinkActive="active" onclick="changeTab(this.location.href)" (click)="drawer.toggle()"
                 href="/home/settings" class="list-group-item list-group-item-action py-2 ripple"><i
                   class="fas fa-gear fa-fw me-3"></i><span>Settings</span></a>
             </div>
@@ -214,7 +214,7 @@
  </main>
 <!--Main layout-->
 
-<div class="example-sidenav-content">
+<div class="example-sidenav-content" (click)="''">
   <router-outlet></router-outlet>
 </div>
 

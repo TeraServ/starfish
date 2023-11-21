@@ -30,7 +30,7 @@ public class Course {
     @OneToOne(targetEntity = Topic.class, cascade = CascadeType.MERGE)
     private Topic topic;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<Chapter> chapters = new ArrayList<>();
 
     @Column(name = "modified_date")

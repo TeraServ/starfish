@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormBuilder, FormGroup, NgControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { AuthService } from 'src/app/service/auth.service';
@@ -13,6 +13,7 @@ import { Course } from 'src/model/course.model';
 import { Stream } from 'src/model/stream.model';
 import { Subject } from 'src/model/subject.model';
 import { Topic } from 'src/model/topic.model';
+import { InvalidFieldFocusDirective } from './invalidfieldfocus.directive';
 @Component({
   selector: 'app-new-course',
   templateUrl: './new-course.component.html',
@@ -36,19 +37,12 @@ export class NewCourseComponent implements OnInit {
   isEditable:boolean = false;
   updateData!:Course;
   submitted:boolean = false;
+  @ViewChild(InvalidFieldFocusDirective)
+  invalidInputDirective!: InvalidFieldFocusDirective;
+  @ViewChildren(NgControl) formControls!: QueryList<NgControl>;
   ngOnInit(): void {
     this.getAllStreams();
-    this.courseForm = this.formBuilder.group({
-      courseName:['',Validators.required],
-      stream:['',Validators.required],
-      subject:['',Validators.required],
-      topic:['',Validators.required],
-      coverUrl:[null,Validators.required],
-      description:['',Validators.required],
-      imageFile:[null,Validators.required]
-      
-
-    });
+    this.setForm();
     if(this.data != ''){
       this.title = "Edit Course";
       this.isEditable = true;
@@ -72,6 +66,19 @@ export class NewCourseComponent implements OnInit {
     this.updateData  =this.data;
     console.log(this.data)
   }
+  setForm(){
+    this.courseForm = this.formBuilder.group({
+      courseName:['',Validators.required],
+      stream:['',Validators.required],
+      subject:['',Validators.required],
+      topic:['',Validators.required],
+      coverUrl:[null,Validators.required],
+      description:['',Validators.required],
+      imageFile:[null,Validators.required]
+      
+
+    });
+  }
   getAllStreams(){
     this.streamService.getStreamList().subscribe(data=>{
       this.streamList = data;
@@ -89,6 +96,12 @@ export class NewCourseComponent implements OnInit {
       this.courseForm.get("coverUrl")?.setValue(data.id);
     })
 
+  }
+  clearForm(){
+    this.courseForm.reset();
+    //this.courseForm.get("stream")?.setValue("-Please Select-")
+    this.setForm()
+    this.submitted= false;
   }
   getSubjectByStream(){
     let selectedStream = this.courseForm.get("stream")?.value;
@@ -117,6 +130,9 @@ export class NewCourseComponent implements OnInit {
   }
   onSubmit(){
     this.submitted = true;
+    console.log(this.formControls)
+    console.log(this.invalidInputDirective)
+    this.invalidInputDirective.check(this.formControls);
     if(this.courseForm.invalid){
       console.log(this.courseForm)
       return;

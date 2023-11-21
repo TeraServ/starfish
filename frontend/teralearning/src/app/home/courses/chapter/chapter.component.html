@@ -38,7 +38,7 @@
          <h3>&nbsp;<i class="{{body.type == 'quiz' ? 'fas fa-solid fa-lightbulb':'fas fa-solid fa-file'}}" ></i> &nbsp;{{ body.type == 'page' ?  body?.pages?.title :  body?.quizList?.quizName }}</h3>
         </div>
          <div >
-          <button *ngIf="body.type == 'page'"  mat-icon-button  aria-label="Edit buttpon" (click)="editPage(body.pages)">
+          <button *ngIf="body.type == 'page'"  mat-icon-button  aria-label="Edit buttpon" (click)="editPage(i,index,body.pages)">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button  aria-label="Remove buttpon" (click)="removePage(index,i)">

@@ -21,6 +21,7 @@ export class BasicAuthInterceptor implements HttpInterceptor {
                         {
                           
                           'Authorization': `Bearer ` + `${currentUser.token}`,
+                          
                         }
                 
             });
