@@ -63,7 +63,7 @@ export class UserListComponent implements OnInit {
       restoreFocus:true
       
     }).afterClosed().subscribe(data => {
-       this.getAllUsers()
+      // this.getAllUsers()
     })
   }
 
