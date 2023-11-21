@@ -1,7 +1,10 @@
-import { Component,OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, } from '@angular/forms';
+import { Component,ElementRef,OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
+import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
 import { Stream } from 'src/model/stream.model';
 
@@ -20,38 +23,37 @@ export class StreamComponent implements OnInit {
 
 
 
-  constructor(private formBuilder: FormBuilder, private streamService: StreamService,private snackBar: MatSnackBar) { }
+  constructor(private formBuilder: FormBuilder, private dialog: MatDialog,private streamService: StreamService,private snackBar: MatSnackBar,private el: ElementRef) { }
 
   ngOnInit(): void {
+    this.buildForm();
+    this.getStreams();
+  }
 
+  buildForm() {
     this.createStreamForm = this.formBuilder.group({
-      streamName: ['', [Validators.required]],
-      acronym: ['',[Validators.required]],
+      streamName: ['', [Validators.required,Validators.pattern('^([^0-9]*)$')]],
+      acronym: ['', [Validators.required,Validators.pattern('^([^0-9]*)$')]],
       price: ['', [Validators.required,Validators.min(0)]],
       discount: ['', [Validators.required,Validators.min(0),Validators.max(100)]],
 
     });
-    this.getStreams();
+
   }
 
   //creating stream
   createStream(){
+    
     this.stream.streamStatus = 1;
-    this.streamService.createStream(this.stream).subscribe({
-      next: (data: any)=>{        
-        this.snackBar.open("Successfully created.", '', {
-          duration: 3000
-        })
-        
-      },
-      error: (e:any) => console.error(e)
-    });
+    this.streamService.createStream(this.stream).subscribe(data => {
+      this.dialog.open(SuccessDialogComponent, { data: { header: 'Successfully Created',message: `${this.stream.streamName} was created.` } })
+      this.clearValidations();
+    }, err => {
+      this.snackBar.open(err.error, '', { duration: 3000 })
+      console.log(err)
+    })           
     
-    
-
   }
-
-
 
   //Getting list of streams
   getStreams(){
@@ -63,22 +65,36 @@ export class StreamComponent implements OnInit {
  
   //Form submission
   onSubmit() {
+   
     this.submitted = true;
     this.stream = this.createStreamForm.value
 
     if(this.createStreamForm.valid){
       this.createStream();
+      this.clearValidations();
     }
     else{
       return;
     }
+  
+  }
+  
+  clearValidations(){
     this.createStreamForm.reset();
     this.createStreamForm.clearValidators();
     this.submitted = false;
+    this.buildForm();
   }
 
-
-
+  cancelDetails(){
+    const dialogRef = this.dialog.open(ClearFormDialogComponent)
+    .afterClosed().subscribe(rxdData => {
+      if (rxdData.shouldClearForm) {
+       this.clearValidations();
+      }
+    });
+  }
+ 
 
 
 

@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   displayStyle1: string = "none";
   displayStyle2: string = "none";
   displayStyle3: string = "none";
+  displayStyle4: string = "none";
   @ViewChild('userTab') userTab!: ElementRef;
   @ViewChild('userTab') collapseView1!: ElementRef;
   @ViewChild('streamTab') streamTab!: ElementRef;
@@ -31,6 +32,8 @@ export class HomeComponent implements OnInit {
   @ViewChild('subjectTab') collapseView3!: ElementRef;
   @ViewChild('quizTab') quizTab!: ElementRef;
   @ViewChild('quizTab') collapseView4!: ElementRef;
+  @ViewChild('topicTab') topicTab!: ElementRef;
+  @ViewChild('topicTab') collapseView5!: ElementRef;
 
 
 
@@ -88,6 +91,14 @@ export class HomeComponent implements OnInit {
         this.displayStyle3 = "block";
       } else {
         this.displayStyle3 = "none";
+      }
+    }
+
+    this.topicTab.nativeElement.onclick = () =>{
+      if(this.displayStyle4 == "none") {
+        this.displayStyle4 = "block";
+      } else {
+        this.displayStyle4 = "none"
       }
     }
 

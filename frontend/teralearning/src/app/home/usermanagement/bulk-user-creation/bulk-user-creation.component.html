@@ -7,14 +7,14 @@
                 <div class="col-md-6">
                     <div class="input-group">
                         <div class="custom-file">
-                            <input type="file" name="file" class="custom-file-input" id="inputGroupFile" required (change)="handleImport($event)"
+                            <input type="file" name="file" aria-label="Choose a csv file" class="custom-file-input" id="inputGroupFile" required (change)="handleImport($event)"
                                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                             <!-- <label class="custom-file-label" for="inputGroupFile">Choose file</label> -->
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <button (click)="handleSampleCSVDownload()" style="margin-right: 16px" class="btn btn-primary float-right">
+                    <button (click)="handleSampleCSVDownload()" class="light-btn">
                         Download Sample CSV <i class="fa fa-download"></i>
                     </button>
                 </div>

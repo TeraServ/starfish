@@ -1,17 +1,4 @@
 
-// .loginbtn {
-//     background-color: #2C45A7; /* Green */
-//     border: none;
-//     color: white;
-//     padding: 10px 50px;
-//     text-align: center;
-//     text-decoration: none;
-//     display: inline-block;
-//     font-size: 16px;
-    
-    
-//   }
-  
   .form-control{
     width: 300px;
     
@@ -21,12 +8,19 @@
     width: 700px;
     border-color: #2C45A7;
   }
+  .row1{
+    width: 700px;
+    border-color: #2C45A7;
+    margin: auto;
+    text-align: center;  
+    
+  }
   .form-control-input{
     padding: 10px 12px;
     width: 100%;
     border-radius: 5px;
     border-width: 1px;
-    outline-color: #2C45A7;
+    //  
     border: none;
     box-shadow: 0px 2px 6px #ddd;
 }
@@ -39,4 +33,23 @@
   color: #fff;
   margin: auto;
   border-radius: 5px;
+}
+
+
+
+.Intialrequired{
+  color: red;
+}
+
+.required:after {
+  content:" *";
+  color: red;
+}
+.red{
+  color: red;
+  font-size: 12px;
+}
+.required1::before {
+  content:" *";
+  color: red;
 }

@@ -119,3 +119,14 @@ h1 {
 // ::ng-deep .width-480{
 //   width: 480px;
 // }
+
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #b0c0fc;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle{
+  background-color: #2C45A7;
+}
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  border-color: #b0c0fc;
+  background-color: #2C45A7;
+}

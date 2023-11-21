@@ -23,6 +23,10 @@ export class AuthService {
     return 121;
 
   }
+  LoggedInUserId(){
+    let user = JSON.parse(localStorage.getItem('currentUser')!).body;
+    return user.id;
+  }
  
 
   isLoggedIn() {

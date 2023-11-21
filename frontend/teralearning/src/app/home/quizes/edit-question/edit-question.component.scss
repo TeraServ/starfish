@@ -95,11 +95,32 @@ h1 {
   .msq-option-text-box{
     resize: horizontal;
   }
+.mat-select-disabled {
+  ::ng-deep .mat-select-value{
+    color:black
+  }
+}
 
+.light-btn{
+  border: none;
+  padding: 10px 15px;
+  width: 100px;
+  background-color: #b0c0fc;
+  color: #2C45A7;
+  box-shadow: 0px 3px 5px #b0c0fc;
+  border-radius: 2px;
+  padding: 8px 12px;
+  margin: auto;
+  border-radius: 5px;
 
+}
 
-
-
+::ng-deep .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #b0c0fc;
+}
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle{
+  background-color: #2C45A7;
+}
 
   //////
   /// 

@@ -1,0 +1,73 @@
+<h2>Create Topic</h2><br>
+<section class="vh-100 gradient-custom">
+
+    <div class="container">
+
+        <div class="row justify-content-center align-items-center ">
+
+            <div class="col">                
+
+                <form [formGroup]="createTopicForm">
+                    <p class="required1"><small> Indicates a required field</small></p>
+                    <!-- Select Stream Name  -->
+
+                    <div class="row">
+
+                        <div class="col">   
+                            <label for="streamName" class="required">Select Stream</label>                         
+                            <select id="streamName" formControlName="streamName" class="form-control-input" placeholder="stream"
+                            (change)="getSubjectList()">
+                                <option value="" selected>Select</option>
+                                <option *ngFor="let item of streamList" [ngValue]=item>{{item.streamName}}</option>
+                            </select>
+                           
+                            <span class="red"
+                                *ngIf="(submitted || createTopicForm.controls.streamName.touched) && createTopicForm.controls.streamName.errors?.required">Stream
+                            Name is required.</span>                          
+                        </div>
+
+                        <!-- Subject Name  -->
+
+                        <div class="col">
+                            <label for="subjectName" class="required">Select Subject</label>                            
+                            <select id="subjectName" formControlName="subjectName" class="form-control-input" placeholder="subject">
+                                <option value="" selected>Select</option>
+                                <option *ngFor="let item of FilteredsubjectList" [ngValue]=item>{{item.subjectName}}
+                                </option>
+                            </select>
+                            
+                            <span class="red"
+                                *ngIf="(submitted || createTopicForm.controls.subjectName.touched) && createTopicForm.controls.subjectName.errors?.required">Subject
+                            Name is required.</span>                               
+                    </div>
+
+
+                        <div class="col">
+                                <label for="topicName" class="required">Topic Name</label>
+                                <input type="text" id="topicName" class="form-control-input" formControlName="topicName" placeholder="Topic Name">
+
+                                <span class="red"
+                                *ngIf="(submitted || createTopicForm.controls.topicName.touched) && createTopicForm.controls.topicName.errors?.required">Topic
+                            Name is required.</span>      
+                            
+                        </div>
+
+
+                    </div><br><br>
+
+
+                    <!-- Button -->
+                    <div class="row1">
+                        <input type="submit" value="Submit" class="light-btn" (click)="onSubmit()">&nbsp;
+                        <input type="submit" value="Cancel" class="light-btn" (click)="cancelDetails()">
+                    </div>
+
+                </form>
+                <!-- </div> -->
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+    </div>
+</section>

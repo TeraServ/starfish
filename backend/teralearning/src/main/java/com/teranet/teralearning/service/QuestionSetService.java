@@ -62,7 +62,7 @@ public class QuestionSetService implements QuestionSetInterface{
                     log.info("QuestionSetService:deleteQuestion Question not mapped to a quiz");
                     permanentDeleteAnswers(questionId);
                     permanentDeleteQuestion(questionId);
-                    return new ResponseEntity<>("Question deleted",HttpStatus.OK);
+                    return new ResponseEntity("Question deleted",HttpStatus.OK);
                 }
             }
             else {

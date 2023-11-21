@@ -64,6 +64,7 @@ import {CdkAccordion, CdkAccordionModule} from '@angular/cdk/accordion';
 import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { InvalidFieldFocusDirective } from './courses/new-course/invalidfieldfocus.directive';
+import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
 @NgModule({
   declarations: [
 
@@ -99,7 +100,10 @@ import { InvalidFieldFocusDirective } from './courses/new-course/invalidfieldfoc
     CustomeArraySortPipe,
     SafeHtmlPipe,
     ChapterQuizComponent,
-    InvalidFieldFocusDirective
+    InvalidFieldFocusDirective,
+    AlphabeticSortPipe
+  
+    
     
     
 
@@ -118,7 +122,6 @@ import { InvalidFieldFocusDirective } from './courses/new-course/invalidfieldfoc
     MatIconModule,
     FormsModule,
     MatFormFieldModule,
-    ReactiveFormsModule,
     MatInputModule,
     MatProgressBarModule,
     MatSidenavModule,

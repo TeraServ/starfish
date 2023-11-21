@@ -1,0 +1,98 @@
+<h2>Topic List</h2><br>
+
+<div class="filtered-search-box">
+    <div>
+        <label for="stream">Stream</label><br>
+        <select id="stream" name="quiz" class="filter-dropdown" (change)="filterStreamTable($event)">
+            <option value=""> All </option>
+            <option *ngFor="let item of streamFilterList " value="{{item}}">
+                {{item}}
+            </option>
+        </select>
+    </div>
+
+    <div>
+        <label for="subject">Subject</label><br>
+        <select id="subject" name="quiz" class="filter-dropdown" (change)="filterSubjectTable($event)">
+            <option value=""> All </option>
+            <option *ngFor="let item of subjectFilterList " value="{{item}}">
+                {{item}}
+            </option>
+        </select>
+    </div>
+
+
+    <div>
+        <label for="searchBar">Topic Name</label><br>
+        <input class="searchBar" type="text" #input (keyup)="filterTopicName($event)" placeholder='Search'
+            style="width: auto;">
+    </div>
+
+
+</div><br>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource">
+
+        <!-- Position Column -->
+
+
+        <ng-container matColumnDef="streamName">
+            <th mat-header-cell *matHeaderCellDef>Stream Name</th>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element.subject.stream.streamName }} </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="subjectName">
+            <th mat-header-cell *matHeaderCellDef>Subject Name</th>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element.subject.subjectName }}
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="topicName">
+            <th mat-header-cell *matHeaderCellDef> Topic Name</th>
+            <td mat-cell *matCellDef="let element,index as i"> {{ element.topicName }}</td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef>Edit </th>
+            <td mat-cell *matCellDef="let element">
+
+                <button class="light-btn" aria-label="edit" (click)="topicEditClick(element)"><i
+                        class="bi bi-pencil-square" aria-hidden="true" title="edit"></i></button>&nbsp;
+
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Delete </th>
+            <td mat-cell *matCellDef="let element">
+
+                <button (click)="onDeleteTopic(element)" aria-label="delete" class="light-btn"><i
+                        class="bi bi-trash-fill" aria-hidden="true" title="delete"></i>
+                </button> &nbsp;
+
+
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <div *matNoDataRow>No search result found!</div>
+        <div *ngIf="dataSource.data.length == 0 ">
+            <p>No Data</p>
+        </div>
+    </table>
+
+
+</div>
+
+<!-- 
+<mat-spinner [diameter]="40" class="text-center" *ngIf="!isloaded"></mat-spinner> -->
+
+<mat-paginator [ngStyle]="{'display': showPaginator ? 'block' : 'none'}" [pageSizeOptions]="[5,10,15,20]" [pageSize]="5"
+    showFirstLastButtons aria-label="Select page of periodic elements">
+</mat-paginator>

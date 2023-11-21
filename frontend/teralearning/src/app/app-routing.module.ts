@@ -14,11 +14,13 @@ import { StreamListComponent } from './home/streams/stream-list/stream-list.comp
 import { SubjectComponent } from './home/subjects/subject/subject.component';
 
 import { SubjectListComponent } from './home/subjects/subject-list/subject-list.component';
-import { TopicComponent } from './topic/topic.component';
+import { TopicComponent } from './home/topics/topic/topic.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { QuizComponent } from './home/quizes/quiz/quiz.component';
 import { EditQuizComponent } from './home/quizes/edit-quiz/edit-quiz.component';
 import { ResourceNotFoundComponent } from './resource-not-found/resource-not-found.component';
+import { TopicListComponent } from './home/topics/topic-list/topic-list.component';
+import { TopicEditComponent } from './home/topics/topic-edit/topic-edit.component';
 
 
 
@@ -40,21 +42,18 @@ const routes: Routes = [
     component: NewUserComponent
   },
 
+  
   {
-    path:"topic",
-    component: TopicComponent
+    path: "resetpassword",
+    component: PasswordResetComponent,
+    title: "Reset Password"
   },
   {
-    path:"resetpassword",
-    component:PasswordResetComponent,
-    title:"Reset Password"
-  },
-  {
-    path:"quizes/quiz",
+    path: "quizes/quiz",
     component: QuizComponent
   },
   {
-    path:"quizes/quiz/edit/:quizName",
+    path: "quizes/quiz/edit/:quizName",
     component: EditQuizComponent
   },
   // {

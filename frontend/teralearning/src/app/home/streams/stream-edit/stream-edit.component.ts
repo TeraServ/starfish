@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, } from '@angular/material/dialog';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
 import { Stream } from 'src/model/stream.model';
@@ -15,8 +16,7 @@ export class StreamEditComponent implements OnInit {
 
   EditStream!: Stream;
   isAlert = false;
-  streamUpdate: boolean = false;
-  isDialogOpen!: boolean;
+  streamUpdate: boolean = false; 
   streamBtn: boolean = false;
 
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: Stream, private dialog: MatDialog, private streamService: StreamService, private snackBar: MatSnackBar, private dialogRef: MatDialogRef<StreamEditComponent>) {
@@ -31,14 +31,19 @@ export class StreamEditComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
+this.BuildForm();
+
+
+  }
+
+
+  BuildForm(){
     this.UpdatedStreamName = this.EditStream.streamName;
     this.UpdatedPrice = this.EditStream.price;
     this.UpdatedDiscounts = this.EditStream.discount;
     this.UpdatedAcronym = this.EditStream.acronym;
     this.UpdatedStreamStatus = this.EditStream.streamStatus;
-
-
-
   }
 
   valuechange(newValue: any) {
@@ -67,7 +72,7 @@ export class StreamEditComponent implements OnInit {
         this.streamService.updateStream(UpdatedStreamDetails).subscribe(data => {
           console.log(data);
 
-          this.dialog.open(SuccessDialogComponent, {
+          this.dialog.open(SuccessDialogComponent, {data:{header:'Successfully Updated', message:`${data.streamName} was updated.`}
 
           })
           this.dialogRef.close();
@@ -89,6 +94,20 @@ export class StreamEditComponent implements OnInit {
       })
     }
 
+  }
+
+  getPreviousValue(){
+    this.BuildForm();
+
+  }
+
+  cancelDetails() {
+    const dialogRef = this.dialog.open(ClearFormDialogComponent)
+      .afterClosed().subscribe(data => {
+        if (data.shouldClearForm) {
+          this.getPreviousValue();
+        }
+      });
   }
 
 

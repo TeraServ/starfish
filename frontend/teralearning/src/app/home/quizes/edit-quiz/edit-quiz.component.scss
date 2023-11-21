@@ -43,14 +43,16 @@
 }
 
 .btn-submit {
-  padding: 10px 10px;
-  background-color: #2C45A7;
-  border: none;
-  box-shadow: 0px 2px 3px #ddd;
+  padding: 8px 12px;
+  margin: 5px;
+  border-width: .5px;
+  box-shadow: 0px 3px 5px #b0c0fc;
+  border-radius: 3px;
+  background-color: #b0c0fc;
+  color: #2C45A7;  
   width: fit-content;
-  color: #fff;
   margin: auto;
-  border-radius: 5px;
+  
 }
 
 .save-submit {
@@ -90,7 +92,8 @@
 }
 
 .error {
-  color: rgba(189, 11, 11, 0.603);
+  color: red;
+  font-size: 12px;
 }
 
 .alert {
@@ -134,9 +137,35 @@ mat-select {
 ::ng-deep .icon-outside .mat-dialog-container {
   overflow: unset
 }
+.light-btn{
+  border: none;
+  padding: 10px 15px;
+  width: fit-content;
+  background-color: #b0c0fc;
+  color: #2C45A7;
+  box-shadow: 0px 3px 5px #b0c0fc;
+  border-radius: 2px;
+  padding: 8px 12px;
+  margin: auto;
+  border-radius: 5px;
 
+}
+.row1{
+width: 300px;
+border-color: #2C45A7;
+margin: auto;
+text-align: center;  
 
+}
 
+.required:after {
+  content:" *";
+  color: red;
+}
+.required1::before {
+  content:" *";
+  color: red;
+}
 
 
 /* ----------universal selector with font-family--------- */
@@ -286,8 +315,20 @@ th {
 
 }
 
-.edit-button,
-.delete-button,
+.edit-button{
+  border: none;
+  background-color: transparent;
+  color: white;
+  padding: 0px 10px 0px 30px;
+  cursor: pointer;
+}
+.delete-button{
+  border: none;
+  background-color: transparent;
+  color: white;
+  padding: 0px 10px 0px 30px;
+  cursor: pointer;
+}
 .dropDown-button {
   border: none;
   background-color: transparent;
