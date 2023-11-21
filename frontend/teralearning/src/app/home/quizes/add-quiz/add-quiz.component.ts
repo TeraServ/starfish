@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { AuthService } from 'src/app/service/auth.service';
 import { QuizService } from 'src/app/service/quiz.service';
@@ -41,6 +42,13 @@ export class AddQuizComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private streamService: StreamService, private subjectService: SubjectService, private topicService: TopicService, private quizService: QuizService, private router: Router,private authService: AuthService, public dialogRef: MatDialogRef<AddQuizComponent>) { }
 
   ngOnInit(): void {
+    
+    this.BuildForm();
+    this.getStreamList();  
+    
+
+  }
+  BuildForm(){
     this.createQuizForm = this.formBuilder.group({
       subject: ['', [Validators.required]],
       stream: ['', [Validators.required]],
@@ -50,10 +58,6 @@ export class AddQuizComponent implements OnInit {
       allowRetake: [true]
 
     });
-
-    this.getStreamList();  
-    
-
   }
 
   checkerChange(event: any) {
@@ -116,7 +120,7 @@ export class AddQuizComponent implements OnInit {
 
     this.quizService.createQuiz(newQuiz).subscribe(data => {     
 
-      this.dialog.open(SuccessDialogComponent, { data: { message: "Successfully created" }
+      this.dialog.open(SuccessDialogComponent, { data: { header:'Successfully Created',message: `${newQuiz.quizName} was created under topic ${newQuiz.topic.topicName}.` }
        }).afterClosed().subscribe(data => {
         this.dialogRef.close();
       })
@@ -156,5 +160,24 @@ export class AddQuizComponent implements OnInit {
 
 
 
+  }
+
+  clearValidations(): void {
+    this.createQuizForm.reset();
+    Object.keys(this.createQuizForm.controls).forEach(key => {
+      this.createQuizForm.get(key)?.markAsUntouched();
+      this.createQuizForm.get(key)?.markAsPristine();
+    })
+    this.submitted = false;
+    this.BuildForm();
+  }
+
+  cancelDetails() {
+    const dialogRef = this.dialog.open(ClearFormDialogComponent)
+      .afterClosed().subscribe(data => {
+        if (data.shouldClearForm) {
+          this.clearValidations();
+        }
+      });
   }
 }

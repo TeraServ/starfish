@@ -20,6 +20,8 @@ export interface Question {
     modifiedDate?: string;
    
 }
+
+
 type Options = QuestionOption[];
 type DomainName = "com" | "ca" | "in";
 export type Email = `${ string | number}@ ${string | number}.${DomainName}`;

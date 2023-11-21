@@ -2,12 +2,13 @@
   <mat-icon class="close-icon" color="warn">close</mat-icon>
 </button>
 <br>
-<h1>Topic Edit</h1><br>
+<h2>Update Topic</h2><br>
 
 <form (ngSubmit)="UpdateTopic()" #topicEditForm="ngForm">
+  <p class="required1"><small> Indicates a required field</small></p>
   <div class="form-group">
 
-    <label for="title"><b>Stream Name:</b></label>
+    <label for="title" ><b>Stream Name:</b></label>
     <input type="text" value="{{EditTopic.subject.stream.streamName}}" class="form-control" id="streamname"
       name="streamname" disabled>
   </div><br>
@@ -21,10 +22,11 @@
 
 
   <div class="form-group">
-    <label for="title"><b>Topic Name:</b></label>
+    <label for="title" class="required"><b>Topic Name:</b></label>
     <input type="text" [(ngModel)]="UpdatedTopicName" value="{{EditTopic.topicName}}" (change)="ValueChange()"
-      class="form-control" id="topic" name="topic" #topic="ngModel" required>
-    <div *ngIf="topicEditForm.controls.topic?.errors?.required" class="error">*Topic Name is required</div>
+      class="form-control" id="topic" name="topic" #topic="ngModel" pattern="^([^0-9]*)$" required>
+    <div *ngIf="topicEditForm.controls.topic?.errors?.required" class="error">Topic Name is required</div>
+    <div *ngIf="topicEditForm.controls.topic?.errors?.pattern" class="error">Topic Name is invalid</div>
 
   </div><br>
 
@@ -35,7 +37,9 @@
     Updated Successfully!
   </div>
   <div class="center">
-    <button class="light-btn">Update</button>
+    
+    <input type="submit" value="Submit" class="light-btn" >&nbsp;
+    <input type="button" value="Cancel" class="light-btn" (click)="cancelDetails()">
   </div>
   <!-- <div>
       <button class="loginbtn btn">Update</button>

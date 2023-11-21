@@ -35,13 +35,13 @@ export class SubjectListComponent implements OnInit {
       {
         name: 'Stream',
         columnProp: 'stream',
-        options: []
+        options: ['All']
       },
 
     ];
   }
 
-  displayedColumns: string[] = ['id', 'streamName', 'subjectName', 'actions'];
+  displayedColumns: string[] = ['streamName', 'subjectName', 'actions'];
   @Input() dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;

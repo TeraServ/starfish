@@ -17,96 +17,81 @@
 
                         <div class="col">
                             <h2>Create Quiz</h2><br>
+                            <p class="required1"><small> Indicates a required field</small></p>
                         </div>
                     </div>
                     <!-- Stream Name  -->
 
                     <div class="row">
                         <div class="col">   
-                                <label for="selectStream">Select Stream</label>                         
+                                <label for="selectStream" class="required">Select Stream</label>                         
                                 <select formControlName="stream" id="selectStream" class="form-control-input" placeholder="stream"
-                                    (change)="getSubjectList()"
-                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.stream.errors }">
+                                    (change)="getSubjectList()">
                                     <option value="" selected>Select</option>
                                     <option *ngFor="let item of streamList | customeArraySort:'streamName`' " [ngValue]=item>{{item.streamName}}</option>
                                 </select>
                                
-                                <div *ngIf="submitted && createQuizForm.controls.stream.errors"
-                                    class="invalid-feedback"><br>
-                                    <div *ngIf="createQuizForm.controls.stream.errors.required">*Required</div>
-                                </div>                           
+                                <span class="red"
+                                *ngIf="(submitted || createQuizForm.controls.stream.touched) && createQuizForm.controls.stream.errors?.required">Stream
+                            Name is required.</span>                            
                         </div>
 
                         <div class="col">
-                                <label for="selectSubject">Select Subject</label>                            
+                                <label for="selectSubject" class="required">Select Subject</label>                            
                                 <select formControlName="subject" id="selectSubject" class="form-control-input" placeholder="subject"
-                                    (change)="getTopicList()"
-                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.subject.errors }">
+                                    (change)="getTopicList()">
                                     <option value="" selected>Select</option>
                                     <option *ngFor="let item of FilteredsubjectList | customeArraySort:'subjectName' " [ngValue]=item>{{item.subjectName}}
                                     </option>
                                 </select>
                                 
-                                <div *ngIf="submitted && createQuizForm.controls.subject.errors"
-                                    class="invalid-feedback"><br>
-                                    <!-- <div *ngIf="createQuizForm.controls.subject.errors.required">*Required</div> -->
-                                    <div *ngIf="FilteredsubjectList.length == 0">*Select Stream</div>
-                                </div>                            
+                                <span class="red"
+                                *ngIf="(submitted || createQuizForm.controls.subject.touched) && createQuizForm.controls.subject.errors?.required">Subject
+                            Name is required.</span>                           
                         </div>
 
                         <div class="col">
-                                <label for="selectTopic">Select Topic</label>
-                                <select formControlName="topic" id="selectTopic" class="form-control-input" placeholder="topic"
-                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.topic.errors }">
+                                <label for="selectTopic" class="required">Select Topic</label>
+                                <select formControlName="topic" id="selectTopic" class="form-control-input" placeholder="topic">
                                     <option value="" selected>Select</option>
                                     <option *ngFor="let item of FilteredtopicList | customeArraySort:'topicName' " [ngValue]=item>{{item.topicName}}
                                     </option>
                                 </select>
                                 
-                                <div *ngIf="submitted && createQuizForm.controls.topic.errors" class="invalid-feedback"><br>
-                                    <!-- <div *ngIf="createQuizForm.controls.topic.errors.required">*Required</div> -->
-                                    <div *ngIf="FilteredtopicList.length == 0">*Select Subject</div>
-                                </div>
+                                <span class="red"
+                                *ngIf="(submitted || createQuizForm.controls.topic.touched) && createQuizForm.controls.topic.errors?.required">Topic
+                            Name is required.</span>  
                             
                         </div>
                     </div><br><br>
 
                     <div class="row">
                         <div class="col">
-                                <label for="quizName">Quiz Name</label>
+                                <label for="quizName" class="required">Quiz Name</label>
                                 <input type="text" id="quizName" class="form-control-input" formControlName="quizName"
-                                    placeholder="quizName"
-                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.quizName.errors }"
-                                    >
+                                    placeholder="quizName">
                                 
-                                <div *ngIf="submitted && createQuizForm.controls.quizName.errors"
-                                    class="invalid-feedback"><br>
-                                    <div *ngIf="createQuizForm.controls.quizName.errors.required">*Required</div><br>
-                                    <!-- <div id="invalidSubjectName"
-                                        *ngIf="createQuizForm.controls.quizName.errors.pattern">Invalid</div> -->
-                                </div>
+                                <span class="red"
+                                    *ngIf="(submitted || createQuizForm.controls.quizName.touched) && createQuizForm.controls.quizName.errors?.required">Quiz
+                                Name is required.</span> 
                             
                         </div>
 
                         <div class="col">
-                                <label for="minimumQuestionNumber">Min No.of Question</label>
+                                <label for="minimumQuestionNumber" class="required">Min No.of Question</label>
                                 <input id="minimumQuestionNumber" type="number" class="form-control-input"
                                     onkeydown="javascript: return ['Backspace','Delete','ArrowLeft','ArrowRight'].includes(event.code) ? true : !isNaN(Number(event.key)) && event.code!=='Space'"
-                                    formControlName="passCriteria" placeholder="passCriteria" min="1"
-                                    [ngClass]="{ 'is-invalid': submitted && createQuizForm.controls.passCriteria.errors }">
-                                <div *ngIf="submitted && createQuizForm.controls.passCriteria.errors"
-                                    class="invalid-feedback"><br>
-                                    <div *ngIf="createQuizForm.controls.passCriteria.errors.required">*Required</div><br>
-                                    <div *ngIf="createQuizForm.controls.passCriteria.errors.min">Invalid</div>
-
-                                </div>
+                                    formControlName="passCriteria" placeholder="passCriteria" min="1">
+                                    <span class="red"
+                                    *ngIf="(submitted || createQuizForm.controls.passCriteria.touched) && createQuizForm.controls.passCriteria.errors?.required">Quiz
+                                Name is required.</span> 
                            
                         </div>
 
                         <div class="col">
                             <input id="allowRetake" type="checkbox" aria-label="Allow Retake" ControlName="allowRetake" class="form-check-input"
                                 (click)="checkerChange($event)">
-                            <label for="allowRetake">Allow Retake</label>
+                            <label for="allowRetake" >Allow Retake</label>
 
                         </div>
                     </div><br><br>
@@ -115,8 +100,9 @@
 
                     <!-- Button -->
 
-                    <div class="row">
-                        <input type="submit" value="Submit" class="btn-submit" (click)="onSubmit()">
+                    <div class="row1">
+                        <input type="submit" value="Submit" class="light-btn" (click)="onSubmit()">&nbsp;
+                        <input type="button" value="Cancel" class="light-btn" (click)="cancelDetails()">
                     </div>
                     
 

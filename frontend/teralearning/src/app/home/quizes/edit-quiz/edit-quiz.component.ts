@@ -21,6 +21,7 @@ import { DeleteDialogComponent } from 'src/app/dialogBoxs/delete-dialog/delete-d
 import { EditQuestionComponent } from '../edit-question/edit-question.component';
 import { QuestionService } from 'src/app/service/question.service';
 import { Question } from 'src/app/models/question.model';
+import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 
 @Component({
   selector: 'app-edit-quiz',
@@ -121,9 +122,9 @@ export class EditQuizComponent implements OnInit {
 
 
   
-  openDeleteDialog(id: any): void {
+  openDeleteDialog(deleteItem1: Question): void {
     this.subscriptions = this.dialog.open(DeleteDialogComponent, {
-      data: { id: id, message: "Are you sure want to delete ", funId: 2 },
+      data: { id: deleteItem1.id, innerHTMLContent: `Are you sure want to delete the question ${deleteItem1.questionText}`, funId: 2 , deleteItem:deleteItem1},
     }).afterClosed().subscribe(data => {    
       this.getQuestion();
     });
@@ -251,6 +252,21 @@ export class EditQuizComponent implements OnInit {
     if(this.subscriptions){
       this.subscriptions.unsubscribe();
     }
+  }
+
+  getPreviousValue(){
+    this.passDataToUpdateBody();
+    this.getQuizDataFromDataService();
+
+  }
+
+  cancelDetails() {
+    const dialogRef = this.dialog.open(ClearFormDialogComponent)
+      .afterClosed().subscribe(data => {
+        if (data.shouldClearForm) {
+          this.getPreviousValue();
+        }
+      });
   }
 
 }

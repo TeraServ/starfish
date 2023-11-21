@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
 import { SubjectService } from 'src/app/service/subject.service';
@@ -23,8 +24,9 @@ export class SubjectEditComponent implements OnInit {
   isDialogOpen!: boolean;
   streamBtn: boolean = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Subject, private subjectService: SubjectService, private snackBar: MatSnackBar, private streamService: StreamService,private dialog: MatDialog, private dialogRef: MatDialogRef<SubjectEditComponent>) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Subject, private subjectService: SubjectService, private snackBar: MatSnackBar, private streamService: StreamService, private dialog: MatDialog, private dialogRef: MatDialogRef<SubjectEditComponent>) {
     this.EditSubject = data;
+    console.log("this.EditSubject",this.EditSubject)
   }
 
   UpdatedStream: Stream = new Stream();
@@ -33,8 +35,6 @@ export class SubjectEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.getStreams();
-
-    console.log("wdwdwd", this.streamList);
 
   }
   valuechange(newValue: any) {
@@ -59,7 +59,7 @@ export class SubjectEditComponent implements OnInit {
 
   getSortedSubjects(data: Stream[]): Stream[] {
 
-    return data.sort((a, b) => (a.streamName ).localeCompare(b.streamName ))
+    return data.sort((a, b) => (a.streamName).localeCompare(b.streamName))
 
 
   }
@@ -84,6 +84,7 @@ export class SubjectEditComponent implements OnInit {
         this.subjectService.updateSubject(UpdateSubjectDetails).subscribe(data => {
           console.log(data);
           this.dialog.open(SuccessDialogComponent, {
+            data: { header: 'Successfully Updated', message: `${data.subjectName} was updated.` }
 
           })
           this.dialogRef.close();
@@ -105,10 +106,20 @@ export class SubjectEditComponent implements OnInit {
       })
     }
 
-
-
-
+  }
+  getPreviousValue() {
+    this.getStreams();
 
   }
+
+  cancelDetails() {
+    const dialogRef = this.dialog.open(ClearFormDialogComponent)
+      .afterClosed().subscribe(data => {
+        if (data.shouldClearForm) {
+          this.getPreviousValue();
+        }
+      });
+  }
+
 
 }

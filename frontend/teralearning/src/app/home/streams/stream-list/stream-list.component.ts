@@ -17,6 +17,7 @@ export class StreamListComponent implements OnInit {
 
   public pageSize = 5;
   streamList: Stream[] = [];
+  showPaginator: boolean = false;
 
   constructor(public dialog: MatDialog, private streamService: StreamService, public dialogRef: MatDialog) { }
   displayedColumns: string[] = ['streamName', 'acronym', 'price', 'actions'];
@@ -44,6 +45,12 @@ export class StreamListComponent implements OnInit {
     this.streamService.getStreamList().subscribe(data => {
       this.dataSource.data = data;
       console.log(this.dataSource.data)
+
+      if (this.dataSource.data?.length >= 5) {
+        this.dataSource.paginator = this.paginator;
+        this.showPaginator=true
+        
+      }
     })
   }
 

@@ -1,7 +1,14 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button><br>
 <h3 mat-dialog-title><i class="fas fa-exclamation-triangle" style="color:red;"></i>
    Delete</h3>
 <div mat-dialog-content >
   <p *ngIf="!showWarnMessage">{{data.message }}</p>
+  <h3 *ngIf="data.innerHTMLContent">
+
+    <div [innerHTML]="data.innerHTMLContent | safeHtml"></div>
+  </h3>
   <div *ngIf="showWarnMessage" >
     <br>
     <!-- <h3>Danger!</h3> -->
@@ -10,7 +17,7 @@
 
 </div>
 <div mat-dialog-actions>
-  <button class="light-btn" *ngIf="!showWarnMessage" [disabled]="showWarnMessage" (click)="onYesClick(data.funId)" cdkFocusInitial>Yes</button>
+  <button class="light-btn" *ngIf="!showWarnMessage" [disabled]="showWarnMessage" (click)="onYesClick(data.funId,data.deleteItem)" cdkFocusInitial>Yes</button>
   &nbsp;
   <button class="light-btn" *ngIf="!showWarnMessage" (click)="onNoClick()">No</button>
   <button class="light-btn"  *ngIf="showWarnMessage" (click)="onNoClick()">Cancel</button>

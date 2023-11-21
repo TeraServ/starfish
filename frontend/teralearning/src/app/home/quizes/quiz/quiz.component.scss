@@ -46,7 +46,11 @@
     
   }
 
+  .radio-btn-con{
+    padding: 10px;
+    margin-left: 10px;
 
+}
 
 
   .mat-table {
@@ -194,3 +198,15 @@
 }
 
 //--------->
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: #2C45A7 !important;
+}
+
+::ng-deep .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #2C45A7 !important;   /*inner circle color change*/
+}
+
+::ng-deep.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+ border-color:#2C45A7 !important; /*outer ring color change*/
+}

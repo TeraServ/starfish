@@ -18,13 +18,14 @@
                                 <label for="stream" class="required">Stream Name</label>
                                 <select id="stream" formControlName="stream" class="form-control-input"placeholder="stream" 
                                 [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.stream.errors }">
-                                <option *ngFor="let item of streamList | customeArraySort:'streamName' " [ngValue]=item>{{item.streamName}}</option>
                                 <option value="" selected>Select</option>
+                                <option *ngFor="let item of streamList | customeArraySort:'streamName' " [ngValue]=item>{{item.streamName}}</option>
+                                
                                 </select>
                                 
-                                <div *ngIf="submitted && createSubjectForm.controls.stream.errors" class="invalid-feedback"><br>
-                                    <div *ngIf="createSubjectForm.controls.stream.errors.required">Stream Name is required.</div>
-                                </div>
+                                <span class="red"
+                                *ngIf="(submitted || createSubjectForm.controls.stream.touched) && createSubjectForm.controls.stream.errors?.required">Stream
+                                  Name is required.</span>  
                             
                         </div>
 
@@ -33,13 +34,14 @@
                         <div class="col">
                                 <label for="subjectName" class="required">Subject Name</label>
                                 <input type="text" id="subjectName" class="form-control-input" formControlName="subjectName" placeholder="Subject Name"
-                                [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }" pattern="^[a-zA-Z]+$">
+                                [ngClass]="{ 'is-invalid': submitted && createSubjectForm.controls.subjectName.errors }" >
                                 
-                                <div *ngIf="submitted && createSubjectForm.controls.subjectName.errors"
-                                    class="invalid-feedback"><br>
-                                    <div *ngIf="createSubjectForm.controls.subjectName.errors.required">Subject Name is required.</div>
-                                    <div id="invalidSubjectName" *ngIf="createSubjectForm.controls.subjectName.errors.pattern">Invalid.</div>
-                                </div>                            
+                                <span class="red"
+                                *ngIf="(submitted || createSubjectForm.controls.subjectName.touched) && createSubjectForm.controls.subjectName.errors?.required">Subject
+                                  Name is required.</span>
+                                <span class="red"
+                                *ngIf="(submitted || createSubjectForm.controls.subjectName.touched) && createSubjectForm.controls.subjectName.errors?.pattern">Subject
+                                Name is invalid.</span>                                   
                         </div>
                     </div><br><br>
 

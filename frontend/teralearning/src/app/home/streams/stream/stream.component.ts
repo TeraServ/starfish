@@ -32,8 +32,8 @@ export class StreamComponent implements OnInit {
 
   buildForm() {
     this.createStreamForm = this.formBuilder.group({
-      streamName: ['', [Validators.required]],
-      acronym: ['',[Validators.required]],
+      streamName: ['', [Validators.required,Validators.pattern('^([^0-9]*)$')]],
+      acronym: ['', [Validators.required,Validators.pattern('^([^0-9]*)$')]],
       price: ['', [Validators.required,Validators.min(0)]],
       discount: ['', [Validators.required,Validators.min(0),Validators.max(100)]],
 
@@ -46,7 +46,7 @@ export class StreamComponent implements OnInit {
     
     this.stream.streamStatus = 1;
     this.streamService.createStream(this.stream).subscribe(data => {
-      this.dialog.open(SuccessDialogComponent, { data: { message: "Stream created Successfully " } })
+      this.dialog.open(SuccessDialogComponent, { data: { header: 'Successfully Created',message: `${this.stream.streamName} was created.` } })
       this.clearValidations();
     }, err => {
       this.snackBar.open(err.error, '', { duration: 3000 })
