@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PasswordService } from 'src/app/core/services/password.service';
+import { InvalidFieldFocusDirective } from 'src/app/custom-directives/invalidfieldfocus.directive';
 import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
@@ -15,12 +16,15 @@ import {  UserTypeEnum, user } from 'src/model/user.model';
   templateUrl: './user-registration.component.html',
   styleUrls: ['./user-registration.component.scss']
 })
-export class UserRegistrationComponent implements OnInit {
+export class UserRegistrationComponent implements OnInit {  
 
   constructor(private formBuilder:FormBuilder,private userService:UserService,private snackBar:MatSnackBar,private dialog:MatDialog,private streamService:StreamService, private _passwordService: PasswordService) { }    userForm!:FormGroup;
   public submitted:boolean = false;
   public streamList:Stream[]=[]
   public readonly userTypes = UserTypeEnum;
+  @ViewChild(InvalidFieldFocusDirective)
+  invalidInputDirective!: InvalidFieldFocusDirective;
+  @ViewChildren(NgControl) formControls!: QueryList<NgControl>;
 
   ngOnInit(): void {
     this.buildForm();
@@ -49,6 +53,7 @@ export class UserRegistrationComponent implements OnInit {
   createUser() {
     this.markAsTouched(this.userForm);
     this.submitted = true;
+    this.invalidInputDirective.check(this.formControls);
     if (this.userForm.invalid) {
       return;
     }
@@ -68,7 +73,7 @@ export class UserRegistrationComponent implements OnInit {
 
     }
     this.userService.addNewUser(userData).subscribe(data => {
-      this.dialog.open(SuccessDialogComponent, { data: { message: "User created Successfully" } })
+      this.dialog.open(SuccessDialogComponent, { data: { header:"Created Successfully",message: "User created Successfully" } })
     }, err => {
       this.snackBar.open(err.error, '', { duration: 3000 })
       console.log(err)

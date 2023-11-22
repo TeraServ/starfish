@@ -1,79 +1,88 @@
 <button mat-icon-button class="close-button" [mat-dialog-close]="true">
     <mat-icon class="close-icon" color="warn">close</mat-icon>
-  </button>
-  
-  &nbsp;
+</button>
+
+&nbsp;
 <h2>Update User</h2>
-<form [formGroup]="userForm" (ngSubmit)="updateUser()">
+<form [formGroup]="userForm" (ngSubmit)="updateUser()" focusInvalidField>
     <p class="required1"><small> Indicates a required field</small></p>
     <br>
     <div class="row">
         <div class="col">
             <label for="firstName" class="required">First name</label>
-            <input type="text" class="form-control-input" name="firstName" placeholder="First Name" formControlName="firstName">
+            <input type="text" class="form-control-input" name="firstName" placeholder="First Name"
+                formControlName="firstName">
             <span class="red"
-            *ngIf="(submitted || userForm.controls.firstName.touched) && userForm.controls.firstName.errors?.required">First
-            Name is required.</span>  
+                *ngIf="(submitted || userForm.controls.firstName.touched) && userForm.controls.firstName.errors?.required">First
+                Name is required.</span>
             <span class="red"
-            *ngIf="(submitted || userForm.controls.firstName.touched) && userForm.controls.firstName.errors?.pattern">First
-            Name is invalid.</span> 
+                *ngIf="(submitted || userForm.controls.firstName.touched) && userForm.controls.firstName.errors?.pattern">First
+                Name is invalid.</span>
         </div>
         <div class="col">
             <label for="lastName" class="required">Last name</label>
-            <input type="text" class="form-control-input" name="lastName" placeholder="Last Name" formControlName="lastName">
+            <input type="text" class="form-control-input" name="lastName" placeholder="Last Name"
+                formControlName="lastName">
             <span class="red"
-            *ngIf="(submitted || userForm.controls.lastName.touched) && userForm.controls.lastName.errors?.required">Last
-            Name is required.</span> 
+                *ngIf="(submitted || userForm.controls.lastName.touched) && userForm.controls.lastName.errors?.required">Last
+                Name is required.</span>
             <span class="red"
-            *ngIf="(submitted || userForm.controls.lastName.touched) && userForm.controls.lastName.errors?.pattern">Last
-            Name is invalid.</span> 
+                *ngIf="(submitted || userForm.controls.lastName.touched) && userForm.controls.lastName.errors?.pattern">Last
+                Name is invalid.</span>
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col">
             <label for="userType" class="required">User type</label>
-         <select class="form-control-input"  name="userType" formControlName="userType" >
-             <option *ngFor="let enum of userTypes | keyvalue" value={{enum.value}}>{{enum.key}}</option>
-             <option value="" selected>Select</option>
-            
-         </select>
-         <span class="red"
-            *ngIf="(submitted || userForm.controls.userType.touched) && userForm.controls.userType.errors?.required">User Type is required.</span> 
+            <select class="form-control-input" name="userType" formControlName="userType">
+                <option *ngFor="let enum of userTypes | keyvalue" value={{enum.value}}>{{enum.key}}</option>
+                <option value="" selected>Select</option>
+
+            </select>
+            <span class="red"
+                *ngIf="(submitted || userForm.controls.userType.touched) && userForm.controls.userType.errors?.required">User
+                Type is required.</span>
         </div>
 
         <div class="col">
             <label for="stream" class="required">Stream</label>
-            <select name="stream" class="form-control-input" [value]="data.stream" formControlName="stream" [disabled]="true">
-                <option  selected value="{{ data.stream?.streamName}}" >{{ data.stream?.streamName}}</option> 
+            <select name="stream" class="form-control-input" [value]="data.stream" formControlName="stream"
+                [disabled]="true">
+                <option selected value="{{ data.stream?.streamName}}">{{ data.stream?.streamName}}</option>
                 <option *ngFor="let e of streamList" value="{{e?.streamName}}">{{e?.streamName}}</option>
-                
+
             </select>
             <span class="red"
-            *ngIf="(submitted || userForm.controls.stream.touched) && userForm.controls.stream.errors?.required">Stream is required.</span> 
+                *ngIf="(submitted || userForm.controls.stream.touched) && userForm.controls.stream.errors?.required">Stream
+                is required.</span>
         </div>
     </div>
     <br>
     <div class="row">
         <div class="col">
             <label for="status" class="required">User status</label>
-            <select name="status" class="form-control-input" formControlName="userStatus" >
+            <select name="status" class="form-control-input" formControlName="userStatus">
                 <option value="" selected> Select </option>
                 <option value="101">Active</option>
                 <option value="102">Suspended</option>
                 <option value="103">Inactive</option>
-               
+
             </select>
             <span class="red"
-            *ngIf="(submitted || userForm.controls.userStatus.touched) && userForm.controls.userStatus.errors?.required">User Status is required.</span> 
+                *ngIf="(submitted || userForm.controls.userStatus.touched) && userForm.controls.userStatus.errors?.required">User
+                Status is required.</span>
         </div>
         <div class="col">
             <label for="phoneNumber" class="required">Phone number</label>
-            <input type="text" class="form-control-input" name="phoneNumber" placeholder="Phone Number" formControlName="phoneNumber">
+            <input type="text" class="form-control-input" name="phoneNumber" placeholder="Phone Number"
+                formControlName="phoneNumber">
             <span class="red"
-            *ngIf="(submitted || userForm.controls.phoneNumber.touched) && userForm.controls.phoneNumber.errors?.required">Phone Number is required.</span> 
+                *ngIf="(submitted || userForm.controls.phoneNumber.touched) && userForm.controls.phoneNumber.errors?.required">Phone
+                Number is required.</span>
             <span class="red"
-            *ngIf="(submitted || userForm.controls.phoneNumber.touched) && userForm.controls.phoneNumber.errors?.pattern">Please enter a valid mobile number.</span> 
+                *ngIf="(submitted || userForm.controls.phoneNumber.touched) && userForm.controls.phoneNumber.errors?.pattern">Please
+                enter a valid mobile number.</span>
         </div>
     </div>
     <br>

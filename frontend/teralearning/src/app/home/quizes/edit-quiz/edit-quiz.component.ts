@@ -1,6 +1,6 @@
 import { Subscription, takeUntil } from 'rxjs';
-import { Component, Inject, Input, OnInit, Optional, Renderer2, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, Inject, Input, OnInit, Optional, Renderer2, ElementRef, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, NgControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -22,6 +22,7 @@ import { EditQuestionComponent } from '../edit-question/edit-question.component'
 import { QuestionService } from 'src/app/service/question.service';
 import { Question } from 'src/app/models/question.model';
 import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
+import { InvalidFieldFocusDirective } from 'src/app/custom-directives/invalidfieldfocus.directive';
 
 @Component({
   selector: 'app-edit-quiz',
@@ -56,6 +57,9 @@ export class EditQuizComponent implements OnInit {
   isActive!: any;
   private subscriptions!:Subscription;
 
+  @ViewChild(InvalidFieldFocusDirective)
+  invalidInputDirective!: InvalidFieldFocusDirective;
+  @ViewChildren(NgControl) formControls!: QueryList<NgControl>;
 
   constructor(private dialog: MatDialog, private router: Router, private streamService: StreamService,
     private subjectService: SubjectService, private snackBar: MatSnackBar, private quizService: QuizService,
@@ -209,10 +213,19 @@ export class EditQuizComponent implements OnInit {
 
   }
 
+  nullCheck(){
+    return this.UpdatedStreamId == '' || this.UpdatedSubjectId == '' || this.UpdatedTopicId == '' || this.UpdatedQuizName == '' || this.UpdatedPassCriteria <= 0
+    
+  }
+
   UpdateQuizDetails() {
+    const isNull = this.nullCheck();
+    console.log("isNull",isNull)
 
+    this.invalidInputDirective.check(this.formControls);
 
-    if (this.quizUpdate && this.UpdatedStream != '' && this.UpdatedSubject != '' && this.UpdatedTopic != undefined && this.UpdatedPassCriteria != 0) {
+    if ((this.UpdatedStream != this.EditQuiz.topic.subject.stream.streamName || this.UpdatedSubject != this.EditQuiz.topic.subject.subjectName && this.UpdatedTopic != this.EditQuiz.topic.topicName && this.UpdatedPassCriteria != this.EditQuiz.passCriteria)&& !this.nullCheck()) {
+      
 
       let UpdateQuizDetails: quiz = {
         id: this.EditQuiz.id,
@@ -235,16 +248,13 @@ export class EditQuizComponent implements OnInit {
         });
 
       }
-      else {
-        this.snackBar.open("No changes", '', {
-          duration: 3000
-        })}
+      
     }
     else {
       this.quizBtn = true;
-      this.snackBar.open("Invalid Entry", '', {
-        duration: 3000
-      })
+      this.snackBar.open("No changes", '', {
+          duration: 3000
+        })
     }
 
   }

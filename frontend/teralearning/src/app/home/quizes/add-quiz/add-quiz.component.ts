@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormBuilder, FormGroup, NgControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InvalidFieldFocusDirective } from 'src/app/custom-directives/invalidfieldfocus.directive';
 import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { AuthService } from 'src/app/service/auth.service';
@@ -37,6 +38,9 @@ export class AddQuizComponent implements OnInit {
   topic!: Topic;
   quizName!: string;
   defaultChecker: boolean = true;
+  @ViewChild(InvalidFieldFocusDirective)
+  invalidInputDirective!: InvalidFieldFocusDirective;
+  @ViewChildren(NgControl) formControls!: QueryList<NgControl>;
 
 
   constructor(private formBuilder: FormBuilder, private dialog: MatDialog, private streamService: StreamService, private subjectService: SubjectService, private topicService: TopicService, private quizService: QuizService, private router: Router,private authService: AuthService, public dialogRef: MatDialogRef<AddQuizComponent>) { }
@@ -135,6 +139,7 @@ export class AddQuizComponent implements OnInit {
   onSubmit() {
     console.log("checker", this.defaultChecker)
     this.submitted = true;
+    this.invalidInputDirective.check(this.formControls);
     if (this.createQuizForm.valid) {
       let newQuiz: quiz = {
         id: 0,
