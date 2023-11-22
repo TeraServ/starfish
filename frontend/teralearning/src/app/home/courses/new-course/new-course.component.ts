@@ -13,7 +13,7 @@ import { Course } from 'src/model/course.model';
 import { Stream } from 'src/model/stream.model';
 import { Subject } from 'src/model/subject.model';
 import { Topic } from 'src/model/topic.model';
-import { InvalidFieldFocusDirective } from './invalidfieldfocus.directive';
+import { InvalidFieldFocusDirective } from '../../../custom-directives/invalidfieldfocus.directive';
 @Component({
   selector: 'app-new-course',
   templateUrl: './new-course.component.html',
@@ -22,28 +22,28 @@ import { InvalidFieldFocusDirective } from './invalidfieldfocus.directive';
 export class NewCourseComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
-  private matDialogRef:MatDialogRef<NewCourseComponent>,
-  private successDialog:MatDialog,private uploadService:FileService,
-  private courseService:CourseService,private streamService:StreamService,
-  private subjectService:SubjectService,private formBuilder:FormBuilder,
-  private authService:AuthService,private topicService:TopicService) { }
-  showLoader:boolean = false;
-  streamList:Stream[]=[]
-  subjectList:Subject[]=[];
-  topic:Topic[]=[];
-  courseForm!:FormGroup;
-  userId!:number;
-  title!:string;
-  isEditable:boolean = false;
-  updateData!:Course;
-  submitted:boolean = false;
+    private matDialogRef: MatDialogRef<NewCourseComponent>,
+    private successDialog: MatDialog, private uploadService: FileService,
+    private courseService: CourseService, private streamService: StreamService,
+    private subjectService: SubjectService, private formBuilder: FormBuilder,
+    private authService: AuthService, private topicService: TopicService) { }
+  showLoader: boolean = false;
+  streamList: Stream[] = []
+  subjectList: Subject[] = [];
+  topic: Topic[] = [];
+  courseForm!: FormGroup;
+  userId!: number;
+  title!: string;
+  isEditable: boolean = false;
+  updateData!: Course;
+  submitted: boolean = false;
   @ViewChild(InvalidFieldFocusDirective)
   invalidInputDirective!: InvalidFieldFocusDirective;
   @ViewChildren(NgControl) formControls!: QueryList<NgControl>;
   ngOnInit(): void {
     this.getAllStreams();
     this.setForm();
-    if(this.data != ''){
+    if (this.data != '') {
       this.title = "Edit Course";
       this.isEditable = true;
       this.courseForm.get("courseName")?.setValue(this.data.courseName);
@@ -51,10 +51,10 @@ export class NewCourseComponent implements OnInit {
       this.courseForm.get("topic")?.setValue(this.data?.topic);
       this.courseForm.get("subject")?.setValue(this.data?.topic?.subject);
       this.courseForm.get("stream")?.setValue(this.data?.topic.subject.stream);
-      
-      
 
-    }else{
+
+
+    } else {
       this.title = "New Course";
       this.courseForm.get("courseName")?.setValue("");
       this.courseForm.get("description")?.setValue("");
@@ -63,113 +63,113 @@ export class NewCourseComponent implements OnInit {
       this.courseForm.get("stream")?.setValue("");
     }
     this.userId = this.authService.getCurrentUserDetails().id;
-    this.updateData  =this.data;
+    this.updateData = this.data;
     console.log(this.data)
   }
-  setForm(){
+  setForm() {
     this.courseForm = this.formBuilder.group({
-      courseName:['',Validators.required],
-      stream:['',Validators.required],
-      subject:['',Validators.required],
-      topic:['',Validators.required],
-      coverUrl:[null,Validators.required],
-      description:['',Validators.required],
-      imageFile:[null,Validators.required]
-      
+      courseName: ['', Validators.required],
+      stream: ['', Validators.required],
+      subject: ['', Validators.required],
+      topic: ['', Validators.required],
+      coverUrl: [null, Validators.required],
+      description: ['', Validators.required],
+      imageFile: [null, Validators.required]
+
 
     });
   }
-  getAllStreams(){
-    this.streamService.getStreamList().subscribe(data=>{
+  getAllStreams() {
+    this.streamService.getStreamList().subscribe(data => {
       this.streamList = data;
       console.log(data);
     })
   }
-  uploadCover(file:any){
-    const imageFile  = file.target.files.item(0);
+  uploadCover(file: any) {
+    const imageFile = file.target.files.item(0);
     console.log(imageFile)
-    const formData:FormData = new FormData();
-    formData.append('file',imageFile,imageFile.name);
+    const formData: FormData = new FormData();
+    formData.append('file', imageFile, imageFile.name);
     console.log(formData)
-    this.uploadService.uploadCoverImage(formData).subscribe(data=>{
+    this.uploadService.uploadCoverImage(formData).subscribe(data => {
       console.log(data)
       this.courseForm.get("coverUrl")?.setValue(data.id);
     })
 
   }
-  clearForm(){
+  clearForm() {
     this.courseForm.reset();
     //this.courseForm.get("stream")?.setValue("-Please Select-")
     this.setForm()
-    this.submitted= false;
+    this.submitted = false;
   }
-  getSubjectByStream(){
+  getSubjectByStream() {
     let selectedStream = this.courseForm.get("stream")?.value;
-    
-    if(selectedStream != ""){
-      this.subjectService.getSubjectByStreamId(selectedStream.id).subscribe(data=>{
+
+    if (selectedStream != "") {
+      this.subjectService.getSubjectByStreamId(selectedStream.id).subscribe(data => {
         console.log(data)
         this.subjectList = data;
       })
-    }else{
-      
+    } else {
+
     }
   }
-  getTopicBySubject(){
+  getTopicBySubject() {
     let selectedSubject = this.courseForm.get("subject")?.value;
     console.log(selectedSubject)
-    if(selectedSubject != ""){
-      this.topicService.getFilteredTopic(selectedSubject.id).subscribe(data=>{
+    if (selectedSubject != "") {
+      this.topicService.getFilteredTopic(selectedSubject.id).subscribe(data => {
         console.log(data)
         this.topic = data;
       })
     }
   }
-  get f(){
+  get f() {
     return this.courseForm.controls;
   }
-  onSubmit(){
+  onSubmit() {
     this.submitted = true;
     console.log(this.formControls)
     console.log(this.invalidInputDirective)
     this.invalidInputDirective.check(this.formControls);
-    if(this.courseForm.invalid){
+    if (this.courseForm.invalid) {
       console.log(this.courseForm)
       return;
-    }else{
-      
-      if(!this.isEditable){
-        let course:Course = {
+    } else {
+
+      if (!this.isEditable) {
+        let course: Course = {
           id: 0,
-          courseName:this.courseForm.get("courseName")?.value,
-          coverUrl:this.courseForm.get("coverUrl")?.value,
-          description:this.courseForm.get("description")?.value,
-          topic:this.courseForm.get("topic")?.value,
-          createdBy:this.userId,
-          chapters:[]
+          courseName: this.courseForm.get("courseName")?.value,
+          coverUrl: this.courseForm.get("coverUrl")?.value,
+          description: this.courseForm.get("description")?.value,
+          topic: this.courseForm.get("topic")?.value,
+          createdBy: this.userId,
+          chapters: []
         }
         this.saveCourse(course)
-      }else{
-        let course:Course = {
+      } else {
+        let course: Course = {
           id: this.updateData.id,
-          courseName:this.courseForm.get("courseName")?.value,
-          coverUrl:this.courseForm.get("coverUrl")?.value,
-          description:this.courseForm.get("description")?.value,
-          topic:this.courseForm.get("topic")?.value,
-          createdBy:this.userId,
-          chapters:this.updateData.chapters
+          courseName: this.courseForm.get("courseName")?.value,
+          coverUrl: this.courseForm.get("coverUrl")?.value,
+          description: this.courseForm.get("description")?.value,
+          topic: this.courseForm.get("topic")?.value,
+          createdBy: this.userId,
+          chapters: this.updateData.chapters
         }
         this.saveCourse(course)
       }
-     
+
     }
   }
-    saveCourse(course:Course){
-      this.courseService.addCourse(course).subscribe(data=>{
-        this.matDialogRef.close()
-        this.successDialog.open(SuccessDialogComponent,{data:{message:"Successfully created"}})
-      })  
-    }
-   
+  saveCourse(course: Course) {
+    this.courseService.addCourse(course).subscribe(data => {
+      this.matDialogRef.close()
+      this.successDialog.open(SuccessDialogComponent, { data: { message: "Successfully created" } })
+    })
+  }
+
 
 }

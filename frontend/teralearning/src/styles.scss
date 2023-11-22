@@ -2,6 +2,7 @@
 * {
     margin: 0;
     padding: 0;
+    outline-color: #2C45A7;
 }
 
 @import "~bootstrap/dist/css/bootstrap.css";
@@ -107,4 +108,7 @@ input[type=number] {
     margin: 5px;
     border-width: .5px;
 
+}
+select,input,textarea{
+    outline-color: #2C45A7;
 }

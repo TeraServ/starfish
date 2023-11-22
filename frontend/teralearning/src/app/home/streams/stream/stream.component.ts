@@ -1,8 +1,9 @@
-import { Component,ElementRef,OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl, } from '@angular/forms';
+import { Component,ElementRef,OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, NgControl, } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { InvalidFieldFocusDirective } from 'src/app/custom-directives/invalidfieldfocus.directive';
 import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
@@ -20,6 +21,9 @@ export class StreamComponent implements OnInit {
   submitted: boolean = false;
   streamList: Stream[] = [];
   stream: Stream = new Stream();
+  @ViewChild(InvalidFieldFocusDirective)
+  invalidInputDirective!: InvalidFieldFocusDirective;
+  @ViewChildren(NgControl) formControls!: QueryList<NgControl>;
 
 
 
@@ -67,6 +71,7 @@ export class StreamComponent implements OnInit {
   onSubmit() {
    
     this.submitted = true;
+    this.invalidInputDirective.check(this.formControls);
     this.stream = this.createStreamForm.value
 
     if(this.createStreamForm.valid){

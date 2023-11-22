@@ -1,453 +1,221 @@
-<<<<<<< HEAD
-<!--Main Navigation-->
-<mat-drawer-container class="example-container" autosize>
-
-<header>
-  <!-- Sidebar -->
-
- 
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-    
-        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-          <div class="position-sticky">
-            <div class="list-group list-group-flush mx-3 mt-4">
-              <button id="sideMenuCloseButton" (click)="drawer.toggle()">&#8249; </button>
-                           <a  *ngIf="userType[0]" (click)="drawer.toggle()"
-               class="list-group-item list-group-item-action py-2 ripple" aria-current="true" routerLink="/home/dashboard"
-                routerLinkActive="active">
-                <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
-              </a>
-              <a  *ngIf="userType[1]"
-               href="#" #userTab routerLink="/home/usermanagement" routerLinkActive="active"
-                class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-                <i class="fas fa-chart-area fa-fw me-3"></i><span>User Management</span>
-              </a>    
-             
-              <!-- Collapsed content -->
-              <ul  *ngIf="userType[1]" id="collapseExample1" [ngStyle]="{display:displayStyle}" class="collapse show list-group list-group-flush">
-                <li class="list-group-item py-1">
-                  <a  routerLink="/home/usermanagement/create" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create User</a>
-                </li>
-                <li class="list-group-item py-1">
-                  <a routerLink="/home/usermanagement/CreateBulkUsers" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create Bulk Users</a>
-                </li>
-                <li class="list-group-item py-1">
-                  <a routerLink="/home/usermanagement/users" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Users</a>
-                </li>
-              </ul>
-      
-             
-              
-              <a  *ngIf="userType[2]" href="#" #streamTab routerLink="/home/streams" routerLinkActive="active"
-              class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-              <i class='fas fa-book-open'></i> &nbsp;&nbsp;&nbsp;&nbsp;<span>Stream</span>
-              </a>
-            
-              <ul  *ngIf="userType[2]" id="collapseExample2"  [ngStyle]="{display:displayStyle1}" class="collapse show list-group list-group-flush">
-                <li  *ngIf="userType[2]" class="list-group-item py-2">
-                  <a routerLink="/home/streams/create" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create Stream</a>
-                </li>
-                <li  *ngIf="userType[2]" class="list-group-item py-2">
-                  <a routerLink="/home/streams/list" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Stream List</a>
-                </li>
-              </ul>
-      
-              <a  *ngIf="userType[3]" href="#" #subjectTab routerLink="/home/subjects" routerLinkActive="active"
-              class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-              <i class="fas fa-book-reader"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Subject</span>
-              </a>
-            
-              <ul *ngIf="userType[3]" id="collapseExample3"  [ngStyle]="{display:displayStyle2}" class="collapse show list-group list-group-flush">
-                <li class="list-group-item py-2">
-                  <a routerLink="/home/subjects/create" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create Subject</a>
-                </li>
-                <li class="list-group-item py-2">
-                  <a routerLink="/home/subjects/list" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Subject List</a>
-                </li>
-              </ul>
-
-             
- 
-               <a  *ngIf="userType[3]" href="#" #quizTab routerLink="/home/quizes" routerLinkActive="active"
-               class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
- 
-               <i class="fas fa-solid fa-lightbulb"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Quiz</span>
-             </a>
- 
-               <ul *ngIf="userType[3]" id="collapseExample4"  [ngStyle]="{display:displayStyle3}" class="collapse show list-group list-group-flush">
-                 <li class="list-group-item py-2">
-                   <a routerLink="/home/quizes/quiz" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Quiz List</a>
-                 </li>
-               </ul>
-      
-              <!-- Collapse 1 -->
-              <!-- <a
-                 href="#"
-                 class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active"
-                 ><i class="fas fa-lock fa-fw me-3"></i><span>Onboarding</span></a
-                > -->
-                <a  *ngIf="userType[2]" href="#" #streamTab routerLink="/home/courses" routerLinkActive="active" (click)="drawer.toggle()"
-                class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-                <i class='fas fa-chalkboard-teacher'></i> &nbsp;&nbsp;&nbsp;&nbsp;<span>Courses</span>
-                </a>
-      
-              <a *ngIf="userType[4]" routerLink="/home/settings" routerLinkActive="active" onclick="changeTab(this.location.href)" (click)="drawer.toggle()"
-                href="/home/settings" class="list-group-item list-group-item-action py-2 ripple"><i
-                  class="fas fa-gear fa-fw me-3"></i><span>Settings</span></a>
-            </div>
-          </div>
-        </nav>
-        <!-- Sidebar -->
-      
-    </mat-drawer>
-  
-
-  
-    <!-- Navbar -->
-    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-      <!-- Container wrapper -->
-      <div class="container-fluid">
-        <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
-          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-         
-         
-        </button>
-        <button type="button" class="menu-bar"  (click)="drawer.toggle()"
-        matTooltip="Click to see navigation">
-          <i class="fas fa-bars"></i>
-        </button>
-        <!-- Brand -->
-        <a class="navbar-brand" href="#">
-          <img src="https://www.teranet.ca/wp-content/uploads/2021/12/cropped-teranet_favicon_512_512-192x192.png"
-            height="25" alt="" loading="lazy" />
-          <b style="color: #646363;">TERALEARN</b>
-        </a>
-  
-  
-        <!-- Right links -->
-        <ul class="navbar-nav ms-auto d-flex flex-row">
-          <!-- Notification dropdown -->
-          <!-- <li class="nav-item dropdown">
-            <a
-               class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
-               href="#"
-               id="navbarDropdownMenuLink"
-               role="button"
-               data-mdb-toggle="dropdown"
-               aria-expanded="false"
-               >
-              <i class="fas fa-bell"></i>
-              <span  class="badge rounded-pill badge-notification bg-danger"
-                    >{{( notificationCounts)}}</span
-                >
-            </a> -->
-  
-          <!-- <app-notification-side-bar id="sideBarNotification"
-             class="dropdown-menu dropdown-menu-end" [nList]="nList" (changeEvent)="getNotifications()" ></app-notification-side-bar> -->
-          <!-- <ul
-                
-                aria-labelledby="navbarDropdownMenuLink"
-                > -->
-  
-          <!-- <li *ngFor="let item of nList"><a class="dropdown-item" >{{ item.title }}</a></li> -->
-  
-  
-          <!-- 
-            </ul>
-  
-          </li> -->
-  
-          <!-- Icon -->
-          <!-- <li class="nav-item">
-            <a class="nav-link me-3 me-lg-0" href="#">
-              <i class="fas fa-fill-drip"></i>
-            </a>
-          </li> -->
-          <!-- Icon -->
-  
-  
-          <!-- Icon dropdown -->
-  
-  
-          <!-- Avatar -->
-          <li class="nav-item dropdown">
-            <a
-               class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
-               id="navbarDropdownMenuLink"
-               role="button"
-               data-mdb-toggle="dropdown"
-               aria-expanded="false"
-               >
-              <img
-                   src="../../assets/images/person.jpg"
-                   class="rounded-circle"
-                   height="22"
-                   alt=""
-                   loading="lazy"
-                   />
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" routerLink="settings/userProfile" routerLinkActive="active">My profile</a></li>
-  
-  
-              <li><a class="dropdown-item" href="#" (click)="logOut()">Logout</a></li>
-  
-              <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
-              <!-- <li><a class="dropdown-item" (click)="Logout()">Logout</a></li> -->
-  
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <!-- Container wrapper -->
-    </nav>
-
-  <!-- Navbar -->
-</header>
-<!--Main Navigation-->
-
-<!--Main layout-->
-
- <main>
- 
-
- </main>
-<!--Main layout-->
-
-<div class="example-sidenav-content" (click)="''">
-  <router-outlet></router-outlet>
-</div>
-
-=======
 <!--Main Navigation-->
 <mat-drawer-container class="example-container" autosize>
 
   <header>
     <!-- Sidebar -->
+  
+   
+      <mat-drawer #drawer class="example-sidenav" mode="side">
+      
+          <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+              <div class="list-group list-group-flush mx-3 mt-4">
+                <button id="sideMenuCloseButton" (click)="drawer.toggle()">&#8249; </button>
+                             <a  *ngIf="userType[0]" (click)="drawer.toggle()"
+                 class="list-group-item list-group-item-action py-2 ripple" aria-current="true" routerLink="/home/dashboard"
+                  routerLinkActive="active">
+                  <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
+                </a>
+                <a  *ngIf="userType[1]"
+                 href="#" #userTab routerLink="/home/usermanagement" routerLinkActive="active"
+                  class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
+                  <i class="fas fa-chart-area fa-fw me-3"></i><span>User Management</span>
+                </a>    
+               
+                <!-- Collapsed content -->
+                <ul  *ngIf="userType[1]" id="collapseExample1" [ngStyle]="{display:displayStyle}" class="collapse show list-group list-group-flush">
+                  <li class="list-group-item py-1">
+                    <a  routerLink="/home/usermanagement/create" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create User</a>
+                  </li>
+                  <li class="list-group-item py-1">
+                    <a routerLink="/home/usermanagement/CreateBulkUsers" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create Bulk Users</a>
+                  </li>
+                  <li class="list-group-item py-1">
+                    <a routerLink="/home/usermanagement/users" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Users</a>
+                  </li>
+                </ul>
+        
+               
+                
+                <a  *ngIf="userType[2]" href="#" #streamTab routerLink="/home/streams" routerLinkActive="active"
+                class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
+                <i class='fas fa-book-open'></i> &nbsp;&nbsp;&nbsp;&nbsp;<span>Stream</span>
+                </a>
+              
+                <ul  *ngIf="userType[2]" id="collapseExample2"  [ngStyle]="{display:displayStyle1}" class="collapse show list-group list-group-flush">
+                  <li  *ngIf="userType[2]" class="list-group-item py-2">
+                    <a routerLink="/home/streams/create" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create Stream</a>
+                  </li>
+                  <li  *ngIf="userType[2]" class="list-group-item py-2">
+                    <a routerLink="/home/streams/list" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Stream List</a>
+                  </li>
+                </ul>
+        
+                <a  *ngIf="userType[3]" href="#" #subjectTab routerLink="/home/subjects" routerLinkActive="active"
+                class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
+                <i class="fas fa-book-reader"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Subject</span>
+                </a>
+              
+                <ul *ngIf="userType[3]" id="collapseExample3"  [ngStyle]="{display:displayStyle2}" class="collapse show list-group list-group-flush">
+                  <li class="list-group-item py-2">
+                    <a routerLink="/home/subjects/create" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Create Subject</a>
+                  </li>
+                  <li class="list-group-item py-2">
+                    <a routerLink="/home/subjects/list" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Subject List</a>
+                  </li>
+                </ul>
+  
+               
+   
+                 <a  *ngIf="userType[3]" href="#" #quizTab routerLink="/home/quizes" routerLinkActive="active"
+                 class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
+   
+                 <i class="fas fa-solid fa-lightbulb"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Quiz</span>
+               </a>
+   
+                 <ul *ngIf="userType[3]" id="collapseExample4"  [ngStyle]="{display:displayStyle3}" class="collapse show list-group list-group-flush">
+                   <li class="list-group-item py-2">
+                     <a routerLink="/home/quizes/quiz" routerLinkActive="active" class="text-reset" (click)="drawer.toggle()">Quiz List</a>
+                   </li>
+                 </ul>
+        
+                <!-- Collapse 1 -->
+                <!-- <a
+                   href="#"
+                   class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active"
+                   ><i class="fas fa-lock fa-fw me-3"></i><span>Onboarding</span></a
+                  > -->
+                  <a  *ngIf="userType[2]" href="#" #streamTab routerLink="/home/courses" routerLinkActive="active" (click)="drawer.toggle()"
+                  class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
+                  <i class='fas fa-chalkboard-teacher'></i> &nbsp;&nbsp;&nbsp;&nbsp;<span>Courses</span>
+                  </a>
+        
+                <a *ngIf="userType[4]" routerLink="/home/settings" routerLinkActive="active" onclick="changeTab(this.location.href)" (click)="drawer.toggle()"
+                  href="/home/settings" class="list-group-item list-group-item-action py-2 ripple"><i
+                    class="fas fa-gear fa-fw me-3"></i><span>Settings</span></a>
+              </div>
+            </div>
+          </nav>
+          <!-- Sidebar -->
+        
+      </mat-drawer>
     
-
-
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-
-      <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
-        <div class="position-sticky">
-          <div class="list-group list-group-flush mx-3 mt-4">
-            <button id="sideMenuCloseButton" (click)="drawer.toggle()">&#8249; </button>
-            <a *ngIf="userType[0]" class="list-group-item list-group-item-action py-2 ripple" aria-current="true"
-              routerLink="/home/dashboard" routerLinkActive="active">
-              <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Dashboard</span>
-            </a>
-            <a *ngIf="userType[1]" href="#" #userTab routerLink="/home/usermanagement" routerLinkActive="active"
-              class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-              <i class="fas fa-chart-area fa-fw me-3"></i><span>User Management</span>
-            </a>
-
-            <!-- Collapsed content -->
-            <ul *ngIf="userType[1]" id="collapseExample1" [ngStyle]="{display:displayStyle}"
-              class="collapse show list-group list-group-flush">
-              <li class="list-group-item py-1">
-                <a routerLink="/home/usermanagement/create" routerLinkActive="active" class="text-reset">Create User</a>
-              </li>
-              <li class="list-group-item py-1">
-                <a routerLink="/home/usermanagement/CreateBulkUsers" routerLinkActive="active" class="text-reset">Create
-                  Bulk Users</a>
-              </li>
-              <li class="list-group-item py-1">
-                <a routerLink="/home/usermanagement/users" routerLinkActive="active" class="text-reset">Users</a>
-              </li>
-            </ul>
-
-
-
-            <a *ngIf="userType[2]" href="#" #streamTab routerLink="/home/streams" routerLinkActive="active"
-              class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-              <i class='fas fa-book-open'></i> &nbsp;&nbsp;&nbsp;&nbsp;<span>Stream</span>
-            </a>
-
-            <ul *ngIf="userType[2]" id="collapseExample2" [ngStyle]="{display:displayStyle1}"
-              class="collapse show list-group list-group-flush">
-              <li *ngIf="userType[2]" class="list-group-item py-2">
-                <a routerLink="/home/streams/create" routerLinkActive="active" class="text-reset">Create Stream</a>
-              </li>
-              <li *ngIf="userType[2]" class="list-group-item py-2">
-                <a routerLink="/home/streams/list" routerLinkActive="active" class="text-reset">Stream List</a>
-              </li>
-            </ul>
-
-            <a *ngIf="userType[3]" href="#" #subjectTab routerLink="/home/subjects" routerLinkActive="active"
-              class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-              <i class="fas fa-book-reader"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Subject</span>
-            </a>
-
-            <ul *ngIf="userType[3]" id="collapseExample3" [ngStyle]="{display:displayStyle2}"
-              class="collapse show list-group list-group-flush">
-              <li class="list-group-item py-2">
-                <a routerLink="/home/subjects/create" routerLinkActive="active" class="text-reset">Create Subject</a>
-              </li>
-              <li class="list-group-item py-2">
-                <a routerLink="/home/subjects/list" routerLinkActive="active" class="text-reset">Subject List</a>
-              </li>
-            </ul>
-
-          <a *ngIf="userType[3]" href="#" #topicTab routerLink="/home/topics" routerLinkActive="active"
-            class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-            <i class='fas fa-file-alt'></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Topic</span>
+  
+    
+      <!-- Navbar -->
+      <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <!-- Container wrapper -->
+        <div class="container-fluid">
+          <!-- Toggle button -->
+          <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+            aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+           
+           
+          </button>
+          <button type="button" class="menu-bar"  (click)="drawer.toggle()"
+          matTooltip="Click to see navigation">
+            <i class="fas fa-bars"></i>
+          </button>
+          <!-- Brand -->
+          <a class="navbar-brand" href="#">
+            <img src="https://www.teranet.ca/wp-content/uploads/2021/12/cropped-teranet_favicon_512_512-192x192.png"
+              height="25" alt="" loading="lazy" />
+            <b style="color: #646363;">TERALEARN</b>
           </a>
-
-          <ul *ngIf="userType[3]" id="collapseExample5" [ngStyle]="{display:displayStyle4}"
-            class="collapse show list-group list-group-flush">
-            <li class="list-group-item py-2">
-              <a routerLink="/home/topics/create" routerLinkActive="active" class="text-reset">Create Topic</a>
-            </li>
-            <li class="list-group-item py-2">
-              <a routerLink="/home/topics/list" routerLinkActive="active" class="text-reset">Topic List</a>
+    
+    
+          <!-- Right links -->
+          <ul class="navbar-nav ms-auto d-flex flex-row">
+            <!-- Notification dropdown -->
+            <!-- <li class="nav-item dropdown">
+              <a
+                 class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
+                 href="#"
+                 id="navbarDropdownMenuLink"
+                 role="button"
+                 data-mdb-toggle="dropdown"
+                 aria-expanded="false"
+                 >
+                <i class="fas fa-bell"></i>
+                <span  class="badge rounded-pill badge-notification bg-danger"
+                      >{{( notificationCounts)}}</span
+                  >
+              </a> -->
+    
+            <!-- <app-notification-side-bar id="sideBarNotification"
+               class="dropdown-menu dropdown-menu-end" [nList]="nList" (changeEvent)="getNotifications()" ></app-notification-side-bar> -->
+            <!-- <ul
+                  
+                  aria-labelledby="navbarDropdownMenuLink"
+                  > -->
+    
+            <!-- <li *ngFor="let item of nList"><a class="dropdown-item" >{{ item.title }}</a></li> -->
+    
+    
+            <!-- 
+              </ul>
+    
+            </li> -->
+    
+            <!-- Icon -->
+            <!-- <li class="nav-item">
+              <a class="nav-link me-3 me-lg-0" href="#">
+                <i class="fas fa-fill-drip"></i>
+              </a>
+            </li> -->
+            <!-- Icon -->
+    
+    
+            <!-- Icon dropdown -->
+    
+    
+            <!-- Avatar -->
+            <li class="nav-item dropdown">
+              <a
+                 class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center"
+                 id="navbarDropdownMenuLink"
+                 role="button"
+                 data-mdb-toggle="dropdown"
+                 aria-expanded="false"
+                 >
+                <img
+                     src="../../assets/images/person.jpg"
+                     class="rounded-circle"
+                     height="22"
+                     alt=""
+                     loading="lazy"
+                     />
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" routerLink="settings/userProfile" routerLinkActive="active">My profile</a></li>
+    
+    
+                <li><a class="dropdown-item" href="#" (click)="logOut()">Logout</a></li>
+    
+                <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
+                <!-- <li><a class="dropdown-item" (click)="Logout()">Logout</a></li> -->
+    
+              </ul>
             </li>
           </ul>
-
-
-
-            <a *ngIf="userType[3]" href="#" #quizTab routerLink="/home/quizes" routerLinkActive="active"
-              class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-
-              <i class="fas fa-solid fa-lightbulb"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Quiz</span>
-            </a>
-
-            <ul *ngIf="userType[3]" id="collapseExample4" [ngStyle]="{display:displayStyle3}"
-              class="collapse show list-group list-group-flush">
-              <li class="list-group-item py-2">
-                <a routerLink="/home/quizes/quiz" routerLinkActive="active" class="text-reset">Quiz List</a>
-              </li>
-            </ul>
-
-            <!-- Collapse 1 -->
-            <!-- <a
-                 href="#"
-                 class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active"
-                 ><i class="fas fa-lock fa-fw me-3"></i><span>Onboarding</span></a
-                > -->
-            <a *ngIf="userType[2]" href="#" #streamTab routerLink="/home/courses" routerLinkActive="active"
-              class="list-group-item list-group-item-action py-2 ripple" routerLinkActive="active">
-              <i class='fas fa-chalkboard-teacher'></i> &nbsp;&nbsp;&nbsp;&nbsp;<span>Courses</span>
-            </a>
-
-            <a *ngIf="userType[4]" routerLink="/home/settings" routerLinkActive="active"
-              onclick="changeTab(this.location.href)" href="/home/settings"
-              class="list-group-item list-group-item-action py-2 ripple"><i
-                class="fas fa-gear fa-fw me-3"></i><span>Settings</span></a>
-          </div>
         </div>
+        <!-- Container wrapper -->
       </nav>
-      <!-- Sidebar -->
-
-    </mat-drawer>
-
-
-
-    <!-- Navbar -->
-    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
-      <!-- Container wrapper -->
-      <div class="container-fluid">
-        <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
-          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-
-
-        </button>
-        <button type="button" class="menu-bar" (click)="drawer.toggle()" matTooltip="Click to see navigation" aria-label="Toggle navigation">
-          <i class="fas fa-bars"></i>
-        </button>
-        <!-- Brand -->
-        <a class="navbar-brand" href="#">
-          <img src="https://www.teranet.ca/wp-content/uploads/2021/12/cropped-teranet_favicon_512_512-192x192.png"
-            height="25" alt="" loading="lazy" />
-          <b style="color: #646363;">TERALEARN</b>
-        </a>
-
-
-        <!-- Right links -->
-        <ul class="navbar-nav ms-auto d-flex flex-row">
-          <!-- Notification dropdown -->
-          <!-- <li class="nav-item dropdown">
-            <a
-               class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow"
-               href="#"
-               id="navbarDropdownMenuLink"
-               role="button"
-               data-mdb-toggle="dropdown"
-               aria-expanded="false"
-               >
-              <i class="fas fa-bell"></i>
-              <span  class="badge rounded-pill badge-notification bg-danger"
-                    >{{( notificationCounts)}}</span
-                >
-            </a> -->
-
-          <!-- <app-notification-side-bar id="sideBarNotification"
-             class="dropdown-menu dropdown-menu-end" [nList]="nList" (changeEvent)="getNotifications()" ></app-notification-side-bar> -->
-          <!-- <ul
-                
-                aria-labelledby="navbarDropdownMenuLink"
-                > -->
-
-          <!-- <li *ngFor="let item of nList"><a class="dropdown-item" >{{ item.title }}</a></li> -->
-
-
-          <!-- 
-            </ul>
   
-          </li> -->
-
-          <!-- Icon -->
-          <!-- <li class="nav-item">
-            <a class="nav-link me-3 me-lg-0" href="#">
-              <i class="fas fa-fill-drip"></i>
-            </a>
-          </li> -->
-          <!-- Icon -->
-
-
-          <!-- Icon dropdown -->
-
-
-          <!-- Avatar -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" id="navbarDropdownMenuLink"
-              role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-              <img src="../../assets/images/person.jpg" class="rounded-circle" height="22" alt="profilePic" loading="lazy" />
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" routerLink="settings/userProfile" routerLinkActive="active">My profile</a>
-              </li>
-
-
-              <li><a class="dropdown-item" href="#" (click)="logOut()">Logout</a></li>
-
-              <!-- <li><a class="dropdown-item" href="#">Settings</a></li> -->
-              <!-- <li><a class="dropdown-item" (click)="Logout()">Logout</a></li> -->
-
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <!-- Container wrapper -->
-    </nav>
-
     <!-- Navbar -->
   </header>
   <!--Main Navigation-->
-
+  
   <!--Main layout-->
-
-  <main>
-
-
-  </main>
+  
+   <main>
+   
+  
+   </main>
   <!--Main layout-->
-
-  <div class="example-sidenav-content">
+  
+  <div class="example-sidenav-content" (click)="''">
     <router-outlet></router-outlet>
   </div>
-
->>>>>>> c2e6ba961af27b32e92d93cdef57c5fecca9bf26
-</mat-drawer-container>
+  
+  </mat-drawer-container>

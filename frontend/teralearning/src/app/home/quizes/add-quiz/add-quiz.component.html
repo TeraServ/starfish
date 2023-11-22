@@ -6,8 +6,8 @@
 <br>
 &nbsp;
 <title>Add Quiz</title>
-<section class="vh-100 gradient-custom">
-    <div class="container">
+<section class="gradient-custom">
+    <div class="container" focusInvalidField>
 
         <div class="row justify-content-center align-items-center ">
             <div class="col">
@@ -89,7 +89,7 @@
                         </div>
 
                         <div class="col">
-                            <input id="allowRetake" type="checkbox" aria-label="Allow Retake" ControlName="allowRetake" class="form-check-input"
+                            <input id="allowRetake" type="checkbox" aria-label="Allow Retake" tabindex="0" formControlName="allowRetake" class="form-check-input"
                                 (click)="checkerChange($event)">
                             <label for="allowRetake" >Allow Retake</label>
 

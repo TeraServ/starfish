@@ -4,20 +4,20 @@
 
 &nbsp;
 <h2>Update Subject</h2><br>
-<form (ngSubmit)="UpdateSubjectDetails()" #subjectEditForm="ngForm">
+<form (ngSubmit)="UpdateSubjectDetails()" #subjectEditForm="ngForm" focusInvalidField>
   <p class="required1"><small> Indicates a required field</small></p>
 <div class="form-group">
   <label for="stage" class="required"><b>Stream:</b></label>
   <select [(ngModel)]="UpdatedStream" class="form-control"  (ngModelChange)="valuechange($event)"  id="streamDrop" name="streamDrop" #streamDrop="ngModel" required>
-    
+    <option value="" selected>Select</option>
     <option *ngFor="let item of streamList | customeArraySort:'streamName' " value="{{EditSubject.stream}}" (ngModelChange)="valuechange($event)">
       {{item.streamName}}</option>
-  </select><br>
+  </select>
   <div [hidden]="streamDrop.valid || streamDrop.pristine"
-             class="alert alert-info alert-dismissible col-md-3" role="alert" >
+  class="error" role="alert" >
           Stream Name is required
         </div>
-</div>
+</div><br>
 <div class="form-group">
   <label for="title" class="required"><b>Subject Name</b></label>
   <input type="text" [(ngModel)]="UpdatedsubjectName" value="{{EditSubject.subjectName}}" (ngModelChange)="valuechange($event)" class="form-control"  id="subjectname" name="subjectname" #subjectname="ngModel" pattern="^([^0-9]*)$" required>
@@ -35,7 +35,8 @@
   Updated Successfully!
 </div>
 <div class="center">
-  <input type="submit" value="Submit" class="light-btn" [disabled]="subjectEditForm.controls.subjectname.errors?.pattern || streamBtn">&nbsp;
+  <!-- <input type="submit" value="Submit" class="light-btn" [disabled]="subjectEditForm.controls.subjectname.errors?.pattern || streamBtn"> -->
+  <input type="submit" value="Submit" class="light-btn">&nbsp;
   <input type="button" value="Cancel" class="light-btn" (click)="cancelDetails()">
 </div>
 </form>

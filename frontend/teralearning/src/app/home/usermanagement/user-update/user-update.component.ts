@@ -1,7 +1,8 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormBuilder, FormGroup, NgControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { InvalidFieldFocusDirective } from 'src/app/custom-directives/invalidfieldfocus.directive';
 import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
@@ -16,13 +17,16 @@ import { AccountStatus, UserTypeEnum, user } from 'src/model/user.model';
 })
 export class UserUpdateComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: user, private dialog: MatDialog, private streamService:StreamService,private dialogRef: MatDialogRef<UserUpdateComponent>, private snackBar: MatSnackBar, private formBuilder: FormBuilder, private userService: UserService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: user, private dialog: MatDialog, private streamService: StreamService, private dialogRef: MatDialogRef<UserUpdateComponent>, private snackBar: MatSnackBar, private formBuilder: FormBuilder, private userService: UserService) { }
   userForm!: FormGroup;
   public readonly userTypes = UserTypeEnum;
   public readonly userStatus = AccountStatus;
   submitted: boolean = false;
   @Input() updateData!: any;
   streamList: Stream[] = [];
+  @ViewChild(InvalidFieldFocusDirective)
+  invalidInputDirective!: InvalidFieldFocusDirective;
+  @ViewChildren(NgControl) formControls!: QueryList<NgControl>;
 
   ngOnInit(): void {
     this.BuildForm();
@@ -40,10 +44,16 @@ export class UserUpdateComponent implements OnInit {
 
     })
   }
-  
-  
+
+  isUserUpdated(userData: user, data: user) {
+    return userData.firstName != data.firstName || userData.lastName != data.lastName ||
+      userData.userType != data.userType || userData.userStatus != data.userStatus || userData.phoneNumber != data.phoneNumber
+
+  }
+
   updateUser() {
     this.submitted = true;
+    this.invalidInputDirective.check(this.formControls);
     this.data.stream.streamName = this.userForm.get('stream')?.value
     if (this.userForm.invalid) {
       return;
@@ -64,21 +74,25 @@ export class UserUpdateComponent implements OnInit {
       createdDate: this.data.createdDate
 
     }
+
     console.log("userData" + JSON.stringify(userData))
     console.log("data" + JSON.stringify(this.data));
-    if (userData != this.data) {
+
+
+    const isMatching = this.isUserUpdated(userData, this.data)
+    if (isMatching) {
+
       this.userService.updateUser(userData).subscribe(data => {
-        this.dialogRef.close();
-
-        this.dialog.open(SuccessDialogComponent, {
-          data: "Successfully updated !"
-
-        })
-        // this.userForm.reset()
 
       }, err => {
-        this.snackBar.open(err.error.text, '', { duration: 3000 })
         console.log(err)
+        if (err.status == 200) {
+          this.dialog.open(SuccessDialogComponent, { data: { header: "Updated Successfully", message: `user ${userData.firstName + ' ' + userData.lastName} was updated.` } })
+          this.dialogRef.close();
+        } else {
+
+        }
+
       })
       if (this.userForm.get('userStatus')?.value == 102) {
         console.log('User Suspended');

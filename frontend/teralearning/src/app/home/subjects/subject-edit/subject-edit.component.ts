@@ -1,7 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { InvalidFieldFocusDirective } from 'src/app/custom-directives/invalidfieldfocus.directive';
 import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
 import { StreamService } from 'src/app/service/stream.service';
@@ -20,16 +22,19 @@ export class SubjectEditComponent implements OnInit {
   EditSubject!: Subject;
   isAlert = false;
   streamList: Stream[] = [];
-  streamUpdate: boolean = false;
+  subjectUpdate: boolean = false;
   isDialogOpen!: boolean;
   streamBtn: boolean = false;
+  @ViewChild(InvalidFieldFocusDirective)
+  invalidInputDirective!: InvalidFieldFocusDirective;
+  @ViewChildren(NgControl) formControls!: QueryList<NgControl>;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Subject, private subjectService: SubjectService, private snackBar: MatSnackBar, private streamService: StreamService, private dialog: MatDialog, private dialogRef: MatDialogRef<SubjectEditComponent>) {
     this.EditSubject = data;
-    console.log("this.EditSubject",this.EditSubject)
+    console.log("this.EditSubject", this.EditSubject)
   }
 
-  UpdatedStream: Stream = new Stream();
+  UpdatedStream!: Stream 
   UpdatedsubjectName!: string;
   UpdatedsubjectStatus!: number;
 
@@ -38,7 +43,8 @@ export class SubjectEditComponent implements OnInit {
 
   }
   valuechange(newValue: any) {
-    this.streamUpdate = true
+    console.log("valuechange",newValue)
+    this.subjectUpdate = true
     if (this.UpdatedsubjectName == '') {
       this.streamBtn = true
     }
@@ -57,16 +63,20 @@ export class SubjectEditComponent implements OnInit {
     })
   }
 
+  nullCheck(){
+    return this.UpdatedsubjectName=='' || this.UpdatedStream == null
+
+  }
   getSortedSubjects(data: Stream[]): Stream[] {
-
     return data.sort((a, b) => (a.streamName).localeCompare(b.streamName))
-
 
   }
 
   UpdateSubjectDetails() {
+    this.invalidInputDirective.check(this.formControls);
 
-    if (this.UpdatedsubjectName != '' && this.UpdatedStream != null) {
+    if ((this.UpdatedsubjectName != this.data.subjectName || this.UpdatedStream != this.data.stream) && !this.nullCheck()) {
+      this.subjectUpdate = true
 
       console.log("calling UpdateSujectDetails")
       console.log(this.UpdatedsubjectName)
@@ -80,7 +90,7 @@ export class SubjectEditComponent implements OnInit {
       }
       console.log(UpdateSubjectDetails)
 
-      if (this.streamUpdate) {
+      if (this.subjectUpdate) {
         this.subjectService.updateSubject(UpdateSubjectDetails).subscribe(data => {
           console.log(data);
           this.dialog.open(SuccessDialogComponent, {
@@ -91,17 +101,12 @@ export class SubjectEditComponent implements OnInit {
 
         });
       }
-      else {
-        this.snackBar.open("No changes", '', {
-          duration: 3000
-        })
-
-      }
+     
 
     }
     else {
       this.isDialogOpen = false;
-      this.snackBar.open("Invalid Entry", '', {
+      this.snackBar.open("No changes", '', {
         duration: 3000
       })
     }

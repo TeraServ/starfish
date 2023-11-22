@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NgForm, FormControl } from '@angular/forms';
+import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, NgForm, FormControl, NgControl } from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { StreamService } from '../../../service/stream.service';
@@ -9,6 +9,7 @@ import { Subject } from 'src/model/subject.model';
 import { ClearFormDialogComponent } from 'src/app/dialogBoxs/clear-form-dialog/clear-form-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SuccessDialogComponent } from 'src/app/dialogBoxs/success-dialog/success-dialog.component';
+import { InvalidFieldFocusDirective } from 'src/app/custom-directives/invalidfieldfocus.directive';
 
 
 @Component({
@@ -28,6 +29,9 @@ export class SubjectComponent implements OnInit {
   subjectName!: string;
   subjectStatus: number = 1;
   dropStream!: Stream;
+  @ViewChild(InvalidFieldFocusDirective)
+  invalidInputDirective!: InvalidFieldFocusDirective;
+  @ViewChildren(NgControl) formControls!: QueryList<NgControl>;
 
 
 
@@ -79,6 +83,7 @@ export class SubjectComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true;
+    this.invalidInputDirective.check(this.formControls);
     console.log("onsubmit",this.createSubjectForm)
 
     if (this.createSubjectForm.invalid) {

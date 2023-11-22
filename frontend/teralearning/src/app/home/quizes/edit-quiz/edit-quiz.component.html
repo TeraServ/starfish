@@ -8,7 +8,7 @@
     </div>
 </div>
 
-<form #quizEditForm="ngForm" class="formCenter"> 
+<form #quizEditForm="ngForm" class="formCenter" focusInvalidField> 
     <h2 style="padding-right: 950px;">Edit Quiz</h2><br>
     <p style="padding-right: 750px;" class="required1"><small> Indicates a required field</small></p>
     
@@ -17,7 +17,7 @@
             <input type="submit" value="Add Question" (click)="AddaQuestion()" class="btn-submit"
                 id="addQuestion">&nbsp;
                 <input type="submit" value="Save" (click)="UpdateQuizDetails()" class="btn-submit"
-            id="saveQuiz" [disabled]="quizBtn">&nbsp;
+            id="saveQuiz" >&nbsp;
             <input type="button" value="Cancel" class="light-btn" (click)="cancelDetails()">
         </div>
        

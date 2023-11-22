@@ -48,7 +48,7 @@ import { PageComponent } from './courses/page/page.component';
 import { ChapterComponent } from './courses/chapter/chapter.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu'
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { DeleteDialogComponent } from '../dialogBoxs/delete-dialog/delete-dialog.component';
 import { DeleteMessageDialogComponent } from '../dialogBoxs/delete-message-dialog/delete-message-dialog.component';
 import { AddQuestionComponent } from './course/add-question/add-question.component';
@@ -60,10 +60,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 import { CustomeArraySortPipe } from '../custome-array-sort.pipe';
 import { EditQuestionComponent } from './quizes/edit-question/edit-question.component';
-import {CdkAccordion, CdkAccordionModule} from '@angular/cdk/accordion';
+import { CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
 import { ChapterQuizComponent } from './courses/chapter-quiz/chapter-quiz.component';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { InvalidFieldFocusDirective } from './courses/new-course/invalidfieldfocus.directive';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { InvalidFieldFocusDirective } from '../custom-directives/invalidfieldfocus.directive';
 import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
 @NgModule({
   declarations: [
@@ -102,10 +102,10 @@ import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
     ChapterQuizComponent,
     InvalidFieldFocusDirective,
     AlphabeticSortPipe
-  
-    
-    
-    
+
+
+
+
 
   ],
   imports: [
@@ -134,9 +134,9 @@ import { AlphabeticSortPipe } from '../pipes/alphabetic-sort.pipe';
     MatTooltipModule,
     CdkAccordionModule,
     MatProgressSpinnerModule,
-    
-    
-    
+
+
+
 
   ],
   providers: [

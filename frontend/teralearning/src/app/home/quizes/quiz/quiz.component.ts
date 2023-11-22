@@ -49,8 +49,8 @@ export class QuizComponent implements OnInit {
 
   openAddDialog() {
     this.dialog.open(AddQuizComponent, {
-      width: "60%",
-      height: "70%"
+      width: "40%",
+      height: "65%"
 
     }).afterClosed().subscribe(data => {
       this.getQuiz()
